@@ -8,6 +8,10 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
 
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
     consumer:
       group-id: blocking-retries-consumer-group
       auto-offset-reset: earliest
@@ -16,7 +20,8 @@ spring:
       properties:
         # We use Avro specific records here
         specific.avro.reader: true
-        schema.registry.url: http://localhost:8081
+    properties:
+      schema.registry.url: http://localhost:8081
 
     listener:
       observation-enabled: true
