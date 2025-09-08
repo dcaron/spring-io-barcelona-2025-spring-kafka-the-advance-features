@@ -3,7 +3,6 @@ package com.example.blocking.retries.example.consumer;
 import com.example.spring.kafka.non.blocking.retries.CustomerRegisteredEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.kafka.annotation.DltHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.support.KafkaMessageHeaderAccessor;

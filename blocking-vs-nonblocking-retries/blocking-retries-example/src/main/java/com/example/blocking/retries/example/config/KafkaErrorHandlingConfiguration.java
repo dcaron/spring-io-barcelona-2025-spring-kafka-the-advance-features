@@ -2,8 +2,17 @@ package com.example.blocking.retries.example.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.ssl.SslBundles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.config.ContainerCustomizer;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
 import org.springframework.util.backoff.FixedBackOff;
 
@@ -17,7 +26,7 @@ import java.net.SocketTimeoutException;
  * with {@link org.springframework.kafka.listener.SeekUtils#DEFAULT_MAX_FAILURES} of 10. And an interval of 0 ms
  * See {@link org.springframework.kafka.listener.KafkaMessageListenerContainer} method determineCommonErrorHandler()
  * To change this behaviour specify your {@link DefaultErrorHandler}
- *
+ * <p>
  * Unchecked exceptions (like RuntimeException) will trigger retries.
  * Checked exceptions (like IOException) will not trigger retries unless explicitly configured.
  */
@@ -62,6 +71,29 @@ public class KafkaErrorHandlingConfiguration {
         errorHandler.addRetryableExceptions(SocketTimeoutException.class);
 
         return errorHandler;
+    }
+
+    /**
+     * Configure the KafkaListenerContainerFactory to enalbe the delivery attempt header.
+     * The is no possibility to configure this via configuration properties in yml.
+     * See:
+     * https://docs.enterprise.spring.io/spring-kafka-dist/docs/3.0.18/reference/html/index.html#deliveryAttemptHeader
+     */
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
+            ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+            ObjectProvider<ConsumerFactory<Object, Object>> kafkaConsumerFactory,
+            ObjectProvider<ContainerCustomizer<Object, Object, ConcurrentMessageListenerContainer<Object, Object>>> kafkaContainerCustomizer,
+            ObjectProvider<SslBundles> sslBundles, KafkaProperties properties) {
+        ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        configurer.configure(factory, kafkaConsumerFactory.getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(
+                properties.buildConsumerProperties(sslBundles.getIfAvailable()))));
+        kafkaContainerCustomizer.ifAvailable(factory::setContainerCustomizer);
+
+        // This is required to get the delivery attempt header populated
+        // so we can use the KafkaMessageHeaderAccessor accessor in the consumer
+        factory.getContainerProperties().setDeliveryAttemptHeader(true);
+        return factory;
     }
 
 }
