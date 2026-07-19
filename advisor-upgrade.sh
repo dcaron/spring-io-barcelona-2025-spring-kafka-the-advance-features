@@ -27,6 +27,17 @@
 #                       (needs the Kafka/Docker infra from docker-compose.yml).
 #       --no-build      Skip the build check after each applied step.
 #       --max-steps N   Safety cap on the number of upgrade steps (default: 25).
+#       --no-auto-mappings
+#                       Do NOT auto-create mappings for dependencies that
+#                       advisor reports as missing/blocking. By default the
+#                       script self-heals: whenever the upgrade plan is blocked
+#                       by unmapped transitive dependencies, it runs
+#                       `advisor mapping create` for each, wires them in,
+#                       regenerates the build-config and re-plans — repeating
+#                       until no further mappings can be created.
+#       --max-mappings N
+#                       Cap on the number of mappings auto-created in one run
+#                       (default: 40). Prevents runaway on deep dependency trees.
 #   -h, --help          Show this help and exit.
 #
 # Environment:
@@ -71,6 +82,8 @@ DRY_RUN=0
 SKIP_MAPPINGS=0
 BUILD_MODE="install"   # install | verify | none
 MAX_STEPS=25
+AUTO_RESOLVE_MAPPINGS=1 # auto-create mappings for blocked deps and re-plan
+MAX_MAPPINGS=40         # cap on auto-created mappings per run
 
 # ---------------------------------------------------------------------------
 # Output helpers
@@ -111,6 +124,9 @@ while [[ $# -gt 0 ]]; do
     --no-build)      BUILD_MODE="none" ;;
     --max-steps)     shift; [[ "${1:-}" =~ ^[0-9]+$ ]] || die "--max-steps needs a number"; MAX_STEPS="$1" ;;
     --max-steps=*)   MAX_STEPS="${1#*=}"; [[ "$MAX_STEPS" =~ ^[0-9]+$ ]] || die "--max-steps needs a number" ;;
+    --no-auto-mappings) AUTO_RESOLVE_MAPPINGS=0 ;;
+    --max-mappings)  shift; [[ "${1:-}" =~ ^[0-9]+$ ]] || die "--max-mappings needs a number"; MAX_MAPPINGS="$1" ;;
+    --max-mappings=*) MAX_MAPPINGS="${1#*=}"; [[ "$MAX_MAPPINGS" =~ ^[0-9]+$ ]] || die "--max-mappings needs a number" ;;
     -h|--help)       usage; exit 0 ;;
     *)               err "Unknown option: $1"; echo; usage; exit 2 ;;
   esac
@@ -146,46 +162,82 @@ command -v git >/dev/null 2>&1 && HAVE_GIT=1 || HAVE_GIT=0
 # 2. Regenerate auto mappings
 # ---------------------------------------------------------------------------
 
-# Regenerate a single mapping.
+# True if the given text is a usable mapping: JSON with a "rewrite" section that
+# has at least one "<version>":{...} entry. advisor sometimes emits empty
+# mappings for internal/transitive modules, and wiring an empty one makes every
+# later advisor call fail with "One of the custom mappings provided is empty".
+is_valid_mapping() {
+  local content="$1"
+  [[ -n "${content}" ]] || return 1
+  grep -q '"rewrite"' <<<"${content}" || return 1
+  grep -qE '"[0-9]+\.[0-9]+\.[0-9xX]+"[[:space:]]*:' <<<"${content}" || return 1
+  return 0
+}
+
+# Restore the mappings dir to a snapshot: drop any *.json advisor newly created
+# and restore every pre-existing file. This is what protects base mappings —
+# advisor names its output .advisor/mappings/<slug>.json and that slug can
+# collide with an existing file (e.g. kafka-group-coordinator -> "kafka.json"),
+# which would otherwise clobber the base mapping and dangle its env reference.
+restore_mappings_from() {
+  local backup="$1" f bn
+  while IFS= read -r f; do
+    [[ -n "${f}" ]] || continue
+    bn="$(basename "${f}")"
+    [[ -e "${backup}/${bn}" ]] || rm -f "${f}"
+  done < <(find "${MAPPINGS_DIR}" -maxdepth 1 -type f -name '*.json' 2>/dev/null)
+  cp -a "${backup}/." "${MAPPINGS_DIR}/" 2>/dev/null || true
+}
+
+# Regenerate a single mapping into .advisor/mappings/<target_file>.
 #
-# `advisor mapping create -c=<coord>` writes the mapping directly into
-# .advisor/mappings/<slug>.json, where <slug> is advisor's own name for the
-# project and MAY be empty (producing the file literally named ".json"). It
-# does not print the mapping to stdout. So we run the command, locate the json
-# file it just wrote (the one newer than a marker; `find -name` matches the
-# dotfile ".json" too), and rename it to our chosen target filename.
+# `advisor mapping create -c=<coord>` writes the mapping into
+# .advisor/mappings/<slug>.json (slug is advisor's own project name and MAY be
+# empty -> ".json", and MAY collide with an existing file). It does not print
+# the mapping to stdout. We therefore: snapshot the mappings dir, run the
+# command, capture the content of the file advisor wrote (newest json), then
+# restore the snapshot (undoing any collision) and write the captured content
+# to our chosen target filename — but only if it is a valid, non-empty mapping.
 #
 # Returns 0 on success, 1 on (tolerated) failure.
 generate_mapping() {
   local target_file="$1" coordinate="$2"
   local target_path="${MAPPINGS_DIR}/${target_file}"
-  local marker log_out produced
-  marker="$(mktemp)"; log_out="$(mktemp)"
+  local marker log_out backup produced content slug
+  marker="$(mktemp)"; log_out="$(mktemp)"; backup="$(mktemp -d)"
+  cp -a "${MAPPINGS_DIR}/." "${backup}/" 2>/dev/null || true
 
   info "  coordinate: ${coordinate} -> ${target_file} (resolving, may take a minute)…"
-  if ! advisor mapping create -c="${coordinate}" >"${log_out}" 2>&1; then
+  # Redirect stdin from /dev/null: advisor would otherwise consume the caller's
+  # stdin (e.g. the here-string driving resolve_missing_mappings' read loop).
+  if ! advisor mapping create -c="${coordinate}" </dev/null >"${log_out}" 2>&1; then
     warn "mapping create failed for ${coordinate} (keeping existing ${target_file} if present)"
     sed 's/^/    /' "${log_out}" | tail -4
-    rm -f "${marker}" "${log_out}"
+    restore_mappings_from "${backup}"
+    rm -rf "${marker}" "${log_out}" "${backup}"
     return 1
   fi
 
   # The file advisor just wrote is the newest json in the mappings dir.
   produced="$(find "${MAPPINGS_DIR}" -maxdepth 1 -type f -name '*.json' -newer "${marker}" 2>/dev/null | head -1)"
-  rm -f "${marker}" "${log_out}"
+  content=""; slug=""
+  if [[ -n "${produced}" ]]; then
+    content="$(cat "${produced}" 2>/dev/null || true)"
+    slug="$(basename "${produced}" .json)"
+  fi
 
-  if [[ -z "${produced}" ]]; then
-    if [[ -f "${target_path}" ]]; then
-      warn "  advisor produced no new file; keeping existing ${target_file}"
-      return 0
-    fi
-    warn "  no mapping produced for ${coordinate}"
+  # Undo any file changes advisor made (protects base + previously-made mappings).
+  restore_mappings_from "${backup}"
+  rm -rf "${marker}" "${log_out}" "${backup}"
+
+  if ! is_valid_mapping "${content}"; then
+    warn "  advisor produced no usable mapping for ${coordinate} (empty/invalid) — skipping"
     return 1
   fi
 
-  if [[ "${produced}" != "${target_path}" ]]; then
-    mv -f "${produced}" "${target_path}"
-    ok "  wrote ${target_file} (advisor slug: '$(basename "${produced}" .json)')"
+  printf '%s\n' "${content}" > "${target_path}"
+  if [[ "${slug}" != "${target_file%.json}" ]]; then
+    ok "  wrote ${target_file} (advisor slug: '${slug}')"
   else
     ok "  wrote ${target_file}"
   fi
@@ -236,6 +288,8 @@ for entry in "${MAPPING_ENV_ORDER[@]}"; do
   idx=$((idx + 1))
 done
 ok "Configured ${idx} custom mapping(s)."
+# Next free SPRING_ADVISOR_MAPPING_CUSTOM_ index, used when auto-adding mappings.
+ENV_IDX="${idx}"
 
 # ---------------------------------------------------------------------------
 # 4. Build config
@@ -280,18 +334,196 @@ build_check() {
   esac
 }
 
+# --- Self-healing: auto-create mappings for blocked dependencies -------------
+#
+# When a dependency has no configured upgrade, advisor lists it under
+#   "… could not be included … Please … configure the projects of the
+#    following dependencies:" as a top-level (single-tab) bullet:
+#       <TAB>- org.apache.kafka:kafka-storage-api
+# Nested "uses:"/"blocking upgrades for:" entries are indented deeper (>= 2
+# tabs) and are plain project names (no group:artifact), and advisor's
+# "please report" notes are 2-tab and carry a :version suffix — so a strict
+# "exactly one leading tab, group:artifact, end-of-line" match selects only
+# the coordinates we should try to map.
+
+# Coordinates we've already attempted (seeded with the mappings we ship), so we
+# never loop on the same one twice.
+TRIED_COORDS=" com.github.javafaker:javafaker org.apache.avro:avro \
+org.apache.kafka:kafka-streams org.apache.kafka:kafka_2.13 \
+org.apache.kafka:kafka-clients org.apache.kafka:connect-api \
+org.apache.kafka:connect-json "
+MAPPINGS_CREATED=0
+
+is_tried()   { case "${TRIED_COORDS}" in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
+mark_tried() { TRIED_COORDS="${TRIED_COORDS}$1 "; }
+
+# groupIds whose generated mapping collided with an existing one. All artifacts
+# of such a group (e.g. every org.apache.kafka:* internal module) belong to the
+# same advisor project and would collide too — so we skip them without paying
+# for a slow `mapping create` we know we can't wire.
+CONFLICTED_GROUPS=" "
+group_conflicted() { case "${CONFLICTED_GROUPS}" in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
+
+# advisor refuses to load two custom mappings that share a project slug or a
+# coordinate (RaiseErrorOnDuplicatesCoordinatesMerger -> "Some projects were
+# already defined"). Internal Kafka modules all collapse to slug 'kafka' and
+# re-claim kafka-clients, which the shipped kafka.json already owns — so we must
+# NOT wire a generated mapping that collides. Track what's already wired.
+WIRED_SLUGS=" "
+WIRED_COORDS=" "
+slug_wired()  { [[ -n "$1" ]] && case "${WIRED_SLUGS}" in *" $1 "*) return 0 ;; esac; return 1; }
+coord_wired() { case "${WIRED_COORDS}" in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
+
+# Read the slug / coordinates declared inside a mapping file.
+mapping_slug()   { grep -m1 '"slug"' "$1" 2>/dev/null | sed -E 's/.*"slug"[[:space:]]*:[[:space:]]*"([^"]*)".*/\1/'; }
+mapping_coords() { grep '"coordinates"' "$1" 2>/dev/null | grep -oE '"[A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+"' | tr -d '"'; }
+
+# Record a mapping's slug + coordinates as wired, so later generated mappings
+# that would collide with it are skipped instead of crashing advisor.
+register_wired_mapping() {
+  local path="$1" s c
+  s="$(mapping_slug "${path}")"
+  [[ -n "${s}" ]] && ! slug_wired "${s}" && WIRED_SLUGS="${WIRED_SLUGS}${s} "
+  while IFS= read -r c; do
+    [[ -n "${c}" ]] || continue
+    coord_wired "${c}" || WIRED_COORDS="${WIRED_COORDS}${c} "
+  done < <(mapping_coords "${path}")
+}
+
+# group:artifact -> a stable target filename (based on the artifactId).
+coord_to_filename() {
+  local artifact="${1#*:}"
+  printf '%s.json' "$(printf '%s' "${artifact}" | tr -c 'A-Za-z0-9._-' '_')"
+}
+
+# Add an already-written mapping file to the advisor env at the next index.
+add_mapping_env() {
+  export "SPRING_ADVISOR_MAPPING_CUSTOM_${ENV_IDX}_FILEPATH=.advisor/mappings/$1"
+  ENV_IDX=$((ENV_IDX + 1))
+}
+
+# Seed WIRED_SLUGS/WIRED_COORDS from the mappings already wired in step 3.
+for _m in "${MAPPING_ENV_ORDER[@]}"; do
+  _mf="${_m%%:*}"
+  [[ -f "${MAPPINGS_DIR}/${_mf}" ]] && register_wired_mapping "${MAPPINGS_DIR}/${_mf}"
+done
+unset _m _mf
+
+# Print the blocked coordinates found in the given plan text (one per line).
+# Always succeeds (grep finding nothing is normal, not an error).
+extract_blocked_coords() {
+  printf '%s\n' "$1" \
+    | grep -E "^${TAB}- [A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+$" \
+    | sed "s/^${TAB}- //" \
+    | sort -u || true
+}
+
+# Try to create mappings for every not-yet-tried blocked coordinate in the plan.
+# Returns 0 if at least one new mapping was created (caller should re-plan),
+# 1 if there was nothing new to create.
+resolve_missing_mappings() {
+  local plan="$1" coord file created=0 coords
+  coords="$(extract_blocked_coords "${plan}")"
+  [[ -n "${coords}" ]] || return 1
+
+  while IFS= read -r coord; do
+    [[ -n "${coord}" ]] || continue
+    is_tried "${coord}" && continue
+    if group_conflicted "${coord%%:*}"; then
+      mark_tried "${coord}"
+      info "  ↷ skipping ${coord} (project '${coord%%:*}' already conflicts with a shipped mapping)"
+      continue
+    fi
+    if [[ "${MAPPINGS_CREATED}" -ge "${MAX_MAPPINGS}" ]]; then
+      warn "Reached --max-mappings=${MAX_MAPPINGS}; not creating more this run."
+      break
+    fi
+    mark_tried "${coord}"
+    file="$(coord_to_filename "${coord}")"
+    info "  🔍 missing mapping: ${coord} -> ${file}"
+    generate_mapping "${file}" "${coord}" || continue
+
+    # Advisor rejects mappings that duplicate a slug or coordinate already
+    # loaded. Inspect what this mapping declares; if it collides with an
+    # already-wired mapping, skip wiring it (but record the coordinates it
+    # covers as tried so we don't keep retrying its siblings).
+    local newslug newcoords conflict="" cc
+    newslug="$(mapping_slug "${MAPPINGS_DIR}/${file}")"
+    newcoords="$(mapping_coords "${MAPPINGS_DIR}/${file}" | sort -u)"
+    if slug_wired "${newslug}"; then
+      conflict="project slug '${newslug}' already defined"
+    else
+      while IFS= read -r cc; do
+        [[ -n "${cc}" ]] || continue
+        if coord_wired "${cc}"; then conflict="coordinate ${cc} already mapped"; break; fi
+      done <<< "${newcoords}"
+    fi
+
+    # Whatever the mapping covers, don't re-attempt those sibling coordinates.
+    while IFS= read -r cc; do
+      [[ -n "${cc}" ]] && ! is_tried "${cc}" && mark_tried "${cc}"
+    done <<< "${newcoords}"
+
+    if [[ -n "${conflict}" ]]; then
+      warn "  skipping ${file}: ${conflict} (advisor allows each only once)"
+      rm -f "${MAPPINGS_DIR}/${file}"
+      CONFLICTED_GROUPS="${CONFLICTED_GROUPS}${coord%%:*} "
+      continue
+    fi
+
+    add_mapping_env "${file}"
+    register_wired_mapping "${MAPPINGS_DIR}/${file}"
+    MAPPINGS_CREATED=$((MAPPINGS_CREATED + 1))
+    created=1
+  done <<< "${coords}"
+
+  [[ "${created}" -eq 1 ]]
+}
+
+# A literal tab, used by the grep/sed patterns above.
+TAB=$'\t'
+
 banner "Upgrade plan"
 step=0
 applied=0
 
+iter=0
 while :; do
+  iter=$((iter + 1))
+  if [[ "${iter}" -gt "$(( (MAX_STEPS + MAX_MAPPINGS) * 2 + 10 ))" ]]; then
+    warn "Too many planning iterations; stopping as a safety measure."
+    break
+  fi
+
   info ""
-  info "${BOLD}--- Reading upgrade plan (applied so far: ${applied}) ---${RESET}"
+  info "${BOLD}--- Reading upgrade plan (applied: ${applied}, mappings created: ${MAPPINGS_CREATED}) ---${RESET}"
   plan_output="$(advisor upgrade-plan get 2>&1 || true)"
-  printf '%s\n' "${plan_output}"
+
+  # Condensed view: the actionable "→" upgrades, plus how many deps are blocked.
+  printf '%s\n' "${plan_output}" | grep -E 'Projects (discovered|to upgrade):|(→|->|=>)' | sed 's/^/  /' || true
+  blocked_now="$(extract_blocked_coords "${plan_output}" | tr '\n' ' ' || true)"
+  [[ -n "${blocked_now// /}" ]] && info "  blocked (no upgrade configured): ${blocked_now}"
+
+  # Self-heal: create mappings for any not-yet-tried blocked dependency, then
+  # regenerate the build config and re-plan with the new mappings in place.
+  if [[ "${AUTO_RESOLVE_MAPPINGS}" -eq 1 ]] && resolve_missing_mappings "${plan_output}"; then
+    info ""
+    ok "Created new mapping(s); regenerating build configuration and re-planning…"
+    run advisor build-config get
+    continue
+  fi
 
   if ! plan_is_actionable "${plan_output}"; then
-    ok "No further upgrades to apply — the repository is fully upgraded for the configured mappings."
+    ok "No further upgrades to apply — the repository is upgraded as far as the available mappings allow."
+    break
+  fi
+
+  # Signature of the actionable upgrades in this plan, to detect a plan that
+  # keeps recurring unchanged after an apply that changes no files (stuck).
+  action_sig="$(printf '%s\n' "${plan_output}" | grep -E '(→|->|=>)' | sort -u | cksum || true)"
+  if [[ -n "${stuck_sig:-}" && "${action_sig}" == "${stuck_sig}" ]]; then
+    warn "The plan is unchanged after an apply that produced no file changes."
+    warn "advisor cannot progress further here (upgrades are BOM-managed or still blocked). Stopping."
     break
   fi
 
@@ -323,9 +555,11 @@ while :; do
   sig_after="$(worktree_signature)"
 
   if [[ "${HAVE_GIT}" -eq 1 && "${sig_before}" == "${sig_after}" ]]; then
-    warn "This step produced no file changes — treating the plan as converged."
-    break
+    warn "This step changed no files (BOM-managed or no-op). Re-planning to check for further steps…"
+    stuck_sig="${action_sig}"   # if the same plan recurs unchanged, we'll stop
+    continue
   fi
+  stuck_sig=""                   # made real progress; clear the stuck guard
 
   applied=$((applied + 1))
   ok "Step ${step} applied."
@@ -344,7 +578,12 @@ done
 # ---------------------------------------------------------------------------
 
 banner "Summary"
-info "Steps applied this run: ${applied}"
+info "Steps applied this run:    ${applied}"
+info "Mappings auto-created:     ${MAPPINGS_CREATED}"
+if [[ "${MAPPINGS_CREATED}" -gt 0 && "${HAVE_GIT}" -eq 1 ]]; then
+  new_maps="$(git -C "${SCRIPT_DIR}" status --porcelain -- .advisor/mappings/ 2>/dev/null | sed 's/^/    /' || true)"
+  [[ -n "${new_maps}" ]] && { info "New/updated mapping files:"; printf '%s\n' "${new_maps}"; }
+fi
 
 # Best-effort: report the Spring Boot version now declared in a leaf app pom.
 leaf_pom="$(grep -rl 'spring-boot-starter-parent' "${SCRIPT_DIR}" --include=pom.xml 2>/dev/null | head -1 || true)"
@@ -353,10 +592,11 @@ if [[ -n "${leaf_pom}" ]]; then
   [[ -n "${boot_ver}" ]] && info "Spring Boot version in ${leaf_pom#${SCRIPT_DIR}/}: ${boot_ver}"
 fi
 
-if [[ "${applied}" -gt 0 ]]; then
+if [[ "${applied}" -gt 0 || "${MAPPINGS_CREATED}" -gt 0 ]]; then
   info ""
   info "Next steps:"
-  info "  • Review the changes:  git diff"
+  info "  • Review the changes:  git diff  (and git status for new mapping files)"
+  info "  • Commit the generated .advisor/mappings/ files so the run is reproducible."
   info "  • Run the apps / tests to validate behaviour."
   info "  • Re-run this script to continue if more steps remain."
 elif [[ "${DRY_RUN}" -eq 1 ]]; then
