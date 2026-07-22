@@ -1,7 +1,7 @@
 # Spring Application Advisor — improvement recommendations
 
 **Audience:** Broadcom / Tanzu Application Advisor engineering & product
-**Advisor version tested:** 1.6.4
+**Advisor version tested:** 1.6.4 (re-verified on 1.6.5 — every blocker below still reproduces; see §4.8)
 **Reproducible test case:** this repository (Spring I/O Barcelona 2025 — Spring for Apache Kafka)
 **Related artifacts in this repo:** [`advisor.md`](../advisor.md) (the manual attempt),
 [`advisor-upgrade.sh`](../advisor-upgrade.sh) (a self-healing driver that works around every
@@ -279,6 +279,39 @@ step: the exact `advisor mapping create` commands to run (or an offer to run the
 to the custom-upgrades documentation. Ideally, when Advisor knows a family is first-party
 (§3A), it shouldn't ask at all.
 
+**4.8 `upgrade-plan apply` hard-requires a commercial recipe even for a no-op upgrade.**
+On 1.6.5, applying the *only* actionable upgrade this project has — `micrometer-context-propagation
+1.1.x → 1.2.x`, which is **BOM-managed and changes no files** — still forces a download of the
+commercial recipe `com.vmware.tanzu.spring.recipes:rewrite-static-analysis:1.7.2` from the
+subscription repo (`https://packages.broadcom.com/artifactory/tanzu-maven/`). Without valid
+subscription credentials the entire `apply` aborts:
+
+```console
+$ advisor upgrade-plan apply
+🔎 ProcessFailureException: Command: [ … mvnw site --file …/licenses<random>/pom.xml]
+[ERROR] Failed to read artifact descriptor for
+        com.vmware.tanzu.spring.recipes:rewrite-static-analysis:jar:1.7.2
+[ERROR]   Caused by: … from/to spring-enterprise-subscription (…tanzu-maven/): status code: 401
+. You can find the error in .advisor/errors/<ts>.log - Please open a new support ticket …
+```
+
+Three separate rough edges compound here:
+- **A trivial/no-op upgrade should not need the commercial recipe set at all.** Gate the
+  `rewrite-static-analysis` (license-check) step on whether the plan actually rewrites sources;
+  skip it for BOM-managed no-ops.
+- **The failure is opaque.** It surfaces as a raw Maven `mvnw site` stack trace against a
+  generated `license-check` module in a temp `licenses<random>/` directory, ending with *"open a
+  support ticket"* rather than *"authenticate to the subscription repo — your token may be
+  missing or expired."* The 401 root cause is buried.
+- **Scratch is left behind on failure.** Each failed apply leaves a `licenses<random>/` directory
+  (and `.advisor/errors/`) in the project root; these are never cleaned up.
+
+Auth mechanics worth documenting for users, too: credentials come from a `<server
+id="spring-enterprise-subscription">` in `~/.m2/settings.xml`, and reading them from environment
+variables requires the `${env.VAR}` form (plain `${VAR}` resolves only against JVM system
+properties, so a `-D` flag or `MAVEN_OPTS` is needed instead). The access token is short-lived
+(days), so an expired token presents as exactly this 401 — a common, recurring trip-up.
+
 ---
 
 ## 5. Prioritized roadmap
@@ -290,6 +323,7 @@ to the custom-upgrades documentation. Ideally, when Advisor knows a family is fi
 | | 4.1 Deterministic `-o/--output`; never write `.json`/clobber | Low | Safe scripting; no data loss |
 | | 4.2 Stop consuming stdin | Trivial | Scriptable |
 | | 4.6 `--format=json` plan output | Low–Med | First-class tooling instead of text scraping |
+| | 4.8 Skip commercial recipe for no-op upgrades; make the 401 actionable; clean scratch | Low | Trivial upgrades don't need a subscription; clear auth errors; no leftover `licenses*/` dirs |
 | **P1 — medium** | 4.4 Declarative custom-mapping config | Med | Kills brittle ordered env vars |
 | | 4.5 Built-in `--from-plan` self-heal | Med | Removes the need for external drivers like `advisor-upgrade.sh` |
 | | 3C Union/extend merge (drop hard "raise on duplicates") | Med | Lets users extend built-in projects; unblocks Kafka modules |
