@@ -188,8 +188,9 @@ is_valid_mapping() {
 # Restore the mappings dir to a snapshot: drop any *.json advisor newly created
 # and restore every pre-existing file. This is what protects base mappings —
 # advisor names its output .advisor/mappings/<slug>.json and that slug can
-# collide with an existing file (e.g. kafka-group-coordinator -> "kafka.json"),
-# which would otherwise clobber the base mapping and dangle its env reference.
+# collide with an existing committed file (e.g. `mapping create` for an internal
+# Kafka module emits slug "kafka"), which would otherwise clobber a base mapping
+# and dangle its env reference.
 restore_mappings_from() {
   local backup="$1" f bn
   while IFS= read -r f; do

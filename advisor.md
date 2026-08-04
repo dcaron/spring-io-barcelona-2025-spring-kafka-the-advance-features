@@ -72,9 +72,8 @@ export SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/spring-boot-ja
 export SPRING_ADVISOR_MAPPING_CUSTOM_0_MERGE_STRATEGY=override
 export SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/javafaker.json
 export SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/avro.json
-export SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/kafka.json
-export SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/kafka-streams.json
-export SPRING_ADVISOR_MAPPING_CUSTOM_4_MERGE_STRATEGY=override
+export SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/apache-kafka.json
+export SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/confluent-platform.json
 advisor build-config get
 ```
 
@@ -82,7 +81,10 @@ advisor build-config get
 advisor upgrade-plan get
 ```
 
-I stopped here because I need even more mappings to generate: 
+The log below is the original 1.6.4 result with the earlier per-leaf Kafka mappings: the run
+stopped here still needing yet more mappings for the transitive Kafka/Confluent modules. The
+consolidated `apache-kafka.json` + `confluent-platform.json` wired above now cover those families,
+so this blocked list no longer appears (see [`docs/advisor-improvements.md`](docs/advisor-improvements.md) §4.9):
 
 ```log
 The projects ["", "jackson-annotations", "jackson", "spring-kafka", "spring-boot", "spring-framework", "spring-retry", "micrometer", "junit", "junit-platform", "apache-commons-collections", "micrometer-tracing", "mockito", "xmlunit", "apache-commons-lang", "docker-java", "testcontainers", "avro", "apache-commons-compress", "javafaker"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.

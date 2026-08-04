@@ -56,8 +56,10 @@ The first three are what this project actually hits; the rest are common sibling
 - The Confluent mapping additionally needs coordinate resolution to honor the project's declared
   repositories (see [`advisor-improvements.md`](advisor-improvements.md) §2), or to be shipped
   fully curated so no Confluent repo access is required.
-- Reference workaround mappings in this repo: [`.advisor/mappings/kafka.json`](../.advisor/mappings/kafka.json)
-  (covers `kafka-clients`, `kafka_2.13`) and
-  [`.advisor/mappings/kafka-streams.json`](../.advisor/mappings/kafka-streams.json)
-  (`kafka-streams`, `connect-api`, `connect-json`) — these hand-authored files only cover the leaf
-  artifacts; the ~11 internal modules above remain uncoverable by users.
+- Reference implementation now shipped in this repo:
+  [`.advisor/mappings/apache-kafka.json`](../.advisor/mappings/apache-kafka.json) (slug `kafka`,
+  all 15 coordinates above) and
+  [`.advisor/mappings/confluent-platform.json`](../.advisor/mappings/confluent-platform.json)
+  (slug `confluent`, the 6 `io.confluent:*` coordinates). These consolidated single-project
+  mappings replace the earlier per-leaf Kafka mappings, which only covered the leaf artifacts and
+  left the ~11 internal modules uncoverable by users.

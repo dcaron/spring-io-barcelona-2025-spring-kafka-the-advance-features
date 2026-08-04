@@ -217,8 +217,9 @@ Today it writes `.advisor/mappings/<slug>.json`, where `<slug>` is Advisor's own
 That has two sharp edges:
 - An **empty slug** produces a file literally named `.json` (a hidden dotfile).
 - A slug can **collide with an existing file** and silently overwrite it — e.g.
-  `mapping create -c=org.apache.kafka:kafka-group-coordinator` has slug `kafka` and clobbers a
-  hand-authored `kafka.json`.
+  `mapping create -c=org.apache.kafka:kafka-group-coordinator` has slug `kafka`, so it writes a
+  `kafka`-slug file that clobbers a committed same-slug mapping (and yields a second `kafka`
+  project that then conflicts with the curated `apache-kafka.json` on load).
 
 Add `-o/--output PATH` (and/or print the mapping to stdout) so callers control the destination
 and nothing is clobbered.
@@ -395,7 +396,7 @@ module. Advisor **1.6.4**.
 advisor mapping create -c=io.confluent:kafka-schema-registry-client
 #   → 💔 No versions found. … available in your Maven repositories.
 
-# 2. Kafka internal module: creating a mapping collides with the shipped kafka.json
+# 2. Kafka internal module: creating a mapping collides with the curated apache-kafka.json (slug "kafka")
 advisor mapping create -c=org.apache.kafka:kafka-group-coordinator   # slug "kafka", claims kafka-clients
 export SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/kafka-group-coordinator.json
 advisor build-config get
