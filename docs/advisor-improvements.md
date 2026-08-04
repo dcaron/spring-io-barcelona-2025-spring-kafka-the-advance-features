@@ -312,6 +312,49 @@ variables requires the `${env.VAR}` form (plain `${VAR}` resolves only against J
 properties, so a `-D` flag or `MAVEN_OPTS` is needed instead). The access token is short-lived
 (days), so an expired token presents as exactly this 401 — a common, recurring trip-up.
 
+**4.9 `upgrade-plan apply` loops forever on a transitive-only, version-managed project.**
+Once the Kafka + Confluent families are covered (via the curated mappings in
+[`.advisor/mappings/apache-kafka.json`](../.advisor/mappings/apache-kafka.json) and
+[`confluent-platform.json`](../.advisor/mappings/confluent-platform.json)), the plan is fully
+unblocked — advisor discovers **21 projects with nothing blocked**, including the real targets
+`spring-boot 3.4.x → 4.1.x`, `spring-kafka 3.3.x → 4.1.x`, `kafka 3.8.x → 4.3.x`,
+`confluent 7.9.x → 8.3.x`, and `jackson 2.17.x → 3.1.x`. But **the upgrade still never advances**,
+because every `apply` selects the same bottom-of-tree project and does nothing:
+
+```console
+$ advisor upgrade-plan apply          # run repeatedly — identical every time
+Projects to upgrade:
+    * commons-beanutils from 1.9.x to 1.11.x
+👍 Successfully applied upgrade.       # …but changed 0 files
+```
+
+`commons-beanutils` is **not declared in any pom** — it is purely transitive (pulled via
+`commons-validator`, itself only test-data tooling behind `javafaker`). There is no version
+declaration anywhere to rewrite, so the apply is a **no-op**; the resolved version stays `1.9.x`,
+so the *same* step reappears on the next re-plan. Verified by driving `apply` **six times in a
+row**: each returns *"Successfully applied upgrade"*, each re-selects `commons-beanutils`, each
+changes nothing, and each deletes + regenerates `build-config.json` only to pick it again — a
+stable fixed point. Advisor never reaches `spring-boot`/`spring-kafka`/`jackson`. A trivial,
+test-only transitive leaf stalls the entire modernization.
+
+Root cause: `apply` orders bottom-up and treats a transitive/BOM-managed artifact as an actionable
+step it can never satisfy, and a no-op apply (no file change, resolved version unchanged) is not
+recognized as "cannot progress here." Options:
+
+- **Detect no-progress and don't report success.** If an apply changes no files *and* leaves the
+  selected project's resolved version unchanged, treat that project as non-actionable — advance to
+  the next candidate, or stop with a clear message (*"no further file-changing steps; N projects
+  remain BOM-managed/transitive"*) — instead of looping and printing "Successfully applied."
+- **Don't select transitive-only / version-managed artifacts as standalone steps.** A project with
+  no direct declaration cannot be upgraded in isolation; cover it via its owning direct dependency
+  or BOM (relates to §3D transitive auto-attach) rather than surfacing it as its own apply step.
+- **Apply breadth-first / whole-plan.** Apply all actionable projects the plan lists in one pass
+  rather than looping one leaf at a time, so a single stuck no-op leaf can't block the
+  framework-level upgrades that *do* change files.
+
+This is the one wall left after the Kafka/Confluent mappings — and it is entirely independent of
+them.
+
 ---
 
 ## 5. Prioritized roadmap
@@ -324,6 +367,7 @@ properties, so a `-D` flag or `MAVEN_OPTS` is needed instead). The access token 
 | | 4.2 Stop consuming stdin | Trivial | Scriptable |
 | | 4.6 `--format=json` plan output | Low–Med | First-class tooling instead of text scraping |
 | | 4.8 Skip commercial recipe for no-op upgrades; make the 401 actionable; clean scratch | Low | Trivial upgrades don't need a subscription; clear auth errors; no leftover `licenses*/` dirs |
+| | 4.9 Don't loop on no-op/transitive-only apply steps; detect no-progress and advance | Low | The upgrade actually completes instead of stalling forever on a transitive leaf |
 | **P1 — medium** | 4.4 Declarative custom-mapping config | Med | Kills brittle ordered env vars |
 | | 4.5 Built-in `--from-plan` self-heal | Med | Removes the need for external drivers like `advisor-upgrade.sh` |
 | | 3C Union/extend merge (drop hard "raise on duplicates") | Med | Lets users extend built-in projects; unblocks Kafka modules |
