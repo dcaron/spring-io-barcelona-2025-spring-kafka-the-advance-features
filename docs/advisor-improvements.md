@@ -353,8 +353,51 @@ recognized as "cannot progress here." Options:
   rather than looping one leaf at a time, so a single stuck no-op leaf can't block the
   framework-level upgrades that *do* change files.
 
-This is the one wall left after the Kafka/Confluent mappings — and it is entirely independent of
-them.
+The incremental default is what loops. The **one flag that escapes it is `--accept-no-alignment`**
+(optionally with `--force`): it abandons step-by-step alignment and applies the *whole* plan at once
+(all 20 projects, `spring-boot 3.4.x → 4.1.x` included). `--force` and `--squash=N` alone do **not**
+help — they still apply "the first step," which advisor keeps resolving to the same transitive no-op.
+But `--accept-no-alignment` then hits a second, deeper wall — see §4.10 — so today neither path
+completes.
+
+**4.10 Forced full-plan apply fails: `MainAdvisorRecipe` references a recipe class it doesn't ship.**
+The one way past the §4.9 no-op loop — `advisor upgrade-plan apply --accept-no-alignment` — drives
+the entire plan and launches the real OpenRewrite Boot-4 run (the commercial recipes download fine;
+auth is not the issue). It then aborts during recipe **validation**:
+
+```console
+$ advisor upgrade-plan apply --accept-no-alignment
+[ERROR] Recipe validation error in com.vmware.tanzu.MainAdvisorRecipe for property
+        com.vmware.tanzu.AnyOfScanningRecipes: Unable to load Recipe:
+        Recipe class not found: org.openrewrite.java.dependencies.search.ModuleHasDependency
+[ERROR] Failed to execute goal org.openrewrite.maven:rewrite-maven-plugin:6.38.0:runNoFork …
+        Recipe validation errors detected as part of one or more activeRecipe(s).
+💔 Could not apply the recipe(s) … Please open a new support ticket …
+```
+
+`ModuleHasDependency` lives in **`org.openrewrite.recipe:rewrite-java-dependencies`**, which is *not*
+among the recipe coordinates advisor assembles for the run (`java-recipes`, `rewrite-hibernate`,
+`rewrite-migrate-java`, `rewrite-spring`, `rewrite-testing-frameworks`,
+`spring-boot-{2,3,4}-upgrade-recipes`, all `1.7.2`). So advisor's *own* `MainAdvisorRecipe` →
+`AnyOfScanningRecipes` references a class its *own* bundled classpath lacks — a packaging defect in
+the 1.6.5 recipe set, not anything about the project.
+
+Confirmed independent of the project and of auth: neutralizing this repo's own
+`rewrite-maven-plugin` execution (its `run-openrewrite`, bound to `validate`) produces the **same**
+error, now attributed to advisor's own `rewrite-maven-plugin:6.38.0:runNoFork` rather than the
+project's `6.8.0:run`. And nothing is user-workaroundable here — advisor controls its own
+`-Drewrite.recipeArtifactCoordinates`.
+
+- **Add `rewrite-java-dependencies` (matching version) to the assembled recipe coordinates**, or stop
+  referencing `ModuleHasDependency` from `AnyOfScanningRecipes` — so `MainAdvisorRecipe` validates.
+- **Validate the recipe bundle in CI**: a self-referential `RecipeException`/`class not found` for a
+  first-party recipe should never ship — a load-all-recipes smoke test would catch it.
+- **Make the failure actionable** rather than *"open a support ticket"*: name the missing recipe
+  class and the module that provides it.
+
+Net: after the Kafka/Confluent mappings unblock the plan (§2–§3), **two advisor-side walls remain and
+neither is user-fixable** — the incremental no-op loop (§4.9) and this forced-apply recipe-bundle bug
+(§4.10). No file-changing Spring upgrade can currently be applied to this repo via the CLI.
 
 ---
 
@@ -369,6 +412,7 @@ them.
 | | 4.6 `--format=json` plan output | Low–Med | First-class tooling instead of text scraping |
 | | 4.8 Skip commercial recipe for no-op upgrades; make the 401 actionable; clean scratch | Low | Trivial upgrades don't need a subscription; clear auth errors; no leftover `licenses*/` dirs |
 | | 4.9 Don't loop on no-op/transitive-only apply steps; detect no-progress and advance | Low | The upgrade actually completes instead of stalling forever on a transitive leaf |
+| | 4.10 Fix the recipe bundle: `MainAdvisorRecipe` references `ModuleHasDependency` but ships no `rewrite-java-dependencies`; add a bundle smoke test | Med | `--accept-no-alignment` (the only path past the no-op loop) can actually run instead of failing recipe validation |
 | **P1 — medium** | 4.4 Declarative custom-mapping config | Med | Kills brittle ordered env vars |
 | | 4.5 Built-in `--from-plan` self-heal | Med | Removes the need for external drivers like `advisor-upgrade.sh` |
 | | 3C Union/extend merge (drop hard "raise on duplicates") | Med | Lets users extend built-in projects; unblocks Kafka modules |
