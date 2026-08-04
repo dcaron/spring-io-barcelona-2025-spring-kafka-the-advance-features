@@ -43,6 +43,62 @@ Everything below expands these with concrete options, ordered *quick win → str
 
 ---
 
+## 1b. Plain-language summary — where this stands now
+
+**What now works.** The two curated mappings in this repo
+([`apache-kafka.json`](../.advisor/mappings/apache-kafka.json),
+[`confluent-platform.json`](../.advisor/mappings/confluent-platform.json)) fixed the original
+problem. Advisor now **understands** every dependency in the project — the Kafka internal modules
+and the Confluent libraries used to be "unknown" and stopped Advisor cold; now they're recognized
+and Advisor can see the full upgrade path all the way to Spring Boot 4. The project is no longer
+blocked at the **planning** stage.
+
+**Where it's blocked now: applying the upgrade.** Two walls remain, and **both are inside Advisor
+itself — not the project, not the credentials, not the mappings.** They can't be fixed by editing
+this repo; they need a change from the Advisor team.
+
+1. **The "do-nothing loop" (§4.9).** Advisor upgrades one small step at a time, starting from the
+   deepest dependency. The first thing it tries to bump is a tiny library (`commons-beanutils`) that
+   the project never actually lists — it only comes along behind another library. There's nothing in
+   the project's files to change for it, so the step does nothing; Advisor then re-checks, sees it
+   "still needs upgrading," and retries the same do-nothing step forever. It never reaches the steps
+   that matter (Spring Boot, Spring Kafka, Jackson).
+
+2. **The broken-toolkit bug (§4.10).** There is one CLI escape hatch — the flag
+   `--accept-no-alignment` — that tells Advisor "skip the careful step-by-step dance and do the whole
+   upgrade at once." That *does* get past the loop and starts the real Spring Boot 4 conversion… then
+   crashes, because Advisor's own upgrade toolkit is missing one of its own pieces: one of its
+   recipes calls for a component that isn't packaged with it, so the run fails a self-check before
+   changing any files.
+
+**Net:** the mapping wall is gone; what remains are two Advisor-side defects. Below is what would fix
+them.
+
+### Tactical (quick — unblocks the immediate situation)
+
+- **Fix the missing toolkit piece (§4.10).** Ship the component Advisor's own recipe needs
+  (`rewrite-java-dependencies`), or stop referencing it. This single change lets the "do it all at
+  once" path actually run.
+- **Stop looping on do-nothing steps (§4.9).** If a step changes no files and nothing moved, skip it
+  and go to the next real step — don't retry it and report "success" each time.
+- **Add a self-check before shipping.** A test that simply loads all of Advisor's own recipes would
+  have caught the missing-piece bug before release.
+- **Clearer errors.** Instead of *"open a support ticket,"* name exactly what's missing (which recipe,
+  which component) so a user knows it isn't their fault.
+
+### Strategic (deeper — prevents this whole class of problem)
+
+- **Don't treat "tag-along" libraries as their own upgrade steps.** A dependency the project never
+  explicitly declares should be upgraded *together with* the real library that pulls it in — never
+  surfaced as a standalone step that can get stuck (relates to §3D).
+- **Upgrade the whole plan together by default,** not one leaf at a time, so a single stuck
+  sub-dependency can't stall the important framework upgrades.
+- **Ship built-in knowledge for common ecosystems** (Kafka, Confluent, and others) so users never
+  have to hand-build mappings in the first place — exactly the gap the two files in this repo filled
+  by hand (§2C, §3A).
+
+---
+
 ## 2. `io.confluent:*` — artifacts not in Maven Central
 
 ### What happens today
