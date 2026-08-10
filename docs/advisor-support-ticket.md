@@ -1,4 +1,4 @@
-# Broadcom support ticket — Spring Application Advisor 1.6.5
+# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7
 
 > Submission-ready draft. File at **https://support.broadcom.com** (Tanzu → Spring Application
 > Advisor). These are two related, reproducible defects; they can be filed as one ticket with two
@@ -28,13 +28,20 @@ High. For any project that reaches a real apply through this recipe path, the au
 
 | | |
 |---|---|
-| Application Advisor | **1.6.5** |
+| Application Advisor | **1.6.5**; both defects **re-verified on 1.6.7** (2026-08-10, valid subscription token) |
 | Java | 21 |
 | Build | Maven wrapper `mvnw` 3.9.9 |
 | Project | Spring Boot 3.4.5, multi-module, `spring-kafka` (BOM-managed), `io.confluent:*` 7.9.1 |
-| Recipe artifacts loaded by Advisor | `com.vmware.tanzu.spring.recipes:{java-recipes, rewrite-hibernate, rewrite-migrate-java, rewrite-spring, rewrite-testing-frameworks, spring-boot-2-upgrade-recipes, spring-boot-3-upgrade-recipes, spring-boot-4-upgrade-recipes}:1.7.2` |
-| Rewrite plugin (Advisor invocation) | `org.openrewrite.maven:rewrite-maven-plugin:6.38.0:runNoFork` |
+| Recipe artifacts loaded by Advisor | 1.6.5: `com.vmware.tanzu.spring.recipes:{java-recipes, rewrite-hibernate, rewrite-migrate-java, rewrite-spring, rewrite-testing-frameworks, spring-boot-2-upgrade-recipes, spring-boot-3-upgrade-recipes, spring-boot-4-upgrade-recipes}:1.7.2 — 1.6.7: same set minus `rewrite-hibernate`/`rewrite-testing-frameworks`, at **1.7.5** |
+| Rewrite plugin (Advisor invocation) | 1.6.5: `rewrite-maven-plugin:6.38.0:runNoFork` — 1.6.7: `6.44.0:runNoFork` |
 | Reproduction repo | `github.com/dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features`, branch `advisor` |
+
+**Re-verification on 1.6.7:** Defect 1 reproduces identically (`apply` selects
+`commons-beanutils 1.9.x → 1.11.x` on every run, reports success, changes 0 files). Defect 2
+reproduces identically with the **newer 1.7.5 recipe set** — `MainAdvisorRecipe →
+AnyOfScanningRecipes` still fails with *"Recipe class not found:
+org.openrewrite.java.dependencies.search.ModuleHasDependency"* — i.e. the missing
+`rewrite-java-dependencies` dependency survived a recipe release.
 
 Subscription auth is **working** (commercial recipes download fine); this is not a 401/credentials
 issue.

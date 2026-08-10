@@ -1,7 +1,8 @@
 # Spring Application Advisor — improvement recommendations
 
 **Audience:** Broadcom / Tanzu Application Advisor engineering & product
-**Advisor version tested:** 1.6.4 (re-verified on 1.6.5 — every blocker below still reproduces; see §4.8)
+**Advisor version tested:** 1.6.4 (re-verified on 1.6.5; re-verified on **1.6.7** on 2026-08-10 —
+see §1c for exactly what improved and what didn't)
 **Reproducible test case:** this repository (Spring I/O Barcelona 2025 — Spring for Apache Kafka)
 **Related artifacts in this repo:** [`advisor.md`](../advisor.md) (the manual attempt),
 [`advisor-upgrade.sh`](../advisor-upgrade.sh) (a self-healing driver that works around every
@@ -96,6 +97,59 @@ them.
 - **Ship built-in knowledge for common ecosystems** (Kafka, Confluent, and others) so users never
   have to hand-build mappings in the first place — exactly the gap the two files in this repo filled
   by hand (§2C, §3A).
+
+---
+
+## 1c. Re-check on Advisor 1.6.7 (2026-08-10) — current status overview
+
+Every issue below was re-tested behaviorally on **1.6.7** (valid subscription token, throwaway
+branches, same project). 1.6.7 ships a refreshed stack — commercial recipes **1.7.2 → 1.7.5**,
+`rewrite-maven-plugin` **6.38.0 → 6.44.0** (and the assembled recipe set dropped `rewrite-hibernate`
+and `rewrite-testing-frameworks`) — and several real robustness fixes landed. **The two hard walls
+(§4.9, §4.10) are unchanged: the upgrade still cannot produce a single file change.**
+
+### Fixed / improved in 1.6.7
+
+| Issue | 1.6.5 behavior | 1.6.7 behavior |
+|---|---|---|
+| §3 duplicate-mapping hard abort | Two mappings sharing a slug/coordinate → `RaiseErrorOnDuplicatesCoordinatesMerger: "Some projects were already defined: [kafka]"` | **No longer aborts** — a generated `kafka` mapping wired alongside the curated `apache-kafka.json` (same slug, both claiming `kafka-clients`) now loads and `build-config get` succeeds. (Merge semantics — which mapping wins — not yet documented/verified.) |
+| §3 per-artifact fragmentation (partial) | `mapping create` for an internal Kafka module produced a colliding single-purpose mapping | Now emits a **partially grouped** mapping: slug `kafka`, coordinates `[kafka-clients, kafka-group-coordinator, kafka-server-common]`. Still far from the full ~15-module train, but sibling grouping has started |
+| §4.3 empty mapping poisons every command | A single empty/invalid custom mapping aborted `build-config`/`upgrade-plan` | A wired `{}` mapping is now **tolerated** — `build-config get` succeeds. Half-fixed: the skip is **silent** (no warning naming the file) |
+| §4.2 stdin consumption | `mapping create` consumed stdin, breaking `while read` loops | Piped stdin now survives a `mapping create` invocation (verified on the fast-fail path) — appears fixed |
+| Credential errors (related §2D/§4.8) | Bare *"No versions found"* / buried 401 | With an expired token, `mapping create` now says: *"One or more repositories denied access (HTTP 401/403). Check the credentials in ~/.m2/settings.xml."* — a genuinely actionable message |
+
+### Unchanged in 1.6.7 (re-verified)
+
+| Issue | Status |
+|---|---|
+| §2 resolution ignores project `<repositories>` | **Unchanged.** Valid credentials, Confluent repo declared only in the poms → `mapping create -c=io.confluent:kafka-schema-registry-client` still fails (*"No mappings created…"*) |
+| §2C/§3A no first-party Kafka/Confluent mappings | **Unchanged.** Without this repo's two curated mappings, the full blocked list returns, still ending in *"Please request your administrator to configure the projects…"* (§4.7 message also unchanged) |
+| §4.1 empty-slug / clobber-prone output | **Unchanged.** `mapping create -c=org.apache.kafka:kafka_2.13` still writes a hidden `.json` file with `slug: ""`; still no `-o/--output` |
+| §4.4 ordered env-var wiring | **Unchanged.** No auto-discovery or declarative config; `SPRING_ADVISOR_MAPPING_CUSTOM_N_*` only |
+| §4.5 no built-in self-heal | **Unchanged.** No `--from-plan`/`--create-missing-mappings`; CLI flag surface identical to 1.6.5 |
+| §4.6 no machine-readable plan | **Unchanged.** No `--format=json` |
+| **§4.9 apply no-op loop** | **Unchanged.** With a fully unblocked plan and valid token, `upgrade-plan apply` still selects `commons-beanutils 1.9.x → 1.11.x` every time, reports success, changes 0 files (verified twice in a row) |
+| **§4.10 recipe bundle missing `ModuleHasDependency`** | **Unchanged — and re-shipped.** `apply --accept-no-alignment` still fails recipe validation with *"Recipe class not found: org.openrewrite.java.dependencies.search.ModuleHasDependency"* — now from recipes **1.7.5**, i.e. the defect survived a recipe release |
+
+(§4.8's no-op-needs-commercial-recipe behavior could not be cleanly re-verified — recipe artifacts
+were already cached locally from earlier runs.)
+
+### Bottom line for the Advisor team, as of 1.6.7
+
+The 1.6.7 robustness fixes (duplicate-merge tolerance, empty-mapping tolerance, stdin, credential
+message) remove real paper cuts — several P0 items from §5 are now partially or fully addressed.
+But the **outcome is identical to 1.6.5**: this ordinary Spring Boot 3.4.5 → 4.x Kafka project still
+cannot be upgraded end-to-end, because the two blocking defects are untouched:
+
+1. **§4.9** — `apply` loops forever on a transitive-only no-op step and never reaches the
+   framework upgrades; and
+2. **§4.10** — the only escape (`--accept-no-alignment`) fails validation because the recipe bundle
+   (still, in 1.7.5) references `ModuleHasDependency` without shipping `rewrite-java-dependencies`.
+
+Fixing §4.10 is likely a one-line dependency addition to the recipe bundle and would immediately
+make the forced full-plan path usable; §4.9 then determines whether the default incremental path
+ever works. First-party Kafka/Confluent mappings (§2C/§3A) remain the strategic gap this repo's
+custom mappings are papering over.
 
 ---
 
