@@ -1,8 +1,8 @@
 # Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7
 
 > Submission-ready draft. File at **https://support.broadcom.com** (Tanzu → Spring Application
-> Advisor). These are two related, reproducible defects; they can be filed as one ticket with two
-> parts or split into two. Both are **Advisor-side** — independent of the customer project, the
+> Advisor). These are three related, reproducible defects; they can be filed as one ticket with
+> three parts or split. All are **Advisor-side** — independent of the customer project, the
 > Confluent/Kafka custom mappings, and subscription authentication.
 
 ---
@@ -18,6 +18,11 @@ dependency families (so `upgrade-plan get` produces a full 21-project plan inclu
    advances (no files ever change).
 2. The only flag that escapes that loop — `apply --accept-no-alignment` — **fails recipe validation
    because Advisor's own recipe bundle references a recipe class it does not ship.**
+
+A third defect (1.6.7) affects the mapping-authoring path that leads up to the plan:
+`mapping create` output for sibling modules of one family shares a slug, and **`build-config get`
+accepts duplicate-slug mappings while `upgrade-plan get` rejects them** — so the mappings Advisor
+generates cannot be composed into a working plan (Defect 3).
 
 ## Severity / impact
 
@@ -129,10 +134,57 @@ attributed to Advisor's own `rewrite-maven-plugin:6.38.0:runNoFork` instead of t
 
 ---
 
+## Defect 3 — duplicate-slug custom mappings: `build-config get` accepts them, `upgrade-plan get` rejects them (1.6.7)
+
+### What happens
+
+On 1.6.7, `mapping create` for sibling modules of one release train emits mappings that share a
+slug — e.g. `-c=org.apache.kafka:kafka-metadata` and `-c=org.apache.kafka:kafka-storage` each
+produce a mapping with slug `kafka` (15 runs across the `org.apache.kafka:*` family collapse onto
+just 3 slugs: `kafka` ×9, `kafka-clients` ×1, and the empty slug ×5). Wiring more than one of them
+via `SPRING_ADVISOR_MAPPING_CUSTOM_N_FILEPATH` behaves **inconsistently between commands**:
+
+```console
+$ advisor build-config get          # two mappings with slug "kafka" wired
+🚀 The build-configuration has been generated in …/target/.advisor/build-config.json   # OK
+
+$ advisor upgrade-plan get
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings … error
+💔 Errors
+- <project> failed with the following message:
+🔎 Failed to load an additional upgrade mapping from '…/kafka-metadata-mapping.json':
+   Failed to load the mapping source. Please verify the source configuration.
+```
+
+The failure is always on the **second** mapping sharing a slug (same result for two empty-slug
+mappings). The message names the file — an improvement over 1.6.5's
+`RaiseErrorOnDuplicatesCoordinatesMerger` hard abort — but the reason is generic, and there is no
+union merge: at most **one mapping per slug** can be wired. Overlap on the same *coordinate* across
+*different* slugs is, by contrast, tolerated by both commands.
+
+Consequence: the mappings Advisor itself generates for a module family cannot be combined. The best
+duplicate-free combination of `mapping create` output covers 8 of the 15 `org.apache.kafka:*`
+coordinates this project needs; the other 7 modules return to the blocked list (*"Please request
+your administrator to configure the projects…"*). A hand-curated single-file family mapping remains
+the only way through — verified 2026-08-11; full experiment (generated mappings + load-test logs)
+in the reproduction repo under `.advisor/mappings-generated-1.6.7/`.
+
+### Expected
+
+- `build-config get` and `upgrade-plan get` should apply the **same** mapping-loading rules — a
+  wiring that survives build-config should not fail at plan time.
+- Same-slug mappings should **union-merge** (coordinates and rewrite tables) instead of being
+  rejected, since `mapping create` itself emits same-slug files for siblings of one family; at
+  minimum, the error should say *why* the mapping was rejected (duplicate slug `kafka`, already
+  defined by `<file>`), not *"verify the source configuration."*
+
+---
+
 ## Attachments to include when filing
 
 - The full `.advisor/errors/<timestamp>.log` from a `--accept-no-alignment` run (contains the failing
   `runNoFork` command line and the recipe-validation stack trace).
 - The reproduction repo/branch above.
 - This project's `docs/advisor-improvements.md` §4.9 and §4.10 (fuller analysis and additional
-  advisor UX findings).
+  advisor UX findings), and §1c plus `.advisor/mappings-generated-1.6.7/README.md` for Defect 3
+  (the generated mappings and load-test logs).
