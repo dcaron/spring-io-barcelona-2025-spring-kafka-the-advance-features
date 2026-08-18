@@ -1,0 +1,23 @@
+### build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features.
+
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s]🏃 [ 1 / 6 ] Resolving build tool version [00m 02s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 11s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s]🏃 [ 3 / 6 ] Resolving JDK version [00m 04s]🏃 [ 3 / 6 ] Resolving JDK version [00m 05s]🏃 [ 3 / 6 ] Resolving JDK version [00m 06s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/target/.advisor/build-config.json
+exit=0
+### upgrade-plan get
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] error
+
+💔 Errors
+- spring-io-barcelona-2025-spring-kafka-the-advance-features failed with the following message:
+🔎 Failed to load an additional upgrade mapping from '/private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/parked/gen-connect-json.json': Failed to load the mapping source. Please verify the source configuration.
+exit=1

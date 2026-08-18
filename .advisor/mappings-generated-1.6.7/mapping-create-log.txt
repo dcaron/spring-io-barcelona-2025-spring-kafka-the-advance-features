@@ -1,0 +1,471 @@
+=== kafka-clients ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-clients [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-clients [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-clients [00m 02s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-clients [00m 03s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-clients [00m 04s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 29 minor versions.
+
+		🏃 [ 1 / 29 ] Generating dependency tree for version 0.10.2.2 [00m 00s]		🏃 [ 1 / 29 ] Generating dependency tree for version 0.10.2.2 [00m 01s] ok
+		🏃 [ 2 / 29 ] Generating dependency tree for version 0.11.0.3 [00m 00s]		🏃 [ 2 / 29 ] Generating dependency tree for version 0.11.0.3 [00m 01s] ok
+		🏃 [ 3 / 29 ] Generating dependency tree for version 0.8.2.2 [00m 00s]		🏃 [ 3 / 29 ] Generating dependency tree for version 0.8.2.2 [00m 01s] ok
+		🏃 [ 4 / 29 ] Generating dependency tree for version 0.9.0.1 [00m 00s]		🏃 [ 4 / 29 ] Generating dependency tree for version 0.9.0.1 [00m 01s] ok
+		🏃 [ 5 / 29 ] Generating dependency tree for version 1.0.2 [00m 00s]		🏃 [ 5 / 29 ] Generating dependency tree for version 1.0.2 [00m 01s] ok
+		🏃 [ 6 / 29 ] Generating dependency tree for version 1.1.1 [00m 00s]		🏃 [ 6 / 29 ] Generating dependency tree for version 1.1.1 [00m 01s] ok
+		🏃 [ 7 / 29 ] Generating dependency tree for version 2.0.1 [00m 00s]		🏃 [ 7 / 29 ] Generating dependency tree for version 2.0.1 [00m 01s] ok
+		🏃 [ 8 / 29 ] Generating dependency tree for version 2.1.1 [00m 00s]		🏃 [ 8 / 29 ] Generating dependency tree for version 2.1.1 [00m 01s] ok
+		🏃 [ 9 / 29 ] Generating dependency tree for version 2.2.2 [00m 00s]		🏃 [ 9 / 29 ] Generating dependency tree for version 2.2.2 [00m 01s] ok
+		🏃 [ 10 / 29 ] Generating dependency tree for version 2.3.1 [00m 00s]		🏃 [ 10 / 29 ] Generating dependency tree for version 2.3.1 [00m 01s] ok
+		🏃 [ 11 / 29 ] Generating dependency tree for version 2.4.1 [00m 00s]		🏃 [ 11 / 29 ] Generating dependency tree for version 2.4.1 [00m 01s] ok
+		🏃 [ 12 / 29 ] Generating dependency tree for version 2.5.1 [00m 00s]		🏃 [ 12 / 29 ] Generating dependency tree for version 2.5.1 [00m 01s] ok
+		🏃 [ 13 / 29 ] Generating dependency tree for version 2.6.3 [00m 00s]		🏃 [ 13 / 29 ] Generating dependency tree for version 2.6.3 [00m 01s] ok
+		🏃 [ 14 / 29 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 14 / 29 ] Generating dependency tree for version 2.7.2 [00m 01s] ok
+		🏃 [ 15 / 29 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 15 / 29 ] Generating dependency tree for version 2.8.2 [00m 01s] ok
+		🏃 [ 16 / 29 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 16 / 29 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 17 / 29 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 17 / 29 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 18 / 29 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 18 / 29 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 19 / 29 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 19 / 29 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 20 / 29 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 20 / 29 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 21 / 29 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 21 / 29 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 22 / 29 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 22 / 29 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 23 / 29 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 23 / 29 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 24 / 29 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 24 / 29 ] Generating dependency tree for version 3.8.1 [00m 01s] ok
+		🏃 [ 25 / 29 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 25 / 29 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 26 / 29 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 26 / 29 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 27 / 29 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 27 / 29 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 28 / 29 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 28 / 29 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 29 / 29 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 29 / 29 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-clients/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:06 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:06 ..
+-rw-r--r--  1 dcaron  wheel  6249 Aug 11 14:06 kafka-clients.json
+=== kafka_2.13 ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka_2.13 [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka_2.13 [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka_2.13 [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 19 minor versions.
+
+		🏃 [ 1 / 19 ] Generating dependency tree for version 2.4.1 [00m 00s]		🏃 [ 1 / 19 ] Generating dependency tree for version 2.4.1 [00m 01s]		🏃 [ 1 / 19 ] Generating dependency tree for version 2.4.1 [00m 02s]		🏃 [ 1 / 19 ] Generating dependency tree for version 2.4.1 [00m 03s]		🏃 [ 1 / 19 ] Generating dependency tree for version 2.4.1 [00m 04s] ok
+		🏃 [ 2 / 19 ] Generating dependency tree for version 2.5.1 [00m 00s]		🏃 [ 2 / 19 ] Generating dependency tree for version 2.5.1 [00m 01s]		🏃 [ 2 / 19 ] Generating dependency tree for version 2.5.1 [00m 02s] ok
+		🏃 [ 3 / 19 ] Generating dependency tree for version 2.6.3 [00m 00s]		🏃 [ 3 / 19 ] Generating dependency tree for version 2.6.3 [00m 01s]		🏃 [ 3 / 19 ] Generating dependency tree for version 2.6.3 [00m 02s] ok
+		🏃 [ 4 / 19 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 4 / 19 ] Generating dependency tree for version 2.7.2 [00m 01s]		🏃 [ 4 / 19 ] Generating dependency tree for version 2.7.2 [00m 02s] ok
+		🏃 [ 5 / 19 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 5 / 19 ] Generating dependency tree for version 2.8.2 [00m 01s]		🏃 [ 5 / 19 ] Generating dependency tree for version 2.8.2 [00m 02s]		🏃 [ 5 / 19 ] Generating dependency tree for version 2.8.2 [00m 03s] ok
+		🏃 [ 6 / 19 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 6 / 19 ] Generating dependency tree for version 3.0.2 [00m 01s]		🏃 [ 6 / 19 ] Generating dependency tree for version 3.0.2 [00m 02s]		🏃 [ 6 / 19 ] Generating dependency tree for version 3.0.2 [00m 03s] ok
+		🏃 [ 7 / 19 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 7 / 19 ] Generating dependency tree for version 3.1.2 [00m 01s]		🏃 [ 7 / 19 ] Generating dependency tree for version 3.1.2 [00m 02s]		🏃 [ 7 / 19 ] Generating dependency tree for version 3.1.2 [00m 03s] ok
+		🏃 [ 8 / 19 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 8 / 19 ] Generating dependency tree for version 3.2.3 [00m 01s]		🏃 [ 8 / 19 ] Generating dependency tree for version 3.2.3 [00m 02s] ok
+		🏃 [ 9 / 19 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 9 / 19 ] Generating dependency tree for version 3.3.2 [00m 01s]		🏃 [ 9 / 19 ] Generating dependency tree for version 3.3.2 [00m 02s] ok
+		🏃 [ 10 / 19 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 10 / 19 ] Generating dependency tree for version 3.4.1 [00m 01s]		🏃 [ 10 / 19 ] Generating dependency tree for version 3.4.1 [00m 02s]		🏃 [ 10 / 19 ] Generating dependency tree for version 3.4.1 [00m 03s] ok
+		🏃 [ 11 / 19 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 11 / 19 ] Generating dependency tree for version 3.5.2 [00m 01s]		🏃 [ 11 / 19 ] Generating dependency tree for version 3.5.2 [00m 02s] ok
+		🏃 [ 12 / 19 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 12 / 19 ] Generating dependency tree for version 3.6.2 [00m 01s]		🏃 [ 12 / 19 ] Generating dependency tree for version 3.6.2 [00m 02s]		🏃 [ 12 / 19 ] Generating dependency tree for version 3.6.2 [00m 03s] ok
+		🏃 [ 13 / 19 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 13 / 19 ] Generating dependency tree for version 3.7.2 [00m 01s]		🏃 [ 13 / 19 ] Generating dependency tree for version 3.7.2 [00m 02s]		🏃 [ 13 / 19 ] Generating dependency tree for version 3.7.2 [00m 03s] ok
+		🏃 [ 14 / 19 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 14 / 19 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 14 / 19 ] Generating dependency tree for version 3.8.1 [00m 02s]		🏃 [ 14 / 19 ] Generating dependency tree for version 3.8.1 [00m 03s] ok
+		🏃 [ 15 / 19 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 15 / 19 ] Generating dependency tree for version 3.9.2 [00m 01s]		🏃 [ 15 / 19 ] Generating dependency tree for version 3.9.2 [00m 02s]		🏃 [ 15 / 19 ] Generating dependency tree for version 3.9.2 [00m 03s] ok
+		🏃 [ 16 / 19 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 16 / 19 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 16 / 19 ] Generating dependency tree for version 4.0.2 [00m 02s]		🏃 [ 16 / 19 ] Generating dependency tree for version 4.0.2 [00m 03s]		🏃 [ 16 / 19 ] Generating dependency tree for version 4.0.2 [00m 04s]		🏃 [ 16 / 19 ] Generating dependency tree for version 4.0.2 [00m 05s] ok
+		🏃 [ 17 / 19 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 17 / 19 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 17 / 19 ] Generating dependency tree for version 4.1.2 [00m 02s]		🏃 [ 17 / 19 ] Generating dependency tree for version 4.1.2 [00m 03s]		🏃 [ 17 / 19 ] Generating dependency tree for version 4.1.2 [00m 04s] ok
+		🏃 [ 18 / 19 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 18 / 19 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 18 / 19 ] Generating dependency tree for version 4.2.1 [00m 02s]		🏃 [ 18 / 19 ] Generating dependency tree for version 4.2.1 [00m 03s]		🏃 [ 18 / 19 ] Generating dependency tree for version 4.2.1 [00m 04s] ok
+		🏃 [ 19 / 19 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 19 / 19 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 19 / 19 ] Generating dependency tree for version 4.3.1 [00m 02s]		🏃 [ 19 / 19 ] Generating dependency tree for version 4.3.1 [00m 03s]		🏃 [ 19 / 19 ] Generating dependency tree for version 4.3.1 [00m 04s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka_2.13/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:08 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:08 ..
+-rw-r--r--  1 dcaron  wheel  4884 Aug 11 14:08 .json
+=== kafka-streams ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-streams [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-streams [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-streams [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 27 minor versions.
+
+		🏃 [ 1 / 27 ] Generating dependency tree for version 0.10.2.2 [00m 00s]		🏃 [ 1 / 27 ] Generating dependency tree for version 0.10.2.2 [00m 01s]		🏃 [ 1 / 27 ] Generating dependency tree for version 0.10.2.2 [00m 02s] ok
+		🏃 [ 2 / 27 ] Generating dependency tree for version 0.11.0.3 [00m 00s]		🏃 [ 2 / 27 ] Generating dependency tree for version 0.11.0.3 [00m 01s] ok
+		🏃 [ 3 / 27 ] Generating dependency tree for version 1.0.2 [00m 00s]		🏃 [ 3 / 27 ] Generating dependency tree for version 1.0.2 [00m 01s] ok
+		🏃 [ 4 / 27 ] Generating dependency tree for version 1.1.1 [00m 00s]		🏃 [ 4 / 27 ] Generating dependency tree for version 1.1.1 [00m 01s] ok
+		🏃 [ 5 / 27 ] Generating dependency tree for version 2.0.1 [00m 00s]		🏃 [ 5 / 27 ] Generating dependency tree for version 2.0.1 [00m 01s] ok
+		🏃 [ 6 / 27 ] Generating dependency tree for version 2.1.1 [00m 00s]		🏃 [ 6 / 27 ] Generating dependency tree for version 2.1.1 [00m 01s] ok
+		🏃 [ 7 / 27 ] Generating dependency tree for version 2.2.2 [00m 00s]		🏃 [ 7 / 27 ] Generating dependency tree for version 2.2.2 [00m 01s] ok
+		🏃 [ 8 / 27 ] Generating dependency tree for version 2.3.1 [00m 00s]		🏃 [ 8 / 27 ] Generating dependency tree for version 2.3.1 [00m 01s] ok
+		🏃 [ 9 / 27 ] Generating dependency tree for version 2.4.1 [00m 00s]		🏃 [ 9 / 27 ] Generating dependency tree for version 2.4.1 [00m 01s] ok
+		🏃 [ 10 / 27 ] Generating dependency tree for version 2.5.1 [00m 00s]		🏃 [ 10 / 27 ] Generating dependency tree for version 2.5.1 [00m 01s] ok
+		🏃 [ 11 / 27 ] Generating dependency tree for version 2.6.3 [00m 00s]		🏃 [ 11 / 27 ] Generating dependency tree for version 2.6.3 [00m 01s] ok
+		🏃 [ 12 / 27 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 12 / 27 ] Generating dependency tree for version 2.7.2 [00m 01s] ok
+		🏃 [ 13 / 27 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 13 / 27 ] Generating dependency tree for version 2.8.2 [00m 01s] ok
+		🏃 [ 14 / 27 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 14 / 27 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 15 / 27 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 15 / 27 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 16 / 27 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 16 / 27 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 17 / 27 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 17 / 27 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 18 / 27 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 18 / 27 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 19 / 27 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 19 / 27 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 20 / 27 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 20 / 27 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 21 / 27 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 21 / 27 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 22 / 27 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 22 / 27 ] Generating dependency tree for version 3.8.1 [00m 01s] ok
+		🏃 [ 23 / 27 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 23 / 27 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 24 / 27 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 24 / 27 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 25 / 27 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 25 / 27 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 26 / 27 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 26 / 27 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 27 / 27 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 27 / 27 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-streams/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:09 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:09 ..
+-rw-r--r--  1 dcaron  wheel  7573 Aug 11 14:09 .json
+=== kafka-streams-test-utils ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-streams-test-utils [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-streams-test-utils [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-streams-test-utils [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 24 minor versions.
+
+		🏃 [ 1 / 24 ] Generating dependency tree for version 1.1.1 [00m 00s]		🏃 [ 1 / 24 ] Generating dependency tree for version 1.1.1 [00m 01s]		🏃 [ 1 / 24 ] Generating dependency tree for version 1.1.1 [00m 02s]		🏃 [ 1 / 24 ] Generating dependency tree for version 1.1.1 [00m 03s] ok
+		🏃 [ 2 / 24 ] Generating dependency tree for version 2.0.1 [00m 00s]		🏃 [ 2 / 24 ] Generating dependency tree for version 2.0.1 [00m 01s]		🏃 [ 2 / 24 ] Generating dependency tree for version 2.0.1 [00m 02s]		🏃 [ 2 / 24 ] Generating dependency tree for version 2.0.1 [00m 03s] ok
+		🏃 [ 3 / 24 ] Generating dependency tree for version 2.1.1 [00m 00s]		🏃 [ 3 / 24 ] Generating dependency tree for version 2.1.1 [00m 01s]		🏃 [ 3 / 24 ] Generating dependency tree for version 2.1.1 [00m 02s] ok
+		🏃 [ 4 / 24 ] Generating dependency tree for version 2.2.2 [00m 00s]		🏃 [ 4 / 24 ] Generating dependency tree for version 2.2.2 [00m 01s]		🏃 [ 4 / 24 ] Generating dependency tree for version 2.2.2 [00m 02s] ok
+		🏃 [ 5 / 24 ] Generating dependency tree for version 2.3.1 [00m 00s]		🏃 [ 5 / 24 ] Generating dependency tree for version 2.3.1 [00m 01s]		🏃 [ 5 / 24 ] Generating dependency tree for version 2.3.1 [00m 02s] ok
+		🏃 [ 6 / 24 ] Generating dependency tree for version 2.4.1 [00m 00s]		🏃 [ 6 / 24 ] Generating dependency tree for version 2.4.1 [00m 01s]		🏃 [ 6 / 24 ] Generating dependency tree for version 2.4.1 [00m 02s] ok
+		🏃 [ 7 / 24 ] Generating dependency tree for version 2.5.1 [00m 00s]		🏃 [ 7 / 24 ] Generating dependency tree for version 2.5.1 [00m 01s]		🏃 [ 7 / 24 ] Generating dependency tree for version 2.5.1 [00m 02s] ok
+		🏃 [ 8 / 24 ] Generating dependency tree for version 2.6.3 [00m 00s]		🏃 [ 8 / 24 ] Generating dependency tree for version 2.6.3 [00m 01s]		🏃 [ 8 / 24 ] Generating dependency tree for version 2.6.3 [00m 02s] ok
+		🏃 [ 9 / 24 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 9 / 24 ] Generating dependency tree for version 2.7.2 [00m 01s]		🏃 [ 9 / 24 ] Generating dependency tree for version 2.7.2 [00m 02s] ok
+		🏃 [ 10 / 24 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 10 / 24 ] Generating dependency tree for version 2.8.2 [00m 01s]		🏃 [ 10 / 24 ] Generating dependency tree for version 2.8.2 [00m 02s] ok
+		🏃 [ 11 / 24 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 11 / 24 ] Generating dependency tree for version 3.0.2 [00m 01s]		🏃 [ 11 / 24 ] Generating dependency tree for version 3.0.2 [00m 02s] ok
+		🏃 [ 12 / 24 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 12 / 24 ] Generating dependency tree for version 3.1.2 [00m 01s]		🏃 [ 12 / 24 ] Generating dependency tree for version 3.1.2 [00m 02s] ok
+		🏃 [ 13 / 24 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 13 / 24 ] Generating dependency tree for version 3.2.3 [00m 01s]		🏃 [ 13 / 24 ] Generating dependency tree for version 3.2.3 [00m 02s]		🏃 [ 13 / 24 ] Generating dependency tree for version 3.2.3 [00m 03s] ok
+		🏃 [ 14 / 24 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 14 / 24 ] Generating dependency tree for version 3.3.2 [00m 01s]		🏃 [ 14 / 24 ] Generating dependency tree for version 3.3.2 [00m 02s]		🏃 [ 14 / 24 ] Generating dependency tree for version 3.3.2 [00m 03s] ok
+		🏃 [ 15 / 24 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 15 / 24 ] Generating dependency tree for version 3.4.1 [00m 01s]		🏃 [ 15 / 24 ] Generating dependency tree for version 3.4.1 [00m 02s] ok
+		🏃 [ 16 / 24 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 16 / 24 ] Generating dependency tree for version 3.5.2 [00m 01s]		🏃 [ 16 / 24 ] Generating dependency tree for version 3.5.2 [00m 02s] ok
+		🏃 [ 17 / 24 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 17 / 24 ] Generating dependency tree for version 3.6.2 [00m 01s]		🏃 [ 17 / 24 ] Generating dependency tree for version 3.6.2 [00m 02s] ok
+		🏃 [ 18 / 24 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 18 / 24 ] Generating dependency tree for version 3.7.2 [00m 01s]		🏃 [ 18 / 24 ] Generating dependency tree for version 3.7.2 [00m 02s] ok
+		🏃 [ 19 / 24 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 19 / 24 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 19 / 24 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 20 / 24 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 20 / 24 ] Generating dependency tree for version 3.9.2 [00m 01s]		🏃 [ 20 / 24 ] Generating dependency tree for version 3.9.2 [00m 02s] ok
+		🏃 [ 21 / 24 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 21 / 24 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 21 / 24 ] Generating dependency tree for version 4.0.2 [00m 02s] ok
+		🏃 [ 22 / 24 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 22 / 24 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 22 / 24 ] Generating dependency tree for version 4.1.2 [00m 02s] ok
+		🏃 [ 23 / 24 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 23 / 24 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 23 / 24 ] Generating dependency tree for version 4.2.1 [00m 02s] ok
+		🏃 [ 24 / 24 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 24 / 24 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 24 / 24 ] Generating dependency tree for version 4.3.1 [00m 02s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-streams-test-utils/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:10 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:10 ..
+-rw-r--r--  1 dcaron  wheel  6865 Aug 11 14:10 .json
+=== connect-api ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:connect-api [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:connect-api [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:connect-api [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 28 minor versions.
+
+		🏃 [ 1 / 28 ] Generating dependency tree for version 0.10.2.2 [00m 00s]		🏃 [ 1 / 28 ] Generating dependency tree for version 0.10.2.2 [00m 01s] ok
+		🏃 [ 2 / 28 ] Generating dependency tree for version 0.11.0.3 [00m 00s]		🏃 [ 2 / 28 ] Generating dependency tree for version 0.11.0.3 [00m 01s] ok
+		🏃 [ 3 / 28 ] Generating dependency tree for version 0.9.0.1 [00m 00s]		🏃 [ 3 / 28 ] Generating dependency tree for version 0.9.0.1 [00m 01s]		🏃 [ 3 / 28 ] Generating dependency tree for version 0.9.0.1 [00m 02s] ok
+		🏃 [ 4 / 28 ] Generating dependency tree for version 1.0.2 [00m 00s]		🏃 [ 4 / 28 ] Generating dependency tree for version 1.0.2 [00m 01s] ok
+		🏃 [ 5 / 28 ] Generating dependency tree for version 1.1.1 [00m 00s]		🏃 [ 5 / 28 ] Generating dependency tree for version 1.1.1 [00m 01s] ok
+		🏃 [ 6 / 28 ] Generating dependency tree for version 2.0.1 [00m 00s]		🏃 [ 6 / 28 ] Generating dependency tree for version 2.0.1 [00m 01s] ok
+		🏃 [ 7 / 28 ] Generating dependency tree for version 2.1.1 [00m 00s]		🏃 [ 7 / 28 ] Generating dependency tree for version 2.1.1 [00m 01s]		🏃 [ 7 / 28 ] Generating dependency tree for version 2.1.1 [00m 02s] ok
+		🏃 [ 8 / 28 ] Generating dependency tree for version 2.2.2 [00m 00s]		🏃 [ 8 / 28 ] Generating dependency tree for version 2.2.2 [00m 01s] ok
+		🏃 [ 9 / 28 ] Generating dependency tree for version 2.3.1 [00m 00s]		🏃 [ 9 / 28 ] Generating dependency tree for version 2.3.1 [00m 01s] ok
+		🏃 [ 10 / 28 ] Generating dependency tree for version 2.4.1 [00m 00s]		🏃 [ 10 / 28 ] Generating dependency tree for version 2.4.1 [00m 01s] ok
+		🏃 [ 11 / 28 ] Generating dependency tree for version 2.5.1 [00m 00s]		🏃 [ 11 / 28 ] Generating dependency tree for version 2.5.1 [00m 01s] ok
+		🏃 [ 12 / 28 ] Generating dependency tree for version 2.6.3 [00m 00s]		🏃 [ 12 / 28 ] Generating dependency tree for version 2.6.3 [00m 01s] ok
+		🏃 [ 13 / 28 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 13 / 28 ] Generating dependency tree for version 2.7.2 [00m 01s] ok
+		🏃 [ 14 / 28 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 14 / 28 ] Generating dependency tree for version 2.8.2 [00m 01s] ok
+		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 01s]		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 02s]		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 03s] ok
+		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 01s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 02s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 03s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 04s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 05s] ok
+		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 01s]		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 02s]		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 03s] ok
+		🏃 [ 18 / 28 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 18 / 28 ] Generating dependency tree for version 3.3.2 [00m 01s]		🏃 [ 18 / 28 ] Generating dependency tree for version 3.3.2 [00m 02s] ok
+		🏃 [ 19 / 28 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 19 / 28 ] Generating dependency tree for version 3.4.1 [00m 01s]		🏃 [ 19 / 28 ] Generating dependency tree for version 3.4.1 [00m 02s] ok
+		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 01s]		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 02s]		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 03s] ok
+		🏃 [ 21 / 28 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 21 / 28 ] Generating dependency tree for version 3.6.2 [00m 01s]		🏃 [ 21 / 28 ] Generating dependency tree for version 3.6.2 [00m 02s] ok
+		🏃 [ 22 / 28 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 22 / 28 ] Generating dependency tree for version 3.7.2 [00m 01s]		🏃 [ 22 / 28 ] Generating dependency tree for version 3.7.2 [00m 02s] ok
+		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 01s]		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 02s]		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 03s] ok
+		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 02s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 03s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 04s] ok
+		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 02s] ok
+		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 02s] ok
+		🏃 [ 28 / 28 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 28 / 28 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 28 / 28 ] Generating dependency tree for version 4.3.1 [00m 02s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/connect-api/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:12 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:12 ..
+-rw-r--r--  1 dcaron  wheel  6236 Aug 11 14:12 .json
+=== connect-json ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:connect-json [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:connect-json [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:connect-json [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 28 minor versions.
+
+		🏃 [ 1 / 28 ] Generating dependency tree for version 0.10.2.2 [00m 00s]		🏃 [ 1 / 28 ] Generating dependency tree for version 0.10.2.2 [00m 01s] ok
+		🏃 [ 2 / 28 ] Generating dependency tree for version 0.11.0.3 [00m 00s]		🏃 [ 2 / 28 ] Generating dependency tree for version 0.11.0.3 [00m 01s] ok
+		🏃 [ 3 / 28 ] Generating dependency tree for version 0.9.0.1 [00m 00s]		🏃 [ 3 / 28 ] Generating dependency tree for version 0.9.0.1 [00m 01s]		🏃 [ 3 / 28 ] Generating dependency tree for version 0.9.0.1 [00m 02s] ok
+		🏃 [ 4 / 28 ] Generating dependency tree for version 1.0.2 [00m 00s]		🏃 [ 4 / 28 ] Generating dependency tree for version 1.0.2 [00m 01s] ok
+		🏃 [ 5 / 28 ] Generating dependency tree for version 1.1.1 [00m 00s]		🏃 [ 5 / 28 ] Generating dependency tree for version 1.1.1 [00m 01s] ok
+		🏃 [ 6 / 28 ] Generating dependency tree for version 2.0.1 [00m 00s]		🏃 [ 6 / 28 ] Generating dependency tree for version 2.0.1 [00m 01s] ok
+		🏃 [ 7 / 28 ] Generating dependency tree for version 2.1.1 [00m 00s]		🏃 [ 7 / 28 ] Generating dependency tree for version 2.1.1 [00m 01s] ok
+		🏃 [ 8 / 28 ] Generating dependency tree for version 2.2.2 [00m 00s]		🏃 [ 8 / 28 ] Generating dependency tree for version 2.2.2 [00m 01s] ok
+		🏃 [ 9 / 28 ] Generating dependency tree for version 2.3.1 [00m 00s]		🏃 [ 9 / 28 ] Generating dependency tree for version 2.3.1 [00m 01s] ok
+		🏃 [ 10 / 28 ] Generating dependency tree for version 2.4.1 [00m 00s]		🏃 [ 10 / 28 ] Generating dependency tree for version 2.4.1 [00m 01s] ok
+		🏃 [ 11 / 28 ] Generating dependency tree for version 2.5.1 [00m 00s]		🏃 [ 11 / 28 ] Generating dependency tree for version 2.5.1 [00m 01s] ok
+		🏃 [ 12 / 28 ] Generating dependency tree for version 2.6.3 [00m 00s]		🏃 [ 12 / 28 ] Generating dependency tree for version 2.6.3 [00m 01s] ok
+		🏃 [ 13 / 28 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 13 / 28 ] Generating dependency tree for version 2.7.2 [00m 01s] ok
+		🏃 [ 14 / 28 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 14 / 28 ] Generating dependency tree for version 2.8.2 [00m 01s] ok
+		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 01s]		🏃 [ 15 / 28 ] Generating dependency tree for version 3.0.2 [00m 02s] ok
+		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 01s]		🏃 [ 16 / 28 ] Generating dependency tree for version 3.1.2 [00m 02s] ok
+		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 01s]		🏃 [ 17 / 28 ] Generating dependency tree for version 3.2.3 [00m 02s] ok
+		🏃 [ 18 / 28 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 18 / 28 ] Generating dependency tree for version 3.3.2 [00m 01s]		🏃 [ 18 / 28 ] Generating dependency tree for version 3.3.2 [00m 02s] ok
+		🏃 [ 19 / 28 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 19 / 28 ] Generating dependency tree for version 3.4.1 [00m 01s]		🏃 [ 19 / 28 ] Generating dependency tree for version 3.4.1 [00m 02s] ok
+		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 01s]		🏃 [ 20 / 28 ] Generating dependency tree for version 3.5.2 [00m 02s] ok
+		🏃 [ 21 / 28 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 21 / 28 ] Generating dependency tree for version 3.6.2 [00m 01s]		🏃 [ 21 / 28 ] Generating dependency tree for version 3.6.2 [00m 02s] ok
+		🏃 [ 22 / 28 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 22 / 28 ] Generating dependency tree for version 3.7.2 [00m 01s]		🏃 [ 22 / 28 ] Generating dependency tree for version 3.7.2 [00m 02s] ok
+		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 02s]		🏃 [ 23 / 28 ] Generating dependency tree for version 3.8.1 [00m 03s] ok
+		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 01s]		🏃 [ 24 / 28 ] Generating dependency tree for version 3.9.2 [00m 02s] ok
+		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 02s]		🏃 [ 25 / 28 ] Generating dependency tree for version 4.0.2 [00m 03s] ok
+		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 02s]		🏃 [ 26 / 28 ] Generating dependency tree for version 4.1.2 [00m 03s] ok
+		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 02s]		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 03s]		🏃 [ 27 / 28 ] Generating dependency tree for version 4.2.1 [00m 04s] ok
+		🏃 [ 28 / 28 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 28 / 28 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 28 / 28 ] Generating dependency tree for version 4.3.1 [00m 02s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/connect-json/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:13 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:13 ..
+-rw-r--r--  1 dcaron  wheel  7326 Aug 11 14:13 .json
+=== kafka-group-coordinator ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator [00m 02s] ok
+
+		⚠️ 2 repositories could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 10 minor versions.
+
+		🏃 [ 1 / 10 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 1 / 10 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 2 / 10 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 2 / 10 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 3 / 10 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 3 / 10 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 4 / 10 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 4 / 10 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 5 / 10 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 5 / 10 ] Generating dependency tree for version 3.8.1 [00m 01s] ok
+		🏃 [ 6 / 10 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 6 / 10 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 7 / 10 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 7 / 10 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 7 / 10 ] Generating dependency tree for version 4.0.2 [00m 02s] ok
+		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 02s]		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 03s] ok
+		🏃 [ 9 / 10 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 9 / 10 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 9 / 10 ] Generating dependency tree for version 4.2.1 [00m 02s] ok
+		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 02s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-group-coordinator/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:13 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:13 ..
+-rw-r--r--  1 dcaron  wheel  2644 Aug 11 14:13 kafka.json
+=== kafka-group-coordinator-api ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator-api [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator-api [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator-api [00m 02s] ok
+
+		⚠️ 2 repositories could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 6 minor versions.
+
+		🏃 [ 1 / 6 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 1 / 6 ] Generating dependency tree for version 3.8.1 [00m 01s] ok
+		🏃 [ 2 / 6 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 2 / 6 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 3 / 6 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 3 / 6 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 4 / 6 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 4 / 6 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 5 / 6 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 5 / 6 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 6 / 6 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 6 / 6 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-group-coordinator-api/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:14 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:14 ..
+-rw-r--r--  1 dcaron  wheel  1409 Aug 11 14:14 kafka.json
+=== kafka-metadata ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-metadata [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-metadata [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-metadata [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 15 minor versions.
+
+		🏃 [ 1 / 15 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 1 / 15 ] Generating dependency tree for version 2.8.2 [00m 01s] ok
+		🏃 [ 2 / 15 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 2 / 15 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 3 / 15 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 3 / 15 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 4 / 15 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 4 / 15 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 5 / 15 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 5 / 15 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 6 / 15 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 6 / 15 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 7 / 15 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 7 / 15 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 8 / 15 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 8 / 15 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 9 / 15 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 9 / 15 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 10 / 15 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 10 / 15 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 10 / 15 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 11 / 15 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 11 / 15 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 12 / 15 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 12 / 15 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 13 / 15 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 13 / 15 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 14 / 15 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 14 / 15 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 15 / 15 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 15 / 15 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-metadata/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:14 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:14 ..
+-rw-r--r--  1 dcaron  wheel  3889 Aug 11 14:14 kafka.json
+=== kafka-raft ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-raft [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-raft [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-raft [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 16 minor versions.
+
+		🏃 [ 1 / 16 ] Generating dependency tree for version 2.7.2 [00m 00s]		🏃 [ 1 / 16 ] Generating dependency tree for version 2.7.2 [00m 01s] ok
+		🏃 [ 2 / 16 ] Generating dependency tree for version 2.8.2 [00m 00s]		🏃 [ 2 / 16 ] Generating dependency tree for version 2.8.2 [00m 01s] ok
+		🏃 [ 3 / 16 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 3 / 16 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 4 / 16 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 4 / 16 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 5 / 16 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 5 / 16 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 6 / 16 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 6 / 16 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 7 / 16 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 7 / 16 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 8 / 16 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 8 / 16 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 9 / 16 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 9 / 16 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 10 / 16 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 10 / 16 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 11 / 16 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 11 / 16 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 11 / 16 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 12 / 16 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 12 / 16 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 13 / 16 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 13 / 16 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 14 / 16 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 14 / 16 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 15 / 16 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 15 / 16 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 16 / 16 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 16 / 16 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-raft/.advisor/mappings
+exit=0
+total 16
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:15 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:15 ..
+-rw-r--r--  1 dcaron  wheel  4136 Aug 11 14:15 kafka.json
+=== kafka-server ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-server [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-server [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-server [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 7 minor versions.
+
+		🏃 [ 1 / 7 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 1 / 7 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 2 / 7 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 2 / 7 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 2 / 7 ] Generating dependency tree for version 3.8.1 [00m 02s]		🏃 [ 2 / 7 ] Generating dependency tree for version 3.8.1 [00m 03s] ok
+		🏃 [ 3 / 7 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 3 / 7 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 4 / 7 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 4 / 7 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 4 / 7 ] Generating dependency tree for version 4.0.2 [00m 02s] ok
+		🏃 [ 5 / 7 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 5 / 7 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 5 / 7 ] Generating dependency tree for version 4.1.2 [00m 02s]		🏃 [ 5 / 7 ] Generating dependency tree for version 4.1.2 [00m 03s] ok
+		🏃 [ 6 / 7 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 6 / 7 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 6 / 7 ] Generating dependency tree for version 4.2.1 [00m 02s]		🏃 [ 6 / 7 ] Generating dependency tree for version 4.2.1 [00m 03s] ok
+		🏃 [ 7 / 7 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 7 / 7 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 7 / 7 ] Generating dependency tree for version 4.3.1 [00m 02s]		🏃 [ 7 / 7 ] Generating dependency tree for version 4.3.1 [00m 03s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-server/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:15 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:15 ..
+-rw-r--r--  1 dcaron  wheel  1919 Aug 11 14:15 kafka.json
+=== kafka-server-common ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-server-common [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-server-common [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-server-common [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 14 minor versions.
+
+		🏃 [ 1 / 14 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 1 / 14 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 2 / 14 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 2 / 14 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 3 / 14 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 3 / 14 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 4 / 14 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 4 / 14 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 5 / 14 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 5 / 14 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 6 / 14 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 6 / 14 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 7 / 14 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 7 / 14 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 8 / 14 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 8 / 14 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 10 / 14 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 10 / 14 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 11 / 14 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 11 / 14 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 12 / 14 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 12 / 14 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 13 / 14 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 13 / 14 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 14 / 14 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 14 / 14 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-server-common/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:16 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:16 ..
+-rw-r--r--  1 dcaron  wheel  3409 Aug 11 14:16 kafka.json
+=== kafka-storage ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-storage [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-storage [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-storage [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 14 minor versions.
+
+		🏃 [ 1 / 14 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 1 / 14 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 2 / 14 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 2 / 14 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 3 / 14 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 3 / 14 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 4 / 14 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 4 / 14 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 5 / 14 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 5 / 14 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 6 / 14 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 6 / 14 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 7 / 14 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 7 / 14 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 8 / 14 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 8 / 14 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 10 / 14 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 10 / 14 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 11 / 14 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 11 / 14 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 12 / 14 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 12 / 14 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 13 / 14 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 13 / 14 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 14 / 14 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 14 / 14 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-storage/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:16 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:16 ..
+-rw-r--r--  1 dcaron  wheel  3715 Aug 11 14:16 kafka.json
+=== kafka-storage-api ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-storage-api [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-storage-api [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-storage-api [00m 02s] ok
+
+		⚠️ 1 repository could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 14 minor versions.
+
+		🏃 [ 1 / 14 ] Generating dependency tree for version 3.0.2 [00m 00s]		🏃 [ 1 / 14 ] Generating dependency tree for version 3.0.2 [00m 01s] ok
+		🏃 [ 2 / 14 ] Generating dependency tree for version 3.1.2 [00m 00s]		🏃 [ 2 / 14 ] Generating dependency tree for version 3.1.2 [00m 01s] ok
+		🏃 [ 3 / 14 ] Generating dependency tree for version 3.2.3 [00m 00s]		🏃 [ 3 / 14 ] Generating dependency tree for version 3.2.3 [00m 01s] ok
+		🏃 [ 4 / 14 ] Generating dependency tree for version 3.3.2 [00m 00s]		🏃 [ 4 / 14 ] Generating dependency tree for version 3.3.2 [00m 01s] ok
+		🏃 [ 5 / 14 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 5 / 14 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 6 / 14 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 6 / 14 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 7 / 14 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 7 / 14 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 8 / 14 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 8 / 14 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 9 / 14 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 10 / 14 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 10 / 14 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 11 / 14 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 11 / 14 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 12 / 14 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 12 / 14 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 13 / 14 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 13 / 14 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 14 / 14 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 14 / 14 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-storage-api/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:17 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:17 ..
+-rw-r--r--  1 dcaron  wheel  3407 Aug 11 14:17 kafka.json
+=== kafka-tools-api ===
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-tools-api [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-tools-api [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-tools-api [00m 02s] ok
+
+		⚠️ 2 repositories could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 9 minor versions.
+
+		🏃 [ 1 / 9 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 1 / 9 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 2 / 9 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 2 / 9 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 3 / 9 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 3 / 9 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 4 / 9 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 4 / 9 ] Generating dependency tree for version 3.8.1 [00m 01s]		🏃 [ 4 / 9 ] Generating dependency tree for version 3.8.1 [00m 02s] ok
+		🏃 [ 5 / 9 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 5 / 9 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 6 / 9 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 6 / 9 ] Generating dependency tree for version 4.0.2 [00m 01s] ok
+		🏃 [ 7 / 9 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 7 / 9 ] Generating dependency tree for version 4.1.2 [00m 01s] ok
+		🏃 [ 8 / 9 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 8 / 9 ] Generating dependency tree for version 4.2.1 [00m 01s] ok
+		🏃 [ 9 / 9 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 9 / 9 ] Generating dependency tree for version 4.3.1 [00m 01s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/e8e110f7-f3d8-4033-9b1f-871dc5b2983b/scratchpad/mapping-create-1.6.7/runs/kafka-tools-api/.advisor/mappings
+exit=0
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:17 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 11 14:17 ..
+-rw-r--r--  1 dcaron  wheel  2033 Aug 11 14:17 kafka.json
+DONE
