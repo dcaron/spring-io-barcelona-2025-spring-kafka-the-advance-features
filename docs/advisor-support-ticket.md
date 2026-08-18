@@ -10,7 +10,7 @@
 ## Summary
 
 Upgrading an ordinary multi-module Spring Boot **3.4.5** Spring-Kafka application with Application
-Advisor **1.6.5** cannot complete. After curated custom mappings unblock the Kafka/Confluent
+Advisor **1.6.5** (re-verified on **1.6.7**) cannot complete. After curated custom mappings unblock the Kafka/Confluent
 dependency families (so `upgrade-plan get` produces a full 21-project plan including
 `spring-boot 3.4.x → 4.1.x`), **no file-changing upgrade can be applied** because of two defects:
 
@@ -27,13 +27,15 @@ generates cannot be composed into a working plan (Defect 3).
 ## Severity / impact
 
 High. For any project that reaches a real apply through this recipe path, the automated upgrade
-**cannot produce source changes**. Both walls are in Advisor; neither is user-workaroundable.
+**cannot produce source changes** (Defects 1–2). All three walls are in Advisor; Defects 1–2 are
+not user-workaroundable at all, and Defect 3 can only be worked around by hand-curating a single
+consolidated family mapping in place of Advisor's own generated ones.
 
 ## Environment
 
 | | |
 |---|---|
-| Application Advisor | **1.6.5**; both defects **re-verified on 1.6.7** (2026-08-10, valid subscription token) |
+| Application Advisor | **1.6.5**; Defects 1–2 **re-verified on 1.6.7** (2026-08-10, valid subscription token); Defect 3 observed on **1.6.7** (2026-08-11) |
 | Java | 21 |
 | Build | Maven wrapper `mvnw` 3.9.9 |
 | Project | Spring Boot 3.4.5, multi-module, `spring-kafka` (BOM-managed), `io.confluent:*` 7.9.1 |
@@ -46,7 +48,9 @@ High. For any project that reaches a real apply through this recipe path, the au
 reproduces identically with the **newer 1.7.5 recipe set** — `MainAdvisorRecipe →
 AnyOfScanningRecipes` still fails with *"Recipe class not found:
 org.openrewrite.java.dependencies.search.ModuleHasDependency"* — i.e. the missing
-`rewrite-java-dependencies` dependency survived a recipe release.
+`rewrite-java-dependencies` dependency survived a recipe release. Defect 3 is **1.6.7-specific**:
+on 1.6.5 the same wiring failed earlier and harder, as a `build-config get` abort
+(`RaiseErrorOnDuplicatesCoordinatesMerger`).
 
 Subscription auth is **working** (commercial recipes download fine); this is not a 401/credentials
 issue.

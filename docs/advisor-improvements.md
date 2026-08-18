@@ -1,8 +1,8 @@
 # Spring Application Advisor — improvement recommendations
 
 **Audience:** Broadcom / Tanzu Application Advisor engineering & product
-**Advisor version tested:** 1.6.4 (re-verified on 1.6.5; re-verified on **1.6.7** on 2026-08-10 —
-see §1c for exactly what improved and what didn't)
+**Advisor version tested:** 1.6.4 (re-verified on 1.6.5; re-verified on **1.6.7** on
+2026-08-10/11 — see §1c for exactly what improved and what didn't)
 **Reproducible test case:** this repository (Spring I/O Barcelona 2025 — Spring for Apache Kafka)
 **Related artifacts in this repo:** [`advisor.md`](../advisor.md) (the manual attempt),
 [`advisor-upgrade.sh`](../advisor-upgrade.sh) (a self-healing driver that works around every
@@ -100,7 +100,7 @@ them.
 
 ---
 
-## 1c. Re-check on Advisor 1.6.7 (2026-08-10) — current status overview
+## 1c. Re-check on Advisor 1.6.7 (2026-08-10/11) — current status overview
 
 Every issue below was re-tested behaviorally on **1.6.7** (valid subscription token, throwaway
 branches, same project). 1.6.7 ships a refreshed stack — commercial recipes **1.7.2 → 1.7.5**,
@@ -113,7 +113,7 @@ and `rewrite-testing-frameworks`) — and several real robustness fixes landed. 
 | Issue | 1.6.5 behavior | 1.6.7 behavior |
 |---|---|---|
 | §3 duplicate-mapping hard abort | Two mappings sharing a slug/coordinate → `RaiseErrorOnDuplicatesCoordinatesMerger: "Some projects were already defined: [kafka]"` | **Half-fixed — tolerance is `build-config`-only** (verified 2026-08-11). Two mappings sharing a slug now load for `build-config get`, but `upgrade-plan get` still fails its *"Validating syntax of upgrade mappings"* step on the **second** same-slug mapping: *"Failed to load an additional upgrade mapping from '…': Failed to load the mapping source."* (Names the file — better than the 1.6.5 abort — but the reason is generic, and there is still no union merge.) Cross-slug overlap on the same *coordinate* is tolerated end-to-end. Net effect: at most one mapping per slug can be wired, so `mapping create` output (3 slugs across 15 runs) still cannot replace the curated `apache-kafka.json` — best legal combination covers 8/15 coordinates; the other 7 modules return to the blocked list. Full experiment + generated files: [`.advisor/mappings-generated-1.6.7/README.md`](../.advisor/mappings-generated-1.6.7/README.md). |
-| §3 per-artifact fragmentation (partial) | `mapping create` for an internal Kafka module produced a colliding single-purpose mapping | Now emits a **partially grouped** mapping: slug `kafka`, coordinates `[kafka-clients, kafka-group-coordinator, kafka-server-common]`. Still far from the full ~15-module train, but sibling grouping has started |
+| §3 per-artifact fragmentation (partial) | `mapping create` for an internal Kafka module produced a colliding single-purpose mapping | Now emits a **partially grouped** mapping: slug `kafka`, coordinates `[kafka-clients, kafka-group-coordinator, kafka-server-common]`, and `kafka-clients` itself now gets its own slug `kafka-clients` (no longer colliding with the `kafka` family slug). Still far from the full 15-coordinate train, but sibling grouping has started |
 | §4.3 empty mapping poisons every command | A single empty/invalid custom mapping aborted `build-config`/`upgrade-plan` | A wired `{}` mapping is now **tolerated** — `build-config get` succeeds. Half-fixed: the skip is **silent** (no warning naming the file) |
 | §4.2 stdin consumption | `mapping create` consumed stdin, breaking `while read` loops | Piped stdin now survives a `mapping create` invocation (verified on the fast-fail path) — appears fixed |
 | Credential errors (related §2D/§4.8) | Bare *"No versions found"* / buried 401 | With an expired token, `mapping create` now says: *"One or more repositories denied access (HTTP 401/403). Check the credentials in ~/.m2/settings.xml."* — a genuinely actionable message |
@@ -265,6 +265,11 @@ Caused by: java.lang.IllegalArgumentException: Some projects were already define
   at ...RaiseErrorOnDuplicatesCoordinatesMerger.merge(...)
 ```
 
+*(1.6.4/1.6.5 behavior. On 1.6.7 the wall moved rather than fell: `build-config get` now
+tolerates the duplicate, but `upgrade-plan get` rejects the second same-slug mapping with a
+generic *"Failed to load the mapping source"* — see §1c and
+[`.advisor/mappings-generated-1.6.7/README.md`](../.advisor/mappings-generated-1.6.7/README.md).)*
+
 ### Root cause
 
 These modules are **not independent projects** — they are one Apache Kafka release train and
@@ -276,7 +281,8 @@ version in **lockstep** with `kafka-clients`. But Advisor:
    (`RaiseErrorOnDuplicatesCoordinatesMerger`).
 
 So the very mappings Advisor tells the user to create cannot coexist. This is unsolvable by hand
-without collapsing all ~13 modules into a single, carefully de-duplicated mapping — exactly the
+without collapsing the whole family — 15 coordinates in the curated mapping, ~13 of which appear
+on the blocked list — into a single, carefully de-duplicated mapping — exactly the
 work `advisor.md` declines: *"I don't want to take care of all the mappings for the transitive
 dependencies."*
 
@@ -329,7 +335,8 @@ That has two sharp edges:
 - A slug can **collide with an existing file** and silently overwrite it — e.g.
   `mapping create -c=org.apache.kafka:kafka-group-coordinator` has slug `kafka`, so it writes a
   `kafka`-slug file that clobbers a committed same-slug mapping (and yields a second `kafka`
-  project that then conflicts with the curated `apache-kafka.json` on load).
+  project that then conflicts with the curated `apache-kafka.json` — on 1.6.5 at
+  `build-config get`, on 1.6.7 at `upgrade-plan get`; see §1c).
 
 Add `-o/--output PATH` (and/or print the mapping to stdout) so callers control the destination
 and nothing is clobbered.
@@ -556,6 +563,9 @@ export SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/kafka-group-co
 advisor build-config get
 #   → IllegalArgumentException: Some projects were already defined: [kafka]
 #     (RaiseErrorOnDuplicatesCoordinatesMerger)
+#   On 1.6.7 this build-config step succeeds; the rejection moved to `upgrade-plan get`
+#   ("Failed to load an additional upgrade mapping … Failed to load the mapping source"), which
+#   still fails on the second same-slug mapping — see §1c.
 
 # 3. Empty custom mapping poisons every later call
 #   → ControlledException: One of the custom mappings provided is empty
