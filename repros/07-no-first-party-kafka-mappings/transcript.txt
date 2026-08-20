@@ -1,0 +1,268 @@
+=== upgrade-plan get, NO custom mappings wired ===
+    (EXPECT: blocked list naming org.apache.kafka:* internals and io.confluent:*)
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s]🏃 [ 1 / 6 ] Resolving build tool version [00m 02s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 04s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 05s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 06s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 07s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 08s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s]🏃 [ 3 / 6 ] Resolving JDK version [00m 04s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/07-no-first-party-kafka-mappings or its parent.
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/07-no-first-party-kafka-mappings/target/.advisor/build-config.json
+
+🏃 Fetching and processing upgrade plan details [00m 00s]🏃 Fetching and processing upgrade plan details [00m 01s] ok
+
+The projects ["apache-commons-compress", "apache-commons-lang", "jackson-annotations", "jackson", "spring-boot", "spring-framework", "micrometer", "junit", "junit-platform", "spring-kafka", "spring-retry", "apache-commons-collections"] could not be included in the Upgrade Plan because they are used as transitive dependencies for other projects, and no upgrades are configured for them.
+Please request your administrator to configure the projects of the following dependencies:
+
+	- io.confluent:kafka-schema-serializer
+		uses:
+			- apache-commons-compress
+			- apache-commons-lang
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- apache-commons-compress
+			- spring-boot
+			- spring-framework
+			- micrometer
+			- junit
+			- junit-platform
+			- spring-kafka
+			- spring-retry
+			- jackson
+			- apache-commons-collections
+	- org.apache.kafka:kafka-storage-api
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- org.apache.kafka:kafka-server-common
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- org.apache.avro:avro
+		uses:
+			- apache-commons-compress
+			- apache-commons-lang
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- apache-commons-compress
+			- spring-boot
+			- spring-framework
+			- micrometer
+			- junit
+			- junit-platform
+			- spring-kafka
+			- spring-retry
+			- jackson
+			- apache-commons-collections
+	- org.apache.kafka:kafka-streams
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- org.apache.kafka:kafka-server
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- io.confluent:kafka-schema-registry-client
+		uses:
+			- apache-commons-compress
+			- apache-commons-lang
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- apache-commons-compress
+			- spring-boot
+			- spring-framework
+			- micrometer
+			- junit
+			- junit-platform
+			- spring-kafka
+			- spring-retry
+			- jackson
+			- apache-commons-collections
+	- commons-beanutils:commons-beanutils
+		uses:
+			- apache-commons-collections
+		blocking upgrades for:
+			- spring-kafka
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- jackson-annotations
+			- jackson
+			- apache-commons-lang
+	- io.confluent:kafka-avro-serializer
+		uses:
+			- apache-commons-compress
+			- apache-commons-lang
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- apache-commons-compress
+			- spring-boot
+			- spring-framework
+			- micrometer
+			- junit
+			- junit-platform
+			- spring-kafka
+			- spring-retry
+			- jackson
+			- apache-commons-collections
+	- org.apache.kafka:kafka-metadata
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- org.apache.kafka:kafka-raft
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- commons-validator:commons-validator
+		uses:
+			- apache-commons-collections
+		blocking upgrades for:
+			- spring-kafka
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- jackson-annotations
+			- jackson
+			- apache-commons-lang
+	- org.apache.kafka:kafka-streams-test-utils
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- org.apache.kafka:kafka_2.13
+		uses:
+			- jackson-annotations
+			- jackson
+			- apache-commons-collections
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-lang
+	- org.apache.kafka:kafka-storage
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+	- org.apache.kafka:kafka-group-coordinator
+		uses:
+			- jackson-annotations
+			- jackson
+		blocking upgrades for:
+			- spring-kafka
+			- jackson
+			- spring-boot
+			- spring-framework
+			- spring-retry
+			- micrometer
+			- junit
+			- junit-platform
+			- apache-commons-collections
+			- apache-commons-lang
+
+In order to learn more about publishing upgrade mappings, visit https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/tanzu-spring/commercial/spring-tanzu/app-advisor-custom-upgrades.html
+
+No upgrade plans available - your project seems to be up to date.
+exit=0

@@ -1,0 +1,319 @@
+Application Advisor CLI Version: 1.6.7
+com.vmware.tanzu.spring.advisor.exceptions.MappingSourceLoadException: Failed to load mapping source '/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json': Error merging mapping source PathMappingSource{filePath=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json}
+	at com.vmware.tanzu.spring.advisor.project.MappingsLoader.buildReport(MappingsLoader.java:90)
+	at com.vmware.tanzu.spring.advisor.project.MappingsLoader.loadCustomMappings(MappingsLoader.java:53)
+	at com.vmware.tanzu.spring.advisor.project.ProjectService.loadCustomMappings(ProjectService.java:43)
+	at com.vmware.tanzu.spring.advisor.project.ProjectService.ensureCustomLoaded(ProjectService.java:59)
+	at com.vmware.tanzu.spring.advisor.project.ProjectService.findByCoordinate(ProjectService.java:108)
+	at com.vmware.tanzu.spring.advisor.cli.mapping.MappingCreateCommand.runCommand(MappingCreateCommand.java:188)
+	at com.vmware.tanzu.spring.advisor.cli.support.Command.run(Command.java:15)
+	at picocli.CommandLine.executeUserObject(CommandLine.java:2045)
+	at picocli.CommandLine.access$1500(CommandLine.java:148)
+	at picocli.CommandLine$RunLast.executeUserObjectOfLastSubcommandWithSameParent(CommandLine.java:2469)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2461)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2423)
+	at picocli.CommandLine$AbstractParseResultHandler.execute(CommandLine.java:2277)
+	at picocli.CommandLine$RunLast.execute(CommandLine.java:2425)
+	at picocli.CommandLine.execute(CommandLine.java:2174)
+	at com.vmware.tanzu.spring.advisor.cli.support.CommandLineApplicationRunner.run(CommandLineApplicationRunner.java:28)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:788)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:787)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772)
+	at java.base@25.0.1/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:186)
+	at java.base@25.0.1/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base@25.0.1/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:571)
+	at java.base@25.0.1/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base@25.0.1/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:153)
+	at java.base@25.0.1/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:176)
+	at java.base@25.0.1/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:265)
+	at java.base@25.0.1/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:632)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.vmware.tanzu.spring.advisor.cli.CommandLineApplication.main(CommandLineApplication.java:42)
+	at java.base@25.0.1/java.lang.invoke.LambdaForm$DMH/sa346b79c.invokeStaticInit(LambdaForm$DMH)
+Caused by: java.lang.RuntimeException: Error merging mapping source PathMappingSource{filePath=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json}
+	at com.vmware.tanzu.spring.advisor.project.MappingsLoader.buildReport(MappingsLoader.java:89)
+	... 36 more
+Caused by: java.lang.IllegalArgumentException: Some projects were already defined: [demo]
+	at com.vmware.tanzu.spring.advisor.project.source.merger.RaiseErrorOnDuplicatesCoordinatesMerger.mergeProjects(RaiseErrorOnDuplicatesCoordinatesMerger.java:52)
+	at com.vmware.tanzu.spring.advisor.project.source.merger.RaiseErrorOnDuplicatesCoordinatesMerger.merge(RaiseErrorOnDuplicatesCoordinatesMerger.java:25)
+	at com.vmware.tanzu.spring.advisor.project.MappingsLoader.buildReport(MappingsLoader.java:79)
+	... 36 more
+
+
+^========= [ build-config.json ] =========
+{
+  "submodules" : [ "com.example:dup-slug-repro" ],
+  "dependencyManagementArtifacts" : [ ],
+  "sbom" : {
+  "bomFormat" : "CycloneDX",
+  "specVersion" : "1.5",
+  "serialNumber" : "urn:uuid:ee34dd18-c362-3abb-abc5-ab71a2e6be5c",
+  "version" : 1,
+  "metadata" : {
+    "timestamp" : "2026-08-20T11:44:26Z",
+    "lifecycles" : [
+      {
+        "phase" : "build"
+      }
+    ],
+    "tools" : {
+      "components" : [
+        {
+          "type" : "library",
+          "author" : "OWASP Foundation",
+          "group" : "org.cyclonedx",
+          "name" : "cyclonedx-maven-plugin",
+          "version" : "2.9.3",
+          "description" : "CycloneDX Maven plugin",
+          "hashes" : [
+            {
+              "alg" : "MD5",
+              "content" : "e7c87ab327b65b23c681fc9dc8bb620b"
+            },
+            {
+              "alg" : "SHA-1",
+              "content" : "fa3f0f04f4d5077b5e085d4d09aa2e68aeba5260"
+            },
+            {
+              "alg" : "SHA-256",
+              "content" : "c452d5eebe28bc86bef2e7c72d129f04f60877bef843eac8120f01fb655be293"
+            },
+            {
+              "alg" : "SHA-512",
+              "content" : "ec0344ed2ffe62d565aaf936a37140d04c7fffa8669a666be0366cd44eec3195232d79841cdec47030b79068216ac7e1a8c805255758e3d418dae32a4b9b9beb"
+            },
+            {
+              "alg" : "SHA-384",
+              "content" : "3df26b2a00d87fe090851975ebcc30217f98634e7c47d07128e148f325ebfe3bc0790b2f52ad4591734b7b0de738f003"
+            },
+            {
+              "alg" : "SHA3-384",
+              "content" : "470c1b4962379b5b6494c75bd1475da3519bbe2543999c95f26b4021164d3d05419b0c3f704443162fe5433a204250e9"
+            },
+            {
+              "alg" : "SHA3-256",
+              "content" : "900e9c4edb18940ed3c4a4ba6946957fa613ef0d4b0c380551638f229206373c"
+            },
+            {
+              "alg" : "SHA3-512",
+              "content" : "5e36433e18ae24f7460902da27818874df5d1d73df1a97e49e7369335f7cc61ca595466a2d37789fba7eaa7f7f251b29216c3d7a78910b2ec38e2ed68ea84876"
+            }
+          ]
+        }
+      ]
+    },
+    "component" : {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/com.example/dup-slug-repro@0.0.1-SNAPSHOT?type=jar",
+      "group" : "com.example",
+      "name" : "dup-slug-repro",
+      "version" : "0.0.1-SNAPSHOT",
+      "purl" : "pkg:maven/com.example/dup-slug-repro@0.0.1-SNAPSHOT?type=jar"
+    },
+    "properties" : [
+      {
+        "name" : "maven.goal",
+        "value" : "makeAggregateBom"
+      },
+      {
+        "name" : "maven.scopes",
+        "value" : "compile,provided,runtime,system,test"
+      }
+    ]
+  },
+  "components" : [
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.commons/commons-lang3@3.12.0?type=jar",
+      "publisher" : "The Apache Software Foundation",
+      "group" : "org.apache.commons",
+      "name" : "commons-lang3",
+      "version" : "3.12.0",
+      "description" : "Apache Commons Lang, a package of Java utility classes for the classes that are in java.lang's hierarchy, or are considered to be so standard as to justify existence in java.lang.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "19fe50567358922bdad277959ea69545"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "d919d904486c037f8d193412da0c92e22a9fa24230b9d67a57855c5c31c7e94e"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "fbdbc0943cb3498b0148e86a39b773f97c8e6013740f72dbc727faeabea402073e2cc8c4d68198e5fc6b08a13b7700236292e99d4785f2c9989f2e5fac11fd81"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "c34b8a0e0eba2168ad56fedeb7a1d710b6f1d3f1ce6aae99a4e0247bd120efbbadc8dcb2f731045b8a16e3efd30604dc"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "8ad6ebe7754bf0caa8cda7e59c0e95360d76e06a7ad6aeec5637985519dbd1dd06e7eed04711039f36ec4c49de280def"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "18ef639b2aeeb5aedffb18dbf20c79f33e300d99fb31b131689639cc470e6e4c"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "fbea96114dcf4f31cfaaa99987be756ddda3a6c74f8c835461997df794d54b92da1f60fe5c3f1f2a43cb8c5f5db7f4048bef77c70993673c7a93f3660fffc8da"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.commons/commons-lang3@3.12.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://commons.apache.org/proper/commons-lang/"
+        },
+        {
+          "type" : "build-system",
+          "url" : "https://builds.apache.org/"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.apache.org/jira/browse/LANG"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/commons-user/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=commons-lang.git"
+        }
+      ]
+    },
+    {
+      "type" : "library",
+      "bom-ref" : "pkg:maven/org.apache.commons/commons-text@1.10.0?type=jar",
+      "publisher" : "The Apache Software Foundation",
+      "group" : "org.apache.commons",
+      "name" : "commons-text",
+      "version" : "1.10.0",
+      "description" : "Apache Commons Text is a library focused on algorithms working on strings.",
+      "scope" : "required",
+      "hashes" : [
+        {
+          "alg" : "MD5",
+          "content" : "4afc9bfa2d31dbf7330c98fcc954b892"
+        },
+        {
+          "alg" : "SHA-1",
+          "content" : "3363381aef8cef2dbc1023b3e3a9433b08b64e01"
+        },
+        {
+          "alg" : "SHA-256",
+          "content" : "770cd903fa7b604d1f7ef7ba17f84108667294b2b478be8ed1af3bffb4ae0018"
+        },
+        {
+          "alg" : "SHA-512",
+          "content" : "afd836a1094449e0a791fee67363666c47b6d24acff353a5089b837b332c0f4af89565c354682521e37062d20e6b52d70c77bb4f24cca9b9532c274fc708a831"
+        },
+        {
+          "alg" : "SHA-384",
+          "content" : "06c56e6e513dd77cf10d0da46cdea08c34e220e81fa024735b668c6650df4234e564fe865ff5cafea963f56b1e8ffd4a"
+        },
+        {
+          "alg" : "SHA3-384",
+          "content" : "f09065ed066c25debf8c78cbb0bcc738e1ea283302ec992dcfb649acb90091cff879465c65a162e94534d454e3b4e9bb"
+        },
+        {
+          "alg" : "SHA3-256",
+          "content" : "0b59c567164bb755f2353b78ba66744000a8c4b35e1df05255b080a21c3a3dd5"
+        },
+        {
+          "alg" : "SHA3-512",
+          "content" : "f0fbce02a862b70f472a27d0722c54ac111ca2eb94584b8b0b73d1926aec26047cd92542ad0b3cf980a6825077587f41b194aa93d6f6350d1b87e59e8df1be7c"
+        }
+      ],
+      "licenses" : [
+        {
+          "license" : {
+            "id" : "Apache-2.0"
+          }
+        }
+      ],
+      "purl" : "pkg:maven/org.apache.commons/commons-text@1.10.0?type=jar",
+      "externalReferences" : [
+        {
+          "type" : "website",
+          "url" : "https://commons.apache.org/proper/commons-text"
+        },
+        {
+          "type" : "build-system",
+          "url" : "https://github.com/apache/commons-parent/actions"
+        },
+        {
+          "type" : "distribution-intake",
+          "url" : "https://repository.apache.org/service/local/staging/deploy/maven2"
+        },
+        {
+          "type" : "issue-tracker",
+          "url" : "https://issues.apache.org/jira/browse/TEXT"
+        },
+        {
+          "type" : "mailing-list",
+          "url" : "https://mail-archives.apache.org/mod_mbox/commons-user/"
+        },
+        {
+          "type" : "vcs",
+          "url" : "https://gitbox.apache.org/repos/asf?p=commons-text.git"
+        }
+      ]
+    }
+  ],
+  "dependencies" : [
+    {
+      "ref" : "pkg:maven/com.example/dup-slug-repro@0.0.1-SNAPSHOT?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.apache.commons/commons-lang3@3.12.0?type=jar",
+        "pkg:maven/org.apache.commons/commons-text@1.10.0?type=jar"
+      ]
+    },
+    {
+      "ref" : "pkg:maven/org.apache.commons/commons-lang3@3.12.0?type=jar",
+      "dependsOn" : [ ]
+    },
+    {
+      "ref" : "pkg:maven/org.apache.commons/commons-text@1.10.0?type=jar",
+      "dependsOn" : [
+        "pkg:maven/org.apache.commons/commons-lang3@3.12.0?type=jar"
+      ]
+    }
+  ]
+},
+  "tools" : [ {
+    "name" : "mvn",
+    "version" : "3.9.16"
+  }, {
+    "name" : "java",
+    "version" : "21"
+  } ]
+}
+$========= [ build-config.json ] =========
+
+

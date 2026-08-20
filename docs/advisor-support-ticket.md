@@ -18,6 +18,11 @@ dependency families (so `upgrade-plan get` produces a full 21-project plan inclu
    advances (no files ever change).
 2. The only flag that escapes that loop — `apply --accept-no-alignment` — **fails recipe validation
    because Advisor's own recipe bundle references a recipe class it does not ship.**
+   *(Re-scoped 2026-08-20 after isolated-repro bisection: the failure triggers via the customer
+   project's own `rewrite-maven-plugin` declaration — Defect 2 below has the corrected mechanism,
+   a verified-configuration matrix, and a workaround. It remains an Advisor-side defect: the
+   recipe set relies on an unpinned `rewrite-java-dependencies` and Advisor's `-Drewrite.*`
+   configuration leaks into project plugin executions.)*
 
 A third defect (1.6.7) affects the mapping-authoring path that leads up to the plan:
 `mapping create` output for sibling modules of one family shares a slug, and **`build-config get`
@@ -26,10 +31,12 @@ generates cannot be composed into a working plan (Defect 3).
 
 ## Severity / impact
 
-High. For any project that reaches a real apply through this recipe path, the automated upgrade
-**cannot produce source changes** (Defects 1–2). All three walls are in Advisor; Defects 1–2 are
-not user-workaroundable at all, and Defect 3 can only be worked around by hand-curating a single
-consolidated family mapping in place of Advisor's own generated ones.
+High. On the default incremental path the automated upgrade **cannot produce source changes**
+(Defect 1, not user-workaroundable). The forced path fails for any project that declares its own
+`rewrite-maven-plugin` (Defect 2) — workaroundable only by removing that declaration while Advisor
+runs (verified 2026-08-20: with it removed, the full 19-project plan applies end-to-end on this
+repo). Defect 3 can only be worked around by hand-curating a single consolidated family mapping in
+place of Advisor's own generated ones. All three defects are in Advisor.
 
 ## Environment
 
@@ -81,6 +88,11 @@ reaches `spring-boot` / `spring-kafka` / `jackson`.
 `--force` and `--squash=N` do **not** help (they still apply "the first step," which resolves to the
 same no-op).
 
+**Isolated minimal reproduction (2026-08-20):** `repros/01-apply-noop-loop/` — a one-pom project
+whose only dependency is `commons-validator:1.7` (pulling `commons-beanutils:1.9.4` transitively)
+plus two mapping fixtures; three consecutive applies each select `commons-beanutils 1.9.x → 1.11.x`,
+report success, and change zero files. See `docs/reports/BUG-1-apply-noop-loop.md`.
+
 ### Expected
 
 An apply that changes no files and leaves the selected project's resolved version unchanged should be
@@ -124,13 +136,42 @@ To rule it out, we set that execution's phase to `none` and re-ran: **identical 
 attributed to Advisor's own `rewrite-maven-plugin:6.38.0:runNoFork` instead of the project's
 `6.8.0:run`. The missing class is in Advisor's recipe set, not the project.
 
+### Corrected mechanism (2026-08-20, isolated-repro bisection — supersedes the paragraph above)
+
+The failure is **triggered by the project's own `rewrite-maven-plugin` declaration**, in two ways
+(clean Boot 3.4.5 apps, single- or multi-module, upgrade to 4.1.x successfully with the same
+Advisor and recipe versions):
+
+1. **Plugin `<dependencies>` downgrade — this is why neutralizing the execution didn't help.**
+   Maven merges the pom's plugin `<dependencies>` into *any* invocation of the same plugin,
+   including Advisor's CLI-forced `6.44.0:runNoFork`. The project pins
+   `org.openrewrite.recipe:rewrite-spring:6.7.0`, which pulls
+   `rewrite-java-dependencies:1.34.0` — a version that predates
+   `org.openrewrite.java.dependencies.search.ModuleHasDependency` (class verified absent in
+   1.34.0, present in 1.54.2). Advisor never pins `rewrite-java-dependencies` in its
+   coordinates, so mediation lets the project's older version win and validation fails.
+2. **Execution hijack (multi-module).** For multi-module projects Advisor invokes
+   `mvn -B process-test-classes …:runNoFork -Drewrite.activeRecipes=com.vmware.tanzu.MainAdvisorRecipe
+   -Drewrite.configLocation=… -Drewrite.failOnInvalidActiveRecipes=true`; the lifecycle phase runs
+   the project's own phase-bound rewrite execution, which inherits those `-Drewrite.*` user
+   properties and attempts Advisor's recipe program on its own plugin version/classpath.
+
+**Workaround (verified):** remove or profile-guard the entire project `rewrite-maven-plugin`
+declaration (executions *and* `<dependencies>`) while running Advisor — on a copy of this repo the
+full 19-project `apply --accept-no-alignment` then completes with real source changes in every
+module. Minimal reproduction (parent + 1 module, ~80-line poms) and a verified-configuration
+matrix: `repros/02-missing-recipe-bundle/` and `docs/reports/BUG-2a`/`BUG-2b` in the repro repo.
+
 ### Expected
 
 `MainAdvisorRecipe` should validate and run. Fixes:
 
-- Add `rewrite-java-dependencies` (matching version) to the assembled
-  `-Drewrite.recipeArtifactCoordinates`, or stop referencing `ModuleHasDependency` from
-  `AnyOfScanningRecipes`.
+- Add `rewrite-java-dependencies` (pinned to the version the recipes are built against) to the
+  assembled `-Drewrite.recipeArtifactCoordinates` so mediation can never downgrade it, or stop
+  referencing `ModuleHasDependency` from `AnyOfScanningRecipes`.
+- Isolate Advisor's rewrite invocation from the project's own `rewrite-maven-plugin`
+  declaration (don't inherit its plugin `<dependencies>`; don't run its executions with
+  Advisor's `-Drewrite.*` overrides), or pre-flight-detect the declaration and tell the user.
 - Add a bundle smoke test (load all first-party recipes) so a self-referential
   "recipe class not found" can never ship.
 - Make the failure actionable: name the missing recipe class and the module that provides it, instead
@@ -165,6 +206,20 @@ mappings). The message names the file — an improvement over 1.6.5's
 `RaiseErrorOnDuplicatesCoordinatesMerger` hard abort — but the reason is generic, and there is no
 union merge: at most **one mapping per slug** can be wired. Overlap on the same *coordinate* across
 *different* slugs is, by contrast, tolerated by both commands.
+
+**Root cause identified (2026-08-19/20).** `mapping create` also loads the wired custom mappings,
+crashes on the same duplicate ("open a support ticket"), and its error log exposes what
+`upgrade-plan get`'s generic message hides — the 1.6.5 merger error is still the underlying cause:
+
+```
+MappingSourceLoadException: Failed to load mapping source '…': Error merging mapping source …
+Caused by: java.lang.IllegalArgumentException: Some projects were already defined: [kafka]
+```
+
+(at `MappingsLoader.buildReport`, `MappingsLoader.java:90`). So `build-config get` uses a tolerant
+load path while `upgrade-plan get` and `mapping create` share the strict one. A fully synthetic,
+Kafka-free reproduction (two 25-line same-slug fixtures, three commands, three different behaviors)
+is in the repo: `repros/03-dup-slug-inconsistent-loading/` — see also `docs/reports/BUG-3-…`.
 
 Consequence: the mappings Advisor itself generates for a module family cannot be combined. The best
 duplicate-free combination of `mapping create` output covers 8 of the 15 `org.apache.kafka:*`

@@ -1,0 +1,26 @@
+{
+  "slug": "demo",
+  "coordinates": [
+    "org.apache.commons:commons-lang3"
+  ],
+  "repositoryUrl": "",
+  "rewrite": {
+    "3.12.x": {
+      "recipes": [],
+      "nextRewrite": {
+        "version": "3.14.x"
+      },
+      "requirements": {
+        "supportedGenerations": {},
+        "excludedArtifacts": []
+      }
+    },
+    "3.14.x": {
+      "recipes": [],
+      "requirements": {
+        "supportedGenerations": {},
+        "excludedArtifacts": []
+      }
+    }
+  }
+}

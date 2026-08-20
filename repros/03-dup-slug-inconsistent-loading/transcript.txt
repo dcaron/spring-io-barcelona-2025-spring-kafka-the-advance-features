@@ -1,0 +1,34 @@
+=== 1. build-config get (EXPECT: succeeds — duplicate slug tolerated) ===
+Resolving the build configuration of /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading.
+
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 04s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading or its parent.
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/target/.advisor/build-config.json
+exit=0
+
+=== 2. upgrade-plan get (EXPECT: fails validating the SECOND same-slug mapping) ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] error
+
+💔 Errors
+- 03-dup-slug-inconsistent-loading failed with the following message:
+🔎 Failed to load an additional upgrade mapping from '/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json': Failed to load the mapping source. Please verify the source configuration.
+exit=1
+
+=== 3. mapping create for a covered coordinate (EXPECT: crash; error log has root cause) ===
+🏃 Detecting available versions: 
+
+💔 Errors
+ You can find the error in .advisor/errors/20260820-134448119.log - Please open a new support ticket in https://support.broadcom.com and attach the logs.
+exit=1
+--- root cause from .advisor/errors ---
+Caused by: java.lang.RuntimeException: Error merging mapping source PathMappingSource{filePath=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json}
+Caused by: java.lang.IllegalArgumentException: Some projects were already defined: [demo]

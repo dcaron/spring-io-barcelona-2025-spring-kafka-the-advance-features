@@ -1,0 +1,34 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.vmware.tanzu.MainAdvisorRecipe
+recipeList:
+- dynamic.1.com.vmware.tanzu.gradle.recipes.ParseMavenBuildFiles
+- dynamic.1.com.vmware.tanzu.spring.recipes.boot35.UpgradeSpringBoot_3_5
+- dynamic.2.org.openrewrite.java.dependencies.UpgradeDependencyVersion
+- dynamic.3.org.openrewrite.java.dependencies.UpgradeDependencyVersion
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: dynamic.1.com.vmware.tanzu.gradle.recipes.ParseMavenBuildFiles
+recipeList:
+- com.vmware.tanzu.gradle.recipes.ParseMavenBuildFiles
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: dynamic.1.com.vmware.tanzu.spring.recipes.boot35.UpgradeSpringBoot_3_5
+recipeList:
+- com.vmware.tanzu.spring.recipes.boot35.UpgradeSpringBoot_3_5
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: dynamic.2.org.openrewrite.java.dependencies.UpgradeDependencyVersion
+recipeList:
+- org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+    groupId: io.micrometer
+    artifactId: micrometer-commons
+    newVersion: 1.15.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: dynamic.3.org.openrewrite.java.dependencies.UpgradeDependencyVersion
+recipeList:
+- org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+    groupId: io.micrometer
+    artifactId: micrometer-observation
+    newVersion: 1.15.x

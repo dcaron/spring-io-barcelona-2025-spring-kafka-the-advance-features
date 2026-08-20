@@ -1,0 +1,14 @@
+=== control: Maven resolves the artifact using the pom's repositories ===
+mvn dependency:resolve exit=0 (EXPECT: 0)
+
+=== advisor mapping create -c=io.confluent:kafka-schema-registry-client ===
+    (EXPECT: '💔 No versions found' although the repo is declared in the pom)
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for io.confluent:kafka-schema-registry-client [00m 00s]	🏃 [ 1 / 1 ] for io.confluent:kafka-schema-registry-client [00m 01s]	🏃 [ 1 / 1 ] for io.confluent:kafka-schema-registry-client [00m 02s] ok
+
+		💔 No versions found. One or more repositories denied access (HTTP 401/403). Check the credentials in ~/.m2/settings.xml.
+
+
+💔 No mappings created. Please, check if your project or coordinate is correct and it is available in your Maven repositories.
+exit=0
+(no mapping written)

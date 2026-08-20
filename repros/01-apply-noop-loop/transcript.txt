@@ -1,0 +1,114 @@
+=== upgrade-plan get ===
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 04s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop or its parent.
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+	- commons-validator: 1.7.x (no upgrades available)
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- commons-beanutils: 1.9.x → 1.11.x
+
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade commons-beanutils from 1.9.x to 1.11.x
+
+Some upgrades were not included in the upgrade plan.
+Please, upgrade and release if needed the following projects:
+	* commons-beanutils:1.11.x
+		Last version of apache-commons-collections is 3.2.x
+
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+
+exit=0
+
+=== upgrade-plan apply — run 1 (EXPECT: same project selected, 'Successfully applied', 0 files changed) ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 10s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 11s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 12s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 14s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 15s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 16s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 17s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 18s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 19s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 20s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 21s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 22s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 23s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 24s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 25s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 26s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects to upgrade:
+	* commons-beanutils from 1.9.x to 1.11.x
+
+🔨 [ 4 / 4 ] Upgrading sources... [00m 00s]🔨 [ 4 / 4 ] Upgrading sources... [00m 01s]🔨 [ 4 / 4 ] Upgrading sources... [00m 02s]🔨 [ 4 / 4 ] Upgrading sources... [00m 03s]🔨 [ 4 / 4 ] Upgrading sources... [00m 04s]🔨 [ 4 / 4 ] Upgrading sources... [00m 05s]🔨 [ 4 / 4 ] Upgrading sources... [00m 06s]🔨 [ 4 / 4 ] Upgrading sources... [00m 07s]🔨 [ 4 / 4 ] Upgrading sources... [00m 08s]🔨 [ 4 / 4 ] Upgrading sources... [00m 09s]🔨 [ 4 / 4 ] Upgrading sources... [00m 10s]🔨 [ 4 / 4 ] Upgrading sources... [00m 11s]🔨 [ 4 / 4 ] Upgrading sources... [00m 12s]🔨 [ 4 / 4 ] Upgrading sources... [00m 13s]🔨 [ 4 / 4 ] Upgrading sources... [00m 14s]🔨 [ 4 / 4 ] Upgrading sources... [00m 15s]🔨 [ 4 / 4 ] Upgrading sources... [00m 16s] ok
+
+👍 Successfully applied upgrade.
+
+
+⚠️  Warnings:
+
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+>>> run 1 changed NO project files (checksums identical)
+
+=== upgrade-plan apply — run 2 (EXPECT: same project selected, 'Successfully applied', 0 files changed) ===
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 04s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop or its parent.
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 04s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 10s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 11s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 12s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 14s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 15s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 16s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 17s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 18s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 19s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 20s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 21s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 22s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 23s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 24s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 25s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects to upgrade:
+	* commons-beanutils from 1.9.x to 1.11.x
+
+🔨 [ 4 / 4 ] Upgrading sources... [00m 00s]🔨 [ 4 / 4 ] Upgrading sources... [00m 01s]🔨 [ 4 / 4 ] Upgrading sources... [00m 02s]🔨 [ 4 / 4 ] Upgrading sources... [00m 03s]🔨 [ 4 / 4 ] Upgrading sources... [00m 04s]🔨 [ 4 / 4 ] Upgrading sources... [00m 05s]🔨 [ 4 / 4 ] Upgrading sources... [00m 06s]🔨 [ 4 / 4 ] Upgrading sources... [00m 07s]🔨 [ 4 / 4 ] Upgrading sources... [00m 08s]🔨 [ 4 / 4 ] Upgrading sources... [00m 09s]🔨 [ 4 / 4 ] Upgrading sources... [00m 10s]🔨 [ 4 / 4 ] Upgrading sources... [00m 11s]🔨 [ 4 / 4 ] Upgrading sources... [00m 12s]🔨 [ 4 / 4 ] Upgrading sources... [00m 13s]🔨 [ 4 / 4 ] Upgrading sources... [00m 14s]🔨 [ 4 / 4 ] Upgrading sources... [00m 15s]🔨 [ 4 / 4 ] Upgrading sources... [00m 16s] ok
+
+👍 Successfully applied upgrade.
+
+
+⚠️  Warnings:
+
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+>>> run 2 changed NO project files (checksums identical)
+
+=== upgrade-plan apply — run 3 (EXPECT: same project selected, 'Successfully applied', 0 files changed) ===
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 04s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop or its parent.
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 10s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 11s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 12s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 14s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 15s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 16s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 17s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 18s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 19s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 20s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 21s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 22s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 23s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 24s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects to upgrade:
+	* commons-beanutils from 1.9.x to 1.11.x
+
+🔨 [ 4 / 4 ] Upgrading sources... [00m 00s]🔨 [ 4 / 4 ] Upgrading sources... [00m 01s]🔨 [ 4 / 4 ] Upgrading sources... [00m 02s]🔨 [ 4 / 4 ] Upgrading sources... [00m 03s]🔨 [ 4 / 4 ] Upgrading sources... [00m 04s]🔨 [ 4 / 4 ] Upgrading sources... [00m 05s]🔨 [ 4 / 4 ] Upgrading sources... [00m 06s]🔨 [ 4 / 4 ] Upgrading sources... [00m 07s]🔨 [ 4 / 4 ] Upgrading sources... [00m 08s]🔨 [ 4 / 4 ] Upgrading sources... [00m 09s]🔨 [ 4 / 4 ] Upgrading sources... [00m 10s]🔨 [ 4 / 4 ] Upgrading sources... [00m 11s]🔨 [ 4 / 4 ] Upgrading sources... [00m 12s]🔨 [ 4 / 4 ] Upgrading sources... [00m 13s]🔨 [ 4 / 4 ] Upgrading sources... [00m 14s]🔨 [ 4 / 4 ] Upgrading sources... [00m 15s]🔨 [ 4 / 4 ] Upgrading sources... [00m 16s]🔨 [ 4 / 4 ] Upgrading sources... [00m 17s] ok
+
+👍 Successfully applied upgrade.
+
+
+⚠️  Warnings:
+
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+>>> run 3 changed NO project files (checksums identical)

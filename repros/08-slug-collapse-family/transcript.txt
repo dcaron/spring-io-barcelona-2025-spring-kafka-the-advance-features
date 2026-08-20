@@ -1,0 +1,19 @@
+=== 1. mapping create -c=org.apache.kafka:kafka-group-coordinator (in runs/a) ===
+
+🚀Created 1 mapping file(s) at: /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/08-slug-collapse-family/runs/a/.advisor/mappings
+
+=== 2. mapping create -c=org.apache.kafka:kafka-metadata (in runs/b) ===
+
+🚀Created 1 mapping file(s) at: /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/08-slug-collapse-family/runs/b/.advisor/mappings
+
+=== 3. both runs produced slug 'kafka', both claim kafka-clients ===
+runs/a/.advisor/mappings/kafka.json -> slug 'kafka', coordinates ['org.apache.kafka:kafka-clients', 'org.apache.kafka:kafka-group-coordinator', 'org.apache.kafka:kafka-server-common']
+runs/b/.advisor/mappings/kafka.json -> slug 'kafka', coordinates ['org.apache.kafka:kafka-clients', 'org.apache.kafka:kafka-metadata']
+
+=== 4. wiring both files (EXPECT: rejected — 'Some projects were already defined: [kafka]') ===
+🏃 Detecting available versions: 
+
+💔 Errors
+ You can find the error in .advisor/errors/20260820-145400415.log - Please open a new support ticket in https://support.broadcom.com and attach the logs.
+exit=1
+Caused by: java.lang.IllegalArgumentException: Some projects were already defined: [kafka]

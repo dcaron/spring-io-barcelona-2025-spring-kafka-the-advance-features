@@ -86,3 +86,11 @@ Full experiment (generated mappings, load-test logs, analysis):
 [`.advisor/mappings-generated-1.6.7/README.md`](../.advisor/mappings-generated-1.6.7/README.md);
 see also [`advisor-improvements.md`](advisor-improvements.md) §1c and
 [`advisor-support-ticket.md`](advisor-support-ticket.md) Defect 3.
+
+**2026-08-20 — split into individually-filable reports with isolated repros.** This ask is now
+[`docs/reports/FR-1-first-party-kafka-confluent-mappings.md`](reports/FR-1-first-party-kafka-confluent-mappings.md)
+(with a minimal demo project in [`repros/07-no-first-party-kafka-mappings/`](../repros/07-no-first-party-kafka-mappings)
+showing 16 blocked coordinates on an ordinary spring-kafka + Schema Registry app), and the
+composition problem is
+[`docs/reports/FR-2-family-aware-mapping-create-union-merge.md`](reports/FR-2-family-aware-mapping-create-union-merge.md)
+(demo: [`repros/08-slug-collapse-family/`](../repros/08-slug-collapse-family)).

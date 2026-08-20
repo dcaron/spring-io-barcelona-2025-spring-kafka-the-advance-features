@@ -8,6 +8,13 @@
 [`advisor-upgrade.sh`](../advisor-upgrade.sh) (a self-healing driver that works around every
 defect below), [`.advisor/mappings/`](../.advisor/mappings) (hand-authored custom mappings).
 
+> **2026-08-20 — split into individually-filable reports.** The issues below are now also
+> available as separate bug reports / feature requests in [`docs/reports/`](reports/), each
+> paired with an **isolated minimal reproduction** (verified on 1.6.7) under
+> [`repros/`](../repros). The reports supersede this document where they differ — most
+> importantly, §4.10 has been **re-scoped** (it is *not* project-independent; see the note in
+> §4.10 below and `docs/reports/BUG-2a/BUG-2b`).
+
 ---
 
 ## 1. TL;DR
@@ -70,7 +77,10 @@ this repo; they need a change from the Advisor team.
    upgrade at once." That *does* get past the loop and starts the real Spring Boot 4 conversion… then
    crashes, because Advisor's own upgrade toolkit is missing one of its own pieces: one of its
    recipes calls for a component that isn't packaged with it, so the run fails a self-check before
-   changing any files.
+   changing any files. *(Update 2026-08-20: this crash turns out to be triggered by the
+   interaction with this project's own OpenRewrite build plugin — removing that plugin lets the
+   whole upgrade apply successfully; see the §4.10 correction block and
+   [`docs/reports/BUG-2a`](reports/BUG-2a-recipe-bundle-missing-rewrite-java-dependencies.md)/[`BUG-2b`](reports/BUG-2b-apply-hijacks-project-rewrite-plugin.md).)*
 
 **Net:** the mapping wall is gone; what remains are two Advisor-side defects. Below is what would fix
 them.
@@ -108,6 +118,16 @@ branches, same project). 1.6.7 ships a refreshed stack — commercial recipes **
 and `rewrite-testing-frameworks`) — and several real robustness fixes landed. **The two hard walls
 (§4.9, §4.10) are unchanged: the upgrade still cannot produce a single file change.**
 
+> **Update 2026-08-20:** §4.10 has been re-scoped after isolated-repro bisection — it is *not*
+> project-independent, and a **working workaround exists**: with this repo's own
+> `rewrite-maven-plugin` declaration removed, `apply --accept-no-alignment` applies the **entire
+> 19-project plan** (spring-boot 3.4.x → 4.1.x, spring-kafka → 4.1.x, jackson 2 → 3) with real
+> source/pom/config changes across all modules. See the §4.10 update block below and
+> [`docs/reports/BUG-2a`](reports/BUG-2a-recipe-bundle-missing-rewrite-java-dependencies.md) /
+> [`BUG-2b`](reports/BUG-2b-apply-hijacks-project-rewrite-plugin.md). §4.9 (the default
+> incremental path's no-op loop) remains fully unchanged and now has an isolated repro
+> ([`repros/01`](../repros/01-apply-noop-loop)).
+
 ### Fixed / improved in 1.6.7
 
 | Issue | 1.6.5 behavior | 1.6.7 behavior |
@@ -129,7 +149,7 @@ and `rewrite-testing-frameworks`) — and several real robustness fixes landed. 
 | §4.5 no built-in self-heal | **Unchanged.** No `--from-plan`/`--create-missing-mappings`; CLI flag surface identical to 1.6.5 |
 | §4.6 no machine-readable plan | **Unchanged.** No `--format=json` |
 | **§4.9 apply no-op loop** | **Unchanged.** With a fully unblocked plan and valid token, `upgrade-plan apply` still selects `commons-beanutils 1.9.x → 1.11.x` every time, reports success, changes 0 files (verified twice in a row) |
-| **§4.10 recipe bundle missing `ModuleHasDependency`** | **Unchanged — and re-shipped.** `apply --accept-no-alignment` still fails recipe validation with *"Recipe class not found: org.openrewrite.java.dependencies.search.ModuleHasDependency"* — now from recipes **1.7.5**, i.e. the defect survived a recipe release |
+| **§4.10 recipe bundle missing `ModuleHasDependency`** | **Re-scoped 2026-08-20 — see the update block in §4.10.** The error still reproduces on this repo with recipes 1.7.5, but it is *not* project-independent: the trigger is the project's own `rewrite-maven-plugin` declaration (its `<dependencies>` downgrade `rewrite-java-dependencies` to 1.34.0, which predates the class; its phase-bound execution is additionally hijacked on multi-module invocations). Clean single- and multi-module Boot 3.4.5 apps upgrade to 4.1.x successfully, and removing this repo's plugin declaration lets the full plan apply end-to-end |
 
 (§4.8's no-op-needs-commercial-recipe behavior could not be cleanly re-verified — recipe artifacts
 were already cached locally from earlier runs.)
@@ -455,6 +475,11 @@ changes nothing, and each deletes + regenerates `build-config.json` only to pick
 stable fixed point. Advisor never reaches `spring-boot`/`spring-kafka`/`jackson`. A trivial,
 test-only transitive leaf stalls the entire modernization.
 
+*(2026-08-20: reproduced in isolation — a one-pom project whose only dependency is
+`commons-validator:1.7` loops identically; see
+[`repros/01-apply-noop-loop/`](../repros/01-apply-noop-loop) and
+[`docs/reports/BUG-1-apply-noop-loop.md`](reports/BUG-1-apply-noop-loop.md).)*
+
 Root cause: `apply` orders bottom-up and treats a transitive/BOM-managed artifact as an actionable
 step it can never satisfy, and a no-op apply (no file change, resolved version unchanged) is not
 recognized as "cannot progress here." Options:
@@ -505,6 +530,30 @@ error, now attributed to advisor's own `rewrite-maven-plugin:6.38.0:runNoFork` r
 project's `6.8.0:run`. And nothing is user-workaroundable here — advisor controls its own
 `-Drewrite.recipeArtifactCoordinates`.
 
+> **Correction (2026-08-20, verified with isolated repros — supersedes the paragraph above):**
+> the failure is **not** independent of the project, and a workaround exists. Bisection results:
+>
+> - Clean Boot 3.4.5 apps (single- or multi-module, with tests/JUnit 4/spring-kafka, even with a
+>   phase-bound `rewrite-maven-plugin` execution *without* plugin `<dependencies>`) upgrade
+>   **successfully** to 4.1.x via repeated `apply --accept-no-alignment`.
+> - The trigger is the project's own `rewrite-maven-plugin` **declaration**, via two vectors:
+>   (1) its plugin `<dependencies>` (here `rewrite-spring:6.7.0`) pull
+>   `rewrite-java-dependencies:1.34.0`, which predates `ModuleHasDependency`; Maven merges pom
+>   plugin dependencies into *any* invocation of the same plugin — including advisor's own
+>   CLI-forced 6.44.0 — and mediation downgrades the class away (advisor never pins
+>   `rewrite-java-dependencies`, which is why mediation decides). This is why neutralizing the
+>   *execution* still failed. (2) On multi-module projects advisor prepends
+>   `process-test-classes` to its invocation, which runs the project's phase-bound execution
+>   itself with advisor's `-Drewrite.*` user-property overrides.
+> - **Workaround:** remove (or profile-guard) the entire `rewrite-maven-plugin` declaration while
+>   running advisor. Verified on a copy of this repo: the full 19-project
+>   `apply --accept-no-alignment` then completes with real file changes in every module.
+>
+> Details, verified-configuration matrix, and minimal repro:
+> [`docs/reports/BUG-2a`](reports/BUG-2a-recipe-bundle-missing-rewrite-java-dependencies.md),
+> [`BUG-2b`](reports/BUG-2b-apply-hijacks-project-rewrite-plugin.md),
+> [`repros/02-missing-recipe-bundle/`](../repros/02-missing-recipe-bundle).
+
 - **Add `rewrite-java-dependencies` (matching version) to the assembled recipe coordinates**, or stop
   referencing `ModuleHasDependency` from `AnyOfScanningRecipes` — so `MainAdvisorRecipe` validates.
 - **Validate the recipe bundle in CI**: a self-referential `RecipeException`/`class not found` for a
@@ -512,9 +561,14 @@ project's `6.8.0:run`. And nothing is user-workaroundable here — advisor contr
 - **Make the failure actionable** rather than *"open a support ticket"*: name the missing recipe
   class and the module that provides it.
 
-Net: after the Kafka/Confluent mappings unblock the plan (§2–§3), **two advisor-side walls remain and
-neither is user-fixable** — the incremental no-op loop (§4.9) and this forced-apply recipe-bundle bug
-(§4.10). No file-changing Spring upgrade can currently be applied to this repo via the CLI.
+Net *(updated 2026-08-20)*: after the Kafka/Confluent mappings unblock the plan (§2–§3), the
+default incremental path still dead-ends in the §4.9 no-op loop (not user-fixable), and the forced
+path (§4.10) fails **when the project declares its own `rewrite-maven-plugin`** — which this repo
+does. With that declaration removed, `apply --accept-no-alignment` applies the whole plan and
+produces the project's first real file-changing upgrade. So §4.10 is user-workaroundable (at the
+cost of temporarily giving up the project's own OpenRewrite setup), while the underlying defects —
+the unpinned `rewrite-java-dependencies` (BUG-2a) and the leakage of advisor's `-Drewrite.*`
+configuration into project plugin executions (BUG-2b) — remain advisor-side.
 
 ---
 
