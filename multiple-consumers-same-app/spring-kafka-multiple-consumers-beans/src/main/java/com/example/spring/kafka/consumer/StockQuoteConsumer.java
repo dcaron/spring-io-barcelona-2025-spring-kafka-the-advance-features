@@ -5,7 +5,7 @@ import com.example.spring.kafka.avro.stock.quote.StockQuote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
+import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -19,7 +19,7 @@ public class StockQuoteConsumer {
 
     /**
      * Bean with name "kafkaListenerContainerFactory" is the default.
-     * See: {@link org.springframework.boot.autoconfigure.kafka.KafkaAnnotationDrivenConfiguration#kafkaListenerContainerFactory(ConcurrentKafkaListenerContainerFactoryConfigurer, ObjectProvider, ObjectProvider, ObjectProvider)}
+     * See: {@link org.springframework.boot.kafka.autoconfigure.KafkaAnnotationDrivenConfiguration#kafkaListenerContainerFactory(ConcurrentKafkaListenerContainerFactoryConfigurer, ObjectProvider, ObjectProvider, ObjectProvider)}
      * We use our specific container factories beans in this example.
      * See {@link KafkaConsumerConfiguration}
      */

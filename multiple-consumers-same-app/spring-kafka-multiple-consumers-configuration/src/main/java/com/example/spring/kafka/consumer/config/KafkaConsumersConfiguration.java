@@ -5,8 +5,8 @@ import io.micrometer.observation.ObservationRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.kafka.DefaultKafkaConsumerFactoryCustomizer;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.kafka.autoconfigure.DefaultKafkaConsumerFactoryCustomizer;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -91,7 +91,7 @@ public class KafkaConsumersConfiguration {
         KafkaProperties.Consumer consumerConfigs = kafkaConsumerProperties.getConfigs();
         //Override defaults with the spring.kafka.consumer.custom-kafka-consumers.[consumer].configs properties
         //Only properties that are non-null are added
-        Map<String, Object> customConsumerPropertyOverrides = consumerConfigs.buildProperties(null);
+        Map<String, Object> customConsumerPropertyOverrides = consumerConfigs.buildProperties();
 
         defaultSpringKafkaConsumerProperties.putAll(customConsumerPropertyOverrides);
         log.info("Initializing consumer with properties: {}", defaultSpringKafkaConsumerProperties);

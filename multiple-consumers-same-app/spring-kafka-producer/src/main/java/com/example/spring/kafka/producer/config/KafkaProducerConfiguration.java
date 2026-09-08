@@ -10,7 +10,7 @@ import com.example.spring.kafka.producer.json.ScheduledJsonStockQuoteProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,12 +53,12 @@ public class KafkaProducerConfiguration {
     }
 
     /**
-     * See: {@link org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration#kafkaTemplate(ProducerFactory, ProducerListener, ObjectProvider)}
+     * See: {@link org.springframework.boot.kafka.autoconfigure.KafkaAutoConfiguration#kafkaTemplate(ProducerFactory, ProducerListener, ObjectProvider)}
      */
     private <T> KafkaTemplate<String, T> createKafkaTemplate(ProducerFactory<String, T> kafkaProducerFactory,
                                                              ProducerListener<Object, Object> kafkaProducerListener, ObjectProvider<RecordMessageConverter> messageConverter,
                                                              KafkaProperties properties, Map<String, Object> configurationOverrides) {
-        PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
+        PropertyMapper map = PropertyMapper.get();
         KafkaTemplate<String, T> kafkaTemplate = new KafkaTemplate<>(kafkaProducerFactory, configurationOverrides);
         messageConverter.ifUnique(kafkaTemplate::setMessageConverter);
         map.from(kafkaProducerListener).to(((KafkaTemplate) kafkaTemplate)::setProducerListener);

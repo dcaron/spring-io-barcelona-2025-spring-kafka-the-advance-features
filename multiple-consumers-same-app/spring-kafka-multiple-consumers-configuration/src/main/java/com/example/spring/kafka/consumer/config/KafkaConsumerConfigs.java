@@ -1,6 +1,6 @@
 package com.example.spring.kafka.consumer.config;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 
 public class KafkaConsumerConfigs extends KafkaProperties.Consumer {
 

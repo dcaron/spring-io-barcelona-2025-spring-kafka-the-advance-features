@@ -46,7 +46,7 @@ management:
   tracing:
     sampling:
       probability: 1.0
-    enabled: true
+    export.enabled: true
   endpoints:
     web:
       exposure:
@@ -56,12 +56,13 @@ management:
   endpoint:
     health:
       show-details: always
+      probes:
+        # TODO [Advisor]: Liveness and readiness probes are now enabled by default in Spring Boot 4.0. If you do not need those probes, keep this property. Otherwise, delete this property to adopt the new defaults. See https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide#liveness-and-readiness-probes
+        enabled: false
 
   metrics:
     tags:
       application: ${spring.application.name}
       env: local
-  otlp:
-    tracing:
-      endpoint: "http://localhost:4317"
-      transport: grpc
+  opentelemetry.tracing.export.otlp.endpoint: "http://localhost:4317"
+  opentelemetry.tracing.export.otlp.transport: grpc

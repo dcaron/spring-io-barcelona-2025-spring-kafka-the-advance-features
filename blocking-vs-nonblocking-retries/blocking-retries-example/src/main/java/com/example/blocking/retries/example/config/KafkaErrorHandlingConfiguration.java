@@ -3,9 +3,8 @@ package com.example.blocking.retries.example.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.boot.ssl.SslBundles;
+import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -84,10 +83,10 @@ public class KafkaErrorHandlingConfiguration {
             ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
             ObjectProvider<ConsumerFactory<Object, Object>> kafkaConsumerFactory,
             ObjectProvider<ContainerCustomizer<Object, Object, ConcurrentMessageListenerContainer<Object, Object>>> kafkaContainerCustomizer,
-            ObjectProvider<SslBundles> sslBundles, KafkaProperties properties) {
+            KafkaProperties properties) {
         ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
         configurer.configure(factory, kafkaConsumerFactory.getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(
-                properties.buildConsumerProperties(sslBundles.getIfAvailable()))));
+                properties.buildConsumerProperties())));
         kafkaContainerCustomizer.ifAvailable(factory::setContainerCustomizer);
 
         // This is required to get the delivery attempt header populated

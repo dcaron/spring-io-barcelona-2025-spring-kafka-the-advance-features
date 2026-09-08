@@ -5,11 +5,10 @@ import com.example.spring.kafka.avro.stock.quote.StockQuote;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
-import org.springframework.boot.autoconfigure.kafka.DefaultKafkaConsumerFactoryCustomizer;
-import org.springframework.boot.autoconfigure.kafka.KafkaConnectionDetails;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.boot.ssl.SslBundles;
+import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
+import org.springframework.boot.kafka.autoconfigure.DefaultKafkaConsumerFactoryCustomizer;
+import org.springframework.boot.kafka.autoconfigure.KafkaConnectionDetails;
+import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
@@ -32,11 +31,11 @@ public class KafkaConsumerConfiguration {
     }
 
     /**
-     * We override the Spring Kafka bean from the autoconfiguration {@link org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration#kafkaConsumerFactory(KafkaConnectionDetails, ObjectProvider, ObjectProvider)}
+     * We override the Spring Kafka bean from the autoconfiguration {@link org.springframework.boot.kafka.autoconfigure.KafkaAutoConfiguration#kafkaConsumerFactory(KafkaConnectionDetails, ObjectProvider, ObjectProvider)}
      */
     @Bean
-    public DefaultKafkaConsumerFactory<String, StockQuote> avroKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers, ObjectProvider<SslBundles> sslBundles) {
-        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties(sslBundles.getIfAvailable());
+    public DefaultKafkaConsumerFactory<String, StockQuote> avroKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers) {
+        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties();
         DefaultKafkaConsumerFactory<String, StockQuote> factory = new DefaultKafkaConsumerFactory<>(properties);
         // This part is important. Without the next line your Kafka client side metrics will not be exposed!
         customizers.orderedStream().forEach((customizer) -> customizer.customize(factory));
@@ -55,8 +54,8 @@ public class KafkaConsumerConfiguration {
     }
 
     @Bean
-    public DefaultKafkaConsumerFactory<String, StockQuoteEvent> jsonKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers, ObjectProvider<SslBundles> sslBundles) {
-        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties(sslBundles.getIfAvailable());
+    public DefaultKafkaConsumerFactory<String, StockQuoteEvent> jsonKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers) {
+        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties();
         Map<String, Object> configurationOverrides = new HashMap<>(properties);
         configurationOverrides.put(ConsumerConfig.GROUP_ID_CONFIG, "multiple-consumer-beans-group-json");
         configurationOverrides.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
