@@ -25,58 +25,67 @@
         <rewrite-migrate-java.version>3.9.0</rewrite-migrate-java.version>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.openrewrite.maven</groupId>
-                <artifactId>rewrite-maven-plugin</artifactId>
-                <version>${rewrite-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>run-openrewrite</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <activeRecipes>
-                        <!-- Spring Boot related -->
-                        <recipe>org.openrewrite.java.spring.boot3.SpringBootProperties_3_3</recipe>
+    <!-- The rewrite-maven-plugin declaration is profile-guarded: Maven merges a build-level
+         plugin's <dependencies> and <executions> into ANY invocation of that plugin, including
+         Application Advisor's forced upgrade run, whose recipe classpath they downgrade/hijack
+         (see docs/reports/BUG-2a / BUG-2b). Activate explicitly with -Popenrewrite. -->
+    <profiles>
+        <profile>
+            <id>openrewrite</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.openrewrite.maven</groupId>
+                        <artifactId>rewrite-maven-plugin</artifactId>
+                        <version>${rewrite-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>run-openrewrite</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <activeRecipes>
+                                <!-- Spring Boot related -->
+                                <recipe>org.openrewrite.java.spring.boot3.SpringBootProperties_3_3</recipe>
 
-                        <!-- Java related -->
-                        <recipe>org.openrewrite.java.format.AutoFormat</recipe>
-                        <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
-                        <recipe>org.openrewrite.java.OrderImports</recipe>
+                                <!-- Java related -->
+                                <recipe>org.openrewrite.java.format.AutoFormat</recipe>
+                                <recipe>org.openrewrite.java.RemoveUnusedImports</recipe>
+                                <recipe>org.openrewrite.java.OrderImports</recipe>
 
-                        <!-- Configuration related -->
-                        <!-- Maven related -->
-                        <recipe>org.openrewrite.maven.BestPractices</recipe>
-                        <recipe>org.openrewrite.maven.OrderPomElements</recipe>
-                        <recipe>org.openrewrite.maven.RemoveUnusedProperties</recipe>
-                        <recipe>org.openrewrite.maven.UpdateMavenWrapper</recipe>
-                    </activeRecipes>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.openrewrite.recipe</groupId>
-                        <artifactId>rewrite-spring</artifactId>
-                        <version>${rewrite-spring.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.openrewrite.recipe</groupId>
-                        <artifactId>rewrite-static-analysis</artifactId>
-                        <version>${rewrite-static-analysis.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.openrewrite.recipe</groupId>
-                        <artifactId>rewrite-migrate-java</artifactId>
-                        <version>${rewrite-migrate-java.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
-    </build>
+                                <!-- Configuration related -->
+                                <!-- Maven related -->
+                                <recipe>org.openrewrite.maven.BestPractices</recipe>
+                                <recipe>org.openrewrite.maven.OrderPomElements</recipe>
+                                <recipe>org.openrewrite.maven.RemoveUnusedProperties</recipe>
+                                <recipe>org.openrewrite.maven.UpdateMavenWrapper</recipe>
+                            </activeRecipes>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.openrewrite.recipe</groupId>
+                                <artifactId>rewrite-spring</artifactId>
+                                <version>${rewrite-spring.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.openrewrite.recipe</groupId>
+                                <artifactId>rewrite-static-analysis</artifactId>
+                                <version>${rewrite-static-analysis.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.openrewrite.recipe</groupId>
+                                <artifactId>rewrite-migrate-java</artifactId>
+                                <version>${rewrite-migrate-java.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
