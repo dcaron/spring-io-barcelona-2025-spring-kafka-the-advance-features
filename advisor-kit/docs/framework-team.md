@@ -41,6 +41,10 @@ teams and shields them from the known defects.
 3. Update `docs/known-issues.md` status columns.
 4. Tag or version the kit directory. Announce the change to the app teams.
 
+Release the kit in the same cadence as the internal framework. See
+`release-cadence.md` for how framework versions, mappings, git, the internal
+Maven repo, and the app teams align over time.
+
 ## Diagram C — the two-team flow
 
 ```
