@@ -1,16 +1,22 @@
 # Advisor upgrade kit
 
 This kit upgrades a Maven Spring Boot repository with Spring Application Advisor.
-It contains the upgrade script, the curated mapping files, and the necessary
-workarounds. Copy this directory into your repository, or run it from a shared
-location.
+It contains the upgrade script, a snapshot of the curated mapping files, and the
+necessary workarounds. Copy this directory into your repository, or run it from
+a shared location.
+
+**Status: interim.** The mapping files are managed centrally, in the central
+mappings repository owned by the framework team. This kit bundles a snapshot of
+that repository at each kit release. The target model is that apps and CI fetch
+mappings from the central repository directly, and later from Advisor itself
+(FR-1/FR-4 in `docs/known-issues.md`). See `docs/release-cadence.md`.
 
 ## Kit map
 
 | Path                                      | Purpose                                    | Owner          |
 |-------------------------------------------|--------------------------------------------|----------------|
 | `advisor-upgrade.sh`                       | Runs the whole upgrade                     | Framework team |
-| `mappings/*.json`                          | Curated upgrade mappings                   | Framework team |
+| `mappings/*.json`                          | Snapshot of the central mappings repo      | Framework team |
 | `mappings/order.txt`                       | Wiring manifest (env-var order)            | Framework team |
 | `snippets/rewrite-plugin-profile-guard.xml`| Pom template for the required plugin guard | Framework team |
 | `docs/operating-model.md`                  | How Advisor works                          | Framework team |

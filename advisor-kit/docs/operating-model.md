@@ -46,8 +46,10 @@ projects whose upgrades are all transitive (BUG-1, see `known-issues.md`).
 
 Advisor knows a project only when a mapping declares it. The built-in catalog
 does not contain Apache Kafka, Confluent, or Avro. Without extra mappings,
-Advisor blocks the plan and asks you to configure those projects. The kit
-ships curated mapping files that fill this gap.
+Advisor blocks the plan and asks you to configure those projects. The
+framework team curates mapping files that fill this gap, in the central
+mappings repository. The kit ships a snapshot of them (interim — see
+`release-cadence.md`).
 
 ## Custom mappings — how
 

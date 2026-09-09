@@ -9,7 +9,8 @@ This page describes how the moving parts work together over time. Read
 |-------------------------|------------------------------------------------------|------------------|------------------------------|
 | Internal framework      | Versioned starters, parent poms, libraries           | Framework source repo (git) | Internal Maven repo |
 | Internal Maven repo     | Framework jars + proxies (Central, Spring Enterprise, Confluent) | Nexus/Artifactory | Maven resolution (`~/.m2` credentials) |
-| The kit                 | Script, curated mapping files, docs, snippets        | Kit repo (git), released by tag | Copy or pull of a kit tag |
+| Central mappings repo   | All curated mapping files + default `order.txt`      | Mappings repo (git), released by tag | Bundled in kit releases (interim); direct fetch (target) |
+| The kit                 | Script, docs, snippets, a mappings snapshot          | Kit repo (git), released by tag | Copy or pull of a kit tag |
 | App repos               | Application code + its `.advisor/mappings/` copy     | App repo (git)   | Normal PR flow               |
 | Advisor CLI             | The upgrade engine                                   | Vendor download  | Installed per developer / CI |
 
@@ -42,8 +43,10 @@ together, in the same cadence.
 ```
 framework release X.Y                    (framework team, each release)
   |-- [1] publish the X.Y artifacts to the internal Maven repo
-  |-- [2] append X.Y to the framework mapping file; add its recipes
-  |-- [3] verify the kit on the reference app (full --force run)
+  |-- [2] append X.Y to the framework mapping file, in the central
+  |       mappings repo (reviewed PR); tag the mappings repo
+  |-- [3] snapshot that tag into the kit; verify the kit on the
+  |       reference app (full --force run)
   '-- [4] tag the kit (vN), announce it to the app teams
 
 app upgrade window                       (each app team, own pace)
@@ -56,10 +59,32 @@ app upgrade window                       (each app team, own pace)
 Steps 1–4 happen once per framework release. Steps 5–8 happen once per app,
 whenever that team schedules the upgrade. The loop closes at step 8.
 
+## Interim and target distribution
+
+The central mappings repository is the single source of truth. How the
+mappings reach the apps changes over time:
+
+```
+                                   INTERIM (today)
+  +------------------------+  tag   +-------------+  copy   +-----------+
+  | central mappings repo  |------->| advisor-kit |-------->| app repo  |
+  | (git, source of truth) |        | (snapshot)  |         |           |
+  +------------------------+        +-------------+         +-----------+
+              |                        TARGET (next)              ^
+              +---- fetch mappings at a pinned tag ---------------+
+```
+
+- Interim: the kit bundles a mappings snapshot. Apps copy the kit.
+- Target: apps and CI fetch the mappings at a pinned tag from the central
+  repository. The kit then keeps only the script, docs, and snippets.
+- End state: Advisor ships first-party mappings and declarative wiring
+  (FR-1/FR-4 in `known-issues.md`). The central repository keeps only the
+  internal-framework mappings, and the kit retires.
+
 ## Rules of the cadence
 
 1. One kit tag per framework release. The tag states which framework and
-   Spring generations it covers.
+   Spring generations it covers, and which mappings tag it bundles.
 2. Mapping files are cumulative. Keep the rows for every released version.
    Advisor upgrades one generation per pass, and a lagging app must step
    through old versions to reach the new one.

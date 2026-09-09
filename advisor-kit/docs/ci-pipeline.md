@@ -12,7 +12,7 @@ and merge. Run the job on a schedule or on demand — never on every commit.
 | Java + the repo's Maven wrapper | Same image as your normal build                          |
 | Maven credentials               | Write `~/.m2/settings.xml` from a CI secret in the job   |
 | Git push + PR rights            | A bot identity with a token, scoped to the app repo      |
-| The kit                         | Committed in the repo, or fetched at a pinned kit tag    |
+| The kit                         | Committed in the repo, or fetched at a pinned kit tag. The kit tag pins the mappings snapshot too (interim model, see `release-cadence.md`) |
 
 Never commit credentials. Never print `settings.xml` to the job log.
 

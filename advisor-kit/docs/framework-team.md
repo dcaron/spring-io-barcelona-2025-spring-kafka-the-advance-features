@@ -5,8 +5,11 @@ teams and shields them from the known defects.
 
 ## You own
 
-- The kit: script, docs, snippets, and releases of the kit.
-- The curated mapping files in `mappings/` and the manifest `mappings/order.txt`.
+- The central mappings repository: the single source of truth for all curated
+  mapping files and the default wiring manifest (`order.txt`).
+- The kit: script, docs, snippets, and releases of the kit. The kit's
+  `mappings/` directory is a snapshot of the central repository, taken at
+  each kit release. The kit is the interim distribution channel.
 - The pom guard template in `snippets/`.
 - Verification of the kit on the reference application.
 - Vendor tickets to Broadcom for Advisor defects and feature requests.
@@ -22,6 +25,8 @@ teams and shields them from the known defects.
 
 ## Mapping curation rules
 
+0. Curate in the central mappings repository, through reviewed pull requests.
+   Never edit the kit's bundled copies or an app repo's copies directly.
 1. Create one mapping file per dependency family.
 2. Put all coordinates of the family in that one file, under one slug.
    Example: `apache-kafka.json` holds 15 `org.apache.kafka` coordinates.
@@ -36,10 +41,12 @@ teams and shields them from the known defects.
 
 ## Kit release checklist
 
-1. Run the kit on the reference application. Confirm convergence.
-2. Sync the reference repo's `.advisor/mappings/` with the kit's `mappings/`.
-3. Update `docs/known-issues.md` status columns.
-4. Tag or version the kit directory. Announce the change to the app teams.
+1. Tag the central mappings repository.
+2. Copy that tag's mapping files into the kit's `mappings/` (the snapshot).
+3. Run the kit on the reference application. Confirm convergence.
+4. Sync the reference repo's `.advisor/mappings/` with the kit's `mappings/`.
+5. Update `docs/known-issues.md` status columns.
+6. Tag the kit. Record the mappings tag it bundles. Announce it to the app teams.
 
 Release the kit in the same cadence as the internal framework. See
 `release-cadence.md` for how framework versions, mappings, git, the internal
