@@ -1,6 +1,7 @@
 # App team runbook — upgrade your application
 
 Follow these steps in order. The whole run is safe to repeat.
+To run the upgrade from your CI pipeline instead, see `ci-pipeline.md`.
 
 ## Before you start
 
