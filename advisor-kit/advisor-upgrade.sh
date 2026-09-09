@@ -1,50 +1,58 @@
 #!/usr/bin/env bash
 #
-# advisor-upgrade.sh — drive a Spring Application Advisor upgrade for this repo.
+# advisor-upgrade.sh — run a Spring Application Advisor upgrade on a target repo.
 #
-# NOTE: superseded by advisor-kit/advisor-upgrade.sh (generic, target-dir aware,
-# with the --force apply mode). This copy is kept as-is for the repo's history.
+# Part of the advisor-kit. Generic: point it at any Maven Spring Boot repo.
 #
 # What it does, in order:
-#   1. Preflight checks (advisor CLI, mvnw, required hand-authored mapping).
-#   2. Regenerate the auto-generatable dependency mappings under .advisor/mappings/
-#      (the hand-authored spring-boot-jackson3.json is preserved, never touched).
-#   3. Export the SPRING_ADVISOR_MAPPING_CUSTOM_* env vars that tell advisor which
-#      custom mappings to merge (order + merge strategy taken from advisor.md).
+#   1. Preflight checks (advisor CLI, Maven wrapper, rewrite-plugin guard,
+#      Maven credentials).
+#   2. Copy the kit's curated mappings into <target>/.advisor/mappings/ when
+#      they are absent (the target repo's copies are the source of truth).
+#   3. Export the SPRING_ADVISOR_MAPPING_CUSTOM_* env vars from the wiring
+#      manifest (mappings/order.txt).
 #   4. Run `advisor build-config get`.
-#   5. Loop: `advisor upgrade-plan get` -> confirm -> `advisor upgrade-plan apply`
-#      -> build check, until the plan converges (no more upgrades) or --max-steps.
+#   5. Loop: `advisor upgrade-plan get` -> `advisor upgrade-plan apply`
+#      -> build check, until the plan converges or --max-steps is reached.
+#      Missing mappings for blocked dependencies are auto-created and wired.
 #
-# The upgrade is applied incrementally by advisor (one Spring generation per step),
-# so this script loops until there is nothing left to apply.
+# IMPORTANT: plain `apply` is known to no-op on projects whose upgrades are all
+# transitive/BOM-managed (BUG-1, see docs/known-issues.md). Use --force to run
+# `apply --accept-no-alignment` repeatedly until convergence. That mode is the
+# verified way to make the full upgrade land.
 #
 # Usage:
-#   ./advisor-upgrade.sh [options]
+#   advisor-upgrade.sh [options] [target-repo-dir]
+#
+#   target-repo-dir  Repo to upgrade (default: current directory).
+#                    Must contain pom.xml.
 #
 # Options:
-#   -y, --yes           Do not prompt before applying each step (non-interactive / CI).
-#       --dry-run       Regenerate mappings + build-config + print the upgrade plan.
-#                       Never applies anything. Great for a first, safe run.
-#       --skip-mappings Skip mapping regeneration; use the committed files as-is.
-#       --verify        Run full `./mvnw verify` after each applied step
-#                       (needs the Kafka/Docker infra from docker-compose.yml).
+#   -y, --yes           Do not prompt before applying each step (CI mode).
+#       --dry-run       Preflight + mappings + build-config + print the plan.
+#                       Never applies anything. Do this first.
+#       --force         Apply with --accept-no-alignment, repeatedly, until
+#                       the worktree stops changing. Alias: --accept-no-alignment.
+#       --refresh-mappings
+#                       Overwrite the target's kit-provided mappings with the
+#                       kit versions (existing files are saved as *.bak).
+#       --skip-guard-check
+#                       Skip the rewrite-maven-plugin guard preflight (unsafe).
+#       --verify        Run full `mvnw verify` after each applied step.
 #       --no-build      Skip the build check after each applied step.
-#       --max-steps N   Safety cap on the number of upgrade steps (default: 25).
+#       --max-steps N   Safety cap on upgrade steps (default: 25).
 #       --no-auto-mappings
-#                       Do NOT auto-create mappings for dependencies that
-#                       advisor reports as missing/blocking. By default the
-#                       script self-heals: whenever the upgrade plan is blocked
-#                       by unmapped transitive dependencies, it runs
-#                       `advisor mapping create` for each, wires them in,
-#                       regenerates the build-config and re-plans — repeating
-#                       until no further mappings can be created.
+#                       Do NOT auto-create mappings for blocked dependencies.
 #       --max-mappings N
-#                       Cap on the number of mappings auto-created in one run
-#                       (default: 40). Prevents runaway on deep dependency trees.
+#                       Cap on auto-created mappings per run (default: 40).
 #   -h, --help          Show this help and exit.
 #
+# Exit codes:
+#   0 success / converged     2 stopped on BUG-1 no-op (re-run with --force)
+#   1 any other failure
+#
 # Environment:
-#   NO_COLOR            Disable coloured output (also auto-disabled when not a TTY).
+#   NO_COLOR            Disable coloured output (auto-disabled when not a TTY).
 #
 set -euo pipefail
 
@@ -52,50 +60,21 @@ set -euo pipefail
 # Configuration
 # ---------------------------------------------------------------------------
 
-# Directory this script lives in == repo root. Everything runs from here.
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
-MAPPINGS_DIR="${SCRIPT_DIR}/.advisor/mappings"
-
-# Hand-curated mappings that CANNOT be regenerated by `advisor mapping create`
-# as a single project (advisor splits a release train into many separate,
-# colliding projects and emits its own slug). They are required + preserved
-# verbatim and never regenerated:
-#   - spring-boot-jackson3.json : carries the Boot 4.0 recipe
-#   - apache-kafka.json         : the whole org.apache.kafka:* train as one project
-#   - confluent-platform.json   : the whole io.confluent:* Confluent Platform family
-# (apache-kafka.json supersedes the former kafka.json + kafka-streams.json, which
-#  only covered leaf artifacts and collided on org.apache.kafka:kafka-clients.)
-PRESERVED_MAPPINGS=(
-  "spring-boot-jackson3.json"
-  "apache-kafka.json"
-  "confluent-platform.json"
-)
-
-# Auto-generatable mappings: "target-filename|maven-coordinate".
-# Extend this list to add more custom mappings.
-AUTO_MAPPINGS=(
-  "javafaker.json|com.github.javafaker:javafaker"
-  "avro.json|org.apache.avro:avro"
-)
-
-# Ordered list of mapping files fed to advisor via env vars, with optional
-# merge strategy: "filename[:merge-strategy]". Index == position below.
-MAPPING_ENV_ORDER=(
-  "spring-boot-jackson3.json:override"
-  "javafaker.json"
-  "avro.json"
-  "apache-kafka.json"
-  "confluent-platform.json"
-)
+# Directory this script lives in == the kit root.
+KIT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
+KIT_MAPPINGS_DIR="${KIT_DIR}/mappings"
 
 # Defaults (overridable by flags).
 ASSUME_YES=0
 DRY_RUN=0
-SKIP_MAPPINGS=0
+FORCE_MODE=0
+REFRESH_MAPPINGS=0
+SKIP_GUARD_CHECK=0
 BUILD_MODE="install"   # install | verify | none
 MAX_STEPS=25
 AUTO_RESOLVE_MAPPINGS=1 # auto-create mappings for blocked deps and re-plan
 MAX_MAPPINGS=40         # cap on auto-created mappings per run
+TARGET_DIR=""
 
 # ---------------------------------------------------------------------------
 # Output helpers
@@ -131,7 +110,9 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     -y|--yes)        ASSUME_YES=1 ;;
     --dry-run)       DRY_RUN=1 ;;
-    --skip-mappings) SKIP_MAPPINGS=1 ;;
+    --force|--accept-no-alignment) FORCE_MODE=1 ;;
+    --refresh-mappings) REFRESH_MAPPINGS=1 ;;
+    --skip-guard-check) SKIP_GUARD_CHECK=1 ;;
     --verify)        BUILD_MODE="verify" ;;
     --no-build)      BUILD_MODE="none" ;;
     --max-steps)     shift; [[ "${1:-}" =~ ^[0-9]+$ ]] || die "--max-steps needs a number"; MAX_STEPS="$1" ;;
@@ -140,156 +121,167 @@ while [[ $# -gt 0 ]]; do
     --max-mappings)  shift; [[ "${1:-}" =~ ^[0-9]+$ ]] || die "--max-mappings needs a number"; MAX_MAPPINGS="$1" ;;
     --max-mappings=*) MAX_MAPPINGS="${1#*=}"; [[ "$MAX_MAPPINGS" =~ ^[0-9]+$ ]] || die "--max-mappings needs a number" ;;
     -h|--help)       usage; exit 0 ;;
-    *)               err "Unknown option: $1"; echo; usage; exit 2 ;;
+    -*)              err "Unknown option: $1"; echo; usage; exit 1 ;;
+    *)               [[ -z "${TARGET_DIR}" ]] || die "Only one target directory is allowed (got '${TARGET_DIR}' and '$1')."
+                     TARGET_DIR="$1" ;;
   esac
   shift
 done
 
-cd "${SCRIPT_DIR}"
+TARGET_DIR="${TARGET_DIR:-$(pwd)}"
+TARGET_DIR="$(cd -- "${TARGET_DIR}" >/dev/null 2>&1 && pwd -P)" \
+  || die "Target directory does not exist."
+[[ -f "${TARGET_DIR}/pom.xml" ]] || die "No pom.xml in ${TARGET_DIR} — not a Maven repo root."
+
+MAPPINGS_DIR="${TARGET_DIR}/.advisor/mappings"
+
+cd "${TARGET_DIR}"
 
 # ---------------------------------------------------------------------------
 # 1. Preflight
 # ---------------------------------------------------------------------------
 
 banner "Preflight"
+info "Target repo: ${TARGET_DIR}"
+info "Kit:         ${KIT_DIR}"
 
 command -v advisor >/dev/null 2>&1 || die "advisor CLI not found on PATH. Install Spring Application Advisor first."
 ADVISOR_VERSION="$(advisor --version 2>/dev/null | sed -n 's/^Version: //p' | head -1)"
 info "Spring Application Advisor: ${ADVISOR_VERSION:-unknown}"
 case "${ADVISOR_VERSION}" in
   1.6.*) ok "advisor version looks good" ;;
-  *)     warn "This script was written against advisor 1.6.x; behaviour may differ." ;;
+  *)     warn "This kit was verified against advisor 1.6.x; behaviour may differ." ;;
 esac
 
-[[ -x "${SCRIPT_DIR}/mvnw" ]] || die "Maven wrapper ./mvnw not found or not executable at repo root."
-ok "Maven wrapper present"
-
-for _pm in "${PRESERVED_MAPPINGS[@]}"; do
-  [[ -f "${MAPPINGS_DIR}/${_pm}" ]] \
-    || die "Required hand-authored mapping missing: .advisor/mappings/${_pm} (it cannot be regenerated)."
-done
-ok "Hand-authored mappings present and will be preserved: ${PRESERVED_MAPPINGS[*]}"
+if [[ -x "${TARGET_DIR}/mvnw" ]]; then
+  MVN="${TARGET_DIR}/mvnw"
+  ok "Maven wrapper present"
+else
+  command -v mvn >/dev/null 2>&1 || die "Neither ./mvnw nor mvn found."
+  MVN="mvn"
+  warn "No ./mvnw in the target repo; falling back to system mvn."
+fi
 
 command -v git >/dev/null 2>&1 && HAVE_GIT=1 || HAVE_GIT=0
 
-# ---------------------------------------------------------------------------
-# 2. Regenerate auto mappings
-# ---------------------------------------------------------------------------
-
-# True if the given text is a usable mapping: JSON with a "rewrite" section that
-# has at least one "<version>":{...} entry. advisor sometimes emits empty
-# mappings for internal/transitive modules, and wiring an empty one makes every
-# later advisor call fail with "One of the custom mappings provided is empty".
-is_valid_mapping() {
-  local content="$1"
-  [[ -n "${content}" ]] || return 1
-  grep -q '"rewrite"' <<<"${content}" || return 1
-  grep -qE '"[0-9]+\.[0-9]+\.[0-9xX]+"[[:space:]]*:' <<<"${content}" || return 1
-  return 0
-}
-
-# Restore the mappings dir to a snapshot: drop any *.json advisor newly created
-# and restore every pre-existing file. This is what protects base mappings —
-# advisor names its output .advisor/mappings/<slug>.json and that slug can
-# collide with an existing committed file (e.g. `mapping create` for an internal
-# Kafka module emits slug "kafka"), which would otherwise clobber a base mapping
-# and dangle its env reference.
-restore_mappings_from() {
-  local backup="$1" f bn
-  while IFS= read -r f; do
-    [[ -n "${f}" ]] || continue
-    bn="$(basename "${f}")"
-    [[ -e "${backup}/${bn}" ]] || rm -f "${f}"
-  done < <(find "${MAPPINGS_DIR}" -maxdepth 1 -type f -name '*.json' 2>/dev/null)
-  cp -a "${backup}/." "${MAPPINGS_DIR}/" 2>/dev/null || true
-}
-
-# Regenerate a single mapping into .advisor/mappings/<target_file>.
+# --- rewrite-maven-plugin guard check ---------------------------------------
 #
-# `advisor mapping create -c=<coord>` writes the mapping into
-# .advisor/mappings/<slug>.json (slug is advisor's own project name and MAY be
-# empty -> ".json", and MAY collide with an existing file). It does not print
-# the mapping to stdout. We therefore: snapshot the mappings dir, run the
-# command, capture the content of the file advisor wrote (newest json), then
-# restore the snapshot (undoing any collision) and write the captured content
-# to our chosen target filename — but only if it is a valid, non-empty mapping.
-#
-# Returns 0 on success, 1 on (tolerated) failure.
-generate_mapping() {
-  local target_file="$1" coordinate="$2"
-  local target_path="${MAPPINGS_DIR}/${target_file}"
-  local marker log_out backup produced content slug
-  marker="$(mktemp)"; log_out="$(mktemp)"; backup="$(mktemp -d)"
-  cp -a "${MAPPINGS_DIR}/." "${backup}/" 2>/dev/null || true
+# Maven merges a build-level rewrite-maven-plugin declaration (its
+# <dependencies> AND <executions>) into Advisor's own forced invocation of
+# that plugin, which breaks the upgrade (BUG-2a/BUG-2b). The declaration must
+# be removed or moved into an explicitly-activated profile before running
+# apply. We check every pom in the Maven reactor (root + <module> tree).
 
-  info "  coordinate: ${coordinate} -> ${target_file} (resolving, may take a minute)…"
-  # Redirect stdin from /dev/null: advisor would otherwise consume the caller's
-  # stdin (e.g. the here-string driving resolve_missing_mappings' read loop).
-  if ! advisor mapping create -c="${coordinate}" </dev/null >"${log_out}" 2>&1; then
-    warn "mapping create failed for ${coordinate} (keeping existing ${target_file} if present)"
-    sed 's/^/    /' "${log_out}" | tail -4
-    restore_mappings_from "${backup}"
-    rm -rf "${marker}" "${log_out}" "${backup}"
-    return 1
-  fi
-
-  # The file advisor just wrote is the newest json in the mappings dir.
-  produced="$(find "${MAPPINGS_DIR}" -maxdepth 1 -type f -name '*.json' -newer "${marker}" 2>/dev/null | head -1)"
-  content=""; slug=""
-  if [[ -n "${produced}" ]]; then
-    content="$(cat "${produced}" 2>/dev/null || true)"
-    slug="$(basename "${produced}" .json)"
-  fi
-
-  # Undo any file changes advisor made (protects base + previously-made mappings).
-  restore_mappings_from "${backup}"
-  rm -rf "${marker}" "${log_out}" "${backup}"
-
-  if ! is_valid_mapping "${content}"; then
-    warn "  advisor produced no usable mapping for ${coordinate} (empty/invalid) — skipping"
-    return 1
-  fi
-
-  printf '%s\n' "${content}" > "${target_path}"
-  if [[ "${slug}" != "${target_file%.json}" ]]; then
-    ok "  wrote ${target_file} (advisor slug: '${slug}')"
-  else
-    ok "  wrote ${target_file}"
-  fi
-  return 0
+# Print the pom paths of the reactor: the root pom plus every <module> pom,
+# recursively.
+reactor_poms() {
+  local pom="$1" dir mod
+  [[ -f "${pom}" ]] || return 0
+  printf '%s\n' "${pom}"
+  dir="$(dirname "${pom}")"
+  while IFS= read -r mod; do
+    [[ -n "${mod}" ]] || continue
+    reactor_poms "${dir}/${mod}/pom.xml"
+  done < <(sed -n 's/.*<module>\(.*\)<\/module>.*/\1/p' "${pom}")
 }
 
-if [[ "${SKIP_MAPPINGS}" -eq 1 ]]; then
-  banner "Mappings (skipped)"
-  info "Using committed .advisor/mappings/*.json as-is (--skip-mappings)."
+# True if the pom declares rewrite-maven-plugin OUTSIDE any <profiles> block.
+# Matches the <artifactId> element only, so prose/comments that merely mention
+# the plugin name do not trigger it.
+pom_has_unguarded_rewrite_plugin() {
+  awk '
+    /<profiles>/  { depth++ }
+    /<\/profiles>/ { depth-- }
+    /<artifactId>[[:space:]]*rewrite-maven-plugin[[:space:]]*<\/artifactId>/ && depth == 0 { found = 1 }
+    END { exit found ? 0 : 1 }
+  ' "$1"
+}
+
+if [[ "${SKIP_GUARD_CHECK}" -eq 1 ]]; then
+  warn "Skipping the rewrite-maven-plugin guard check (--skip-guard-check)."
 else
-  banner "Regenerating dependency mappings"
-  info "Preserving hand-authored mappings: ${PRESERVED_MAPPINGS[*]}"
-  gen_ok=0; gen_fail=0
-  for entry in "${AUTO_MAPPINGS[@]}"; do
-    file="${entry%%|*}"; coord="${entry#*|}"
-    if generate_mapping "${file}" "${coord}"; then
-      gen_ok=$((gen_ok + 1))
-    else
-      gen_fail=$((gen_fail + 1))
-    fi
-  done
-  info ""
-  ok "Mappings generated: ${gen_ok} succeeded, ${gen_fail} skipped/failed (failures are tolerated)."
+  unguarded=""
+  while IFS= read -r pom; do
+    pom_has_unguarded_rewrite_plugin "${pom}" && unguarded="${unguarded}  ${pom#${TARGET_DIR}/}"$'\n'
+  done < <(reactor_poms "${TARGET_DIR}/pom.xml")
+  if [[ -n "${unguarded}" ]]; then
+    err "rewrite-maven-plugin is declared in the active build of:"
+    printf '%s' "${unguarded}" >&2
+    err "Advisor's apply inherits that declaration and fails (BUG-2a/BUG-2b)."
+    err "Move the declaration into a profile first. Use the template:"
+    err "  ${KIT_DIR}/snippets/rewrite-plugin-profile-guard.xml"
+    exit 1
+  fi
+  ok "No unguarded rewrite-maven-plugin in the reactor."
+fi
+
+# --- Maven credentials (warn only) ------------------------------------------
+if [[ ! -f "${HOME}/.m2/settings.xml" ]] || ! grep -q '<server>' "${HOME}/.m2/settings.xml" 2>/dev/null; then
+  warn "No <server> credentials found in ~/.m2/settings.xml."
+  warn "Advisor needs access to the Spring Enterprise Maven repository."
 fi
 
 # ---------------------------------------------------------------------------
-# 3. Export SPRING_ADVISOR_MAPPING_CUSTOM_* env vars
+# 2. Sync kit mappings into the target repo (copy-on-first-run)
+# ---------------------------------------------------------------------------
+
+banner "Syncing kit mappings"
+[[ -d "${KIT_MAPPINGS_DIR}" ]] || die "Kit mappings directory missing: ${KIT_MAPPINGS_DIR}"
+mkdir -p "${MAPPINGS_DIR}"
+
+sync_kit_file() {
+  local src="$1" bn dest
+  bn="$(basename "${src}")"
+  dest="${MAPPINGS_DIR}/${bn}"
+  if [[ ! -e "${dest}" ]]; then
+    cp "${src}" "${dest}"
+    ok "  copied ${bn}"
+  elif [[ "${REFRESH_MAPPINGS}" -eq 1 ]] && ! cmp -s "${src}" "${dest}"; then
+    cp "${dest}" "${dest}.bak"
+    cp "${src}" "${dest}"
+    ok "  refreshed ${bn} (previous saved as ${bn}.bak)"
+  else
+    info "  kept existing ${bn}"
+  fi
+}
+
+for f in "${KIT_MAPPINGS_DIR}"/*.json "${KIT_MAPPINGS_DIR}/order.txt"; do
+  [[ -e "${f}" ]] && sync_kit_file "${f}"
+done
+
+# The kit's mappings are curated by the framework team. Never regenerate them.
+PRESERVED_MAPPINGS=()
+for f in "${KIT_MAPPINGS_DIR}"/*.json; do
+  PRESERVED_MAPPINGS+=("$(basename "${f}")")
+done
+
+# ---------------------------------------------------------------------------
+# 3. Export SPRING_ADVISOR_MAPPING_CUSTOM_* env vars from the manifest
 # ---------------------------------------------------------------------------
 
 banner "Wiring custom mappings into advisor"
+
+# The manifest in the target repo wins; the kit's is the fallback.
+MANIFEST="${MAPPINGS_DIR}/order.txt"
+[[ -f "${MANIFEST}" ]] || MANIFEST="${KIT_MAPPINGS_DIR}/order.txt"
+[[ -f "${MANIFEST}" ]] || die "No wiring manifest (order.txt) found."
+info "Manifest: ${MANIFEST#${TARGET_DIR}/}"
+
+MAPPING_ENV_ORDER=()
+while IFS= read -r line; do
+  line="${line%%#*}"                      # strip comments
+  line="$(printf '%s' "${line}" | tr -d '[:space:]')"
+  [[ -n "${line}" ]] && MAPPING_ENV_ORDER+=("${line}")
+done < "${MANIFEST}"
+[[ "${#MAPPING_ENV_ORDER[@]}" -gt 0 ]] || die "Wiring manifest is empty: ${MANIFEST}"
+
 idx=0
 for entry in "${MAPPING_ENV_ORDER[@]}"; do
   file="${entry%%:*}"
   strategy=""
   [[ "${entry}" == *:* ]] && strategy="${entry##*:}"
   path=".advisor/mappings/${file}"
-  if [[ ! -f "${SCRIPT_DIR}/${path}" ]]; then
+  if [[ ! -f "${TARGET_DIR}/${path}" ]]; then
     warn "mapping file not found, skipping from env: ${path}"
     continue
   fi
@@ -338,15 +330,110 @@ plan_is_actionable() {
 # Snapshot of tracked changes, to detect whether an apply actually did anything.
 worktree_signature() {
   [[ "${HAVE_GIT}" -eq 1 ]] || { echo "no-git"; return; }
-  git -C "${SCRIPT_DIR}" status --porcelain 2>/dev/null | sort | cksum
+  git -C "${TARGET_DIR}" status --porcelain 2>/dev/null | sort | cksum
 }
 
 build_check() {
   case "${BUILD_MODE}" in
     none)    info "Build check skipped (--no-build)." ;;
-    verify)  run ./mvnw -q verify ;;
-    install) run ./mvnw -q -DskipTests install ;;
+    verify)  run "${MVN}" -q verify ;;
+    install) run "${MVN}" -q -DskipTests install ;;
   esac
+}
+
+# Run one apply. --force adds --accept-no-alignment (the verified way to make
+# the full plan land; plain apply no-ops on transitive-only plans — BUG-1).
+apply_step() {
+  if [[ "${FORCE_MODE}" -eq 1 ]]; then
+    run advisor upgrade-plan apply --accept-no-alignment
+  else
+    run advisor upgrade-plan apply
+  fi
+}
+
+# --- Mapping helpers (validation, generation, collision tracking) ------------
+#
+# True if the given text is a usable mapping: JSON with a "rewrite" section that
+# has at least one "<version>":{...} entry. advisor sometimes emits empty
+# mappings for internal/transitive modules, and wiring an empty one makes every
+# later advisor call fail with "One of the custom mappings provided is empty".
+is_valid_mapping() {
+  local content="$1"
+  [[ -n "${content}" ]] || return 1
+  grep -q '"rewrite"' <<<"${content}" || return 1
+  grep -qE '"[0-9]+\.[0-9]+\.[0-9xX]+"[[:space:]]*:' <<<"${content}" || return 1
+  return 0
+}
+
+# Restore the mappings dir to a snapshot: drop any *.json advisor newly created
+# and restore every pre-existing file. This is what protects curated mappings —
+# advisor names its output .advisor/mappings/<slug>.json and that slug can
+# collide with an existing file (e.g. `mapping create` for an internal Kafka
+# module emits slug "kafka"), which would otherwise clobber a curated mapping
+# and dangle its env reference.
+restore_mappings_from() {
+  local backup="$1" f bn
+  while IFS= read -r f; do
+    [[ -n "${f}" ]] || continue
+    bn="$(basename "${f}")"
+    [[ -e "${backup}/${bn}" ]] || rm -f "${f}"
+  done < <(find "${MAPPINGS_DIR}" -maxdepth 1 -type f -name '*.json' 2>/dev/null)
+  cp -a "${backup}/." "${MAPPINGS_DIR}/" 2>/dev/null || true
+}
+
+# Regenerate a single mapping into .advisor/mappings/<target_file>.
+#
+# `advisor mapping create -c=<coord>` writes the mapping into
+# .advisor/mappings/<slug>.json (slug is advisor's own project name and MAY be
+# empty -> ".json", and MAY collide with an existing file). It does not print
+# the mapping to stdout. We therefore: snapshot the mappings dir, run the
+# command, capture the content of the file advisor wrote (newest json), then
+# restore the snapshot (undoing any collision) and write the captured content
+# to our chosen target filename — but only if it is a valid, non-empty mapping.
+#
+# Returns 0 on success, 1 on (tolerated) failure.
+generate_mapping() {
+  local target_file="$1" coordinate="$2"
+  local target_path="${MAPPINGS_DIR}/${target_file}"
+  local marker log_out backup produced content slug
+  marker="$(mktemp)"; log_out="$(mktemp)"; backup="$(mktemp -d)"
+  cp -a "${MAPPINGS_DIR}/." "${backup}/" 2>/dev/null || true
+
+  info "  coordinate: ${coordinate} -> ${target_file} (resolving, may take a minute)…"
+  # Redirect stdin from /dev/null: advisor would otherwise consume the caller's
+  # stdin (e.g. the here-string driving resolve_missing_mappings' read loop).
+  if ! advisor mapping create -c="${coordinate}" </dev/null >"${log_out}" 2>&1; then
+    warn "mapping create failed for ${coordinate} (keeping existing ${target_file} if present)"
+    sed 's/^/    /' "${log_out}" | tail -4
+    restore_mappings_from "${backup}"
+    rm -rf "${marker}" "${log_out}" "${backup}"
+    return 1
+  fi
+
+  # The file advisor just wrote is the newest json in the mappings dir.
+  produced="$(find "${MAPPINGS_DIR}" -maxdepth 1 -type f -name '*.json' -newer "${marker}" 2>/dev/null | head -1)"
+  content=""; slug=""
+  if [[ -n "${produced}" ]]; then
+    content="$(cat "${produced}" 2>/dev/null || true)"
+    slug="$(basename "${produced}" .json)"
+  fi
+
+  # Undo any file changes advisor made (protects curated + earlier mappings).
+  restore_mappings_from "${backup}"
+  rm -rf "${marker}" "${log_out}" "${backup}"
+
+  if ! is_valid_mapping "${content}"; then
+    warn "  advisor produced no usable mapping for ${coordinate} (empty/invalid) — skipping"
+    return 1
+  fi
+
+  printf '%s\n' "${content}" > "${target_path}"
+  if [[ "${slug}" != "${target_file%.json}" ]]; then
+    ok "  wrote ${target_file} (advisor slug: '${slug}')"
+  else
+    ok "  wrote ${target_file}"
+  fi
+  return 0
 }
 
 # --- Self-healing: auto-create mappings for blocked dependencies -------------
@@ -361,20 +448,9 @@ build_check() {
 # "exactly one leading tab, group:artifact, end-of-line" match selects only
 # the coordinates we should try to map.
 
-# Coordinates we've already attempted (seeded with the mappings we ship), so we
-# never loop on the same one twice.
-TRIED_COORDS=" com.github.javafaker:javafaker org.apache.avro:avro \
-org.apache.kafka:kafka-clients org.apache.kafka:kafka_2.13 \
-org.apache.kafka:kafka-streams org.apache.kafka:kafka-streams-test-utils \
-org.apache.kafka:connect-api org.apache.kafka:connect-json \
-org.apache.kafka:kafka-group-coordinator org.apache.kafka:kafka-group-coordinator-api \
-org.apache.kafka:kafka-metadata org.apache.kafka:kafka-raft \
-org.apache.kafka:kafka-server org.apache.kafka:kafka-server-common \
-org.apache.kafka:kafka-storage org.apache.kafka:kafka-storage-api \
-org.apache.kafka:kafka-tools-api \
-io.confluent:kafka-avro-serializer io.confluent:kafka-schema-registry-client \
-io.confluent:kafka-schema-serializer io.confluent:kafka-protobuf-serializer \
-io.confluent:kafka-json-schema-serializer io.confluent:kafka-streams-avro-serde "
+# Coordinates we've already attempted, so we never loop on the same one twice.
+# Seeded below from the coordinates the wired mappings already cover.
+TRIED_COORDS=" "
 MAPPINGS_CREATED=0
 
 is_tried()   { case "${TRIED_COORDS}" in *" $1 "*) return 0 ;; *) return 1 ;; esac; }
@@ -390,7 +466,7 @@ group_conflicted() { case "${CONFLICTED_GROUPS}" in *" $1 "*) return 0 ;; *) ret
 # advisor refuses to load two custom mappings that share a project slug or a
 # coordinate (RaiseErrorOnDuplicatesCoordinatesMerger -> "Some projects were
 # already defined"). Internal Kafka modules all collapse to slug 'kafka' and
-# re-claim kafka-clients, which the shipped apache-kafka.json already owns — so we
+# re-claim kafka-clients, which the kit's apache-kafka.json already owns — so we
 # must NOT wire a generated mapping that collides. Track what's already wired.
 WIRED_SLUGS=" "
 WIRED_COORDS=" "
@@ -402,7 +478,8 @@ mapping_slug()   { grep -m1 '"slug"' "$1" 2>/dev/null | sed -E 's/.*"slug"[[:spa
 mapping_coords() { grep '"coordinates"' "$1" 2>/dev/null | grep -oE '"[A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+"' | tr -d '"'; }
 
 # Record a mapping's slug + coordinates as wired, so later generated mappings
-# that would collide with it are skipped instead of crashing advisor.
+# that would collide with it are skipped instead of crashing advisor. The
+# covered coordinates are also marked as tried: they need no new mapping.
 register_wired_mapping() {
   local path="$1" s c
   s="$(mapping_slug "${path}")"
@@ -410,6 +487,7 @@ register_wired_mapping() {
   while IFS= read -r c; do
     [[ -n "${c}" ]] || continue
     coord_wired "${c}" || WIRED_COORDS="${WIRED_COORDS}${c} "
+    is_tried "${c}" || mark_tried "${c}"
   done < <(mapping_coords "${path}")
 }
 
@@ -425,7 +503,7 @@ add_mapping_env() {
   ENV_IDX=$((ENV_IDX + 1))
 }
 
-# Seed WIRED_SLUGS/WIRED_COORDS from the mappings already wired in step 3.
+# Seed WIRED_SLUGS/WIRED_COORDS/TRIED_COORDS from the mappings wired in step 3.
 for _m in "${MAPPING_ENV_ORDER[@]}"; do
   _mf="${_m%%:*}"
   [[ -f "${MAPPINGS_DIR}/${_mf}" ]] && register_wired_mapping "${MAPPINGS_DIR}/${_mf}"
@@ -454,7 +532,7 @@ resolve_missing_mappings() {
     is_tried "${coord}" && continue
     if group_conflicted "${coord%%:*}"; then
       mark_tried "${coord}"
-      info "  ↷ skipping ${coord} (project '${coord%%:*}' already conflicts with a shipped mapping)"
+      info "  ↷ skipping ${coord} (project '${coord%%:*}' already conflicts with a wired mapping)"
       continue
     fi
     if [[ "${MAPPINGS_CREATED}" -ge "${MAX_MAPPINGS}" ]]; then
@@ -545,9 +623,14 @@ while :; do
   # keeps recurring unchanged after an apply that changes no files (stuck).
   action_sig="$(printf '%s\n' "${plan_output}" | grep -E '(→|->|=>)' | sort -u | cksum || true)"
   if [[ -n "${stuck_sig:-}" && "${action_sig}" == "${stuck_sig}" ]]; then
+    if [[ "${FORCE_MODE}" -eq 1 ]]; then
+      ok "Converged: the forced apply no longer changes any file for this plan."
+      break
+    fi
     warn "The plan is unchanged after an apply that produced no file changes."
-    warn "advisor cannot progress further here (upgrades are BOM-managed or still blocked). Stopping."
-    break
+    warn "This is known BUG-1: plain apply no-ops on transitive-only projects."
+    warn "Re-run with --force to apply with --accept-no-alignment."
+    exit 2
   fi
 
   if [[ "${DRY_RUN}" -eq 1 ]]; then
@@ -572,7 +655,7 @@ while :; do
 
   sig_before="$(worktree_signature)"
   banner "Applying upgrade step ${step}"
-  if ! run advisor upgrade-plan apply; then
+  if ! apply_step; then
     die "advisor upgrade-plan apply failed on step ${step}. Review output above; fix and re-run."
   fi
   sig_after="$(worktree_signature)"
@@ -591,6 +674,8 @@ while :; do
   if ! build_check; then
     err "Build check failed after step ${step}."
     err "Inspect the changes (git diff), fix, then re-run. Applied ${applied} step(s) so far."
+    err "Known post-upgrade compile breaks and their fixes:"
+    err "  ${KIT_DIR}/docs/app-team-runbook.md (step 4)"
     exit 1
   fi
   ok "Build check passed after step ${step}."
@@ -604,22 +689,23 @@ banner "Summary"
 info "Steps applied this run:    ${applied}"
 info "Mappings auto-created:     ${MAPPINGS_CREATED}"
 if [[ "${MAPPINGS_CREATED}" -gt 0 && "${HAVE_GIT}" -eq 1 ]]; then
-  new_maps="$(git -C "${SCRIPT_DIR}" status --porcelain -- .advisor/mappings/ 2>/dev/null | sed 's/^/    /' || true)"
+  new_maps="$(git -C "${TARGET_DIR}" status --porcelain -- .advisor/mappings/ 2>/dev/null | sed 's/^/    /' || true)"
   [[ -n "${new_maps}" ]] && { info "New/updated mapping files:"; printf '%s\n' "${new_maps}"; }
 fi
 
 # Best-effort: report the Spring Boot version now declared in a leaf app pom.
-leaf_pom="$(grep -rl 'spring-boot-starter-parent' "${SCRIPT_DIR}" --include=pom.xml 2>/dev/null | head -1 || true)"
+leaf_pom="$(grep -rl 'spring-boot-starter-parent' "${TARGET_DIR}" --include=pom.xml 2>/dev/null | grep -v '/target/' | head -1 || true)"
 if [[ -n "${leaf_pom}" ]]; then
   boot_ver="$(grep -A2 'spring-boot-starter-parent' "${leaf_pom}" | sed -n 's:.*<version>\(.*\)</version>.*:\1:p' | head -1 || true)"
-  [[ -n "${boot_ver}" ]] && info "Spring Boot version in ${leaf_pom#${SCRIPT_DIR}/}: ${boot_ver}"
+  [[ -n "${boot_ver}" ]] && info "Spring Boot version in ${leaf_pom#${TARGET_DIR}/}: ${boot_ver}"
 fi
 
 if [[ "${applied}" -gt 0 || "${MAPPINGS_CREATED}" -gt 0 ]]; then
   info ""
   info "Next steps:"
   info "  • Review the changes:  git diff  (and git status for new mapping files)"
-  info "  • Commit the generated .advisor/mappings/ files so the run is reproducible."
+  info "  • Fix any compile breaks: see docs/app-team-runbook.md, step 4."
+  info "  • Commit .advisor/mappings/ so the run is reproducible."
   info "  • Run the apps / tests to validate behaviour."
   info "  • Re-run this script to continue if more steps remain."
 elif [[ "${DRY_RUN}" -eq 1 ]]; then

@@ -1,0 +1,12 @@
+# Wiring manifest for custom upgrade mappings.
+# One mapping per line: <file>[:<merge-strategy>]
+# Line order == SPRING_ADVISOR_MAPPING_CUSTOM_<N> index, starting at 0.
+# Lines that start with "#" and blank lines are ignored.
+spring-boot-jackson3.json:override
+javafaker.json
+avro.json
+apache-kafka.json
+confluent-platform.json
+# App-specific mappings, auto-created by the upgrade run and then wired here.
+commons-beanutils.json
+commons-validator.json

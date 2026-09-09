@@ -1,0 +1,58 @@
+<!--
+  Profile guard for the rewrite-maven-plugin.
+
+  WHY THIS IS NECESSARY
+  Maven merges a build-level plugin's <dependencies> and <executions> into
+  EVERY invocation of that plugin. This includes the invocation that Spring
+  Application Advisor forces during `upgrade-plan apply`. The merged
+  dependencies downgrade Advisor's recipe classpath. The merged executions
+  run your recipes inside Advisor's run. Both break the upgrade
+  ("Recipe class not found: ...ModuleHasDependency" and related errors).
+  See BUG-2a / BUG-2b in advisor-kit/docs/known-issues.md.
+
+  WHAT TO DO
+  1. Move your whole rewrite-maven-plugin declaration out of <build><plugins>.
+  2. Put it inside the profile below.
+  3. Run your own recipes with:  mvn -Popenrewrite validate
+  4. Advisor now sees a build without the plugin, and its apply works.
+
+  Neutralizing only the execution (phase=none) is NOT sufficient.
+  The plugin <dependencies> alone already break Advisor's classpath.
+-->
+<profiles>
+    <profile>
+        <id>openrewrite</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.openrewrite.maven</groupId>
+                    <artifactId>rewrite-maven-plugin</artifactId>
+                    <version>${rewrite-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>run-openrewrite</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <activeRecipes>
+                            <!-- your recipes here -->
+                        </activeRecipes>
+                    </configuration>
+                    <dependencies>
+                        <!-- your recipe artifacts here, for example:
+                        <dependency>
+                            <groupId>org.openrewrite.recipe</groupId>
+                            <artifactId>rewrite-spring</artifactId>
+                            <version>${rewrite-spring.version}</version>
+                        </dependency>
+                        -->
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>

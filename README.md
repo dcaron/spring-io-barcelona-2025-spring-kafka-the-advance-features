@@ -16,6 +16,13 @@ Demo codebase for our Spring I/O 2025 Barcelona talk
 | non-blocking-retries-example                  | 8085 | Y       | Y       | Y       | `non-blocking-retries-consumer-group`                                                 | Consumes: `events`, `events-retry-topic-1000`, `events-retry-topic-2000`, `events-retry-topic-4000` and `events-retry-topic-dlt` | Non blocking retries example                            |
 | blocking-retries-example                      | 8086 | Y       | Y       | Y       | `blocking-retries-consumer-group`                                                     | Consumes: `events`                                                                                       | Blocking retries example                                |
 
+## Advisor upgrade kit
+
+The [`advisor-kit/`](advisor-kit/README.md) directory is a stand-alone package for
+upgrading this (or any) Spring Boot repo with Spring Application Advisor: upgrade
+script, curated mappings, pom workaround snippet, and one-page docs (operating
+model, team roles, runbook, known issues). Start at [`advisor.md`](advisor.md).
+
 ## Build the project
 
 ```shell
