@@ -1,0 +1,11 @@
+SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/spring-boot-jackson3.json
+SPRING_ADVISOR_MAPPING_CUSTOM_0_MERGE_STRATEGY=override
+SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/javafaker.json
+SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/avro.json
+SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/apache-kafka.json
+SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/confluent-platform.json
+--- advisor mapping create -c=org.apache.kafka:kafka-clients (cwd=/private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/78d5aec3-9d23-474c-8812-a9f043c46bb3/scratchpad/envwired/runs/A3-kafka-clients) ---
+🏃 Detecting available versions: 
+	💔 Project kafka associated to coordinate org.apache.kafka:kafka-clients already exists in current mappings.
+exit=0
+--- output files ---

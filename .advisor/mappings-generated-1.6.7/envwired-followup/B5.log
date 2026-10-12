@@ -1,0 +1,14 @@
+SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/spring-boot-jackson3.json
+SPRING_ADVISOR_MAPPING_CUSTOM_0_MERGE_STRATEGY=override
+SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/javafaker.json
+SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/avro.json
+SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/confluent-platform.json
+SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=/private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/78d5aec3-9d23-474c-8812-a9f043c46bb3/scratchpad/envwired/runs/B1-kafka-group-coordinator/.advisor/mappings/kafka.json
+SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=/private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/78d5aec3-9d23-474c-8812-a9f043c46bb3/scratchpad/envwired/runs/B2-kafka-metadata/.advisor/mappings/kafka.json
+--- advisor mapping create -c=org.apache.kafka:kafka-group-coordinator (cwd=/private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/78d5aec3-9d23-474c-8812-a9f043c46bb3/scratchpad/envwired/runs/B5-dup-slug-loader) ---
+🏃 Detecting available versions: 
+
+💔 Errors
+ You can find the error in .advisor/errors/20260819-165825232.log - Please open a new support ticket in https://support.broadcom.com and attach the logs.
+exit=1
+--- output files ---

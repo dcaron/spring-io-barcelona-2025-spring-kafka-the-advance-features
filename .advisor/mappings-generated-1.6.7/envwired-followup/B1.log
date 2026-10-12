@@ -1,0 +1,33 @@
+SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/spring-boot-jackson3.json
+SPRING_ADVISOR_MAPPING_CUSTOM_0_MERGE_STRATEGY=override
+SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/javafaker.json
+SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/avro.json
+SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/.advisor/mappings/confluent-platform.json
+--- advisor mapping create -c=org.apache.kafka:kafka-group-coordinator (cwd=/private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/78d5aec3-9d23-474c-8812-a9f043c46bb3/scratchpad/envwired/runs/B1-kafka-group-coordinator) ---
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator [00m 00s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator [00m 01s]	🏃 [ 1 / 1 ] for org.apache.kafka:kafka-group-coordinator [00m 02s] ok
+
+		⚠️ 2 repositories could not be queried, so the version list may be incomplete. Run with --debug to get more information.
+		👍 Found 10 minor versions.
+
+		🏃 [ 1 / 10 ] Generating dependency tree for version 3.4.1 [00m 00s]		🏃 [ 1 / 10 ] Generating dependency tree for version 3.4.1 [00m 01s] ok
+		🏃 [ 2 / 10 ] Generating dependency tree for version 3.5.2 [00m 00s]		🏃 [ 2 / 10 ] Generating dependency tree for version 3.5.2 [00m 01s] ok
+		🏃 [ 3 / 10 ] Generating dependency tree for version 3.6.2 [00m 00s]		🏃 [ 3 / 10 ] Generating dependency tree for version 3.6.2 [00m 01s] ok
+		🏃 [ 4 / 10 ] Generating dependency tree for version 3.7.2 [00m 00s]		🏃 [ 4 / 10 ] Generating dependency tree for version 3.7.2 [00m 01s] ok
+		🏃 [ 5 / 10 ] Generating dependency tree for version 3.8.1 [00m 00s]		🏃 [ 5 / 10 ] Generating dependency tree for version 3.8.1 [00m 01s] ok
+		🏃 [ 6 / 10 ] Generating dependency tree for version 3.9.2 [00m 00s]		🏃 [ 6 / 10 ] Generating dependency tree for version 3.9.2 [00m 01s] ok
+		🏃 [ 7 / 10 ] Generating dependency tree for version 4.0.2 [00m 00s]		🏃 [ 7 / 10 ] Generating dependency tree for version 4.0.2 [00m 01s]		🏃 [ 7 / 10 ] Generating dependency tree for version 4.0.2 [00m 02s] ok
+		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 00s]		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 01s]		🏃 [ 8 / 10 ] Generating dependency tree for version 4.1.2 [00m 02s] ok
+		🏃 [ 9 / 10 ] Generating dependency tree for version 4.2.1 [00m 00s]		🏃 [ 9 / 10 ] Generating dependency tree for version 4.2.1 [00m 01s]		🏃 [ 9 / 10 ] Generating dependency tree for version 4.2.1 [00m 02s] ok
+		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 00s]		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 01s]		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 02s]		🏃 [ 10 / 10 ] Generating dependency tree for version 4.3.1 [00m 03s] ok
+
+🚀Created 1 mapping file(s) at: /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/78d5aec3-9d23-474c-8812-a9f043c46bb3/scratchpad/envwired/runs/B1-kafka-group-coordinator/.advisor/mappings
+exit=0
+--- output files ---
+total 8
+drwxr-xr-x  3 dcaron  wheel    96 Aug 19 16:53 .
+drwxr-xr-x  3 dcaron  wheel    96 Aug 19 16:53 ..
+-rw-r--r--  1 dcaron  wheel  2644 Aug 19 16:53 kafka.json
+== .advisor/mappings/kafka.json ==
+slug: 'kafka'
+coordinates: ['org.apache.kafka:kafka-clients', 'org.apache.kafka:kafka-group-coordinator', 'org.apache.kafka:kafka-server-common']
