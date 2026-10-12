@@ -1,30 +1,37 @@
 # Advisor reports — one issue per file, one verified repro each
 
-Every report below was re-verified on **Advisor 1.6.7** on **2026-08-20** against an
-**isolated minimal reproduction** under [`repros/`](../../repros) — none of them depend on
-this repository's application code. Each repro directory contains a `run.sh`, the fixtures
-it needs, and a captured `transcript.txt` (plus `error-stacktrace.log` where relevant).
+Every report below was verified on **Advisor 1.6.7** (2026-08-20) against an **isolated minimal
+reproduction** under [`repros/`](../../repros) and **re-verified on Advisor 1.7.0** (recipes 1.7.6)
+on **2026-10-12** — see each report's *"Status on Advisor 1.7.0"* section, the consolidated
+[`STATUS-1.7.0.md`](STATUS-1.7.0.md), and the raw captures under
+[`evidence-1.7.0/`](evidence-1.7.0/README.md). None of the repros depend on this repository's
+application code. Each repro directory contains a `run.sh`, the fixtures it needs, and captured
+`transcript.txt` (1.6.7) / `transcript-1.7.0.txt` files (plus crash logs where relevant).
+The CLI surface of 1.7.0 is captured in [`cli-surface-1.7.0.txt`](cli-surface-1.7.0.txt).
 
 ## Bug reports
 
-| Report | One-liner | Repro |
-|---|---|---|
-| [BUG-1](BUG-1-apply-noop-loop.md) | `apply` loops forever on a transitive-only dependency, reporting success while changing 0 files | [`repros/01`](../../repros/01-apply-noop-loop) |
-| [BUG-2a](BUG-2a-recipe-bundle-missing-rewrite-java-dependencies.md) | Boot-4 recipes reference `ModuleHasDependency` but the assembled coordinates omit `rewrite-java-dependencies` | [`repros/02`](../../repros/02-missing-recipe-bundle) |
-| [BUG-2b](BUG-2b-apply-hijacks-project-rewrite-plugin.md) | On multi-module projects, `apply` runs the project's own rewrite-maven-plugin execution with Advisor's `-Drewrite.*` overrides — and dies there | [`repros/02`](../../repros/02-missing-recipe-bundle) |
-| [BUG-3](BUG-3-duplicate-slug-inconsistent-loading.md) | Duplicate-slug mappings: `build-config` accepts, `upgrade-plan` rejects generically, `mapping create` crashes; root cause only in the crash log | [`repros/03`](../../repros/03-dup-slug-inconsistent-loading) |
-| [BUG-4](BUG-4-mapping-create-empty-slug-hidden-file.md) | `mapping create` writes a hidden `.json` for empty slugs; silently clobbers; no `-o/--output` | [`repros/04`](../../repros/04-empty-slug-hidden-file) |
-| [BUG-5](BUG-5-resolution-ignores-project-repositories.md) | Coordinate resolution ignores the pom's `<repositories>` and misblames credentials | [`repros/05`](../../repros/05-resolution-ignores-repositories) |
-| [BUG-6](BUG-6-empty-mapping-silently-skipped.md) | An empty `{}` custom mapping is skipped with no warning naming the file | [`repros/06`](../../repros/06-empty-mapping-silent-skip) |
+| Report | One-liner | Repro | 1.7.0 |
+|---|---|---|---|
+| [BUG-1](BUG-1-apply-noop-loop.md) | `apply` loops forever on a transitive-only dependency, reporting success while changing 0 files | [`repros/01`](../../repros/01-apply-noop-loop) | **Largely fixed** — refuses with a blocker summary (exit 50); 0-file "success" survives under `--accept-no-alignment` |
+| [BUG-2a](BUG-2a-recipe-bundle-missing-rewrite-java-dependencies.md) | Boot-4 recipes reference `ModuleHasDependency` but the assembled coordinates omit `rewrite-java-dependencies` | [`repros/02`](../../repros/02-missing-recipe-bundle) | Unchanged |
+| [BUG-2b](BUG-2b-apply-hijacks-project-rewrite-plugin.md) | On multi-module projects, `apply` runs the project's own rewrite-maven-plugin execution with Advisor's `-Drewrite.*` overrides — and dies there | [`repros/02`](../../repros/02-missing-recipe-bundle) | **Worse** → BUG-7 |
+| [BUG-3](BUG-3-duplicate-slug-inconsistent-loading.md) | Duplicate-slug mappings: `build-config` accepts, `upgrade-plan` rejects generically, `mapping create` crashes; root cause only in the crash log | [`repros/03`](../../repros/03-dup-slug-inconsistent-loading) | Unchanged |
+| [BUG-4](BUG-4-mapping-create-empty-slug-hidden-file.md) | `mapping create` writes a hidden `.json` for empty slugs; silently clobbers; no `-o/--output` | [`repros/04`](../../repros/04-empty-slug-hidden-file) | Unchanged |
+| [BUG-5](BUG-5-resolution-ignores-project-repositories.md) | Coordinate resolution ignores the pom's `<repositories>` and misblames credentials | [`repros/05`](../../repros/05-resolution-ignores-repositories) | Unchanged (`mapping update` too) |
+| [BUG-6](BUG-6-empty-mapping-silently-skipped.md) | An empty `{}` custom mapping is skipped with no warning naming the file | [`repros/06`](../../repros/06-empty-mapping-silent-skip) | Unchanged |
+| [BUG-7](BUG-7-hijacked-project-plugin-hangs-recursive-descriptor-scan.md) | **New in 1.7.0:** the hijacked project plugin execution hangs at the first step in a recursive recipe-descriptor classpath scan (recipes 1.7.6) | [`repros/02/run-1.7.0-hang.sh`](../../repros/02-missing-recipe-bundle/run-1.7.0-hang.sh) | New |
+| [BUG-8](BUG-8-forced-boot-41-step-pins-starters-parent-stays.md) | **New in 1.7.0:** with a `spring-boot` override mapping that lacks 4.1.x, the forced `4.0.x → 4.1.x` step pins every `spring-boot-starter-*` to 4.1.1 and leaves the parent at 4.0.8 instead of refusing (mixed generations) | real project, [`evidence-1.7.0/C-pass2-pom-changes.diff`](evidence-1.7.0/C-pass2-pom-changes.diff) | New |
+| [BUG-9](BUG-9-single-unmapped-transitive-hides-whole-plan.md) | **New in 1.7.0:** one unmapped transitive dependency silently removes every other project from the plan (exit 10, only a warning names it) | real project, [`evidence-1.7.0/A-raw-plan-7mappings.log`](evidence-1.7.0/A-raw-plan-7mappings.log) | New |
 
 ## Feature requests
 
-| Report | One-liner | Demo |
-|---|---|---|
-| [FR-1](FR-1-first-party-kafka-confluent-mappings.md) | Ship first-party Apache Kafka + Confluent Platform family mappings (reference implementations included) | [`repros/07`](../../repros/07-no-first-party-kafka-mappings) |
-| [FR-2](FR-2-family-aware-mapping-create-union-merge.md) | Family-aware `mapping create` + union-merge for same-slug mappings | [`repros/08`](../../repros/08-slug-collapse-family) |
-| [FR-3](FR-3-machine-readable-plan-output.md) | `--format=json` for the upgrade plan | — |
-| [FR-4](FR-4-declarative-mapping-wiring.md) | Declarative mapping config instead of ordered env vars | — |
+| Report | One-liner | Demo | 1.7.0 |
+|---|---|---|---|
+| [FR-1](FR-1-first-party-kafka-confluent-mappings.md) | Ship first-party Apache Kafka + Confluent Platform family mappings (reference implementations included) | [`repros/07`](../../repros/07-no-first-party-kafka-mappings) | Still needed; catalog has none (`mapping search`), Kafka-4/Confluent-8 modules had to be hand-added |
+| [FR-2](FR-2-family-aware-mapping-create-union-merge.md) | Family-aware `mapping create` + union-merge for same-slug mappings | [`repros/08`](../../repros/08-slug-collapse-family) | Still needed |
+| [FR-3](FR-3-machine-readable-plan-output.md) | `--format=json` for the upgrade plan | — | Partial: `patch apply` writes a JSON report; exit codes 10/50 |
+| [FR-4](FR-4-declarative-mapping-wiring.md) | Declarative mapping config instead of ordered env vars | — | Still needed |
 
 ## What changed vs. the earlier combined write-ups
 
@@ -49,3 +56,8 @@ re-scopings established while building the isolated repros (2026-08-20):
 2. **BUG-1's no-op loop is fully reproducible in a 13-line-dependency pom** — it needs
    nothing from the original project beyond one transitive dependency with no version
    literal to rewrite.
+
+And on **2026-10-12 (Advisor 1.7.0)**: BUG-1's default-path loop is gone, the BUG-2b hijack
+turned into a hang (BUG-7), and two new planning/apply defects appeared (BUG-8, BUG-9). The
+committed `advisor` branch also turned out not to compile from a clean checkout (spring-kafka
+4.0 `@RetryableTopic backOff`), which the 1.6.7 build check had missed — fixed in the same commit.

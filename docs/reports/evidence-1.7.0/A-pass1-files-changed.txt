@@ -1,0 +1,26 @@
+ .advisor/mappings/order.txt                        | 13 ++++
+ .advisor/mappings/zookeeper.json                   | 82 ++++++++++++++++++++++
+ .../blocking-retries-example/pom.xml               | 18 +++--
+ .../config/KafkaErrorHandlingConfiguration.java    |  9 ++-
+ .../src/main/resources/application.yml             | 11 +--
+ .../non-blocking-retries-example/pom.xml           | 22 ++++--
+ .../src/main/resources/application.yml             | 11 +--
+ .../pom.xml                                        | 28 +++++---
+ .../src/main/resources/application.yml             | 11 +--
+ .../src/test/resources/application.yml             |  8 ++-
+ .../spring-kafka-multiple-consumers-beans/pom.xml  | 28 +++++---
+ .../kafka/consumer/KafkaConsumerConfiguration.java | 19 +++--
+ .../spring/kafka/consumer/StockQuoteConsumer.java  |  4 +-
+ .../src/main/resources/application.yml             | 11 +--
+ .../src/test/resources/application.yml             |  8 ++-
+ .../pom.xml                                        | 28 +++++---
+ .../consumer/config/KafkaConsumerConfigs.java      |  2 +-
+ .../consumer/config/KafkaConsumerProperties.java   |  2 +-
+ .../config/KafkaConsumersConfiguration.java        |  6 +-
+ .../src/main/resources/application.yml             | 14 ++--
+ .../src/test/resources/application.yml             |  8 ++-
+ .../spring-kafka-producer/pom.xml                  | 22 ++++--
+ .../config/KafkaProducerConfiguration.java         |  6 +-
+ .../src/main/resources/application.yml             | 14 ++--
+ .../src/test/resources/application.yml             |  7 ++
+ 25 files changed, 285 insertions(+), 107 deletions(-)

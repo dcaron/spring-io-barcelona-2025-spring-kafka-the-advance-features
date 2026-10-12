@@ -16,8 +16,8 @@
 #      -> build check, until the plan converges or --max-steps is reached.
 #      Missing mappings for blocked dependencies are auto-created and wired.
 #
-# IMPORTANT: plain `apply` is known to no-op on projects whose upgrades are all
-# transitive/BOM-managed (BUG-1, see docs/known-issues.md). Use --force to run
+# IMPORTANT: plain `apply` never applies on this class of project: on Advisor 1.6.x it
+# no-ops forever (BUG-1), on 1.7.x it refuses with a blocker list (exit 50). Use --force to run
 # `apply --accept-no-alignment` repeatedly until convergence. That mode is the
 # verified way to make the full upgrade land.
 #
@@ -149,8 +149,9 @@ command -v advisor >/dev/null 2>&1 || die "advisor CLI not found on PATH. Instal
 ADVISOR_VERSION="$(advisor --version 2>/dev/null | sed -n 's/^Version: //p' | head -1)"
 info "Spring Application Advisor: ${ADVISOR_VERSION:-unknown}"
 case "${ADVISOR_VERSION}" in
-  1.6.*) ok "advisor version looks good" ;;
-  *)     warn "This kit was verified against advisor 1.6.x; behaviour may differ." ;;
+  1.7.*) ok "advisor version looks good (kit verified on 1.7.0)" ;;
+  1.6.*) warn "advisor 1.6.x: works, but the kit is now verified on 1.7.x (1.7.0 changed plan output and exit codes)." ;;
+  *)     warn "This kit was verified against advisor 1.7.x; behaviour may differ." ;;
 esac
 
 if [[ -x "${TARGET_DIR}/mvnw" ]]; then
@@ -322,6 +323,10 @@ ok "build-config generated."
 plan_is_actionable() {
   local plan_output="$1"
   [[ -n "${plan_output}" ]] || return 1
+  # 1.7.0 prints "Projects discovered: … 1.1.x → 1.2.x" lines even when it then refuses
+  # to plan ("No upgrade plan available", exit 10/50), so an arrow alone is not enough.
+  grep -qE 'No upgrade plan available|There are no upgrade plans' <<<"${plan_output}" && return 1
+  grep -qE 'Upgrade Plan for your Dependencies' <<<"${plan_output}" && return 0
   grep -qE '[0-9]+\.[0-9]+\.[0-9xX]+[[:space:]]*(→|->|=>)[[:space:]]*[0-9]+\.[0-9]+\.[0-9xX]+' <<<"${plan_output}" \
     && return 0
   return 1
@@ -513,9 +518,13 @@ unset _m _mf
 # Print the blocked coordinates found in the given plan text (one per line).
 # Always succeeds (grep finding nothing is normal, not an error).
 extract_blocked_coords() {
+  # 1.6.x: "\t- group:artifact" under "Please request your administrator…".
+  # 1.7.0: "\t- group:artifact" under "Add upgrade mappings for these dependencies:"
+  #        AND "      - group:artifact" (six spaces) under "There are no upgrade
+  #        mappings configured for these transitive dependencies:".
   printf '%s\n' "$1" \
-    | grep -E "^${TAB}- [A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+$" \
-    | sed "s/^${TAB}- //" \
+    | grep -E "^(${TAB}|      )- [A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+$" \
+    | sed -E "s/^(${TAB}|      )- //" \
     | sort -u || true
 }
 
@@ -598,7 +607,18 @@ while :; do
 
   info ""
   info "${BOLD}--- Reading upgrade plan (applied: ${applied}, mappings created: ${MAPPINGS_CREATED}) ---${RESET}"
-  plan_output="$(advisor upgrade-plan get 2>&1 || true)"
+  # In --force mode the plan that will be applied is the --accept-no-alignment one;
+  # the plain plan is routinely refused on 1.7.0 (exit 50 with a blocker list).
+  plan_args=(); [[ "${FORCE_MODE}" -eq 1 ]] && plan_args=(--accept-no-alignment)
+  plan_rc=0
+  plan_output="$(advisor upgrade-plan get "${plan_args[@]}" 2>&1)" || plan_rc=$?
+  case "${plan_rc}" in
+    0) ;;
+    10) warn "  advisor exit 10: dependencies without an upgrade mapping are present (listed below if any)." ;;
+    50) warn "  advisor exit 50: plan refused — blocker summary:"
+        printf '%s\n' "${plan_output}" | sed -n '/blocker projects/,/Warnings/p' | grep -E '^\s+\*' | sed 's/^/   /' || true ;;
+    *)  warn "  advisor upgrade-plan get exited ${plan_rc}" ;;
+  esac
 
   # Condensed view: the actionable "→" upgrades, plus how many deps are blocked.
   printf '%s\n' "${plan_output}" | grep -E 'Projects (discovered|to upgrade):|(→|->|=>)' | sed 's/^/  /' || true

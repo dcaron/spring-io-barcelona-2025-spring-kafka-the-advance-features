@@ -1,0 +1,380 @@
+diff --git a/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml b/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
+index 6f7a775..2942e14 100644
+--- a/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
++++ b/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
+@@ -17,19 +17,23 @@
+         <java.version>21</java.version>
+         <confluent.kafka.version>8.3.1</confluent.kafka.version>
+         <loki-logback-appender.version>1.6.0</loki-logback-appender.version>
++    <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
+     </properties>
+     <dependencies>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-actuator</artifactId>
++      <version>4.1.1</version>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-kafka</artifactId>
++      <version>4.1.1</version>
+         </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-opentelemetry</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+         <dependency>
+             <groupId>com.example</groupId>
+@@ -41,6 +45,7 @@
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-test</artifactId>
+             <scope>test</scope>
++      <version>4.1.1</version>
+         </dependency>
+ 
+         <dependency>
+@@ -52,6 +57,7 @@
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-webmvc</artifactId>
++      <version>4.1.1</version>
+         </dependency>
+         <!--
+             https://packages.confluent.io/maven/io/confluent/kafka-avro-serializer/
+@@ -68,6 +74,7 @@
+         <dependency>
+             <groupId>io.micrometer</groupId>
+             <artifactId>micrometer-registry-prometheus</artifactId>
++      <version>1.17.1</version>
+         </dependency>
+         <!-- Tracing related dependencies -->
+         <dependency>
+diff --git a/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml b/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
+index 8299b05..ec9a8fe 100644
+--- a/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
++++ b/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
+@@ -18,6 +18,7 @@
+         <java.version>21</java.version>
+         <confluent.kafka.version>8.3.1</confluent.kafka.version>
+         <loki-logback-appender.version>1.6.0</loki-logback-appender.version>
++    <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
+     </properties>
+     <dependencies>
+         <dependency>
+@@ -29,35 +30,42 @@
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-actuator</artifactId>
++      <version>4.1.1</version>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-webmvc</artifactId>
++      <version>4.1.1</version>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-kafka</artifactId>
++      <version>4.1.1</version>
+         </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-opentelemetry</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+ 
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-test</artifactId>
+             <scope>test</scope>
++      <version>4.1.1</version>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-kafka-test</artifactId>
+             <scope>test</scope>
++      <version>4.1.1</version>
+         </dependency>
+         <!-- Metrics related dependencies -->
+         <!-- Metrics Prometheus -->
+         <dependency>
+             <groupId>io.micrometer</groupId>
+             <artifactId>micrometer-registry-prometheus</artifactId>
++      <version>1.17.1</version>
+         </dependency>
+         <!-- Tracing related dependencies -->
+         <dependency>
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml b/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
+index 19e4d13..1f8238c 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
+@@ -18,6 +18,7 @@
+     <java.version>21</java.version>
+     <confluent.kafka.version>8.3.1</confluent.kafka.version>
+     <loki-logback-appender.version>1.6.0</loki-logback-appender.version>
++    <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
+   </properties>
+ 
+   <dependencies>
+@@ -31,23 +32,28 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-webmvc</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-opentelemetry</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!--
+@@ -66,6 +72,7 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-validation</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!--
+@@ -79,12 +86,14 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-configuration-processor</artifactId>
+       <optional>true</optional>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!-- Metrics related dependencies -->
+     <dependency>
+       <groupId>io.micrometer</groupId>
+       <artifactId>micrometer-registry-prometheus</artifactId>
++      <version>1.17.1</version>
+     </dependency>
+     <!-- Tracing related dependencies -->
+     <dependency>
+@@ -117,6 +126,7 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+   </dependencies>
+ 
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
+index d23f1c3..9719e49 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
+@@ -18,6 +18,7 @@
+     <java.version>21</java.version>
+     <confluent.kafka.version>8.3.1</confluent.kafka.version>
+     <loki-logback-appender.version>1.6.0</loki-logback-appender.version>
++    <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
+   </properties>
+ 
+   <dependencies>
+@@ -31,23 +32,28 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-webmvc</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-opentelemetry</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!--
+@@ -66,12 +72,14 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-validation</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!-- Metrics related dependencies -->
+     <dependency>
+       <groupId>io.micrometer</groupId>
+       <artifactId>micrometer-registry-prometheus</artifactId>
++      <version>1.17.1</version>
+     </dependency>
+     <!-- Tracing related dependencies -->
+     <dependency>
+@@ -100,6 +108,7 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-configuration-processor</artifactId>
+       <optional>true</optional>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <dependency>
+@@ -117,6 +126,7 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+   </dependencies>
+ 
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
+index 71bc39d..c8e9b57 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
+@@ -18,6 +18,7 @@
+     <java.version>21</java.version>
+     <confluent.kafka.version>8.3.1</confluent.kafka.version>
+     <loki-logback-appender.version>1.6.0</loki-logback-appender.version>
++    <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
+   </properties>
+ 
+   <dependencies>
+@@ -31,23 +32,28 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-webmvc</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-opentelemetry</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!--
+@@ -66,12 +72,14 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-validation</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!-- Metrics related dependencies -->
+     <dependency>
+       <groupId>io.micrometer</groupId>
+       <artifactId>micrometer-registry-prometheus</artifactId>
++      <version>1.17.1</version>
+     </dependency>
+     <!-- Tracing related dependencies -->
+     <dependency>
+@@ -99,6 +107,7 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-configuration-processor</artifactId>
+       <optional>true</optional>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <dependency>
+@@ -116,6 +125,7 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+   </dependencies>
+ 
+diff --git a/multiple-consumers-same-app/spring-kafka-producer/pom.xml b/multiple-consumers-same-app/spring-kafka-producer/pom.xml
+index 7d19222..53a2d9b 100644
+--- a/multiple-consumers-same-app/spring-kafka-producer/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-producer/pom.xml
+@@ -17,6 +17,7 @@
+   <properties>
+     <java.version>21</java.version>
+     <confluent.kafka.version>8.3.1</confluent.kafka.version>
++    <micrometer-tracing.version>1.7.1</micrometer-tracing.version>
+ 
+     <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+     <javafaker.version>1.0.2</javafaker.version>
+@@ -36,18 +37,22 @@
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-actuator</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-webmvc</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-opentelemetry</artifactId>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <dependency>
+@@ -66,11 +71,13 @@
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-kafka-test</artifactId>
+       <scope>test</scope>
++      <version>4.1.1</version>
+     </dependency>
+ 
+     <!--
+@@ -88,6 +95,7 @@
+     <dependency>
+       <groupId>io.micrometer</groupId>
+       <artifactId>micrometer-registry-prometheus</artifactId>
++      <version>1.17.1</version>
+     </dependency>
+     <!-- Tracing related dependencies -->
+     <dependency>

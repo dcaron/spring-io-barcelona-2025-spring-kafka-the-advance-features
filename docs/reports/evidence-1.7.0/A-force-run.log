@@ -1,0 +1,171 @@
+=== A: kit --force -y (guarded 3.4.5 worktree, 8 mappings) started Mon Oct 12 18:29:26 CEST 2026 ===
+========== Preflight ==========
+Target repo: /Users/dcaron/Documents/src/adv170-A-guarded
+Kit:         /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit
+Spring Application Advisor: 1.7.0
+⚠️  This kit was verified against advisor 1.6.x; behaviour may differ.
+✅ Maven wrapper present
+✅ No unguarded rewrite-maven-plugin in the reactor.
+========== Syncing kit mappings ==========
+  kept existing apache-kafka.json
+  kept existing avro.json
+  kept existing confluent-platform.json
+  kept existing javafaker.json
+  kept existing spring-boot-jackson3.json
+  kept existing order.txt
+========== Wiring custom mappings into advisor ==========
+Manifest: .advisor/mappings/order.txt
+  SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/spring-boot-jackson3.json  (merge: override)
+  SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/javafaker.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/avro.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/apache-kafka.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/confluent-platform.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/commons-beanutils.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_6_FILEPATH=.advisor/mappings/commons-validator.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_7_FILEPATH=.advisor/mappings/zookeeper.json
+✅ Configured 8 custom mapping(s).
+========== Generating build configuration ==========
+$ advisor build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/adv170-A-guarded.
+🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 10s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 04s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s] ok
+🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 04s] ok
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv170-A-guarded/target/.advisor/build-config.json
+✅ build-config generated.
+========== Upgrade plan ==========
+--- Reading upgrade plan (applied: 0, mappings created: 0) ---
+  Projects discovered:
+  	- confluent: 7.9.x → 8.3.x
+  	- junit: 4.13.x → 6.0.x
+  	- docker-java: 3.4.x → 3.7.x
+  	- spring-framework: 6.2.x → 7.0.x
+  	- zookeeper: 3.8.x → 3.9.x
+  	- testcontainers: 1.20.x → 2.0.x
+  	- spring-retry: 2.0.x → spring-framework:7.0.x
+  	- commons-beanutils: 1.9.x → 1.11.x
+  	- micrometer-context-propagation: 1.1.x → 1.2.x
+  	- kafka: 3.8.x → 4.3.x
+  	- spring-boot: 3.4.x → 4.1.x
+  	- jackson-annotations: 2.18.x → 2.22.x
+  	- micrometer-tracing: 1.4.x → 1.7.x
+  	- apache-commons-lang: 3.17.x → 3.20.x
+  	- spring-kafka: 3.3.x → 4.1.x
+  	- apache-commons-io: 2.15.x → 2.22.x
+  	- apache-commons-collections: 3.2.x → 4.5.x
+  	- xmlunit: 2.10.x → 2.13.x
+  	- micrometer: 1.14.x → 1.17.x
+  	- mockito: 5.14.x → 5.23.x
+  	- jackson: 2.17.x → 3.2.x
+  	- apache-commons-compress: 1.26.x → 1.28.x
+  	- junit-platform: 1.11.x → 6.0.x
+========== Applying upgrade step 1 ==========
+$ advisor upgrade-plan apply --accept-no-alignment
+🚀 Existing build-configuration is already up-to-date
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 28s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+	- There is an error in junit, several versions are used simultaneously:
+		- org.junit.jupiter:junit-jupiter:5.11.4
+		- org.junit.jupiter:junit-jupiter-api:5.11.4
+		- org.junit.jupiter:junit-jupiter-params:5.11.4
+		- org.junit.jupiter:junit-jupiter-engine:5.11.4
+		- junit:junit:4.13.2
+	- There is an error in jackson-annotations, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-annotations:2.17.2
+		- com.fasterxml.jackson.core:jackson-annotations:2.18.3
+	- There is an error in apache-commons-lang, several versions are used simultaneously:
+		- org.apache.commons:commons-lang3:3.14.0
+		- org.apache.commons:commons-lang3:3.17.0
+	- There is an error in apache-commons-io, several versions are used simultaneously:
+		- commons-io:commons-io:2.16.1
+		- commons-io:commons-io:2.15.1
+		- commons-io:commons-io:2.11.0
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.17.2
+		- com.fasterxml.jackson.core:jackson-databind:2.17.2
+		- com.fasterxml.jackson.core:jackson-core:2.18.3
+		- com.fasterxml.jackson.core:jackson-databind:2.18.3
+		- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.3
+		- com.fasterxml.jackson.module:jackson-module-parameter-names:2.18.3
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.18.3
+		- com.fasterxml.jackson.module:jackson-module-scala_2.13:2.18.3
+Please report these problems to support.broadcom.com
+Projects to upgrade:
+	* confluent from 7.9.x to 8.3.x
+	* junit from 4.13.x to 6.0.x
+	* docker-java from 3.4.x to 3.7.x
+	* spring-framework from 6.2.x to 7.0.x
+	* zookeeper from 3.8.x to 3.9.x
+	* testcontainers from 1.20.x to 2.0.x
+	* spring-retry:2.0.x migrates into spring-framework:7.0.x
+	* commons-beanutils from 1.9.x to 1.11.x
+	* micrometer-context-propagation from 1.1.x to 1.2.x
+	* kafka from 3.8.x to 4.3.x
+	* spring-boot from 3.4.x to 4.1.x
+	* jackson-annotations from 2.18.x to 2.22.x
+	* micrometer-tracing from 1.4.x to 1.7.x
+	* apache-commons-lang from 3.17.x to 3.20.x
+	* spring-kafka from 3.3.x to 4.1.x
+	* apache-commons-io from 2.15.x to 2.22.x
+	* apache-commons-collections from 3.2.x to 4.5.x
+	* xmlunit from 2.10.x to 2.13.x
+	* micrometer from 1.14.x to 1.17.x
+	* mockito from 5.14.x to 5.23.x
+	* jackson from 2.17.x to 3.2.x
+	* apache-commons-compress from 1.26.x to 1.28.x
+	* junit-platform from 1.11.x to 6.0.x
+🔨 [ 4 / 4 ] Upgrading sources... [04m 56s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+✅ Step 1 applied.
+========== Verifying build after step 1 ==========
+$ /Users/dcaron/Documents/src/adv170-A-guarded/mvnw -q -DskipTests install
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.fusesource.jansi.internal.JansiLoader in an unnamed module (file:/Users/dcaron/.m2/wrapper/dists/apache-maven-3.9.9-bin/33b4b2b4/apache-maven-3.9.9/lib/jansi-2.4.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/Users/dcaron/.m2/wrapper/dists/apache-maven-3.9.9-bin/33b4b2b4/apache-maven-3.9.9/lib/guava-33.2.1-jre.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[ERROR] COMPILATION ERROR : 
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[39,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+  required: no arguments
+  found:    org.springframework.boot.ssl.SslBundles
+  reason: actual and formal argument lists differ in length
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[59,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+  required: no arguments
+  found:    org.springframework.boot.ssl.SslBundles
+  reason: actual and formal argument lists differ in length
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project spring-kafka-multiple-consumers-beans: Compilation failure: Compilation failure: 
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[39,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    org.springframework.boot.ssl.SslBundles
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[59,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    org.springframework.boot.ssl.SslBundles
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :spring-kafka-multiple-consumers-beans
+❌ Build check failed after step 1.
+❌ Inspect the changes (git diff), fix, then re-run. Applied 1 step(s) so far.
+❌ Known post-upgrade compile breaks and their fixes:
+❌   /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit/docs/app-team-runbook.md (step 4)
+kit exit=1 finished Mon Oct 12 18:36:06 CEST 2026

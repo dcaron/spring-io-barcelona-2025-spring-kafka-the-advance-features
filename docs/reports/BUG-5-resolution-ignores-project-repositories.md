@@ -49,3 +49,11 @@ one dependency, one `<repositories>` entry.
 Every artifact family hosted outside Maven Central (Confluent, corporate Nexus/Artifactory
 without mirror config) is un-mappable via `mapping create`, and the plan blocks on those
 artifacts (see FR-1's demo where all `io.confluent:*` artifacts land on the blocked list).
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Unchanged** — Maven resolves the Confluent artifact from the pom-declared repository,
+`mapping create` still says *"No versions found. One or more repositories denied access (HTTP
+401/403). Check the credentials in ~/.m2/settings.xml."* and exits 0 without a file.
+`mapping update` (new in 1.6.7/1.7.0) has the same blind spot: it reports the curated
+`confluent-platform.json` "up to date" without being able to query the repository.

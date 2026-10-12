@@ -73,3 +73,11 @@ Any project that runs OpenRewrite as part of its normal build — a very common 
 `upgrade-plan apply` at the Boot 4 step with a message that blames Advisor's recipes rather
 than the interaction. This was the actual failure mode of the original reproduction repo,
 previously believed project-independent and non-workaroundable.
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Worse.** The hijack is unchanged, but with recipes 1.7.6 the project's execution now **hangs
+at the first apply step** (recursive recipe-descriptor classpath scan) instead of failing at the
+Boot-4 step — see [BUG-7](BUG-7-hijacked-project-plugin-hangs-recursive-descriptor-scan.md).
+Confirmed on the real project (unguarded worktree, 11 min, depth 35, killed). The profile guard
+is now mandatory. `--include-modules` cannot help: the execution runs through the lifecycle phase.

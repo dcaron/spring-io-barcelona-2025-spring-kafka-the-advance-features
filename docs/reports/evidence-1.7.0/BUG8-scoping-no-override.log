@@ -1,0 +1,82 @@
+=== BUG-8 scoping: C worktree (4.0.8 + fix + extended mappings), apply --accept-no-alignment WITHOUT the spring-boot-jackson3.json:override mapping; started Mon Oct 12 19:23:24 CEST 2026 ===
+skipping spring-boot-jackson3.json:override
+wired 6
+Build configuration file does not exist! Generating it...
+
+
+
+
+
+
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv170-C/target/.advisor/build-config.json
+
+
+
+
+Projects discovered:
+	- confluent: 8.3.x (no upgrades available)
+	- junit: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.6.x → 1.7.x
+	- jackson-annotations: 2.17.x → 2.22.x
+	- docker-java: 3.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- apache-commons-lang: 3.14.x → 3.20.x
+	- commons-validator: 1.10.x → 1.11.x
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-kafka: 4.0.x → 4.1.x
+	- apache-commons-io: 2.15.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- spring-framework: 7.0.x (no upgrades available)
+	- commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- xmlunit: 2.10.x → 2.13.x
+	- micrometer: 1.16.x → 1.17.x
+	- mockito: 5.20.x → 5.23.x
+	- jackson: 2.17.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- kafka: 4.1.x → 4.3.x
+	- junit-platform: 6.0.x (no upgrades available)
+	- spring-boot: 4.0.x → 4.1.x
+	- avro: 1.12.x (no upgrades available)
+
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade micrometer-tracing from 1.6.x to 1.7.x
+		* Upgrade jackson-annotations from 2.17.x to 2.22.x
+		* Upgrade apache-commons-lang from 3.14.x to 3.20.x
+		* Upgrade commons-validator from 1.10.x to 1.11.x
+		* Upgrade spring-kafka from 4.0.x to 4.1.x
+		* Upgrade apache-commons-io from 2.15.x to 2.22.x
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade xmlunit from 2.10.x to 2.13.x
+		* Upgrade micrometer from 1.16.x to 1.17.x
+		* Upgrade mockito from 5.20.x to 5.23.x
+		* Upgrade jackson from 2.17.x to 3.2.x
+		* Upgrade apache-commons-compress from 1.26.x to 1.28.x
+		* Upgrade kafka from 4.1.x to 4.3.x
+		* Upgrade spring-boot from 4.0.x to 4.1.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+⚠️  Warnings:
+Please report these problems to support.broadcom.com
+
+get exit=0
+	* apache-commons-compress from 1.26.x to 1.28.x
+	* kafka from 4.1.x to 4.3.x
+	* spring-boot from 4.0.x to 4.1.x
+🔨 [ 4 / 4 ] Upgrading sources... [02m 10s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+apply exit=0
+--- result ---
+ 6 files changed, 12 insertions(+), 6 deletions(-)
+   2 <version>3.4.5
+   6 <version>4.1.1
+4.1.1 pins: 6
+   2 +        <version>4.1.1</version>
+   4 +    <version>4.1.1</version>
+   2 -        <version>4.0.8</version>
+   4 -    <version>4.0.8</version>

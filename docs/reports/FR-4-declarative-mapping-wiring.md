@@ -44,3 +44,10 @@ customMappings:
 
 - Either way: every command should **echo which custom mappings it loaded** (count +
   paths), so a missing wiring is visible instead of silently changing the plan.
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Still needed.** The CLI's `--from-yml` reads `.spring-app-advisor.yml` only as the CI opt-in
+(`enabled: true`), not as mapping configuration; wiring is still `SPRING_ADVISOR_MAPPING_CUSTOM_N_*`.
+`mapping search --slug` downloads catalog mappings into `.advisor/mappings/`, so a declarative
+"these slugs + these files" manifest would now have an obvious home.

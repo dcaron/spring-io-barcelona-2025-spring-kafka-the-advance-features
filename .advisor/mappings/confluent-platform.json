@@ -1,6 +1,6 @@
 {
   "slug" : "confluent",
-  "coordinates" : [ "io.confluent:kafka-avro-serializer", "io.confluent:kafka-schema-registry-client", "io.confluent:kafka-schema-serializer", "io.confluent:kafka-protobuf-serializer", "io.confluent:kafka-json-schema-serializer", "io.confluent:kafka-streams-avro-serde" ],
+  "coordinates" : [ "io.confluent:kafka-avro-serializer", "io.confluent:kafka-schema-registry-client", "io.confluent:kafka-schema-serializer", "io.confluent:kafka-protobuf-serializer", "io.confluent:kafka-json-schema-serializer", "io.confluent:kafka-streams-avro-serde", "io.confluent:kafka-avro-types", "io.confluent:kafka-schema-types" ],
   "repositoryUrl" : "https://packages.confluent.io/maven/",
   "rewrite" : {
     "1.0.x" : {

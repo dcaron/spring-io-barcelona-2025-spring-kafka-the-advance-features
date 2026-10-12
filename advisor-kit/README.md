@@ -30,7 +30,7 @@ mappings from the central repository directly, and later from Advisor itself
 
 | Requirement                            | Check                                        |
 |----------------------------------------|----------------------------------------------|
-| Advisor CLI 1.6.x on PATH              | `advisor --version`                          |
+| Advisor CLI 1.7.x on PATH (1.6.x works) | `advisor --version`                          |
 | Java 17+ and a Maven build             | `./mvnw -v` in the target repo               |
 | Spring Enterprise Maven credentials    | `<server>` entry in `~/.m2/settings.xml`     |
 | Clean git worktree, on a branch        | `git status`                                 |
@@ -45,8 +45,10 @@ The kit never contains credentials. Each user configures `~/.m2/settings.xml`.
    `./advisor-kit/advisor-upgrade.sh --dry-run <repo-dir>`
 3. Run the upgrade:
    `./advisor-kit/advisor-upgrade.sh --force -y <repo-dir>`
-4. Fix the remaining compile breaks.
+4. Fix the remaining compile breaks and review the version pins.
    Follow `docs/app-team-runbook.md`, step 4.
+
+Kit verified on Advisor **1.7.0** (recipes 1.7.6) on 2026-10-12; see `docs/known-issues.md`.
 
 ## Read next
 

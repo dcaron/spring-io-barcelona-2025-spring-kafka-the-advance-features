@@ -1,0 +1,94 @@
+Application Advisor CLI Version: 1.7.0
+com.vmware.tanzu.spring.advisor.cli.upgradeplan.exceptions.RecipeExecutionException: Could not apply the recipe(s) to upgrade your Spring projects.
+	at com.vmware.tanzu.spring.advisor.cli.upgradeplan.runner.UpgradePlanRunnerWithTimer.recipeFailure(UpgradePlanRunnerWithTimer.java:41)
+	at com.vmware.tanzu.spring.advisor.cli.upgradeplan.runner.UpgradePlanRunner.runUpgrade(UpgradePlanRunner.java:80)
+	at com.vmware.tanzu.spring.advisor.cli.upgradeplan.UpgradePlanApplyCommand.runUpgrade(UpgradePlanApplyCommand.java:335)
+	at com.vmware.tanzu.spring.advisor.cli.upgradeplan.UpgradePlanApplyCommand.applyUpgradePlan(UpgradePlanApplyCommand.java:263)
+	at com.vmware.tanzu.spring.advisor.cli.upgradeplan.UpgradePlanApplyCommand.runCommand(UpgradePlanApplyCommand.java:206)
+	at com.vmware.tanzu.spring.advisor.cli.support.Command.run(Command.java:15)
+	at picocli.CommandLine.executeUserObject(CommandLine.java:2045)
+	at picocli.CommandLine.access$1500(CommandLine.java:148)
+	at picocli.CommandLine$RunLast.executeUserObjectOfLastSubcommandWithSameParent(CommandLine.java:2469)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2461)
+	at picocli.CommandLine$RunLast.handle(CommandLine.java:2423)
+	at picocli.CommandLine$AbstractParseResultHandler.execute(CommandLine.java:2277)
+	at picocli.CommandLine$RunLast.execute(CommandLine.java:2425)
+	at picocli.CommandLine.execute(CommandLine.java:2174)
+	at com.vmware.tanzu.spring.advisor.cli.support.CommandLineApplicationRunner.run(CommandLineApplicationRunner.java:38)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$1(SpringApplication.java:792)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:800)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:791)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$0(SpringApplication.java:776)
+	at java.base@25.0.1/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:186)
+	at java.base@25.0.1/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357)
+	at java.base@25.0.1/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:571)
+	at java.base@25.0.1/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:560)
+	at java.base@25.0.1/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:153)
+	at java.base@25.0.1/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:176)
+	at java.base@25.0.1/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:265)
+	at java.base@25.0.1/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:632)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:776)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:328)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.vmware.tanzu.spring.advisor.cli.CommandLineApplication.main(CommandLineApplication.java:42)
+	at java.base@25.0.1/java.lang.invoke.LambdaForm$DMH/sa346b79c.invokeStaticInit(LambdaForm$DMH)
+Caused by: java.lang.RuntimeException: Could not apply the recipe(s) to upgrade your Spring projects. Caused by: Command: [/Users/dcaron/Documents/src/adv170-C/mvnw -B process-test-classes org.openrewrite.maven:rewrite-maven-plugin:6.44.0:runNoFork -Drewrite.recipeArtifactCoordinates=com.vmware.tanzu.spring.recipes:java-recipes:1.7.6,com.vmware.tanzu.spring.recipes:rewrite-apache:1.7.6,com.vmware.tanzu.spring.recipes:rewrite-migrate-java:1.7.6,com.vmware.tanzu.spring.recipes:rewrite-spring:1.7.6,com.vmware.tanzu.spring.recipes:spring-boot-2-upgrade-recipes:1.7.6,com.vmware.tanzu.spring.recipes:spring-boot-3-upgrade-recipes:1.7.6,com.vmware.tanzu.spring.recipes:spring-boot-4-upgrade-recipes:1.7.6 -Drewrite.activeRecipes=com.vmware.tanzu.MainAdvisorRecipe -Drewrite.failOnInvalidActiveRecipes=true -Drewrite.configLocation=/Users/dcaron/Documents/src/adv170-C/.advisor/30801840-2f3a-417c-8dea-b266d3a7bb77-rewrite.yml -X -e -Dorg.slf4j.simpleLogger.defaultLogLevel=debug]
+
+Error:
+
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.fusesource.jansi.internal.JansiLoader in an unnamed module (file:/Users/dcaron/.m2/wrapper/dists/apache-maven-3.9.9-bin/33b4b2b4/apache-maven-3.9.9/lib/jansi-2.4.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+
+... [Maven -X debug output trimmed; module build order and the failing compile follow] ...
+
+423:[INFO] Building events 0.0.1-SNAPSHOT                                    [1/10]
+964:[INFO] --- compiler:3.13.0:compile (default-compile) @ events ---
+1240:[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ events ---
+1281:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ events ---
+1477:[INFO] Building spring-kafka-multiple-consumers-annotations 0.0.1-SNAPSHOT [2/10]
+2282:[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-kafka-multiple-consumers-annotations ---
+2857:[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-kafka-multiple-consumers-annotations ---
+2901:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ spring-kafka-multiple-consumers-annotations ---
+2937:[INFO] Building spring-kafka-multiple-consumers-beans 0.0.1-SNAPSHOT     [3/10]
+3740:[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-kafka-multiple-consumers-beans ---
+4289:[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-kafka-multiple-consumers-beans ---
+4333:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ spring-kafka-multiple-consumers-beans ---
+4369:[INFO] Building spring-kafka-multiple-consumers-configuration 0.0.1-SNAPSHOT [4/10]
+5172:[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-kafka-multiple-consumers-configuration ---
+5728:[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-kafka-multiple-consumers-configuration ---
+5772:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ spring-kafka-multiple-consumers-configuration ---
+5808:[INFO] Building spring-kafka-producer 0.0.1-SNAPSHOT                     [5/10]
+6602:[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-kafka-producer ---
+7166:[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-kafka-producer ---
+7210:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ spring-kafka-producer ---
+7246:[INFO] Building multiple-consumers-same-app 0.0.1-SNAPSHOT               [6/10]
+7294:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ multiple-consumers-same-app ---
+7330:[INFO] Building blocking-retries-example 0.0.1-SNAPSHOT                  [7/10]
+8079:[INFO] --- compiler:3.14.1:compile (default-compile) @ blocking-retries-example ---
+8619:[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ blocking-retries-example ---
+8663:[INFO] --- rewrite:6.44.0:runNoFork (default-cli) @ blocking-retries-example ---
+8699:[INFO] Building non-blocking-retries-example 0.0.1-SNAPSHOT              [8/10]
+9487:[INFO] --- compiler:3.14.1:compile (default-compile) @ non-blocking-retries-example ---
+
+9669:[ERROR] COMPILATION ERROR : 
+9671:[ERROR] /Users/dcaron/Documents/src/adv170-C/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[12,44] package org.springframework.retry.annotation does not exist
+9672:[ERROR] /Users/dcaron/Documents/src/adv170-C/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,21] cannot find symbol
+9675:[ERROR] /Users/dcaron/Documents/src/adv170-C/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,32] cannot find symbol
+9701:[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project non-blocking-retries-example: Compilation failure: Compilation failure: 
+9702:[ERROR] /Users/dcaron/Documents/src/adv170-C/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[12,44] package org.springframework.retry.annotation does not exist
+9703:[ERROR] /Users/dcaron/Documents/src/adv170-C/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,21] cannot find symbol
+9704:[ERROR]   symbol:   method backoff()
+9705:[ERROR]   location: @interface org.springframework.kafka.annotation.RetryableTopic
+9706:[ERROR] /Users/dcaron/Documents/src/adv170-C/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,32] cannot find symbol
+9707:[ERROR]   symbol:   class Backoff
+9708:[ERROR]   location: class com.example.spring.kafka.non.blocking.retries.consumer.CustomerRegisteredEventConsumer
+9709:[ERROR] -> [Help 1]
+9776:[ERROR] For more information about the errors and possible solutions, please read the following articles:
+9777:[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+9779:[ERROR] After correcting the problems, you can resume the build with the command
+9780:[ERROR]   mvn <args> -rf :non-blocking-retries-example

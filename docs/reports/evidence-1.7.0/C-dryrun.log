@@ -1,0 +1,44 @@
+========== Preflight ==========
+Target repo: /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features
+Kit:         /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit
+Spring Application Advisor: 1.7.0
+⚠️  This kit was verified against advisor 1.6.x; behaviour may differ.
+✅ Maven wrapper present
+✅ No unguarded rewrite-maven-plugin in the reactor.
+========== Syncing kit mappings ==========
+  kept existing apache-kafka.json
+  kept existing avro.json
+  kept existing confluent-platform.json
+  kept existing javafaker.json
+  kept existing spring-boot-jackson3.json
+  kept existing order.txt
+========== Wiring custom mappings into advisor ==========
+Manifest: .advisor/mappings/order.txt
+  SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/spring-boot-jackson3.json  (merge: override)
+  SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/javafaker.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/avro.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/apache-kafka.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/confluent-platform.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/commons-beanutils.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_6_FILEPATH=.advisor/mappings/commons-validator.json
+✅ Configured 7 custom mapping(s).
+========== Generating build configuration ==========
+$ advisor build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features.
+🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 11s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 04s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/target/.advisor/build-config.json
+✅ build-config generated.
+========== Upgrade plan ==========
+--- Reading upgrade plan (applied: 0, mappings created: 0) ---
+✅ No further upgrades to apply — the repository is upgraded as far as the available mappings allow.
+========== Summary ==========
+Steps applied this run:    0
+Mappings auto-created:     0
+Spring Boot version in blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml: 4.0.8
+Dry run complete — no changes were made.
+✅ Done.

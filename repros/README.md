@@ -15,13 +15,24 @@ repository's application code) and scripted. Reports live in
 | `07-no-first-party-kafka-mappings/` | ordinary spring-kafka app: 16 blocked coordinates, "request your administrator" | FR-1 |
 | `08-slug-collapse-family/` | sibling `mapping create` runs → same slug `kafka`, cannot be co-wired | FR-2, BUG-3 |
 
+## Re-verification on Advisor 1.7.0 (2026-10-12)
+
+Every directory also has a `transcript-1.7.0.txt` (recipes 1.7.6), plus the 1.7.0 counterparts of
+the crash logs / generated files (`*-1.7.0.*`). Per-issue verdicts are in each report's *"Status on
+Advisor 1.7.0"* section and in [`docs/reports/STATUS-1.7.0.md`](../docs/reports/STATUS-1.7.0.md).
+Headline: `03`–`06`, `08` unchanged; `07` same coordinates, new output format and exit code 10;
+`01` no longer loops (blocker summary, exit 50); `02` now **hangs** at the first step —
+run [`02-missing-recipe-bundle/run-1.7.0-hang.sh`](02-missing-recipe-bundle/run-1.7.0-hang.sh)
+(bounded, default 600 s) instead of `run.sh` on 1.7.x. `01-apply-noop-loop/probe-force-squash-1.7.0.txt`
+records the `-f` / `--squash-all` / `--accept-no-alignment` probes.
+
 ## Running
 
 Each directory has a `run.sh` (run it from anywhere; it cd's itself). Requirements:
-`advisor` 1.6.x on PATH, Maven, network; repros 01/02 additionally need working Spring
+`advisor` 1.6.x or 1.7.x on PATH, Maven, network; repros 01/02 additionally need working Spring
 Enterprise subscription credentials in `~/.m2/settings.xml` (recipes download during
 apply). Every directory contains the captured `transcript.txt` from the verification runs
-of 2026-08-20 (Advisor 1.6.7, recipes 1.7.5, Maven 3.9.16), plus `error-stacktrace.log`
+of 2026-08-20 (Advisor 1.6.7, recipes 1.7.5, Maven 3.9.16) and `transcript-1.7.0.txt` from 2026-10-12 (Advisor 1.7.0, recipes 1.7.6), plus `error-stacktrace.log`
 where a crash log is the evidence.
 
 Caution: `02` runs `advisor upgrade-plan apply`, whose first (successful) step rewrites

@@ -1,6 +1,6 @@
 {
   "slug" : "kafka",
-  "coordinates" : [ "org.apache.kafka:kafka-clients", "org.apache.kafka:kafka_2.13", "org.apache.kafka:kafka-streams", "org.apache.kafka:kafka-streams-test-utils", "org.apache.kafka:connect-api", "org.apache.kafka:connect-json", "org.apache.kafka:kafka-group-coordinator", "org.apache.kafka:kafka-group-coordinator-api", "org.apache.kafka:kafka-metadata", "org.apache.kafka:kafka-raft", "org.apache.kafka:kafka-server", "org.apache.kafka:kafka-server-common", "org.apache.kafka:kafka-storage", "org.apache.kafka:kafka-storage-api", "org.apache.kafka:kafka-tools-api" ],
+  "coordinates" : [ "org.apache.kafka:kafka-clients", "org.apache.kafka:kafka_2.13", "org.apache.kafka:kafka-streams", "org.apache.kafka:kafka-streams-test-utils", "org.apache.kafka:connect-api", "org.apache.kafka:connect-json", "org.apache.kafka:kafka-group-coordinator", "org.apache.kafka:kafka-group-coordinator-api", "org.apache.kafka:kafka-metadata", "org.apache.kafka:kafka-raft", "org.apache.kafka:kafka-server", "org.apache.kafka:kafka-server-common", "org.apache.kafka:kafka-storage", "org.apache.kafka:kafka-storage-api", "org.apache.kafka:kafka-tools-api", "org.apache.kafka:kafka-coordinator-common", "org.apache.kafka:kafka-share-coordinator", "org.apache.kafka:kafka-transaction-coordinator", "org.apache.kafka:kafka-test-common-internal-api", "org.apache.kafka:kafka-test-common-runtime" ],
   "repositoryUrl" : "",
   "rewrite" : {
     "2.4.x" : {

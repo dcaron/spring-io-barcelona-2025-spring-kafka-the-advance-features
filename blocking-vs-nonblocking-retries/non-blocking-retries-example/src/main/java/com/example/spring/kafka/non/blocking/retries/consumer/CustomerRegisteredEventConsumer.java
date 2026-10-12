@@ -9,7 +9,7 @@ import org.springframework.kafka.annotation.RetryableTopic;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.kafka.support.KafkaMessageHeaderAccessor;
 import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.retry.annotation.Backoff;
+import org.springframework.kafka.annotation.BackOff;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -23,7 +23,7 @@ public class CustomerRegisteredEventConsumer {
 //   TODO show in the demo: Configure non blocking retries using annotation
     @KafkaListener(topics = "events")
     @RetryableTopic(attempts = "4", retryTopicSuffix = "-retry-topic", dltTopicSuffix = "-retry-topic-dlt",
-                    backoff = @Backoff(delay = 1000, multiplier = 2, maxDelay = 5000))
+                    backOff = @BackOff(delay = 1000, multiplier = 2, maxDelay = 5000))
     public void on(CustomerRegisteredEvent event, @Header(KafkaHeaders.RECEIVED_PARTITION) String partition,
                                                   @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
                                                   KafkaMessageHeaderAccessor accessor) {

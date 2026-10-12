@@ -2,11 +2,16 @@
 # One mapping per line: <file>[:<merge-strategy>]
 # Line order == SPRING_ADVISOR_MAPPING_CUSTOM_<N> index, starting at 0.
 # Lines that start with "#" and blank lines are ignored.
-spring-boot-jackson3.json:override
+# spring-boot-jackson3.json:override  — written for Advisor 1.6.x to force the Jackson 3 alignment.
+#   Leave it UNWIRED on 1.7.x: it only defines generations 3.5.x/4.0.x, and with it wired the forced
+#   "spring-boot 4.0.x -> 4.1.x" step pins every starter to 4.1.1 while the parent stays 4.0.8 (BUG-8).
+#   Without it 1.7.0 moves the parent to 4.1.1 cleanly and Jackson 3 arrives anyway.
 javafaker.json
 avro.json
 apache-kafka.json
 confluent-platform.json
+# Transitive of the Kafka broker modules (kafka_2.13); without it Advisor 1.7.0 discovers no plan at all.
+zookeeper.json
 # App-specific mappings, auto-created by the upgrade run and then wired here.
 commons-beanutils.json
 commons-validator.json

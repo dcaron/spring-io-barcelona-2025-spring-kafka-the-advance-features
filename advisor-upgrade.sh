@@ -157,7 +157,7 @@ command -v advisor >/dev/null 2>&1 || die "advisor CLI not found on PATH. Instal
 ADVISOR_VERSION="$(advisor --version 2>/dev/null | sed -n 's/^Version: //p' | head -1)"
 info "Spring Application Advisor: ${ADVISOR_VERSION:-unknown}"
 case "${ADVISOR_VERSION}" in
-  1.6.*) ok "advisor version looks good" ;;
+  1.6.*|1.7.*) ok "advisor version looks good" ;;
   *)     warn "This script was written against advisor 1.6.x; behaviour may differ." ;;
 esac
 

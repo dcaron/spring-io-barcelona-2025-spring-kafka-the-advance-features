@@ -35,3 +35,8 @@ file was dropped.
 Validate each custom mapping at load time and emit a warning that names the skipped file
 and the reason (`"skipping custom mapping .../empty.json: empty mapping"`), then continue.
 Skip-and-continue is the right behavior — it just must be observable.
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Unchanged** — `build-config get` succeeds with a wired `{}` mapping and prints no warning
+naming `empty.json`. `transcript-1.7.0.txt`.

@@ -1,0 +1,91 @@
+=== C (4.0.8 tree) plain get with Kafka-4/Confluent-8 coordinates added to the curated mappings ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/target/.advisor/build-config.json
+Projects discovered:
+	- confluent: 8.3.x (no upgrades available)
+	- junit: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.6.x → 1.7.x
+	- jackson-annotations: 2.17.x → 2.22.x
+	- docker-java: 3.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- apache-commons-lang: 3.14.x → 3.20.x
+	- commons-validator: 1.10.x → 1.11.x
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-kafka: 4.0.x → 4.1.x
+	- apache-commons-io: 2.15.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- spring-framework: 7.0.x (no upgrades available)
+	- commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- xmlunit: 2.10.x → 2.13.x
+	- micrometer: 1.16.x → 1.17.x
+	- mockito: 5.20.x → 5.23.x
+	- jackson: 2.17.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- kafka: 4.1.x → 4.3.x
+	- junit-platform: 6.0.x (no upgrades available)
+	- spring-boot: 4.0.x → 4.1.x
+	- avro: 1.12.x (no upgrades available)
+No upgrade plan available.
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+	* apache-commons-io:2.15.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-lang > 3.14.x
+	* commons-beanutils:1.11.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+	* commons-validator:1.10.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+	* confluent:8.3.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+	* javafaker:1.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-lang > 3.14.x
+	* spring-boot:4.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade jackson > 2.17.x
+	* spring-boot:4.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade micrometer > 1.16.x
+	* spring-boot:4.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade micrometer-tracing > 1.6.x
+	* spring-boot:4.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade mockito > 5.20.x
+	* spring-boot:4.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade spring-kafka > 4.0.x
+	* spring-boot:4.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade xmlunit > 2.10.x
+⚠️  Warnings:
+Please report these problems to support.broadcom.com
+exit=50
+=== C get --accept-no-alignment ===
+🚀 Existing build-configuration is already up-to-date
+Projects discovered:
+	- confluent: 8.3.x (no upgrades available)
+	- junit: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.6.x → 1.7.x
+	- jackson-annotations: 2.17.x → 2.22.x
+	- docker-java: 3.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- apache-commons-lang: 3.14.x → 3.20.x
+	- commons-validator: 1.10.x → 1.11.x
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-kafka: 4.0.x → 4.1.x
+	- apache-commons-io: 2.15.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- spring-framework: 7.0.x (no upgrades available)
+	- commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- xmlunit: 2.10.x → 2.13.x
+	- micrometer: 1.16.x → 1.17.x
+	- mockito: 5.20.x → 5.23.x
+	- jackson: 2.17.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- kafka: 4.1.x → 4.3.x
+	- junit-platform: 6.0.x (no upgrades available)
+	- spring-boot: 4.0.x → 4.1.x
+	- avro: 1.12.x (no upgrades available)
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade micrometer-tracing from 1.6.x to 1.7.x
+		* Upgrade jackson-annotations from 2.17.x to 2.22.x
+		* Upgrade apache-commons-lang from 3.14.x to 3.20.x
+		* Upgrade commons-validator from 1.10.x to 1.11.x
+		* Upgrade spring-kafka from 4.0.x to 4.1.x
+		* Upgrade apache-commons-io from 2.15.x to 2.22.x
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade xmlunit from 2.10.x to 2.13.x
+		* Upgrade micrometer from 1.16.x to 1.17.x
+		* Upgrade mockito from 5.20.x to 5.23.x
+		* Upgrade jackson from 2.17.x to 3.2.x
+		* Upgrade apache-commons-compress from 1.26.x to 1.28.x
+		* Upgrade kafka from 4.1.x to 4.3.x
+		* Upgrade spring-boot from 4.0.x to 4.1.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+⚠️  Warnings:
+Please report these problems to support.broadcom.com

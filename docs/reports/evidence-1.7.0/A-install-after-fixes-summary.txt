@@ -1,0 +1,17 @@
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[12,44] package org.springframework.retry.annotation does not exist
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,21] cannot find symbol
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,32] cannot find symbol
+[INFO] events ............................................. SUCCESS [  1.722 s]
+[INFO] spring-kafka-multiple-consumers-annotations ........ SUCCESS [  2.562 s]
+[INFO] spring-kafka-multiple-consumers-beans .............. SUCCESS [  0.704 s]
+[INFO] spring-kafka-multiple-consumers-configuration ...... SUCCESS [  0.801 s]
+[INFO] spring-kafka-producer .............................. SUCCESS [  0.854 s]
+[INFO] multiple-consumers-same-app ........................ SUCCESS [  0.007 s]
+[INFO] blocking-retries-example ........................... SUCCESS [  0.494 s]
+[INFO] non-blocking-retries-example ....................... FAILURE [  0.216 s]
+[INFO] spring-io-barcelona-2025-talk-base ................. SKIPPED
+[INFO] blocking-vs-nonblocking-retries .................... SKIPPED
+[INFO] BUILD FAILURE
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[12,44] package org.springframework.retry.annotation does not exist
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,21] cannot find symbol
+[ERROR] /Users/dcaron/Documents/src/adv170-A-guarded/blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/java/com/example/spring/kafka/non/blocking/retries/consumer/CustomerRegisteredEventConsumer.java:[26,32] cannot find symbol

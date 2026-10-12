@@ -57,3 +57,16 @@ the curated table for every generation 2.7.x → 4.3.x.
   today (FR-2, BUG-3).
 - The Confluent mapping also needs BUG-5 fixed (or must ship fully curated), since
   `io.confluent:*` cannot currently be resolved by `mapping create` at all.
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Still needed.** `advisor mapping search --slug` for `kafka`, `kafka-clients`, `apache-kafka`,
+`confluent-platform`, `avro`, `javafaker` → *"No project found"*; `--prefix kafka` → none
+(`spring-boot` resolves, so the catalog lookup works). The demo app (repro 07) now reports
+*"Missing upgrade mappings: 13 project(s)"* with the same 17 coordinates split into 1 direct
+(tab-indented) + 16 transitive (six-space-indented), exit 10. On the real project at Boot 4.0.8
+the family grew: `kafka-coordinator-common`, `kafka-share-coordinator`,
+`kafka-transaction-coordinator`, `kafka-test-common-runtime`, `kafka-test-common-internal-api`,
+`io.confluent:kafka-avro-types`, `io.confluent:kafka-schema-types` were unmapped until added to
+the curated files (done in this repo and the kit, 2026-10-12). A first-party family mapping
+would track such module additions; hand-curation does not.

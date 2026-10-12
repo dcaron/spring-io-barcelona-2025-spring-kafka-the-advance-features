@@ -58,3 +58,9 @@ survives `build-config get` then dies at plan time with a message that doesn't s
   'demo': already defined by demo-a.json"* — the information demonstrably exists (it's in
   the crash log).
 - Preferably: union-merge same-slug mappings instead of rejecting (see FR-2).
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Unchanged** — identical three-way behaviour (`build-config get` accepts, `upgrade-plan get`
+rejects the second file generically, `mapping create` crashes with *"Some projects were already
+defined: [demo]"* only in the log). `transcript-1.7.0.txt`, `error-stacktrace-1.7.0.log`.

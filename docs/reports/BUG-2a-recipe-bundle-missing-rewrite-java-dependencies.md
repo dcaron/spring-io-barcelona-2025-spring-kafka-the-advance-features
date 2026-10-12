@@ -66,3 +66,12 @@ $ unzip -p ~/.m2/repository/com/vmware/tanzu/spring/recipes/spring-boot-4-upgrad
 - Add a CI smoke test that loads every shipped recipe against exactly the advertised
   coordinate set; a first-party "Recipe class not found" should never ship. (This defect
   survived at least the 1.7.2 → 1.7.5 recipe releases.)
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Unchanged** with recipes **1.7.6**. Single-module variant of repro 02 (plugin block with
+`<dependencies>`): step 1 ok, Boot-4 step fails in Advisor's own `6.44.0:runNoFork` with
+*"Recipe class not found: org.openrewrite.java.dependencies.search.ModuleHasDependency"*;
+`-Drewrite.recipeArtifactCoordinates` still lists only `com.vmware.tanzu.spring.recipes:*`
+(now including `rewrite-apache`), no `rewrite-java-dependencies`. Evidence:
+`repros/02-missing-recipe-bundle/error-stacktrace-single-module-1.7.0.log`, `variants-1.7.0.txt`.

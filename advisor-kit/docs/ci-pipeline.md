@@ -61,7 +61,8 @@ git push -u origin HEAD
 # open the PR with your platform's CLI (gh pr create / glab mr create)
 ```
 
-Use `--no-build` in the job. The PR pipeline compiles anyway, and compile
+The target must compile from a clean checkout; Advisor compiles each module
+before it rewrites and aborts on the first error. Use `--no-build` in the job. The PR pipeline compiles anyway, and compile
 breaks are expected output, not job failures. The PR is a starting point:
 a developer finishes it with runbook step 4.
 
@@ -72,6 +73,12 @@ a developer finishes it with runbook step 4.
 | 0    | Converged, or nothing to do      | Push only when files changed           |
 | 1    | Preflight or apply failed        | Fail the job; upload `.advisor/errors/`|
 | 2    | BUG-1 no-op (plain apply)        | Should not occur with `--force`        |
+
+The script also prints Advisor's own exit codes from `upgrade-plan get` on 1.7.x:
+`10` = dependencies without a mapping are present (the plan may be hidden, BUG-9),
+`50` = the plain plan was refused with a blocker summary (normal; `--force` applies).
+Add a job step that fails when `git diff` adds `<version>` elements to
+`spring-boot-starter-*` dependencies (BUG-8 symptom) until Advisor fixes it.
 
 On exit 1, upload the newest `.advisor/errors/*.log` as a job artifact and
 attach it when you report the problem to the framework team.

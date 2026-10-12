@@ -50,3 +50,17 @@ targets — `spring-boot`, `spring-kafka`, `jackson` — which sit above the stu
 
 `--force` and `--squash=N` do not help (they still resolve "the first step" to the same
 no-op). `--accept-no-alignment` escapes the loop but has its own defects (BUG-2a/2b).
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Changed — largely fixed on the default path, no-op survives under `--accept-no-alignment`.**
+`upgrade-plan get` on the same fixture now prints *"No upgrade plan available. … Here's a summary
+of blocker projects and potential actions to take: commons-beanutils:1.9.x needs an upgrade or
+migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x"* and exits
+**50**; three `apply` runs print the same and change nothing — no more false *"Successfully
+applied"*. `-f` and `--squash-all` do not change that. `get --accept-no-alignment` yields *Step 1:
+apache-commons-collections 3.2→4.5 + commons-beanutils 1.9→1.11*; `apply --accept-no-alignment`
+reports success in 50 s and still changes **0 files** (the transitive has no literal to rewrite),
+so the forced path can still produce success-with-no-change steps (seen on the real project as
+step 2 in `STATUS-1.7.0.md`, scenario C). Transcripts: `transcript-1.7.0.txt`,
+`probe-force-squash-1.7.0.txt`.

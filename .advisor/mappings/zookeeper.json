@@ -1,0 +1,82 @@
+{
+  "slug" : "zookeeper",
+  "coordinates" : [ "org.apache.zookeeper:zookeeper" ],
+  "repositoryUrl" : "",
+  "rewrite" : {
+    "3.3.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : {
+        "version" : "3.4.x"
+      },
+      "requirements" : {
+        "supportedGenerations" : { },
+        "excludedArtifacts" : [ ]
+      }
+    },
+    "3.4.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : {
+        "version" : "3.5.x"
+      },
+      "requirements" : {
+        "supportedGenerations" : {
+          "apache-commons-collections" : "3.2.x",
+          "apache-commons-lang" : "2.4.x"
+        },
+        "excludedArtifacts" : [ ]
+      }
+    },
+    "3.5.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : {
+        "version" : "3.6.x"
+      },
+      "requirements" : {
+        "supportedGenerations" : { },
+        "excludedArtifacts" : [ ]
+      }
+    },
+    "3.6.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : {
+        "version" : "3.7.x"
+      },
+      "requirements" : {
+        "supportedGenerations" : { },
+        "excludedArtifacts" : [ ]
+      }
+    },
+    "3.7.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : {
+        "version" : "3.8.x"
+      },
+      "requirements" : {
+        "supportedGenerations" : { },
+        "excludedArtifacts" : [ ]
+      }
+    },
+    "3.8.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : {
+        "version" : "3.9.x"
+      },
+      "requirements" : {
+        "supportedGenerations" : {
+          "apache-commons-io" : "2.17.x"
+        },
+        "excludedArtifacts" : [ ]
+      }
+    },
+    "3.9.x" : {
+      "recipes" : [ ],
+      "nextRewrite" : null,
+      "requirements" : {
+        "supportedGenerations" : {
+          "apache-commons-io" : "2.17.x"
+        },
+        "excludedArtifacts" : [ ]
+      }
+    }
+  }
+}

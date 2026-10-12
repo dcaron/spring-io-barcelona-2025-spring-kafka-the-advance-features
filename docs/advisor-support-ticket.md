@@ -1,9 +1,14 @@
-# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7
+# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7 / 1.7.0
 
 > Submission-ready draft. File at **https://support.broadcom.com** (Tanzu → Spring Application
 > Advisor). These are three related, reproducible defects; they can be filed as one ticket with
 > three parts or split. All are **Advisor-side** — independent of the customer project, the
 > Confluent/Kafka custom mappings, and subscription authentication.
+>
+> **Re-verified on 1.7.0 (recipes 1.7.6) on 2026-10-12** — see the status block below the
+> Environment table. Defect 1 is largely fixed; Defect 2's hijack now **hangs**; Defect 3 is
+> unchanged; three new defects (BUG-7/8/9) are documented in
+> [`docs/reports/`](reports/README.md) with evidence under `reports/evidence-1.7.0/`.
 
 ---
 
@@ -42,12 +47,13 @@ place of Advisor's own generated ones. All three defects are in Advisor.
 
 | | |
 |---|---|
-| Application Advisor | **1.6.5**; Defects 1–2 **re-verified on 1.6.7** (2026-08-10, valid subscription token); Defect 3 observed on **1.6.7** (2026-08-11) |
+| Application Advisor | **1.6.5**; Defects 1–2 **re-verified on 1.6.7** (2026-08-10, valid subscription token); Defect 3 observed on **1.6.7** (2026-08-11); everything **re-verified on 1.7.0** (2026-10-12) |
 | Java | 21 |
 | Build | Maven wrapper `mvnw` 3.9.9 |
 | Project | Spring Boot 3.4.5, multi-module, `spring-kafka` (BOM-managed), `io.confluent:*` 7.9.1 |
 | Recipe artifacts loaded by Advisor | 1.6.5: `com.vmware.tanzu.spring.recipes:{java-recipes, rewrite-hibernate, rewrite-migrate-java, rewrite-spring, rewrite-testing-frameworks, spring-boot-2-upgrade-recipes, spring-boot-3-upgrade-recipes, spring-boot-4-upgrade-recipes}:1.7.2 — 1.6.7: same set minus `rewrite-hibernate`/`rewrite-testing-frameworks`, at **1.7.5** |
-| Rewrite plugin (Advisor invocation) | 1.6.5: `rewrite-maven-plugin:6.38.0:runNoFork` — 1.6.7: `6.44.0:runNoFork` |
+| Rewrite plugin (Advisor invocation) | 1.6.5: `rewrite-maven-plugin:6.38.0:runNoFork` — 1.6.7 and 1.7.0: `6.44.0:runNoFork` |
+| 1.7.0 recipe artifacts | `com.vmware.tanzu.spring.recipes:{java-recipes, rewrite-apache, rewrite-migrate-java, rewrite-spring, spring-boot-2/3/4-upgrade-recipes}:1.7.6` — still no `rewrite-java-dependencies` |
 | Reproduction repo | `github.com/dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features`, branch `advisor` |
 
 **Re-verification on 1.6.7:** Defect 1 reproduces identically (`apply` selects
@@ -61,6 +67,32 @@ on 1.6.5 the same wiring failed earlier and harder, as a `build-config get` abor
 
 Subscription auth is **working** (commercial recipes download fine); this is not a 401/credentials
 issue.
+
+**Re-verification on 1.7.0 (2026-10-12):**
+
+- **Defect 1 — largely fixed.** `upgrade-plan get`/`apply` no longer loop: they print *"No upgrade
+  plan available … Here's a summary of blocker projects and potential actions to take: commons-beanutils:1.9.x
+  needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x"*
+  and exit **50**, applying nothing. Remaining: `apply --accept-no-alignment` still reports *"Successfully
+  applied"* for steps that change 0 files (`repros/01-apply-noop-loop/probe-force-squash-1.7.0.txt`;
+  real project: `reports/evidence-1.7.0/C-force-run-pass2.log`, step 2).
+- **Defect 2 — mechanism unchanged, symptom worse.** The missing `rewrite-java-dependencies`
+  reproduces identically with recipes 1.7.6 (single-module repro, Advisor's own `6.44.0:runNoFork`:
+  *"Recipe class not found: …ModuleHasDependency"*). On multi-module projects the project-plugin
+  hijack now **hangs the first apply step indefinitely** (recursive `UpgradeJackson_2_3_ApiOnly.getRecipeList`
+  → `Environment.activateRecipes` → classpath scan; >62 min, 7 cores, 4.4 GB, killed) —
+  [`reports/BUG-7`](reports/BUG-7-hijacked-project-plugin-hangs-recursive-descriptor-scan.md),
+  bounded repro `repros/02-missing-recipe-bundle/run-1.7.0-hang.sh`.
+- **Defect 3 — unchanged** (`repros/03`, `repros/08` transcripts identical).
+- **New Defect 4 (BUG-8):** with a custom `override` mapping for `spring-boot` that lacks the 4.1.x
+  generation, the forced `spring-boot 4.0.x → 4.1.x` step still reports success but leaves the parent
+  at 4.0.8 and adds `<version>4.1.1</version>` to every `spring-boot-starter-*` dependency (41 pins;
+  starters resolve 4.1.1 on top of 4.0.8 core modules). Advisor should refuse the step or fall back to
+  the catalog mapping instead of pinning —
+  [`reports/BUG-8`](reports/BUG-8-forced-boot-41-step-pins-starters-parent-stays.md).
+- **New Defect 5 (BUG-9):** one unmapped transitive dependency (`org.apache.zookeeper:zookeeper`)
+  silently removes 24 projects from "Projects discovered" and the plan; only a warning lists the
+  coordinate, exit 10 — [`reports/BUG-9`](reports/BUG-9-single-unmapped-transitive-hides-whole-plan.md).
 
 ---
 

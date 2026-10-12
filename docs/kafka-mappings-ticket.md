@@ -94,3 +94,21 @@ showing 16 blocked coordinates on an ordinary spring-kafka + Schema Registry app
 composition problem is
 [`docs/reports/FR-2-family-aware-mapping-create-union-merge.md`](reports/FR-2-family-aware-mapping-create-union-merge.md)
 (demo: [`repros/08-slug-collapse-family/`](../repros/08-slug-collapse-family)).
+
+## Status on Advisor 1.7.0 (verified 2026-10-12)
+
+Still needed, and the cost of hand-curation showed up concretely:
+
+- The catalog still has nothing for these families: `advisor mapping search --slug` returns *"No
+  project found"* for `kafka`, `kafka-clients`, `apache-kafka`, `confluent-platform`, `avro`
+  (and `--prefix kafka` finds nothing), while `--slug spring-boot` downloads fine.
+- After the Boot 4 / Kafka 4 / Confluent 8 upgrade the module families grew, and every new module
+  was an unmapped transitive: `org.apache.kafka:kafka-coordinator-common`, `kafka-share-coordinator`,
+  `kafka-transaction-coordinator`, `kafka-test-common-runtime`, `kafka-test-common-internal-api`,
+  `io.confluent:kafka-avro-types`, `kafka-schema-types`. On 1.7.0 a single unmapped transitive hides
+  the entire plan (BUG-9), so the project reported "No upgrade plan available" until the seven
+  coordinates were added by hand to `apache-kafka.json` / `confluent-platform.json` (done in this
+  repo and the kit). A first-party family mapping maintained with the release train would not have
+  this lag; `mapping update` (new) appends versions but not coordinates.
+- Repro 07 on 1.7.0: same 17 coordinates, now reported as *"Missing upgrade mappings: 13 project(s)"*
+  (1 direct + 16 transitive), exit 10 (`repros/07-no-first-party-kafka-mappings/transcript-1.7.0.txt`).

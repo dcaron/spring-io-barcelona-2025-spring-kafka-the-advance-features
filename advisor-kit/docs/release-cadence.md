@@ -98,4 +98,13 @@ mappings reach the apps changes over time:
    and `build-config get` resolve through it. A mapping's `repositoryUrl`
    must point to a repository every app team can reach.
 7. Advisor CLI updates ride the same train: verify a new CLI version on the
-   reference app (step 3) before you announce it.
+   reference app (step 3) before you announce it. Capture `advisor <cmd> --help`
+   for every command into the kit docs on each version (no 1.6.7 capture
+   existed, so the 1.7.0 CLI changes could not be attributed). On 1.7.0 the
+   verification took one afternoon and found three new defects (BUG-7/8/9).
+8. Framework/library module additions need mapping updates. Kafka 4 added
+   `kafka-share-coordinator`, `kafka-coordinator-common`, `kafka-transaction-coordinator`,
+   `kafka-test-common-*`; Confluent 8 added `kafka-avro-types`, `kafka-schema-types`.
+   Each unmapped module hides the whole plan on 1.7.0 (BUG-9). `advisor mapping
+   update` appends new versions to existing files but does not add new
+   coordinates; the coordinate list stays a manual step.

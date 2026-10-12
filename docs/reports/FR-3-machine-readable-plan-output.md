@@ -45,3 +45,12 @@ structured data:
 The data plainly exists — it is all in the prose. A stable JSON contract would remove the
 scraping layer entirely and make failures (BUG-1's loop, BUG-3's rejection) detectable by
 scripts.
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Partially addressed elsewhere.** `upgrade-plan get` still has no `--format=json`, but the new
+`advisor patch apply` writes `.advisor/patch-upgrade-report.json` (per pom → scope → coordinate /
+oldVersion / newVersion) — the first machine-readable output in the CLI
+(`evidence-1.7.0/P-patch-upgrade-report.json`). The same for the upgrade plan would close this
+request. New in 1.7.0: distinct exit codes **10** (unmapped dependencies present) and **50** (plan
+refused, blocker summary) — useful for scripting, but 10 is returned both with and without a plan.

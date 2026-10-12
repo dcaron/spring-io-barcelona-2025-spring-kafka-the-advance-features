@@ -1,0 +1,20 @@
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+No upgrade plan available.
+
+⚠️  Warnings:
+- There are no upgrade mappings configured for these transitive dependencies:
+      - io.confluent:kafka-avro-types
+      - org.apache.kafka:kafka-test-common-runtime
+      - org.apache.kafka:kafka-test-common-internal-api
+      - org.apache.kafka:kafka-share-coordinator
+      - org.apache.kafka:kafka-coordinator-common
+      - io.confluent:kafka-schema-types
+      - org.apache.kafka:kafka-transaction-coordinator
+Please report these problems to support.broadcom.com
+

@@ -57,3 +57,9 @@ Two adjacent findings (both verified 2026-08-19/20):
    time.
 4. Allow extending/overriding a catalog project that has no upgrade path, instead of
    refusing with "already exists".
+
+## Status on Advisor 1.7.0 (re-verified 2026-10-12, recipes 1.7.6)
+
+**Still needed** — repro 08 identical (both sibling runs → slug `kafka`, co-wiring crashes).
+`mapping update` (1.7.0) appends new *versions* to an existing file but does not add sibling
+*coordinates*, so it does not close this gap either.

@@ -1,0 +1,173 @@
+diff --git a/blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java b/blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java
+index 2f09596..bed2cf4 100644
+--- a/blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java
++++ b/blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java
+@@ -3,9 +3,8 @@ package com.example.blocking.retries.example.config;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import org.springframework.beans.factory.ObjectProvider;
+-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
+-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+-import org.springframework.boot.ssl.SslBundles;
++import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
++import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+@@ -84,10 +83,10 @@ public class KafkaErrorHandlingConfiguration {
+             ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+             ObjectProvider<ConsumerFactory<Object, Object>> kafkaConsumerFactory,
+             ObjectProvider<ContainerCustomizer<Object, Object, ConcurrentMessageListenerContainer<Object, Object>>> kafkaContainerCustomizer,
+-            ObjectProvider<SslBundles> sslBundles, KafkaProperties properties) {
++            KafkaProperties properties) {
+         ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+         configurer.configure(factory, kafkaConsumerFactory.getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(
+-                properties.buildConsumerProperties(sslBundles.getIfAvailable()))));
++                properties.buildConsumerProperties())));
+         kafkaContainerCustomizer.ifAvailable(factory::setContainerCustomizer);
+ 
+         // This is required to get the delivery attempt header populated
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java
+index 2ad71fa..5783aed 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java
+@@ -5,11 +5,10 @@ import com.example.spring.kafka.avro.stock.quote.StockQuote;
+ import org.apache.kafka.clients.consumer.ConsumerConfig;
+ import org.apache.kafka.common.serialization.StringDeserializer;
+ import org.springframework.beans.factory.ObjectProvider;
+-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
+-import org.springframework.boot.autoconfigure.kafka.DefaultKafkaConsumerFactoryCustomizer;
+-import org.springframework.boot.autoconfigure.kafka.KafkaConnectionDetails;
+-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+-import org.springframework.boot.ssl.SslBundles;
++import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
++import org.springframework.boot.kafka.autoconfigure.DefaultKafkaConsumerFactoryCustomizer;
++import org.springframework.boot.kafka.autoconfigure.KafkaConnectionDetails;
++import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+@@ -32,11 +31,11 @@ public class KafkaConsumerConfiguration {
+     }
+ 
+     /**
+-     * We override the Spring Kafka bean from the autoconfiguration {@link org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration#kafkaConsumerFactory(KafkaConnectionDetails, ObjectProvider, ObjectProvider)}
++     * We override the Spring Kafka bean from the autoconfiguration {@link org.springframework.boot.kafka.autoconfigure.KafkaAutoConfiguration#kafkaConsumerFactory(KafkaConnectionDetails, ObjectProvider, ObjectProvider)}
+      */
+     @Bean
+-    public DefaultKafkaConsumerFactory<String, StockQuote> avroKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers, ObjectProvider<SslBundles> sslBundles) {
+-        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties(sslBundles.getIfAvailable());
++    public DefaultKafkaConsumerFactory<String, StockQuote> avroKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers) {
++        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties();
+         DefaultKafkaConsumerFactory<String, StockQuote> factory = new DefaultKafkaConsumerFactory<>(properties);
+         // This part is important. Without the next line your Kafka client side metrics will not be exposed!
+         customizers.orderedStream().forEach((customizer) -> customizer.customize(factory));
+@@ -55,8 +54,8 @@ public class KafkaConsumerConfiguration {
+     }
+ 
+     @Bean
+-    public DefaultKafkaConsumerFactory<String, StockQuoteEvent> jsonKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers, ObjectProvider<SslBundles> sslBundles) {
+-        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties(sslBundles.getIfAvailable());
++    public DefaultKafkaConsumerFactory<String, StockQuoteEvent> jsonKafkaConsumerFactory(ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers) {
++        Map<String, Object> properties = this.kafkaProperties.buildConsumerProperties();
+         Map<String, Object> configurationOverrides = new HashMap<>(properties);
+         configurationOverrides.put(ConsumerConfig.GROUP_ID_CONFIG, "multiple-consumer-beans-group-json");
+         configurationOverrides.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/StockQuoteConsumer.java b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/StockQuoteConsumer.java
+index cc958a5..81a79cf 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/StockQuoteConsumer.java
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/StockQuoteConsumer.java
+@@ -5,7 +5,7 @@ import com.example.spring.kafka.avro.stock.quote.StockQuote;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import org.springframework.beans.factory.ObjectProvider;
+-import org.springframework.boot.autoconfigure.kafka.ConcurrentKafkaListenerContainerFactoryConfigurer;
++import org.springframework.boot.kafka.autoconfigure.ConcurrentKafkaListenerContainerFactoryConfigurer;
+ import org.springframework.kafka.annotation.KafkaListener;
+ import org.springframework.kafka.support.KafkaHeaders;
+ import org.springframework.messaging.handler.annotation.Header;
+@@ -19,7 +19,7 @@ public class StockQuoteConsumer {
+ 
+     /**
+      * Bean with name "kafkaListenerContainerFactory" is the default.
+-     * See: {@link org.springframework.boot.autoconfigure.kafka.KafkaAnnotationDrivenConfiguration#kafkaListenerContainerFactory(ConcurrentKafkaListenerContainerFactoryConfigurer, ObjectProvider, ObjectProvider, ObjectProvider)}
++     * See: {@link org.springframework.boot.kafka.autoconfigure.KafkaAnnotationDrivenConfiguration#kafkaListenerContainerFactory(ConcurrentKafkaListenerContainerFactoryConfigurer, ObjectProvider, ObjectProvider, ObjectProvider)}
+      * We use our specific container factories beans in this example.
+      * See {@link KafkaConsumerConfiguration}
+      */
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerConfigs.java b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerConfigs.java
+index 996f18f..884fd79 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerConfigs.java
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerConfigs.java
+@@ -1,6 +1,6 @@
+ package com.example.spring.kafka.consumer.config;
+ 
+-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
++import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+ 
+ public class KafkaConsumerConfigs extends KafkaProperties.Consumer {
+ 
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerProperties.java b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerProperties.java
+index a99ebf3..47891be 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerProperties.java
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerProperties.java
+@@ -1,6 +1,6 @@
+ package com.example.spring.kafka.consumer.config;
+ 
+-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
++import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+ 
+ import java.util.Objects;
+ 
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java
+index f396ca5..7395c65 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java
+@@ -5,8 +5,8 @@ import io.micrometer.observation.ObservationRegistry;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ import org.springframework.beans.factory.ObjectProvider;
+-import org.springframework.boot.autoconfigure.kafka.DefaultKafkaConsumerFactoryCustomizer;
+-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
++import org.springframework.boot.kafka.autoconfigure.DefaultKafkaConsumerFactoryCustomizer;
++import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+ import org.springframework.boot.context.properties.EnableConfigurationProperties;
+ import org.springframework.context.annotation.Configuration;
+ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+@@ -91,7 +91,7 @@ public class KafkaConsumersConfiguration {
+         KafkaProperties.Consumer consumerConfigs = kafkaConsumerProperties.getConfigs();
+         //Override defaults with the spring.kafka.consumer.custom-kafka-consumers.[consumer].configs properties
+         //Only properties that are non-null are added
+-        Map<String, Object> customConsumerPropertyOverrides = consumerConfigs.buildProperties(null);
++        Map<String, Object> customConsumerPropertyOverrides = consumerConfigs.buildProperties();
+ 
+         defaultSpringKafkaConsumerProperties.putAll(customConsumerPropertyOverrides);
+         log.info("Initializing consumer with properties: {}", defaultSpringKafkaConsumerProperties);
+diff --git a/multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java b/multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java
+index d7a054c..171c792 100644
+--- a/multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java
++++ b/multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java
+@@ -10,7 +10,7 @@ import com.example.spring.kafka.producer.json.ScheduledJsonStockQuoteProducer;
+ import org.apache.kafka.clients.producer.ProducerConfig;
+ import org.springframework.beans.factory.ObjectProvider;
+ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
++import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
+ import org.springframework.boot.context.properties.PropertyMapper;
+ import org.springframework.context.annotation.Bean;
+ import org.springframework.context.annotation.Configuration;
+@@ -53,12 +53,12 @@ public class KafkaProducerConfiguration {
+     }
+ 
+     /**
+-     * See: {@link org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration#kafkaTemplate(ProducerFactory, ProducerListener, ObjectProvider)}
++     * See: {@link org.springframework.boot.kafka.autoconfigure.KafkaAutoConfiguration#kafkaTemplate(ProducerFactory, ProducerListener, ObjectProvider)}
+      */
+     private <T> KafkaTemplate<String, T> createKafkaTemplate(ProducerFactory<String, T> kafkaProducerFactory,
+                                                              ProducerListener<Object, Object> kafkaProducerListener, ObjectProvider<RecordMessageConverter> messageConverter,
+                                                              KafkaProperties properties, Map<String, Object> configurationOverrides) {
+-        PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
++        PropertyMapper map = PropertyMapper.get();
+         KafkaTemplate<String, T> kafkaTemplate = new KafkaTemplate<>(kafkaProducerFactory, configurationOverrides);
+         messageConverter.ifUnique(kafkaTemplate::setMessageConverter);
+         map.from(kafkaProducerListener).to(((KafkaTemplate) kafkaTemplate)::setProducerListener);

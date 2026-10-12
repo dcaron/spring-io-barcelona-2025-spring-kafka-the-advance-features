@@ -1,7 +1,7 @@
 # Spring Application Advisor — improvement recommendations
 
 **Audience:** Broadcom / Tanzu Application Advisor engineering & product
-**Advisor version tested:** 1.6.4 (re-verified on 1.6.5; re-verified on **1.6.7** on
+**Advisor version tested:** 1.6.4 (re-verified on 1.6.5; on **1.7.0** 2026-10-12 — see §1d; re-verified on **1.6.7** on
 2026-08-10/11 — see §1c for exactly what improved and what didn't)
 **Reproducible test case:** this repository (Spring I/O Barcelona 2025 — Spring for Apache Kafka)
 **Related artifacts in this repo:** [`advisor.md`](../advisor.md) (the manual attempt),
@@ -170,6 +170,46 @@ Fixing §4.10 is likely a one-line dependency addition to the recipe bundle and 
 make the forced full-plan path usable; §4.9 then determines whether the default incremental path
 ever works. First-party Kafka/Confluent mappings (§2C/§3A) remain the strategic gap this repo's
 custom mappings are papering over.
+
+---
+
+## 1d. Re-check on Advisor 1.7.0 (2026-10-12) — current status overview
+
+Every issue was re-run on **1.7.0** (recipes **1.7.5 → 1.7.6**, new bundle member `rewrite-apache`,
+`rewrite-maven-plugin` still 6.44.0): the eight isolated repros, the real project from Boot 3.4.5
+(guarded and unguarded worktrees) and from the committed 4.0.8 state, plus the new CLI commands.
+Full write-up with evidence: [`docs/reports/STATUS-1.7.0.md`](reports/STATUS-1.7.0.md); per-issue
+verdicts in each report's *"Status on Advisor 1.7.0"* section. No 1.7 release notes were published
+when this was done, so the CLI itself is the changelog (`docs/reports/cli-surface-1.7.0.txt`).
+
+### Changed in 1.7.0
+
+| Issue | 1.6.7 | 1.7.0 |
+|---|---|---|
+| **§4.9 apply no-op loop** (BUG-1) | infinite *"Successfully applied"*, 0 files | **Default path fixed:** `get`/`apply` print *"No upgrade plan available … summary of blocker projects"* and exit **50**; nothing is applied. `--accept-no-alignment` still produces success-with-0-files steps for transitive-only projects. |
+| **§4.10 forced apply** (BUG-2b) | fails at the Boot-4 step via the hijacked project plugin | **Worse: hangs at the first step** in a recursive recipe-descriptor scan inside the project's own plugin execution (BUG-7). With the profile guard the full plan applies: Boot 3.4.5 → **4.0.8** in one 5-minute step, and the recipes now also migrate the Boot-4 Kafka package move, starter renames, OTLP/probe properties. |
+| Blocked-coordinate output (§4.2) | one tab-indented list under *"Please request your administrator…"*, exit 0 | *"Missing upgrade mappings: N project(s)"* + direct list (tab) + transitive list (six spaces), exit **10**; **one unmapped transitive now hides the whole plan silently** (BUG-9: zookeeper hid 24 projects). |
+| Exit codes (§4.6) | always 0 | **10** = unmapped deps present, **50** = plan refused with blocker summary. |
+| Boot 4.0.x → 4.1.x step | converges at 4.0.x | With this repo's 1.6.x-era `spring-boot-jackson3.json:override` mapping wired: **pins every `spring-boot-starter-*` to `4.1.1` while the parent stays 4.0.8** (BUG-8, 41 pins), next step a 0-file "success". Without it: parents move to **4.1.1**, Jackson 3 included — the override is now unwired. |
+| New commands | `mapping search` (1.6.7) | `mapping search --slug`, `mapping update` (appends versions; leaves curated files byte-identical), `recipe show` (declarative recipes only — cannot show `MainAdvisorRecipe`), `patch apply` (transitive patch pins via `<dependencyManagement>` + `.advisor/patch-upgrade-report.json`). `--include-modules/--exclude-modules`, `--squash-all`, `--build-tools-latest`, `--after-upgrade-cmd` on `apply`. |
+
+### Unchanged in 1.7.0 (re-verified)
+
+§2 resolution ignores pom repositories (BUG-5, and `mapping update` shares the blind spot); §2C/§3A no
+first-party Kafka/Confluent mappings (FR-1 — `mapping search` finds none; the Kafka-4/Confluent-8
+module additions had to be hand-added to the curated files); §3 duplicate-slug three-way behaviour
+(BUG-3); §4.1 empty-slug hidden file (BUG-4); §4.4 env-var wiring (FR-4 — `--from-yml` is only the CI
+opt-in); §4.6 no `--format=json` for the plan (FR-3); BUG-2a `ModuleHasDependency` missing from the
+assembled coordinates (recipes 1.7.6); BUG-6 empty mapping silently skipped; FR-2 slug collapse.
+
+### Bottom line for the Advisor team, as of 1.7.0
+
+The default incremental path is now honest instead of looping, and the forced path upgrades this
+Boot 3.4.5 Kafka project to 4.0.8 with far fewer manual fixes — real progress. But three new defects
+offset it: the hijacked-plugin hang (BUG-7) turns a known failure into an unbounded one, the
+starter-pin bug (BUG-8) makes the 4.1 step produce a mixed-generation build when an override mapping lacks the target generation, and the hidden-plan
+behaviour (BUG-9) makes a 3.4.5 app look nearly up to date when one transitive is unmapped.
+First-party Kafka/Confluent mappings remain the strategic gap.
 
 ---
 

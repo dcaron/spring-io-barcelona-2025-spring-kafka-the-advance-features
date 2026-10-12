@@ -1,0 +1,54 @@
+=== apply 1 --accept-no-alignment (minimal single module, NO plugin, NO custom mappings) ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/8c663a2b-aa35-4594-8176-87f315fb5a9d/scratchpad/v-pins/target/.advisor/build-config.json
+Projects to upgrade:
+	* junit from 5.11.x to 5.12.x
+	* jackson-annotations from 2.18.x to 2.19.x
+	* jackson from 2.18.x to 2.19.x
+	* junit-platform from 1.11.x to 1.12.x
+	* spring-boot from 3.4.x to 3.5.x
+	* micrometer from 1.14.x to 1.15.x
+	* mockito from 5.14.x to 5.20.x
+🔨 [ 3 / 3 ] Upgrading sources... [00m 37s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+--- parent / pins ---
+    <version>3.5.17</version>
+=== apply 2 --accept-no-alignment (minimal single module, NO plugin, NO custom mappings) ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/8c663a2b-aa35-4594-8176-87f315fb5a9d/scratchpad/v-pins/target/.advisor/build-config.json
+Projects to upgrade:
+	* junit from 5.12.x to 6.0.x
+	* junit-platform from 1.12.x to 6.0.x
+	* spring-boot from 3.5.x to 4.0.x
+	* spring-framework from 6.2.x to 7.0.x
+	* micrometer from 1.15.x to 1.16.x
+	* mockito from 5.17.x to 5.20.x
+🔨 [ 3 / 3 ] Upgrading sources... [00m 29s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+--- parent / pins ---
+    <version>4.0.8</version>
+artifactId>spring-boot-starter-parent	<version>4.0.8
+=== apply 3 --accept-no-alignment (minimal single module, NO plugin, NO custom mappings) ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /private/tmp/claude-501/-Users-dcaron-Documents-src-spring-io-barcelona-2025-spring-kafka-the-advance-features/8c663a2b-aa35-4594-8176-87f315fb5a9d/scratchpad/v-pins/target/.advisor/build-config.json
+Projects to upgrade:
+	* spring-boot from 4.0.x to 4.1.x
+	* micrometer from 1.16.x to 1.17.x
+	* mockito from 5.20.x to 5.23.x
+	* jackson from 2.21.x to 3.2.x
+	* jackson-annotations from 2.21.x to 2.22.x
+	* xmlunit from 2.10.x to 2.13.x
+🔨 [ 3 / 3 ] Upgrading sources... [00m 34s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+--- parent / pins ---
+    <version>4.1.1</version>
+artifactId>spring-boot-starter-parent	<version>4.1.1
