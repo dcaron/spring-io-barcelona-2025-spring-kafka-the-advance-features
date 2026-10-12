@@ -1,0 +1,45 @@
+=== upgrade-plan get, NO custom mappings wired ===
+    (EXPECT: blocked list naming org.apache.kafka:* internals and io.confluent:*)
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 04s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 05s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 06s]🏃 [ 2 / 6 ] Resolving dependencies with mvn [00m 07s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/07-no-first-party-kafka-mappings or its parent.
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/07-no-first-party-kafka-mappings/target/.advisor/build-config.json
+
+🏃 Fetching and processing upgrade plan details [00m 00s]🏃 Fetching and processing upgrade plan details [00m 01s] ok
+
+No upgrade plan available.
+
+🔧  Missing upgrade mappings: 13 project(s) are used by direct and unknown dependencies.
+
+This could cause version conflicts during the upgrade.
+
+Add upgrade mappings for these dependencies:
+	- io.confluent:kafka-avro-serializer
+
+
+⚠️  Warnings:
+- There are no upgrade mappings configured for these transitive dependencies:
+      - io.confluent:kafka-schema-serializer
+      - org.apache.kafka:kafka-storage-api
+      - org.apache.kafka:kafka-server-common
+      - org.apache.avro:avro
+      - org.apache.kafka:kafka-streams
+      - org.apache.kafka:kafka-server
+      - io.confluent:kafka-schema-registry-client
+      - commons-beanutils:commons-beanutils
+      - org.apache.kafka:kafka-metadata
+      - org.apache.kafka:kafka-raft
+      - commons-validator:commons-validator
+      - org.apache.zookeeper:zookeeper
+      - org.apache.kafka:kafka-streams-test-utils
+      - org.apache.kafka:kafka_2.13
+      - org.apache.kafka:kafka-storage
+      - org.apache.kafka:kafka-group-coordinator
+Please report these problems to support.broadcom.com
+
+exit=10

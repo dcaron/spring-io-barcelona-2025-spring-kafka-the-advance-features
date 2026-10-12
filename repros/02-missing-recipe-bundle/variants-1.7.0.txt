@@ -1,0 +1,33 @@
+# Repro 02 on Advisor 1.7.0 (recipes 1.7.6, rewrite-maven-plugin 6.44.0) — 2026-10-12
+# Three layouts, same app, same plugin block (6.8.0, execution bound to `validate`), apply --accept-no-alignment.
+
+## run.sh as committed (multi-module, plugin block WITH <dependencies>)
+step 1 (Boot 3.4.x -> 3.5.x + junit/micrometer/mockito):  HANG. 1.6.7: 39 s ok. 1.7.0: killed after 62 min wall,
+  713% CPU, 4.4 GB RSS, pom unchanged. Hung Maven goal = the PROJECT's `rewrite:6.8.0:run (run-openrewrite)` executing
+  com.vmware.tanzu.MainAdvisorRecipe (Advisor's -Drewrite.* user properties, prepended `process-test-classes` phase).
+  Main thread recursing, depth 32 -> 35 in 2 min, one full ClassGraph classpath scan per level:
+    com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+    -> org.openrewrite.config.Environment.activateRecipes -> ClasspathScanningLoader.loadRecipe -> ensureScanned
+    -> scanYaml -> YamlResourceLoader.listRecipeDescriptors -> Recipe.getDescriptor -> DeclarativeRecipe.createRecipeDescriptor
+    -> Recipe.getDescriptor -> UpgradeJackson_2_3_ApiOnly.getRecipeList -> ...   (see hang-evidence-1.7.0.txt, hang-jstack-full-1.7.0.txt)
+  step 2 never reached.
+
+## Variant S2: multi-module, plugin execution but NO plugin <dependencies>  (pure BUG-2b vector)
+step 1:  HANG, same symptom; killed by a 600 s alarm, pom still 3.4.5. => the hang does not need the plugin
+  <dependencies>; the project's old-core plugin execution loading recipes 1.7.6 is sufficient.
+
+## Variant S1: single module (root pom = the app pom, parent spring-boot-starter-parent 3.4.5), plugin block WITH <dependencies>
+step 1:  ok, 82 s, parent 3.4.5 -> 3.5.17. (single-module invocation is goal-only: `mvn -B ...6.44.0:runNoFork`,
+  no lifecycle phase, so the project's execution does not run.)
+step 2 (Boot 3.5.x -> 4.0.x, spring-framework 6.2 -> 7.0, junit 5.12 -> 6.0):  FAIL, 84 s, exactly as on 1.6.7 (BUG-2a):
+  Advisor's OWN 6.44.0:runNoFork -> "Recipe validation error in com.vmware.tanzu.MainAdvisorRecipe for property
+  com.vmware.tanzu.AnyOfScanningRecipes: ... Recipe class not found: org.openrewrite.java.dependencies.search.ModuleHasDependency"
+  recipeArtifactCoordinates still lacks org.openrewrite.recipe:rewrite-java-dependencies (see error-stacktrace-single-module-1.7.0.log).
+
+## Control (repro 01, single module, NO rewrite plugin at all): apply --accept-no-alignment with the same recipes 1.7.6 via
+  Advisor's own 6.44.0 completes in 50 s. The recursion is not triggered by Advisor's own plugin.
+
+## Net on 1.7.0
+BUG-2a: UNCHANGED (ModuleHasDependency at the Boot-4 step, recipes 1.7.6).
+BUG-2b: WORSE. The hijacked project execution no longer fails cleanly at the Boot-4 step; with recipes 1.7.6 it hangs at the
+  FIRST step in a recursive recipe-descriptor scan (new finding, candidate BUG-7). The profile-guard workaround still applies.

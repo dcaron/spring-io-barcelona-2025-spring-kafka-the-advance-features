@@ -1,0 +1,48 @@
+# Advisor 1.7.0 / recipes 1.7.6 — repro 02 apply step 1 HANGS (2026-10-12)
+# Advisor: 1.7.0; recipes: com.vmware.tanzu.spring.recipes:*:1.7.6 (+ new rewrite-apache); Advisor plugin: rewrite-maven-plugin:6.44.0:runNoFork; project plugin: 6.8.0
+# Killed after 62 min wall, 713% CPU, 4.4 GB RSS. Main-thread recursion depth (UpgradeJackson_2_3_ApiOnly.getRecipeList frames): 32 at 60 min, 35 at 62 min. 19 ClassGraph worker threads.
+# The hung Maven goal is the PROJECT's own execution: '--- rewrite:6.8.0:run (run-openrewrite) @ missing-recipe-repro-app ---' with 'Using active recipe(s) [com.vmware.tanzu.MainAdvisorRecipe]' (BUG-2b vector).
+
+## Maven stdout, last non-debug lines
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.openrewrite.maven.RewriteDryRunMojo', role hint: 'org.openrewrite.maven:rewrite-maven-plugin:6.8.0:dryRun'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.openrewrite.maven.RewriteDryRunNoForkMojo', role hint: 'org.openrewrite.maven:rewrite-maven-plugin:6.8.0:dryRunNoFork'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.openrewrite.maven.rewrite_maven_plugin.HelpMojo', role hint: 'org.openrewrite.maven:rewrite-maven-plugin:6.8.0:help'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.openrewrite.maven.RewriteRunMojo', role hint: 'org.openrewrite.maven:rewrite-maven-plugin:6.8.0:run'
+role: 'org.apache.maven.plugin.Mojo', implementation: 'org.openrewrite.maven.RewriteRunNoForkMojo', role hint: 'org.openrewrite.maven:rewrite-maven-plugin:6.8.0:runNoFork'
+---
+[INFO] Using active recipe(s) [com.vmware.tanzu.MainAdvisorRecipe]
+[INFO] Using active styles(s) []
+
+## Maven command line (from ps)
+recipeArtifactCoordinates=com.vmware.tanzu.spring.recipes:java-recipes:1.7.6,com.vmware.tanzu.spring.recipes:rewrite-apache:1.7.6,com.vmware.tanzu.spring.recipes:rewrite-migrate-java:1.7.6,com.vmware.tanzu.spring.recipes:rewrite-spring:1.7.6,com.vmware.tanzu.spring.recipes:spring-boot-2-upgrade-recipes:1.7.6,com.vmware.tanzu.spring.recipes:spring-boot-3-upgrade-recipes:1.7.6,com.vmware.tanzu.spring.recipes:spring-boot-4-upgrade-recipes:1.7.6
+
+## jstack main thread (one recursion period shown; the pattern repeats 30+ times)
+"main" #3 [10243] prio=5 os_prio=31 cpu=596122.05ms elapsed=3634.75s tid=0x00007f83bc808200 nid=10243 waiting on condition  [0x00007000091f0000]
+   java.lang.Thread.State: WAITING (parking)
+	- parking to wait for  <0x00000007d8653138> (a java.util.concurrent.FutureTask)
+	at io.github.classgraph.ClassGraph.scan(ClassGraph.java:1615)
+	at io.github.classgraph.ClassGraph.scan(ClassGraph.java:1654)
+	at io.github.classgraph.ClassGraph.scan(ClassGraph.java:1667)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:156)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	... (repeats)
+
+## Full dump: see hang-jstack-full-1.7.0.txt

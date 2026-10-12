@@ -1,0 +1,93 @@
+
+=== advisor upgrade-plan get -f ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+Projects discovered:
+	- commons-validator: 1.7.x (no upgrades available)
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- commons-beanutils: 1.9.x → 1.11.x
+No upgrade plan available.
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+	* commons-beanutils:1.9.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+exit=
+--- git diff --stat ---
+
+=== advisor upgrade-plan apply -f ===
+🚀 Existing build-configuration is already up-to-date
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+	* commons-beanutils:1.9.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+There are no upgrade plans for the provided build configuration
+exit=
+--- git diff --stat ---
+
+=== advisor upgrade-plan get --squash-all ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+Projects discovered:
+	- commons-validator: 1.7.x (no upgrades available)
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- commons-beanutils: 1.9.x → 1.11.x
+No upgrade plan available.
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+	* commons-beanutils:1.9.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+exit=
+--- git diff --stat ---
+
+=== advisor upgrade-plan apply --squash-all ===
+🚀 Existing build-configuration is already up-to-date
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+	* commons-beanutils:1.9.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+There are no upgrade plans for the provided build configuration
+exit=
+--- git diff --stat ---
+
+=== advisor upgrade-plan get --accept-no-alignment ===
+Build configuration file does not exist! Generating it...
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+Projects discovered:
+	- commons-validator: 1.7.x (no upgrades available)
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- commons-beanutils: 1.9.x → 1.11.x
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade commons-beanutils from 1.9.x to 1.11.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+exit=
+--- git diff --stat ---
+=== advisor upgrade-plan apply --accept-no-alignment (single module, NO project rewrite plugin; recipes 1.7.6 via Advisor's own 6.44.0) ===
+🚀 Existing build-configuration is already up-to-date
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+Projects to upgrade:
+	* apache-commons-collections from 3.2.x to 4.5.x
+	* commons-beanutils from 1.9.x to 1.11.x
+🔨 [ 4 / 4 ] Upgrading sources... [00m 17s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0 elapsed=50s
+--- git diff --stat ---
+--- crash logs ---
+(eval):1: no matches found: .advisor/errors/*.log

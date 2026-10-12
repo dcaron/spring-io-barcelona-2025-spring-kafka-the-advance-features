@@ -1,0 +1,939 @@
+2026-10-12 16:19:37
+Full thread dump OpenJDK 64-Bit Server VM (25.0.3+11-LTS mixed mode, sharing):
+
+Threads class SMR info:
+_java_thread_list=0x0000600001b91840, length=30, elements={
+0x00007f83bc808200, 0x00007f83bb00aa00, 0x00007f83bc010c00, 0x00007f83bc818e00,
+0x00007f83bb882c00, 0x00007f83bb885600, 0x00007f83bb02d800, 0x00007f83bb02e200,
+0x00007f83bc032400, 0x00007f83bc032c00, 0x00007f83baad4400, 0x00007f83c624ca00,
+0x00007f83c6198200, 0x00007f83bc4e6a00, 0x00007f83bbecae00, 0x00007f83c098dc00,
+0x00007f83c0926a00, 0x00007f83c0871000, 0x00007f83c0810200, 0x00007f83c0810a00,
+0x00007f83bf89a000, 0x00007f83c1903800, 0x00007f83be825c00, 0x00007f83b99fd000,
+0x00007f83c5d64600, 0x00007f83bea20e00, 0x00007f83baaf3200, 0x00007f83b9cfa800,
+0x00007f83babcc000, 0x00007f83b9e85200
+}
+
+"main" #3 [10243] prio=5 os_prio=31 cpu=596122.05ms elapsed=3634.75s tid=0x00007f83bc808200 nid=10243 waiting on condition  [0x00007000091f0000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007d8653138> (a java.util.concurrent.FutureTask)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:223)
+	at java.util.concurrent.FutureTask.awaitDone(java.base@25.0.3/FutureTask.java:511)
+	at java.util.concurrent.FutureTask.get(java.base@25.0.3/FutureTask.java:192)
+	at io.github.classgraph.ClassGraph.scan(ClassGraph.java:1615)
+	at io.github.classgraph.ClassGraph.scan(ClassGraph.java:1654)
+	at io.github.classgraph.ClassGraph.scan(ClassGraph.java:1667)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:156)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.DeclarativeRecipe.createRecipeDescriptor(DeclarativeRecipe.java:433)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.YamlResourceLoader.listRecipeDescriptors(YamlResourceLoader.java:422)
+	at org.openrewrite.config.ClasspathScanningLoader.scanYaml(ClasspathScanningLoader.java:147)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:84)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.DeclarativeRecipe.createRecipeDescriptor(DeclarativeRecipe.java:433)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.YamlResourceLoader.listRecipeDescriptors(YamlResourceLoader.java:422)
+	at org.openrewrite.config.ClasspathScanningLoader.scanYaml(ClasspathScanningLoader.java:147)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:84)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:204)
+	at com.vmware.tanzu.spring.recipes.boot40.UpgradeJackson_2_3_ApiOnly.getRecipeList(UpgradeJackson_2_3_ApiOnly.java:46)
+	at org.openrewrite.Recipe.createRecipeDescriptor(Recipe.java:222)
+	at org.openrewrite.Recipe.getDescriptor(Recipe.java:214)
+	at org.openrewrite.config.ClasspathScanningLoader.configureRecipes(ClasspathScanningLoader.java:190)
+	at org.openrewrite.config.ClasspathScanningLoader.scanClasses(ClasspathScanningLoader.java:158)
+	at org.openrewrite.config.ClasspathScanningLoader.lambda$new$1(ClasspathScanningLoader.java:80)
+	at org.openrewrite.config.ClasspathScanningLoader$$Lambda/0x000000012a370ea8.run(Unknown Source)
+	at org.openrewrite.config.ClasspathScanningLoader.ensureScanned(ClasspathScanningLoader.java:222)
+	at org.openrewrite.config.ClasspathScanningLoader.loadRecipe(ClasspathScanningLoader.java:210)
+	at org.openrewrite.config.Environment.loadRecipe(Environment.java:210)
+	at org.openrewrite.config.Environment.activateRecipes(Environment.java:162)
+	at org.openrewrite.maven.AbstractRewriteBaseRunMojo.listResults(AbstractRewriteBaseRunMojo.java:125)
+	at org.openrewrite.maven.AbstractRewriteRunMojo.execute(AbstractRewriteRunMojo.java:66)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:919)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:285)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:207)
+	at java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(java.base@25.0.3/DirectMethodHandle$Holder)
+	at java.lang.invoke.LambdaForm$MH/0x000000012a049000.invoke(java.base@25.0.3/LambdaForm$MH)
+	at java.lang.invoke.LambdaForm$MH/0x000000012a049400.invokeExact_MT(java.base@25.0.3/LambdaForm$MH)
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invokeImpl(java.base@25.0.3/DirectMethodHandleAccessor.java:156)
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(java.base@25.0.3/DirectMethodHandleAccessor.java:104)
+	at java.lang.reflect.Method.invoke(java.base@25.0.3/Method.java:565)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:362)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+
+   Locked ownable synchronizers:
+	- None
+
+"Reference Handler" #14 [24579] daemon prio=10 os_prio=31 cpu=158.69ms elapsed=3634.74s tid=0x00007f83bb00aa00 nid=24579 waiting on condition  [0x0000700009b1d000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.ref.Reference.waitForReferencePendingList(java.base@25.0.3/Native Method)
+	at java.lang.ref.Reference.processPendingReferences(java.base@25.0.3/Reference.java:246)
+	at java.lang.ref.Reference$ReferenceHandler.run(java.base@25.0.3/Reference.java:208)
+
+   Locked ownable synchronizers:
+	- None
+
+"Finalizer" #15 [28931] daemon prio=8 os_prio=31 cpu=0.33ms elapsed=3634.74s tid=0x00007f83bc010c00 nid=28931 in Object.wait()  [0x0000700009c20000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@25.0.3/Native Method)
+	- waiting on <0x0000000700800e78> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.Object.wait(java.base@25.0.3/Object.java:389)
+	at java.lang.Object.wait(java.base@25.0.3/Object.java:351)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@25.0.3/ReferenceQueue.java:137)
+	at java.lang.ref.ReferenceQueue.remove(java.base@25.0.3/ReferenceQueue.java:215)
+	- locked <0x0000000700800e78> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.Finalizer$FinalizerThread.run(java.base@25.0.3/Finalizer.java:165)
+
+   Locked ownable synchronizers:
+	- None
+
+"Signal Dispatcher" #16 [28675] daemon prio=9 os_prio=31 cpu=0.86ms elapsed=3634.74s tid=0x00007f83bc818e00 nid=28675 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Service Thread" #17 [28163] daemon prio=9 os_prio=31 cpu=4930.84ms elapsed=3634.74s tid=0x00007f83bb882c00 nid=28163 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Monitor Deflation Thread" #18 [25347] daemon prio=9 os_prio=31 cpu=710.00ms elapsed=3634.74s tid=0x00007f83bb885600 nid=25347 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"C2 CompilerThread0" #19 [27651] daemon prio=9 os_prio=31 cpu=34842.88ms elapsed=3634.74s tid=0x00007f83bb02d800 nid=27651 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+   Locked ownable synchronizers:
+	- None
+
+"C1 CompilerThread0" #22 [27139] daemon prio=9 os_prio=31 cpu=7888.88ms elapsed=3634.74s tid=0x00007f83bb02e200 nid=27139 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+   No compile task
+
+   Locked ownable synchronizers:
+	- None
+
+"Notification Thread" #23 [26883] daemon prio=9 os_prio=31 cpu=0.06ms elapsed=3634.73s tid=0x00007f83bc032400 nid=26883 runnable  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"Common-Cleaner" #24 [26115] daemon prio=8 os_prio=31 cpu=10.85ms elapsed=3634.72s tid=0x00007f83bc032c00 nid=26115 in Object.wait()  [0x000070000a335000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait0(java.base@25.0.3/Native Method)
+	- waiting on <0x0000000700800728> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.Object.wait(java.base@25.0.3/Object.java:389)
+	at java.lang.ref.ReferenceQueue.remove0(java.base@25.0.3/ReferenceQueue.java:123)
+	at java.lang.ref.ReferenceQueue.remove(java.base@25.0.3/ReferenceQueue.java:201)
+	- locked <0x0000000700800728> (a java.lang.ref.ReferenceQueue$Lock)
+	at jdk.internal.ref.CleanerImpl.run(java.base@25.0.3/CleanerImpl.java:146)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+	at jdk.internal.misc.InnocuousThread.run(java.base@25.0.3/InnocuousThread.java:148)
+
+   Locked ownable synchronizers:
+	- None
+
+"Attach Listener" #4713 [37203] daemon prio=9 os_prio=31 cpu=1.98ms elapsed=68.21s tid=0x00007f83baad4400 nid=37203 waiting on condition  [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4731" #4771 [61851] daemon prio=5 os_prio=31 cpu=341.35ms elapsed=2.92s tid=0x00007f83c624ca00 nid=61851 runnable  [0x000070000a53a000]
+   java.lang.Thread.State: RUNNABLE
+	at java.util.HashMap.hash(java.base@25.0.3/HashMap.java:338)
+	at java.util.HashMap.put(java.base@25.0.3/HashMap.java:619)
+	at java.util.HashSet.add(java.base@25.0.3/HashSet.java:230)
+	at io.github.classgraph.ClassInfo.addRelatedClass(ClassInfo.java:341)
+	at io.github.classgraph.ClassInfo.addClassContainment(ClassInfo.java:546)
+	at io.github.classgraph.Classfile.link(Classfile.java:508)
+	at io.github.classgraph.Scanner.performScan(Scanner.java:987)
+	at io.github.classgraph.Scanner.openClasspathElementsThenScan(Scanner.java:1132)
+	at io.github.classgraph.Scanner.call(Scanner.java:1166)
+	at io.github.classgraph.Scanner.call(Scanner.java:84)
+	at java.util.concurrent.FutureTask.run(java.base@25.0.3/FutureTask.java:328)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1090)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- <0x00000007d4959018> (a java.util.concurrent.ThreadPoolExecutor$Worker)
+
+"ClassGraph-worker-4732" #4772 [63515] daemon prio=5 os_prio=31 cpu=305.96ms elapsed=2.92s tid=0x00007f83c6198200 nid=63515 waiting on condition  [0x000070000b15f000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4733" #4773 [63123] daemon prio=5 os_prio=31 cpu=276.96ms elapsed=2.92s tid=0x00007f83bc4e6a00 nid=63123 waiting on condition  [0x000070000b262000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4734" #4774 [39059] daemon prio=5 os_prio=31 cpu=292.47ms elapsed=2.92s tid=0x00007f83bbecae00 nid=39059 waiting on condition  [0x000070000b365000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4735" #4775 [62003] daemon prio=5 os_prio=31 cpu=260.01ms elapsed=2.92s tid=0x00007f83c098dc00 nid=62003 waiting on condition  [0x000070000b468000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4736" #4776 [44067] daemon prio=5 os_prio=31 cpu=290.55ms elapsed=2.92s tid=0x00007f83c0926a00 nid=44067 waiting on condition  [0x000070000b56b000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4737" #4777 [65079] daemon prio=5 os_prio=31 cpu=270.58ms elapsed=2.92s tid=0x00007f83c0871000 nid=65079 waiting on condition  [0x000070000b66e000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4738" #4778 [42759] daemon prio=5 os_prio=31 cpu=293.45ms elapsed=2.92s tid=0x00007f83c0810200 nid=42759 waiting on condition  [0x000070000b771000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4739" #4779 [43639] daemon prio=5 os_prio=31 cpu=295.68ms elapsed=2.92s tid=0x00007f83c0810a00 nid=43639 waiting on condition  [0x000070000b874000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4740" #4780 [36547] daemon prio=5 os_prio=31 cpu=299.32ms elapsed=2.92s tid=0x00007f83bf89a000 nid=36547 waiting on condition  [0x000070000b977000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4741" #4781 [64195] daemon prio=5 os_prio=31 cpu=297.46ms elapsed=2.92s tid=0x00007f83c1903800 nid=64195 waiting on condition  [0x000070000ba7a000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4742" #4782 [62683] daemon prio=5 os_prio=31 cpu=281.29ms elapsed=2.92s tid=0x00007f83be825c00 nid=62683 waiting on condition  [0x000070000bb7d000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4743" #4783 [64315] daemon prio=5 os_prio=31 cpu=258.51ms elapsed=2.92s tid=0x00007f83b99fd000 nid=64315 waiting on condition  [0x000070000bc80000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4744" #4784 [36155] daemon prio=5 os_prio=31 cpu=291.00ms elapsed=2.91s tid=0x00007f83c5d64600 nid=36155 waiting on condition  [0x000070000bd83000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4745" #4785 [65319] daemon prio=5 os_prio=31 cpu=286.97ms elapsed=2.91s tid=0x00007f83bea20e00 nid=65319 waiting on condition  [0x000070000be86000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4746" #4786 [43115] daemon prio=5 os_prio=31 cpu=269.49ms elapsed=2.91s tid=0x00007f83baaf3200 nid=43115 waiting on condition  [0x000070000bf89000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4747" #4787 [44411] daemon prio=5 os_prio=31 cpu=270.78ms elapsed=2.91s tid=0x00007f83b9cfa800 nid=44411 waiting on condition  [0x000070000c08c000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4748" #4788 [37691] daemon prio=5 os_prio=31 cpu=272.50ms elapsed=2.91s tid=0x00007f83babcc000 nid=37691 waiting on condition  [0x000070000c18f000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"ClassGraph-worker-4749" #4789 [24051] daemon prio=5 os_prio=31 cpu=261.82ms elapsed=2.91s tid=0x00007f83b9e85200 nid=24051 waiting on condition  [0x000070000c292000]
+   java.lang.Thread.State: WAITING (parking)
+	at jdk.internal.misc.Unsafe.park(java.base@25.0.3/Native Method)
+	- parking to wait for  <0x00000007e76fd798> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+	at java.util.concurrent.locks.LockSupport.park(java.base@25.0.3/LockSupport.java:369)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(java.base@25.0.3/AbstractQueuedSynchronizer.java:520)
+	at java.util.concurrent.ForkJoinPool.unmanagedBlock(java.base@25.0.3/ForkJoinPool.java:4364)
+	at java.util.concurrent.ForkJoinPool.managedBlock(java.base@25.0.3/ForkJoinPool.java:4310)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(java.base@25.0.3/AbstractQueuedSynchronizer.java:1752)
+	at java.util.concurrent.LinkedBlockingQueue.take(java.base@25.0.3/LinkedBlockingQueue.java:435)
+	at java.util.concurrent.ThreadPoolExecutor.getTask(java.base@25.0.3/ThreadPoolExecutor.java:1016)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(java.base@25.0.3/ThreadPoolExecutor.java:1076)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(java.base@25.0.3/ThreadPoolExecutor.java:614)
+	at java.lang.Thread.runWith(java.base@25.0.3/Thread.java:1487)
+	at java.lang.Thread.run(java.base@25.0.3/Thread.java:1474)
+
+   Locked ownable synchronizers:
+	- None
+
+"G1 Conc#2" os_prio=31 cpu=410505.34ms elapsed=3631.23s tid=0x00007f83bc53c400 nid=40195 runnable  
+
+"G1 Conc#1" os_prio=31 cpu=410602.52ms elapsed=3631.23s tid=0x00007f83bc53be00 nid=40451 runnable  
+
+"GC Thread#9" os_prio=31 cpu=2580139.32ms elapsed=3632.04s tid=0x00007f83baad4c00 nid=40707 runnable  
+
+"GC Thread#8" os_prio=31 cpu=2579714.72ms elapsed=3632.04s tid=0x00007f83baad3000 nid=40963 runnable  
+
+"GC Thread#7" os_prio=31 cpu=2579670.08ms elapsed=3632.04s tid=0x00007f83baad2a00 nid=41219 runnable  
+
+"GC Thread#6" os_prio=31 cpu=2581442.08ms elapsed=3632.04s tid=0x00007f83baad2400 nid=34307 runnable  
+
+"GC Thread#5" os_prio=31 cpu=2583024.42ms elapsed=3633.52s tid=0x00007f83ba974400 nid=34051 runnable  
+
+"GC Thread#4" os_prio=31 cpu=2580578.14ms elapsed=3633.52s tid=0x00007f83ba973600 nid=41731 runnable  
+
+"GC Thread#3" os_prio=31 cpu=2579483.54ms elapsed=3633.52s tid=0x00007f83bc272800 nid=42243 runnable  
+
+"GC Thread#2" os_prio=31 cpu=2581171.50ms elapsed=3633.52s tid=0x00007f83ba973000 nid=33283 runnable  
+
+"GC Thread#1" os_prio=31 cpu=2581179.02ms elapsed=3633.52s tid=0x00007f83bc271a00 nid=42499 runnable  
+
+"VM Thread" os_prio=31 cpu=21356.00ms elapsed=3634.75s tid=0x00007f83bc80d600 nid=19971 runnable  
+
+"VM Periodic Task Thread" os_prio=31 cpu=70.97ms elapsed=3634.76s tid=0x00007f83ba205cc0 nid=17679 waiting on condition  
+
+"G1 Service" os_prio=31 cpu=603.59ms elapsed=3634.76s tid=0x00007f83bc008200 nid=17155 runnable  
+
+"G1 Refine#0" os_prio=31 cpu=1776.42ms elapsed=3634.76s tid=0x00007f83bb87d600 nid=21507 runnable  
+
+"G1 Conc#0" os_prio=31 cpu=409847.70ms elapsed=3634.76s tid=0x00007f83ba80de00 nid=16387 runnable  
+
+"G1 Main Marker" os_prio=31 cpu=242.60ms elapsed=3634.76s tid=0x00007f83bb024600 nid=13571 runnable  
+
+"GC Thread#0" os_prio=31 cpu=2581503.17ms elapsed=3634.76s tid=0x00007f83bb841000 nid=13827 runnable  
+
+JNI global refs: 9, weak refs: 0
+
