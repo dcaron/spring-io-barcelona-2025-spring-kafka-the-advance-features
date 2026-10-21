@@ -72,3 +72,13 @@ summary (*commons-beanutils:1.9.x needs an upgrade or migration … apache-commo
 exit **50**, 0 files changed; the normalized transcript differs from 1.7.0 only in timings
 (`transcript-1.7.1.txt`). 1.7.1 is a mappings-only release (ten Azure SDK mappings, no CVE fixes —
 `release-notes-1.7.x.txt`) and the CLI surface is byte-identical (`cli-surface-1.7.1.txt`).
+
+## Note from the conflict-fixed run (2026-10-21)
+
+On the `advisor` branch with every version conflict removed (`STATUS-1.7.1.md` §D), the JSON report's
+two `blockedUpgrades` entries with **empty `blockerProjects`** are precisely this defect's shape:
+`commons-validator 1.10.x → 1.11.x` (transitive-only) and `kafka 4.2.x → 4.3.x` (managed by the Boot
+BOM, no literal in any pom). The docs describe such entries as *"needs a migration that the upgrade
+mappings do not define"*; what they actually are is "nothing to rewrite in this repository". Reporting
+them that way (and not as upgrades under *Projects discovered*) would close the last confusing output
+of this defect.

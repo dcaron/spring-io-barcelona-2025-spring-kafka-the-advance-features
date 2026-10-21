@@ -121,6 +121,26 @@ is narrower (the blockers are this project's own version conflicts; exit 0 follo
 BUG-5 is now provable with `-d`, FR-4 is largely closed by folder/Git/Artifactory mapping sources, and
 the kit re-plans with `-f`. The verdict table in §1 is superseded for BUG-9 and BUG-10 by that file.
 
+### D — version conflicts fixed in the poms (`evidence-1.7.1/D-*`)
+
+The *"several versions are used simultaneously"* warnings came from the `events` module, which had
+no Spring Boot BOM: Avro 1.12 pulled Jackson 2.17.2, commons-lang3 3.14.0, commons-compress 1.26.2 and
+commons-io 2.16.1 while the Boot-managed app modules resolved Jackson 2.21.5, commons-lang3 3.20.0,
+commons-compress 1.26.1 and commons-io 2.15.1. Fix on the `advisor` branch: `events/pom.xml` imports
+`spring-boot-dependencies:4.1.1`, and all seven poms manage commons-io 2.16.1 and commons-compress
+1.26.2 (the two Boot does not manage). Every artifact now resolves to one version in all modules;
+only the Jackson 2.x / 3.x coexistence that Boot 4 itself creates remains, and the reactor builds.
+
+Plain plan afterwards: still refused (exit 50) but for mapping-backed reasons only — Jackson 2 → 3
+is capped by avro, confluent, kafka, docker-java and testcontainers (all Jackson 2 libraries),
+jackson-annotations and xmlunit by the Boot 4.1.1 BOM, commons-collections 3.2 → 4 by
+commons-validator/beanutils (whose real 1.11.0 poms do depend on collections 3.2.2), commons-io/compress
+by the step-wise commons-lang generation match (the project is *ahead* of the generation the next
+mapping version requires — a modelling limitation worth reporting). The two blocker-less entries
+(commons-validator, kafka) are the BUG-1 class: transitive-only or BOM-managed, no literal to rewrite.
+Default `apply` refuses and changes nothing. So on Boot 4.1.1 with Kafka 4.2 / Confluent 8.3 the honest
+answer is "as upgraded as your dependencies allow", and Advisor now says exactly that.
+
 ## 5a. Open points
 
 - File BUG-7/8/9/10 with Broadcom; for BUG-9 attach the release-note quote and the JSON

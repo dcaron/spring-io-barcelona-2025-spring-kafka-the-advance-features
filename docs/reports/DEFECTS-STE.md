@@ -280,7 +280,9 @@ documentation calls this a triangular dependency misalignment. The documented ac
 the conflict in the pom, or to use `--accept-no-alignment`. Advisor does not report these conflicts as
 blockers. It reports success. The documentation says that an entry with no blocker project means
 "the project needs a migration that the upgrade mappings do not define", and that such an entry gives
-no exit code. The exit code 0 follows this rule. The state is still wrong.
+no exit code. The exit code 0 follows this rule. The state is still wrong. A second test, after the
+correction of the version conflicts in the poms, shows the same result: all twelve blocker slugs
+ignored, no plan, exit code 0. The defect does not depend on the conflicts.
 
 **Effect.** A pipeline that reads the exit code or the JSON status decides that there is nothing to
 upgrade. The project has eight pending upgrades.

@@ -137,7 +137,10 @@ issue.
   `blockerProjects` sets no exit code, and the remaining obstacle is the application's own version
   conflicts (documented as triangular misalignment). The ask therefore narrows to: when ignored
   restrictions leave only alignment conflicts, say so on the console and return a non-zero code, so
-  that exit 0 keeps its documented meaning of "nothing to upgrade".
+  that exit 0 keeps its documented meaning of "nothing to upgrade". *Re-checked with the project's
+  version conflicts removed (one version of every library; only Boot 4's Jackson 2/3 coexistence
+  left): ignoring all twelve blocker slugs still gives "No upgrade plan available", exit 0, JSON
+  `SUCCEEDED` with `steps: []` — `reports/evidence-1.7.1/D-apply-and-bug10-recheck.log`.*
 
 ---
 

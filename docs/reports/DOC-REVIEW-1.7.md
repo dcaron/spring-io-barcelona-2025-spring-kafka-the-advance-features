@@ -19,7 +19,7 @@ the same day on Advisor 1.7.1; evidence in [`evidence-1.7.1/`](evidence-1.7.1/RE
 | BUG-6 empty mapping silent | Yes | — |
 | BUG-8 starter pins | Yes, trigger re-scoped | Override semantics are documented: a version block is *"replaced as a whole"*, so our 1.6.x override was invalid; Advisor still should not pin. |
 | **BUG-9** unmapped transitive hides plan | **Reduced: documented workaround exists** | `upgrade-plan get/apply -f` *"continues to calculate the upgrade plan when dependencies have no upgrade mappings"*. Verified: `-f` gives the full 25-project plan without the zookeeper mapping; `-f --accept-no-alignment` gives the 24-item step, exit 0. Remaining: default behaviour contradicts the release note, and under `-f` the unmapped coordinate is not *"listed as a warning"* — it vanishes from console and JSON. |
-| **BUG-10** ignore-all → empty plan, exit 0 | **Yes, narrower** | Exit 0 follows the documented rule (empty `blockerProjects` is not an exit-code condition). The real blockers are documented *"triangular dependency misalignments"* in this project's own tree (two commons-lang3, three Jackson versions); the documented fix is to resolve them in the poms or use `--accept-no-alignment`. The silent empty plan is still wrong. |
+| **BUG-10** ignore-all → empty plan, exit 0 | **Yes, narrower** | Exit 0 follows the documented rule (empty `blockerProjects` is not an exit-code condition). The real blockers are documented *"triangular dependency misalignments"* in this project's own tree (two commons-lang3, three Jackson versions); the documented fix is to resolve them in the poms or use `--accept-no-alignment`. **Re-checked after fixing the conflicts: the exit-0 empty plan reproduces unchanged** (§D2), so the defect stands as filed. |
 
 Feature requests: FR-3 is **closed in practice** (`upgrade-plan.json`, `patch-upgrade.json`, exit
 codes, documented CI snippets). FR-4 is **largely closed** (folder, Git and Artifactory mapping
@@ -75,7 +75,9 @@ Documented, not tried, and worth knowing:
 ## 4. Open after this review
 
 - Try the Tanzu Spring Build Plugins path on the unguarded worktree (BUG-2b/7 may not apply there).
-- Fix the project's own version conflicts (commons-lang3 3.14 vs 3.20, Jackson 2.17/2.21/3.1,
-  commons-io 2.15/2.16) and re-run the plain plan: that, not more ignore keys, is the documented
-  route to an unforced plan on this repo.
+- ~~Fix the project's own version conflicts and re-run the plain plan~~ — done the same day
+  (`STATUS-1.7.1.md` §D): the `events` module lacked the Boot BOM. With one version of every library
+  the misalignment warnings are gone; the plain plan is still refused, now only by mapping-backed caps
+  (Jackson 2 libraries, the Boot 4.1.1 BOM, validator/beanutils → collections 3.2, and the step-wise
+  commons-lang generation match). That is the correct answer for this dependency set.
 - Package the manual Boot-4 fixes as a skill and test the MCP flow.

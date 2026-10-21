@@ -76,6 +76,14 @@ Boot 3 → 4 upgrade that remain:
 Build after each fix from clean: `./mvnw clean -DskipTests install`. An
 incremental build can pass on stale classes and hide a break.
 
+Before you trust a refused plan, make sure the reactor resolves **one version of every library**:
+`./mvnw dependency:tree -Dverbose -Dincludes=<groupId>` for each library named in a *"several versions
+are used simultaneously"* warning. A module without the Spring Boot BOM (a plain library module such
+as an Avro schema module) is the usual cause; import `spring-boot-dependencies` in its
+`dependencyManagement` and pin the few artifacts Boot does not manage (commons-io, commons-compress).
+Advisor plans from the *lowest* version it finds, so such a module makes the whole project look
+older than it is and turns real caps into misleading blockers.
+
 Then review the poms (BUG-8, Advisor 1.7.0): if a `spring-boot` override mapping
 is wired (the kit no longer wires `spring-boot-jackson3.json`), the
 "spring-boot 4.0.x → 4.1.x" step leaves the parent at 4.0.x and gives every

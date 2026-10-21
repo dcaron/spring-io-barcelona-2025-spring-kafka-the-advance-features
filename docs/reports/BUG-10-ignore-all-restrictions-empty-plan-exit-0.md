@@ -90,3 +90,15 @@ Three probes:
 Revised ask: when ignored restrictions leave only alignment conflicts, print that and exit 50 (or a
 new code), and name the ignore key in each blocker line. Kit: the plain plan on this repo needs the
 dependency conflicts fixed in the poms, not more ignore keys.
+
+## Re-check after fixing the project's version conflicts (2026-10-21, `STATUS-1.7.1.md` §D)
+
+With the `events` module on the Boot 4.1.1 BOM and one version of every library in the reactor (the
+only remaining *"several versions"* warning is Boot 4's own Jackson 2/3 coexistence), the plain plan
+lists 14 mapping-backed blockers. Ignoring **all twelve** blocker slugs with `dependencies: "*"`
+reproduces the defect exactly: *"No upgrade plan available … Upgrade Plan was calculated with ignored
+restrictions"*, **exit 0**, JSON `SUCCEEDED`, `steps: []`, eight `blockedUpgrades` all without a
+blocker; `--accept-no-alignment` then returns the 8-item step
+([`evidence-1.7.1/D-apply-and-bug10-recheck.log`](evidence-1.7.1/D-apply-and-bug10-recheck.log), D2).
+So the earlier narrowing to "the project's own conflicts" was too generous: the conflicts explained
+*which* blockers appeared, not the exit-0 empty plan. The defect stands as filed.
