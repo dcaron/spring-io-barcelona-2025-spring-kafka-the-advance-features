@@ -64,3 +64,9 @@ survives `build-config get` then dies at plan time with a message that doesn't s
 **Unchanged** — identical three-way behaviour (`build-config get` accepts, `upgrade-plan get`
 rejects the second file generically, `mapping create` crashes with *"Some projects were already
 defined: [demo]"* only in the log). `transcript-1.7.0.txt`, `error-stacktrace-1.7.0.log`.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged** — transcript identical to 1.7.0 modulo timings; `mapping create` still crashes with
+*"Some projects were already defined: [demo]"* visible only in the error log
+(`transcript-1.7.1.txt`, `error-stacktrace-1.7.1.log`).

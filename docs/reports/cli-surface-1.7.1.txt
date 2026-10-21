@@ -1,0 +1,617 @@
+# advisor CLI surface, captured 2026-10-21 on macOS with: advisor --version => Version: 1.7.1
+# Compare against cli-surface-1.7.0.txt
+
+################ advisor  --help
+Usage: advisor [-v] [?] [COMMAND]
+Application Advisor CLI
+      ?, -h, --help   Prints the help to understand the command options
+  -v, --version       Prints version of Application Advisor CLI
+Commands:
+  build-config  Generates or publishes build dependencies and tools
+  upgrade-plan  Generates or applies upgrade plan(s) to upgrade the repository
+                  code base with the latest versions of Spring components.
+  patch         Applies patch-level dependency upgrades to the source code
+                  repository.
+  mapping       Generates a mapping file for a project given its repository or
+                  Maven artifact.
+  advice        Generates or applies best practices to deploy Tanzu Spring
+                  applications.
+  recipe        Inspects OpenRewrite recipe definitions.
+
+################ advisor build-config --help
+Usage: build-config [-h] [COMMAND]
+Generates or publishes build dependencies and tools
+  -h, --help   Prints the help to understand the command options
+Commands:
+  get      Generates the project build configuration.
+  publish  Publishes a build configuration.
+
+################ advisor build-config get --help
+Usage:
+
+Generates the project build configuration.
+
+advisor build-config get [-dh] [-b=<buildTool>]
+                         [--build-tool-options=<buildToolOptions>] [-p=<path>]
+
+Description:
+
+Generates the project build configuration: compile time dependencies and
+developer tools versions to compile the Java sources of a repository.
+
+The build-configuration is named .advisor/build-config.json. This file is
+generated in the build directory of the project (e.g. /target folder for Maven
+and /build folder for Gradle). The build-configuration file is required to
+generate the upgrade plan of the repository.
+
+Options:
+
+  -b, --build-tool=<buildTool>
+                      Selects the build tool used to resolve the project
+                        dependencies options: mvnw, mvn, gradlew, gradle
+                        (default: mvnw when there are multiple wrappers and mvn
+                        when there are no wrappers).
+      --build-tool-options=<buildToolOptions>
+                      Build arguments to pass to the build tool
+  -d, --debug         Prints out debug messages
+  -h, --help          Prints the help to understand the command options
+  -p, --path=<path>   Selects the root directory of the source code repository
+                        (default: current directory)
+
+Examples:
+
+advisor build-config get
+
+Generates the upgrade plan of the repository whose root folder is the current
+directory
+
+advisor build-config get --path=/home/user/foo
+
+Generates the upgrade plan of the repository whose root folder is in the
+/home/user/foo directory
+
+################ advisor build-config publish --help
+Usage:
+
+Publishes a build configuration.
+
+publish [-dh] [-b=<buildTool>] [--build-tool-options=<buildToolOptions>]
+        [-p=<path>]
+
+Description:
+
+Publishes an existing build configuration of the source code repository into
+Tanzu Platform so that you can see the status of the dependencies of all your
+repositories.
+
+Options:
+
+  -b, --build-tool=<buildTool>
+                      Selects the build tool used to resolve the project
+                        dependencies options: mvnw, mvn, gradlew, gradle
+                        (default: mvnw when there are multiple wrappers and mvn
+                        when there are no wrappers).
+      --build-tool-options=<buildToolOptions>
+                      Build arguments to pass to the build tool
+  -d, --debug         Prints out debug message
+  -h, --help          Prints the help to understand the command options
+  -p, --path=<path>   Selects the root directory of the source code repository
+                        (default: current directory)
+
+Examples:
+
+advisor build-config publish
+
+################ advisor upgrade-plan --help
+Usage: upgrade-plan [-h] [COMMAND]
+Generates or applies upgrade plan(s) to upgrade the repository code base with
+the latest versions of Spring components.
+  -h, --help   Prints the help to understand the command options
+Commands:
+  apply  Incrementally applies an upgrade plan to the source code repository.
+  get    Prints out the upgrade plan of the source code repository.
+
+################ advisor upgrade-plan get --help
+Usage:
+
+Prints out the upgrade plan of the source code repository.
+
+advisor upgrade-plan get [-dfh] [--accept-no-alignment] [--build-tools-latest]
+                         [--remove-excluded-artifacts] [--squash-all]
+                         [-b=<buildTool>]
+                         [--build-tool-options=<buildToolOptions>] [-p=<path>]
+                         [--squash=<squash>]
+
+Description:
+
+Prints out the upgrade plan of the source code repository. An upgrade plan is
+the list of incremental Spring related upgrades that can be performed in
+isolation.
+
+Options:
+
+      --accept-no-alignment  Not recommended. Calculates an upgrade plan and
+                               upgrades dependencies to their latest versions
+                               ignoring miss-alignments.
+  -b, --build-tool=<buildTool>
+                             Selects the build tool used to resolve the project
+                               dependencies options: mvnw, mvn, gradlew, gradle
+                               (default: mvnw when there are multiple wrappers
+                               and mvn when there are no wrappers).
+      --build-tool-options=<buildToolOptions>
+                             Build arguments to pass to the build tool
+      --build-tools-latest   Adds extra steps to the upgrade plan to maximize
+                               the Java version, and update the build tool
+                               (Gradle/Maven wrapper), as far as your
+                               dependencies allow.
+  -d, --debug                Prints out debug messages
+  -f, --force                Force execution of full Upgrade Plan, including
+                               intermediate dependencies
+  -h, --help                 Prints the help to understand the command options
+  -p, --path=<path>          Selects the root directory of the source code
+                               repository (default: current directory)
+      --remove-excluded-artifacts
+                             Removes excluded artifacts as part of upgrade plan
+      --squash=<squash>      Number of steps of the original Upgrade Plan that
+                               will be squashed as the first Upgrade Plan step
+      --squash-all           Squashes all the steps of the Upgrade Plan into a
+                               single step
+
+Examples:
+
+advisor upgrade-plan get
+
+It prints out the upgrade plan associated to the repository located in the
+current directory.
+
+################ advisor upgrade-plan apply --help
+Usage:
+
+Incrementally applies an upgrade plan to the source code repository.
+
+advisor upgrade-plan apply [-dfh] [--accept-no-alignment]
+                           [--build-tools-latest] [--from-yml] [--push]
+                           [--remove-excluded-artifacts] [--squash-all]
+                           [--after-upgrade-cmd=<afterUpgradeRunCommand>]
+                           [-b=<buildTool>]
+                           [--build-tool-jvm-args=<buildToolJvmArgs>]
+                           [--build-tool-options=<buildToolOptions>]
+                           [-p=<path>] [--scm-host=<scmHost>]
+                           [--squash=<squash>]
+                           [--exclude-modules=<excludeModules>[,
+                           <excludeModules>...]]...
+                           [--include-modules=<includeModules>[,
+                           <includeModules>...]]...
+
+Description:
+
+Applies the first step of the upgrade plan to the source code repository. If
+you want to preview what are the next versions to upgrade your dependencies,
+consider using advisor upgrade-plan get.
+
+Options:
+
+      --accept-no-alignment  Not recommended. Calculates an upgrade plan and
+                               upgrades dependencies to their latest versions
+                               ignoring miss-alignments.
+      --after-upgrade-cmd=<afterUpgradeRunCommand>
+                             Executes a Maven or Gradle task after applying the
+                               upgrade plan
+  -b, --build-tool=<buildTool>
+                             Selects the build tool used to resolve the project
+                               dependencies options: mvnw, mvn, gradlew, gradle
+                               (default: mvnw when there are multiple wrappers
+                               and mvn when there are no wrappers).
+      --build-tool-jvm-args=<buildToolJvmArgs>
+                             JVM arguments to pass into the build tool
+                               (default: $BUILD_TOOL_JVM_ARGS)
+      --build-tool-options=<buildToolOptions>
+                             Build arguments to pass to the build tool
+      --build-tools-latest   Adds extra steps to the upgrade plan to maximize
+                               the Java version, and update the build tool
+                               (Gradle/Maven wrapper), as far as your
+                               dependencies allow.
+  -d, --debug                Prints out debug messages
+      --exclude-modules=<excludeModules>[,<excludeModules>...]
+                             Comma-separated list of the modules that do not
+                               receive the upgrade in a multi-module project.
+                               Accepts exact names and wildcards (e.g. test-*).
+                               Evaluated after --include-modules
+  -f, --force                Force execution of full Upgrade Plan, including
+                               intermediate dependencies
+      --from-yml             Enables the upgrade plan based on the contents of
+                               the .spring-app-advisor.yml file in the selected
+                               path.
+  -h, --help                 Prints the help to understand the command options
+      --include-modules=<includeModules>[,<includeModules>...]
+                             Comma-separated list of the modules that receive
+                               the upgrade in a multi-module project. Accepts
+                               exact names and wildcards (e.g. core,api-*).
+                               Every module is selected when this option is
+                               absent. A version managed in the root build file
+                               changes only when the root module is selected
+  -p, --path=<path>          Selects the root directory of the source code
+                               repository (default: current directory)
+      --push                 Generates a pull request with the code upgrades.
+                               The environment variable GIT_TOKEN_FOR_PRS is
+                               mandatory. It should contain the value of a
+                               token with permissions to create pull requests
+                               in the repository
+      --remove-excluded-artifacts
+                             Removes excluded artifacts as part of upgrade plan
+      --scm-host=<scmHost>   Trusted hostname for self-hosted GitLab or GitHub
+                               instances. Required when using --push with any
+                               host other than github.com or gitlab.com. (e.g.
+                               gitlab.mycompany.com). (default:
+                               $ADVISOR_SCM_HOST)
+      --squash=<squash>      Number of steps of the original Upgrade Plan that
+                               will be squashed as the first Upgrade Plan step
+      --squash-all           Squashes all the steps of the Upgrade Plan into a
+                               single step
+
+Examples:
+
+advisor upgrade-plan apply
+
+Upgrades the repository that is in the current directory
+
+advisor upgrade-plan apply --push
+
+Upgrades the repository and creates a pull request with the changes
+
+advisor upgrade-plan apply --push --from-yml
+
+Upgrades the repository and creates a pull request with the changes if
+developers have explicitly enabled automatic updates
+
+advisor upgrade-plan apply --build-tool-jvm-args=-Xmx2048M
+
+Upgrades the repository in the current directory. The upgrade will use 2Gb of
+memory to parse all the sources into memory.
+
+################ advisor patch --help
+Usage: patch [-h] [COMMAND]
+Applies patch-level dependency upgrades to the source code repository.
+  -h, --help   Prints the help to understand the command options
+Commands:
+  apply  Applies the latest patch-level upgrades to all project dependencies.
+
+################ advisor patch apply --help
+Usage:
+
+Applies the latest patch-level upgrades to all project dependencies.
+
+apply [-dh] [--push] [-std] [-b=<buildTool>]
+      [--build-tool-jvm-args=<buildToolJvmArgs>]
+      [--build-tool-options=<buildToolOptions>] [-p=<path>]
+      [--scm-host=<scmHost>] [--exclude-modules=<excludeModules>[,
+      <excludeModules>...]]... [--include-modules=<includeModules>[,
+      <includeModules>...]]...
+
+Description:
+
+Applies the latest patch-level upgrades to all project dependencies in a single
+pass. Reads the project dependency files from the current directory and updates
+them in place, preserving all existing formatting.
+
+Options:
+
+  -b, --build-tool=<buildTool>
+                             Selects the build tool used to compile the
+                               sources, options: mvnw, mvn, gradlew, gradle
+                               (default: mvnw when there are multiple wrappers
+                               and mvn when there are no wrappers)
+      --build-tool-jvm-args=<buildToolJvmArgs>
+                             JVM arguments to pass into the build tool
+                               (default: $BUILD_TOOL_JVM_ARGS)
+      --build-tool-options=<buildToolOptions>
+                             Build arguments to pass to the build tool
+  -d, --debug                Prints out debug messages
+      --exclude-modules=<excludeModules>[,<excludeModules>...]
+                             Comma-separated list of the modules that do not
+                               receive the upgrades in a multi-module project.
+                               Accepts exact names and wildcards (e.g. test-*).
+                               Evaluated after --include-modules
+  -h, --help                 Prints the help to understand the command options
+      --include-modules=<includeModules>[,<includeModules>...]
+                             Comma-separated list of the modules that receive
+                               the upgrades in a multi-module project. Accepts
+                               exact names and wildcards (e.g. core,api-*).
+                               Every module is selected when this option is
+                               absent. A version managed in the root build file
+                               changes only when the root module is selected
+  -p, --path=<path>          Selects the root directory of the source code
+                               repository (default: current directory)
+      --push                 Generates a pull request with the code upgrades.
+                               The environment variable GIT_TOKEN_FOR_PRS is
+                               mandatory. It should contain the value of a
+                               token with permissions to create pull requests
+                               in the repository
+      --scm-host=<scmHost>   Trusted hostname for self-hosted GitLab or GitHub
+                               instances. Required when using --push with any
+                               host other than github.com or gitlab.com. (e.g.
+                               gitlab.mycompany.com). (default:
+                               $ADVISOR_SCM_HOST)
+      -std, --skip-transitive-deps
+                             Patches only dependencies declared explicitly in
+                               the project, leaving transitive dependencies
+                               unchanged
+
+Examples:
+
+advisor patch apply
+
+
+
+################ advisor mapping --help
+Usage: mapping [-h] [COMMAND]
+Generates a mapping file for a project given its repository or Maven artifact.
+  -h, --help   Prints the help to understand the command options
+Commands:
+  create  Generates a mapping file for a project given its repository or Maven
+            artifact.
+  search  Searches for projects by slug prefix.
+  update  Updates existing mapping files with newly released library versions.
+
+################ advisor mapping create --help
+Usage:
+
+Generates a mapping file for a project given its repository or Maven artifact.
+
+advisor mapping create [-dh] [--isBom] [-b=<buildTool>]
+                       [--build-tool-options=<buildToolOptions>]
+                       [-c=<coordinate>]
+
+Description:
+
+Generates the mapping with the artifacts that belong to a project (e.g
+spring-boot). It also generate the versions available and their upgrade
+requirements
+
+
+
+Options:
+
+  -b, --build-tool=<buildTool>
+                Selects the build tool used to resolve the project dependencies
+                  options: mvnw, mvn, gradlew, gradle (default: mvnw when there
+                  are multiple wrappers and mvn when there are no wrappers).
+      --build-tool-options=<buildToolOptions>
+                Build arguments to pass to the build tool
+  -c, --coordinate=<coordinate>
+                Main coordinate of the project to check available versions
+  -d, --debug   Prints out debug messages
+  -h, --help    Prints the help to understand the command options
+      --isBom   Indicates if the main coordinate of the project is a bom or
+                  dependencies coordinate.
+
+Examples:
+
+advisor mapping create
+
+Generates a mapping file given the coordinate of the project.
+
+advisor mapping create -c='org.springframework.cloud:spring-cloud-cli'
+
+
+
+################ advisor mapping search --help
+Usage:
+
+Searches for projects by slug prefix.
+
+advisor mapping search [-h] [--prefix=<prefix>] [--slug=<slug>]
+
+Description:
+
+Searches all loaded mapping sources for projects whose slug starts with the
+given prefix. Displays an interactive, paginated list of matching project
+slugs. When a result is selected, optionally saves its mapping JSON to .
+advisor/mappings/<slug>.json. Provide --slug to download a known mapping
+directly, skipping the interactive selection.
+
+Options:
+
+  -h, --help              Prints the help to understand the command options
+      --prefix=<prefix>   Prefix to match against project slugs
+                            (case-insensitive). Required for the interactive
+                            search when --slug is not given.
+      --slug=<slug>       Exact project slug (case-sensitive) to download
+                            directly, without the interactive selection step.
+
+Examples:
+
+advisor mapping search --prefix spring-boot
+
+Searches for all projects whose slug starts with "spring-boot".
+
+advisor mapping search --prefix s
+
+Searches for all projects whose slug starts with "s". If more than 20 results
+are found, type a narrower prefix to filter further.
+
+advisor mapping search --slug spring-boot
+
+Downloads the mapping for the exact slug "spring-boot" directly, without the
+interactive selection.
+
+
+
+################ advisor mapping update --help
+Usage:
+
+Updates existing mapping files with newly released library versions.
+
+advisor mapping update [-dh]
+
+Description:
+
+Scans the path for existing mapping files and appends any newly released minor
+versions of their libraries, following the same logic as 'mapping create'.
+Previously existing entries are left unchanged.
+
+
+
+Options:
+
+  -d, --debug   Prints out debug messages
+  -h, --help    Prints the help to understand the command options
+
+Examples:
+
+advisor mapping update
+
+Updates every mapping file found under the current directory.
+
+
+
+################ advisor advice --help
+Usage: advice [-h] [COMMAND]
+Generates or applies best practices to deploy Tanzu Spring applications.
+  -h, --help   Prints the help to understand the command options
+Commands:
+  list   Prints out recommendations to follow Tanzu Spring best practices.
+  apply  Applies the selected recommendation to follow a Tanzu Spring best
+           practice.
+
+################ advisor advice list --help
+Usage:
+
+Prints out recommendations to follow Tanzu Spring best practices.
+
+list [-dh] [-b=<buildTool>] [--build-tool-options=<buildToolOptions>]
+     [-p=<path>]
+
+Description:
+
+Prints out recommendations to follow Tanzu Spring best practices for a
+repository.
+
+Options:
+
+  -b, --build-tool=<buildTool>
+                      Selects the build tool used to resolve the project
+                        dependencies options: mvnw, mvn, gradlew, gradle
+                        (default: mvnw when there are multiple wrappers and mvn
+                        when there are no wrappers).
+      --build-tool-options=<buildToolOptions>
+                      Build arguments to pass to the build tool
+  -d, --debug         Prints out debug messages
+  -h, --help          Prints the help to understand the command options
+  -p, --path=<path>   Selects the root directory of the source code repository
+                        (default: current directory)
+
+Examples:
+
+advisor advice list
+
+Prints out recommendations to follow Tanzu Spring best practices.
+
+advisor advice list
+
+
+
+################ advisor advice apply --help
+Missing required option: '--name=<projectName>'
+Usage:
+
+Applies the selected recommendation to follow a Tanzu Spring best practice.
+
+advisor advice apply [-dh] [--avoid-interactive] [-b=<buildTool>]
+                     [--build-tool-jvm-args=<buildToolJvmArgs>]
+                     [--build-tool-options=<buildToolOptions>]
+                     [--inputs=<inputs>] -n=<projectName> [-p=<path>]
+                     [--exclude-modules=<excludeModules>[,
+                     <excludeModules>...]]...
+                     [--include-modules=<includeModules>[,
+                     <includeModules>...]]...
+
+Description:
+
+Applies the selected recommendation to follow a Tanzu Spring best practice for
+a repository.
+
+Options:
+
+      --avoid-interactive    Ignores the request to the user for possible
+                               values to enter and will take the default
+                               values. In case there is no default value
+                               defined for an input, it must be combined with
+                               the '--inputs' option.
+  -b, --build-tool=<buildTool>
+                             Selects the build tool used to resolve the project
+                               dependencies options: mvnw, mvn, gradlew, gradle
+                               (default: mvnw when there are multiple wrappers
+                               and mvn when there are no wrappers).
+      --build-tool-jvm-args=<buildToolJvmArgs>
+                             JVM arguments to pass into the build tool
+                               (default: $BUILD_TOOL_JVM_ARGS)
+      --build-tool-options=<buildToolOptions>
+                             Build arguments to pass to the build tool
+  -d, --debug                Prints out debug messages
+      --exclude-modules=<excludeModules>[,<excludeModules>...]
+                             Comma-separated list of the modules that do not
+                               receive the advice in a multi-module project.
+                               Accepts exact names and wildcards (e.g. test-*).
+                               Evaluated after --include-modules
+  -h, --help                 Prints the help to understand the command options
+      --include-modules=<includeModules>[,<includeModules>...]
+                             Comma-separated list of the modules that receive
+                               the advice in a multi-module project. Accepts
+                               exact names and wildcards (e.g. core,api-*).
+                               Every module is selected when this option is
+                               absent. A version managed in the root build file
+                               changes only when the root module is selected
+      --inputs=<inputs>      It allows to send possible mandatory inputs
+                               separated by commas, it must be used with
+                               '--avoid-interactive' parameter.
+
+                             advisor advice apply --name='tanzu'
+                               --avoid-interactive --inputs=module1,myjar.jar
+
+
+  -n, --name=<projectName>   Name of the project to apply
+  -p, --path=<path>          Selects the root directory of the source code
+                               repository (default: current directory)
+
+Examples:
+
+advisor advice apply
+
+Applies the selected recommendation to follow a Tanzu Spring best practice for
+a repository.
+
+advisor advice apply --name='spring-governance-starter'
+
+
+
+################ advisor recipe --help
+Usage: recipe [-h] [COMMAND]
+Inspects OpenRewrite recipe definitions.
+  -h, --help   Prints the help to understand the command options
+Commands:
+  show  Shows the definition of an OpenRewrite recipe.
+
+################ advisor recipe show --help
+Usage:
+
+Shows the definition of an OpenRewrite recipe.
+
+advisor recipe show [-h] <recipe-name>
+
+Description:
+
+Prints the raw YAML definition of a declarative OpenRewrite recipe. For Java
+recipes, reports that showing the definition is not supported.
+
+
+      <recipe-name>   The fully qualified name of the OpenRewrite recipe to
+                        show.
+
+Options:
+
+  -h, --help          Prints the help to understand the command options
+
+Examples:
+
+

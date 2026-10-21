@@ -1,0 +1,155 @@
+wired 7 mappings
+=== C: .advisor.yml upgrade.ignore probe 3 — union keyed on the declaring mapping (Version: 1.7.1) Wed Oct 21 12:40:48 CEST 2026 ===
+--- .advisor.yml:
+# Probe 3: each key is the slug whose MAPPING declares the restriction (per the 1.7 docs).
+version: 1
+upgrade:
+  ignore:
+    jackson:
+      dependencies: [jackson-annotations]
+      reason: "jackson 2.17.x mapping pins jackson-annotations to 2.17.x; Jackson 3 arrives in the same step"
+    commons-beanutils:
+      dependencies: [apache-commons-collections]
+      reason: "generated commons-beanutils mapping caps commons-collections at 3.2.x"
+    commons-validator:
+      dependencies: [apache-commons-collections]
+      reason: "generated commons-validator mapping caps commons-collections at 3.2.x"
+    confluent:
+      dependencies: [apache-commons-compress]
+      reason: "curated confluent-platform mapping caps commons-compress at 1.26.x"
+    spring-boot:
+      dependencies: [xmlunit]
+      reason: "spring-boot 4.1.x mapping caps xmlunit at 2.11.x"
+    apache-commons-io:
+      dependencies: [apache-commons-lang]
+      reason: "commons-io mapping wants apache-commons-lang 3.14.x, project is on 3.20.x"
+    apache-commons-compress:
+      dependencies: [apache-commons-lang]
+      reason: "commons-compress mapping wants apache-commons-lang 3.14.x, project is on 3.20.x"
+
+--- advisor upgrade-plan get
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+	- confluent: 8.3.x (no upgrades available)
+	- junit: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.7.x (no upgrades available)
+	- jackson-annotations: 2.17.x → 2.22.x
+	- docker-java: 3.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- apache-commons-lang: 3.20.x (no upgrades available)
+	- commons-validator: 1.10.x → 1.11.x
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-kafka: 4.1.x (no upgrades available)
+	- apache-commons-io: 2.15.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- spring-framework: 7.0.x (no upgrades available)
+	- commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- xmlunit: 2.11.x → 2.13.x
+	- mockito: 5.23.x (no upgrades available)
+	- micrometer: 1.17.x (no upgrades available)
+	- jackson: 2.17.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- kafka: 4.2.x → 4.3.x
+	- junit-platform: 6.0.x (no upgrades available)
+	- spring-boot: 4.1.x (no upgrades available)
+	- avro: 1.12.x (no upgrades available)
+No upgrade plan available.
+
+⚠️  Warnings:
+	- There is an error in jackson-annotations, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-annotations:2.17.2
+		- com.fasterxml.jackson.core:jackson-annotations:2.21
+	- There is an error in apache-commons-lang, several versions are used simultaneously:
+		- org.apache.commons:commons-lang3:3.14.0
+		- org.apache.commons:commons-lang3:3.20.0
+	- There is an error in apache-commons-io, several versions are used simultaneously:
+		- commons-io:commons-io:2.16.1
+		- commons-io:commons-io:2.15.1
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.17.2
+		- com.fasterxml.jackson.core:jackson-databind:2.17.2
+		- com.fasterxml.jackson.core:jackson-core:2.21.5
+		- com.fasterxml.jackson.core:jackson-databind:2.21.5
+		- tools.jackson.core:jackson-databind:3.1.5
+		- tools.jackson.core:jackson-core:3.1.5
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.5
+Upgrade Plan was calculated with ignored restrictions.
+Please report these problems to support.broadcom.com
+
+exit=0
+
+--- upgrade-plan.json:
+{
+ "executionMetadata": {
+  "exitCode": 0,
+  "status": "SUCCEEDED"
+ },
+ "blockedUpgrades": [
+  {
+   "project": "jackson-annotations",
+   "version": "2.17.x",
+   "targetVersion": "2.18.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "commons-validator",
+   "version": "1.10.x",
+   "targetVersion": "1.11.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "apache-commons-io",
+   "version": "2.15.x",
+   "targetVersion": "2.16.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "apache-commons-collections",
+   "version": "3.2.x",
+   "targetVersion": "4.0.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "xmlunit",
+   "version": "2.11.x",
+   "targetVersion": "2.12.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "jackson",
+   "version": "2.17.x",
+   "targetVersion": "2.18.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "apache-commons-compress",
+   "version": "1.26.x",
+   "targetVersion": "1.27.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "kafka",
+   "version": "4.2.x",
+   "targetVersion": "4.3.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  }
+ ],
+ "steps": []
+}

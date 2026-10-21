@@ -66,3 +66,12 @@ the same recipes fine, and BUG-2a is unchanged.
 Unchanged from BUG-2b and now **mandatory**: move the whole `rewrite-maven-plugin`
 declaration into an explicitly-activated profile (`advisor-kit/snippets/rewrite-plugin-profile-guard.xml`).
 With the guard in place the full forced plan applies on 1.7.0 (`STATUS-1.7.0.md`, scenario A).
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged.** `repros/02-missing-recipe-bundle/run-1.7.0-hang.sh` (cap 600 s) on 1.7.1: step 1
+(*"Upgrading sources…"*) never finishes; the Maven child reaches recursion depth 33 at 2 min and
+sits at depth 36–37 from then on, 4.3 GB RSS, 7–9 cores, killed at 612 s with the parent still at
+3.4.5 (`transcript-1.7.1.txt`). Same recipes 1.7.6, same `6.44.0:runNoFork`, so nothing in the 1.7.1
+release (mappings only, no CVE fixes) touched this. Not mentioned in the 1.7.0/1.7.1 release notes'
+resolved-issues lists either.

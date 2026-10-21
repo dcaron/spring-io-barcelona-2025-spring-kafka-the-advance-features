@@ -51,3 +51,13 @@ customMappings:
 (`enabled: true`), not as mapping configuration; wiring is still `SPRING_ADVISOR_MAPPING_CUSTOM_N_*`.
 `mapping search --slug` downloads catalog mappings into `.advisor/mappings/`, so a declarative
 "these slugs + these files" manifest would now have an obvious home.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Partially addressed by a neighbouring feature.** 1.7.0 (notes published 2026-10-20) introduced a
+repository-level `.advisor.yml` (`version: 1`, `upgrade.ignore.<slug>.dependencies/reason`) to ignore
+restrictions a mapping declares — verified on 1.7.1
+([`evidence-1.7.1/C-ignore-probe-3.advisor.yml`](evidence-1.7.1/C-ignore-probe-3.advisor.yml)) — and
+organisation/repository-level *blocked versions*. Custom-mapping wiring is still the ordered
+`SPRING_ADVISOR_MAPPING_CUSTOM_N_*` env vars; `.advisor.yml` is the obvious place for a
+`mappings:` list and `mapping search --slug` already drops files into `.advisor/mappings/`.

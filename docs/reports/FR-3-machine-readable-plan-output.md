@@ -54,3 +54,19 @@ oldVersion / newVersion) — the first machine-readable output in the CLI
 (`evidence-1.7.0/P-patch-upgrade-report.json`). The same for the upgrade plan would close this
 request. New in 1.7.0: distinct exit codes **10** (unmapped dependencies present) and **50** (plan
 refused, blocker summary) — useful for scripting, but 10 is returned both with and without a plan.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Largely addressed — correction to the 1.7.0 verdict.** The 1.7.0 release notes (published
+2026-10-20) document `target/.advisor/upgrade-plan.json`, written by **both** `upgrade-plan get` and
+`apply` (`steps`, `projects`, `excludedProjects`, `blockedUpgrades`, `executionMetadata{exitCode,status}`,
+`scmMetadata`, `pullRequestInfo`), plus `target/.advisor/patch-upgrade.json` for `patch apply`, and a
+full exit-code table (get: 0/10/50/60/70; apply: 0/10/30/40/50/60/70). The file already existed on
+1.7.0 — it is sitting in the `adv170-A-guarded` worktree's `target/.advisor/` — and was overlooked on
+2026-10-12 because the CLI never mentions it. Verified on 1.7.1: every `get` in `evidence-1.7.1/`
+produced one ([`C-upgrade-plan.json`](evidence-1.7.1/C-upgrade-plan.json),
+[`A-bug9-probe-upgrade-plan.json`](evidence-1.7.1/A-bug9-probe-upgrade-plan.json)). Two caveats worth
+feeding back: `executionMetadata.exitCode` is **0 / SUCCEEDED** for a plan that was computed only under
+`--accept-no-alignment`, and also for the no-plan outcome produced with every restriction ignored
+(see BUG-10 in `STATUS-1.7.1.md`); and the console still never points at the file. The kit script
+should switch from parsing the plan text to reading this JSON.

@@ -47,3 +47,25 @@ appeared in "Projects discovered" and in the forced plan.
   projects were excluded **because of** which unmapped dependency.
 - Or at least print the dependency in the "blocker projects" summary (exit 50 style) rather
   than only in a warning, and use one indentation for all coordinate lists.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged — and now contradicted by Broadcom's own 1.7.0 release note.** The note published on
+2026-10-20 says: *"When a transitive dependency has no upgrade mapping, `advisor upgrade-plan get` and
+`advisor upgrade-plan apply` calculate the plan and print a warning. Previously, the missing mapping
+blocked the plan. Only missing mappings for your direct dependencies block the plan."*
+(`release-notes-1.7.x.txt`; the docs page *Missing mappings for transitive dependencies* repeats it).
+On the guarded Boot 3.4.5 worktree with the same seven mappings (zookeeper unwired) 1.7.1 still
+discovers **two** projects, prints *"No upgrade plan available"* and exits **10**; the only trace is
+the warning naming `org.apache.zookeeper:zookeeper`. Wiring `zookeeper.json` again brings back 26
+projects and the 24-item forced plan ([`evidence-1.7.1/A-bug9-probe-no-zookeeper.log`](evidence-1.7.1/A-bug9-probe-no-zookeeper.log)
+vs [`A-raw-plan.log`](evidence-1.7.1/A-raw-plan.log)).
+
+The new JSON report makes the exclusion explicit, which the console never does: its
+`excludedProjects` entry lists the 22 projects dropped *because of* zookeeper
+(`"exclusion": {"apache-commons-io": ["confluent", "testcontainers", "spring-kafka", "spring-boot", …]}`)
+while `projects` has 2 entries and `executionMetadata` is `{"exitCode": 10, "status": "BLOCKED"}`
+([`A-bug9-probe-upgrade-plan.json`](evidence-1.7.1/A-bug9-probe-upgrade-plan.json)). So the engine
+knows exactly which projects it hid; the documented behaviour (plan + warning) is simply not what the
+CLI does for this dependency graph. Worth attaching to the ticket: the doc quote, the two logs and the
+JSON.

@@ -5,6 +5,7 @@
 | Advisor | **1.7.0** (`/usr/local/bin/advisor`), commercial recipes **1.7.6** (bundle: `java-recipes, rewrite-apache, rewrite-migrate-java, rewrite-spring, spring-boot-2/3/4-upgrade-recipes`), `rewrite-maven-plugin:6.44.0:runNoFork` |
 | Previous | 1.6.7, recipes 1.7.5, same plugin (state tagged `advisor-1.6.7-verified`) |
 | Release notes | none published for 1.7 on techdocs at verification time (newest: 1.6.7, 2026-08-18); the CLI is the changelog — [`cli-surface-1.7.0.txt`](cli-surface-1.7.0.txt) |
+| *Correction 2026-10-21* | Broadcom published the 1.7.0 **and** 1.7.1 release notes on 2026-10-20 (`release-notes-1.7.x.txt`). They document `target/.advisor/upgrade-plan.json` (written by `get` and `apply` — it already existed on 1.7.0, overlooked here), the full exit-code table, `.advisor.yml` `upgrade.ignore`, blocked versions, and claim that unmapped transitives no longer block the plan — which BUG-9 contradicts. See [`STATUS-1.7.1.md`](STATUS-1.7.1.md). |
 | Evidence | [`evidence-1.7.0/`](evidence-1.7.0/README.md) (Phase 2 captures), `repros/*/…-1.7.0.*` (Phase 1 transcripts) |
 | Method | Phase 1: the 8 isolated repros + 5 new-CLI probes. Phase 2: the real project from Boot 3.4.5 (guarded worktree `ec8552a`, unguarded `049fdd6`) and from the committed 4.0.8 state (`advisor` HEAD), driven by the kit script; plus `patch apply`. Phase 3: this write-up, docs, kit and mapping updates. |
 

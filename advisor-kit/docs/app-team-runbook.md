@@ -52,7 +52,9 @@ Use `--force`. Plain apply never lands on this class of project: on 1.6.x it
 reports success but changes no files (BUG-1), on 1.7.x it refuses with a
 blocker list. `--force` runs `apply --accept-no-alignment` repeatedly until
 the worktree stops changing. Expect a small number of passes; on 1.7.0 the
-Boot 3.4 → 4.0 upgrade landed in one five-minute step.
+Boot 3.4 → 4.0 upgrade landed in one five-minute step, and on 1.7.1 (with no
+`spring-boot` override mapping wired) Boot 3.4 → **4.1** landed in one
+four-minute step.
 
 ## Step 4 — fix compile breaks and review version pins
 

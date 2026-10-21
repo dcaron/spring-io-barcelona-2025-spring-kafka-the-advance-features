@@ -1,7 +1,9 @@
 # Known Advisor issues
 
-All issues below were verified on Advisor 1.6.7 and re-verified on **1.7.0** (recipes 1.7.6)
-on 2026-10-12; the "1.7.0" column says what changed. Each row tells you what to do
+All issues below were verified on Advisor 1.6.7, re-verified on **1.7.0** (recipes 1.7.6)
+on 2026-10-12 and again on **1.7.1** on 2026-10-21 (same recipes, same CLI; 1.7.1 only adds Azure
+SDK mappings). Every row below is **unchanged on 1.7.1** unless the "1.7.0" column says otherwise;
+BUG-10 is the one addition. Each row tells you what to do
 without further reading. Full repros and reports live in the source repo
 (`docs/reports/` and `repros/` — source repo only; this page stands alone).
 
@@ -20,6 +22,7 @@ without further reading. Full repros and reports live in the source repo
 | BUG-7 | Forced apply never finishes: the Maven child spins at 100 % per core for an hour (recursive recipe-descriptor scan inside the project's own `rewrite-maven-plugin` execution, recipes 1.7.6). | Guard the project's rewrite plugin (BUG-2b template). The script refuses to run while it is unguarded. Kill a stuck run with `pkill -f runNoFork`. | New in 1.7.0 |
 | BUG-8 | After the forced "spring-boot 4.0.x → 4.1.x" step the parent stays 4.0.8 but every Spring Boot starter gets an explicit `<version>4.1.1</version>` pin (mixed Boot generations; the build still passes). Trigger: a custom `override` mapping for `spring-boot` that does not define 4.1.x (the kit's 1.6.x-era `spring-boot-jackson3.json`). | The kit no longer wires `spring-boot-jackson3.json` (commented out in `mappings/order.txt`). Do not wire your own `spring-boot` override on 1.7.x. If a run already produced pins: review `git diff`, remove the pins, move the parent (runbook step 4). | New in 1.7.0 |
 | BUG-9 | `upgrade-plan get` shows two projects and "No upgrade plan available" (exit 10) on a Boot 3.4.5 app; the 20+ real projects are hidden because one transitive dependency (here `org.apache.zookeeper:zookeeper`) has no mapping, and nothing says so. | The kit ships `zookeeper.json`; the script's self-heal now also reads the six-space-indented "transitive dependencies" list and creates mappings for it. | New in 1.7.0 |
+| BUG-10 | You ignore every blocker with `.advisor.yml` (`upgrade.ignore`, new in 1.7.0) and `upgrade-plan get` prints "No upgrade plan available" with **exit 0**; `target/.advisor/upgrade-plan.json` says `SUCCEEDED` with an empty `steps` list. What still holds the plan is the dependency-alignment state, which nothing reports. | Do not key CI on exit 0 alone — check that `steps` in `upgrade-plan.json` is non-empty. The kit's `--force` mode (`--accept-no-alignment`) still produces the step. Ignore keys: the slug whose *mapping declares* the restriction (e.g. `jackson` for jackson-annotations, but `apache-commons-io` for the commons-lang restriction). | New in 1.7.1 verification |
 
 ## Feature requests
 
@@ -35,11 +38,17 @@ without further reading. Full repros and reports live in the source repo
 Advisor upgrades one Spring generation per pass and can stop below the
 newest generation (verified on 1.6.7 and 1.7.0: a plan that targets 4.1.x
 converges at 4.0.x; on 1.7.0 the 4.1 step pins the starters instead — BUG-8).
-Re-run the kit after the next Advisor/recipes release to continue.
+Re-run the kit after the next Advisor/recipes release to continue. On 1.7.1 with
+the override unwired, the reference app went Boot 3.4.5 → **4.1.1** in a single
+forced step (the parent moved, no pins).
 
 1.7.0 also changed the plan output and added exit codes **10** (unmapped
-dependencies present) and **50** (plan refused, blocker summary). The script
-prints both. New commands: `mapping search --slug <slug>` (downloads a catalog
+dependencies present) and **50** (plan refused, blocker summary); the full table
+(get 0/10/50/60/70, apply also 30 = recipe failure, 40 = PR failure) is in the
+1.7 release notes published 2026-10-20. Every `get`/`apply` also writes
+`target/.advisor/upgrade-plan.json` (plan, blockers, *excluded projects*, exit
+code) — read it rather than the console. The script
+prints both exit codes. New commands: `mapping search --slug <slug>` (downloads a catalog
 mapping), `mapping update` (appends newly released versions to existing mapping
 files; leaves the curated files untouched), `recipe show <name>` (declarative
 recipes only) and `patch apply` (pins transitive dependencies to their latest

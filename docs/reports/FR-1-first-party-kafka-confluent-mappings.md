@@ -70,3 +70,16 @@ the family grew: `kafka-coordinator-common`, `kafka-share-coordinator`,
 `io.confluent:kafka-avro-types`, `io.confluent:kafka-schema-types` were unmapped until added to
 the curated files (done in this repo and the kit, 2026-10-12). A first-party family mapping
 would track such module additions; hand-curation does not.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Still needed.** The 1.7.1 release is a mappings-only update (ten Azure SDK libraries, each as its
+own mapping) and its coverage page lists nothing for Apache Kafka, Confluent, Avro, Zookeeper,
+javafaker, commons-validator or commons-beanutils. `mapping search --slug` on 1.7.1 returns *"No project
+found"* for `kafka`, `apache-kafka`, `kafka-clients`, `confluent`, `confluent-platform`, `avro`,
+`apache-avro`, `zookeeper`, `apache-zookeeper`, `javafaker`, `commons-validator`, `commons-beanutils`;
+`--prefix kafka|conf|avro|zoo` find nothing; the controls `apache-commons-io` and `azure-core` download
+fine ([`evidence-1.7.1/catalog-mapping-search.log`](evidence-1.7.1/catalog-mapping-search.log)).
+Repro 07 is identical to 1.7.0 (17 coordinates, exit 10). Meanwhile Kafka **4.4.x** has been released
+since the last check (repro 04's generated table now ends at 4.4.x) — one more generation the curated
+`apache-kafka.json` has to be taught by hand.

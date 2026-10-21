@@ -1,0 +1,25 @@
+# Probe 3: each key is the slug whose MAPPING declares the restriction (per the 1.7 docs).
+version: 1
+upgrade:
+  ignore:
+    jackson:
+      dependencies: [jackson-annotations]
+      reason: "jackson 2.17.x mapping pins jackson-annotations to 2.17.x; Jackson 3 arrives in the same step"
+    commons-beanutils:
+      dependencies: [apache-commons-collections]
+      reason: "generated commons-beanutils mapping caps commons-collections at 3.2.x"
+    commons-validator:
+      dependencies: [apache-commons-collections]
+      reason: "generated commons-validator mapping caps commons-collections at 3.2.x"
+    confluent:
+      dependencies: [apache-commons-compress]
+      reason: "curated confluent-platform mapping caps commons-compress at 1.26.x"
+    spring-boot:
+      dependencies: [xmlunit]
+      reason: "spring-boot 4.1.x mapping caps xmlunit at 2.11.x"
+    apache-commons-io:
+      dependencies: [apache-commons-lang]
+      reason: "commons-io mapping wants apache-commons-lang 3.14.x, project is on 3.20.x"
+    apache-commons-compress:
+      dependencies: [apache-commons-lang]
+      reason: "commons-compress mapping wants apache-commons-lang 3.14.x, project is on 3.20.x"

@@ -75,3 +75,13 @@ $ unzip -p ~/.m2/repository/com/vmware/tanzu/spring/recipes/spring-boot-4-upgrad
 `-Drewrite.recipeArtifactCoordinates` still lists only `com.vmware.tanzu.spring.recipes:*`
 (now including `rewrite-apache`), no `rewrite-java-dependencies`. Evidence:
 `repros/02-missing-recipe-bundle/error-stacktrace-single-module-1.7.0.log`, `variants-1.7.0.txt`.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged** — single-module variant (`repros/02-missing-recipe-bundle/variants-1.7.1.txt`): step 1
+(Boot 3.4.x → 3.5.x) applies in 90 s, step 2 (Boot 3.5.x → 4.0.x) fails in Advisor's own
+`6.44.0:runNoFork` with *"Recipe validation error in com.vmware.tanzu.MainAdvisorRecipe … Recipe class
+not found: org.openrewrite.java.dependencies.search.ModuleHasDependency"*;
+`-Drewrite.recipeArtifactCoordinates` is still the seven `com.vmware.tanzu.spring.recipes:*:1.7.6`
+artifacts and nothing else (`error-stacktrace-single-module-1.7.1.log`). One observable difference:
+the failed apply now exits **30** (*recipe execution failure* in the 1.7 exit-code table) instead of 1.

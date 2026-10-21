@@ -1,0 +1,160 @@
+wired 6 mappings (zookeeper.json NOT wired)
+SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=/Users/dcaron/Documents/src/adv171-A-guarded/.advisor/mappings/javafaker.json
+SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=/Users/dcaron/Documents/src/adv171-A-guarded/.advisor/mappings/avro.json
+SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=/Users/dcaron/Documents/src/adv171-A-guarded/.advisor/mappings/apache-kafka.json
+SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=/Users/dcaron/Documents/src/adv171-A-guarded/.advisor/mappings/confluent-platform.json
+SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=/Users/dcaron/Documents/src/adv171-A-guarded/.advisor/mappings/commons-beanutils.json
+SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=/Users/dcaron/Documents/src/adv171-A-guarded/.advisor/mappings/commons-validator.json
+=== A: upgrade-plan get WITHOUT zookeeper mapping (BUG-9 probe, Version: 1.7.1) Wed Oct 21 12:37:15 CEST 2026 ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+	- javafaker: 1.0.x (no upgrades available)
+	- micrometer-context-propagation: 1.1.x → 1.2.x
+
+No upgrade plan available.
+
+⚠️  Warnings:
+	- There is an error in junit, several versions are used simultaneously:
+		- org.junit.jupiter:junit-jupiter:5.11.4
+		- org.junit.jupiter:junit-jupiter-api:5.11.4
+		- org.junit.jupiter:junit-jupiter-params:5.11.4
+		- org.junit.jupiter:junit-jupiter-engine:5.11.4
+		- junit:junit:4.13.2
+	- There is an error in jackson-annotations, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-annotations:2.17.2
+		- com.fasterxml.jackson.core:jackson-annotations:2.18.3
+	- There is an error in apache-commons-lang, several versions are used simultaneously:
+		- org.apache.commons:commons-lang3:3.14.0
+		- org.apache.commons:commons-lang3:3.17.0
+	- There is an error in apache-commons-io, several versions are used simultaneously:
+		- commons-io:commons-io:2.16.1
+		- commons-io:commons-io:2.15.1
+		- commons-io:commons-io:2.11.0
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.17.2
+		- com.fasterxml.jackson.core:jackson-databind:2.17.2
+		- com.fasterxml.jackson.core:jackson-core:2.18.3
+		- com.fasterxml.jackson.core:jackson-databind:2.18.3
+		- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.3
+		- com.fasterxml.jackson.module:jackson-module-parameter-names:2.18.3
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.18.3
+		- com.fasterxml.jackson.module:jackson-module-scala_2.13:2.18.3
+- There are no upgrade mappings configured for these transitive dependencies:
+      - org.apache.zookeeper:zookeeper
+Please report these problems to support.broadcom.com
+
+exit=10
+
+=== same with --accept-no-alignment ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+	- javafaker: 1.0.x (no upgrades available)
+	- micrometer-context-propagation: 1.1.x → 1.2.x
+
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade micrometer-context-propagation from 1.1.x to 1.2.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+⚠️  Warnings:
+	- There is an error in junit, several versions are used simultaneously:
+		- org.junit.jupiter:junit-jupiter:5.11.4
+		- org.junit.jupiter:junit-jupiter-api:5.11.4
+		- org.junit.jupiter:junit-jupiter-params:5.11.4
+		- org.junit.jupiter:junit-jupiter-engine:5.11.4
+		- junit:junit:4.13.2
+	- There is an error in jackson-annotations, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-annotations:2.17.2
+		- com.fasterxml.jackson.core:jackson-annotations:2.18.3
+	- There is an error in apache-commons-lang, several versions are used simultaneously:
+		- org.apache.commons:commons-lang3:3.14.0
+		- org.apache.commons:commons-lang3:3.17.0
+	- There is an error in apache-commons-io, several versions are used simultaneously:
+		- commons-io:commons-io:2.16.1
+		- commons-io:commons-io:2.15.1
+		- commons-io:commons-io:2.11.0
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.17.2
+		- com.fasterxml.jackson.core:jackson-databind:2.17.2
+		- com.fasterxml.jackson.core:jackson-core:2.18.3
+		- com.fasterxml.jackson.core:jackson-databind:2.18.3
+		- com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.18.3
+		- com.fasterxml.jackson.module:jackson-module-parameter-names:2.18.3
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.18.3
+		- com.fasterxml.jackson.module:jackson-module-scala_2.13:2.18.3
+- There are no upgrade mappings configured for these transitive dependencies:
+      - org.apache.zookeeper:zookeeper
+Please report these problems to support.broadcom.com
+
+exit=10
+
+=== target/.advisor contents ===
+total 1120
+drwxr-xr-x  5 dcaron  staff     160 Oct 21 12:36 .
+drwxr-xr-x  3 dcaron  staff      96 Oct 21 12:36 ..
+-rw-r--r--  1 dcaron  staff  563143 Oct 21 12:36 build-config.json
+-rw-r--r--  1 dcaron  staff    2369 Oct 21 12:36 inputs-hashes.json
+-rw-r--r--  1 dcaron  staff    1781 Oct 21 12:37 upgrade-plan.json
+
+=== upgrade-plan.json (if any) ===
+{
+  "steps" : [ {
+    "projectUpgrades" : [ {
+      "projectFrom" : "micrometer-context-propagation",
+      "versionFrom" : "1.1.x",
+      "bulkUpgrades" : [ ],
+      "upgradeTo" : {
+        "projectFrom" : "micrometer-context-propagation",
+        "versionFrom" : "1.2.x",
+        "bulkUpgrades" : [ ]
+      }
+    } ]
+  } ],
+  "projects" : [ {
+    "currentProject" : "javafaker",
+    "currentVersion" : "1.0.x"
+  }, {
+    "currentProject" : "micrometer-context-propagation",
+    "currentVersion" : "1.1.x",
+    "upgradedProject" : "micrometer-context-propagation",
+    "upgradedVersion" : "1.2.x"
+  } ],
+  "excludedProjects" : [ {
+    "project" : "org.apache.zookeeper:zookeeper",
+    "exclusion" : {
+      "apache-commons-io" : [ "confluent", "testcontainers", "spring-kafka", "apache-commons-compress", "kafka", "spring-boot", "avro", "jackson-annotations", "apache-commons-lang", "jackson", "docker-java", "junit", "spring-framework", "spring-retry", "micrometer", "junit-platform", "commons-validator", "apache-commons-collections", "commons-beanutils", "micrometer-tracing", "mockito", "xmlunit" ]
+    }
+  } ],
+  "blockedUpgrades" : [ {
+    "project" : "micrometer-context-propagation",
+    "version" : "1.1.x",
+    "targetVersion" : "1.2.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  } ],
+  "executionMetadata" : {
+    "exitCode" : 10,
+    "status" : "BLOCKED"
+  },
+  "scmMetadata" : {
+    "repositoryUrl" : "https://github.com/dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "repositoryName" : "dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "branch" : "ec8552a5e547fa9e77e57e0a30db037915747013",
+    "commitId" : "ec8552a5e547fa9e77e57e0a30db037915747013",
+    "commitDate" : "2026-09-08T13:56:08Z"
+  }
+}

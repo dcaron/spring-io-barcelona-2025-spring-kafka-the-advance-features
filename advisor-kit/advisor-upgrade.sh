@@ -149,7 +149,7 @@ command -v advisor >/dev/null 2>&1 || die "advisor CLI not found on PATH. Instal
 ADVISOR_VERSION="$(advisor --version 2>/dev/null | sed -n 's/^Version: //p' | head -1)"
 info "Spring Application Advisor: ${ADVISOR_VERSION:-unknown}"
 case "${ADVISOR_VERSION}" in
-  1.7.*) ok "advisor version looks good (kit verified on 1.7.0)" ;;
+  1.7.*) ok "advisor version looks good (kit verified on 1.7.0 and 1.7.1)" ;;
   1.6.*) warn "advisor 1.6.x: works, but the kit is now verified on 1.7.x (1.7.0 changed plan output and exit codes)." ;;
   *)     warn "This kit was verified against advisor 1.7.x; behaviour may differ." ;;
 esac

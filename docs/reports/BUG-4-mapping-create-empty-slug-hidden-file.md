@@ -51,3 +51,10 @@ coordinates tested).
 **Unchanged** — `kafka_2.13` still yields `.advisor/mappings/.json` with `slug: ""` (19 minor
 versions, 2.4.1 … 4.3.1); the only delta is a richer generated requirements table
 (`apache-commons-io` added). `transcript-1.7.0.txt`, `generated-dot-json-1.7.0.json`.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged** — `kafka_2.13` still lands in `.advisor/mappings/.json` with `slug: ""`. The generated
+table now has 20 minor versions (Kafka **4.4.x** appeared since 2026-10-12, requiring jackson 2.21.x /
+mockito 5.23.x / testcontainers 5.14.x), and *"2 repositories could not be queried"* instead of 1
+(`transcript-1.7.1.txt`, `generated-dot-json-1.7.1.json`).

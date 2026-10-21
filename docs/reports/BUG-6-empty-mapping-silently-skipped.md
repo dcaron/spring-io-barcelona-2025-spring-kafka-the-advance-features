@@ -40,3 +40,8 @@ Skip-and-continue is the right behavior — it just must be observable.
 
 **Unchanged** — `build-config get` succeeds with a wired `{}` mapping and prints no warning
 naming `empty.json`. `transcript-1.7.0.txt`.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged** — `build-config get` succeeds with the wired `{}` mapping, no warning names `empty.json`
+(`transcript-1.7.1.txt`).

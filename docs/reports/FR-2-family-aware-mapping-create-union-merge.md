@@ -63,3 +63,11 @@ Two adjacent findings (both verified 2026-08-19/20):
 **Still needed** — repro 08 identical (both sibling runs → slug `kafka`, co-wiring crashes).
 `mapping update` (1.7.0) appends new *versions* to an existing file but does not add sibling
 *coordinates*, so it does not close this gap either.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Still needed** — repro 08 transcript identical to 1.7.0: both sibling runs produce slug `kafka`
+claiming `kafka-clients`, co-wiring crashes with *"Some projects were already defined: [kafka]"*
+(`transcript-1.7.1.txt`, `error-stacktrace-1.7.1.log`). The 1.7.1 release note itself illustrates the
+gap from the other side: the ten new Azure SDK mappings are shipped as *"a separate mapping for each
+library"* because *"each library needs its own mapping"* — the catalog has no family concept either.

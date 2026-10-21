@@ -112,3 +112,17 @@ Still needed, and the cost of hand-curation showed up concretely:
   this lag; `mapping update` (new) appends versions but not coordinates.
 - Repro 07 on 1.7.0: same 17 coordinates, now reported as *"Missing upgrade mappings: 13 project(s)"*
   (1 direct + 16 transitive), exit 10 (`repros/07-no-first-party-kafka-mappings/transcript-1.7.0.txt`).
+
+## Status on Advisor 1.7.1 (verified 2026-10-21)
+
+Still needed. 1.7.1 is a mappings-only release (release notes published 2026-10-20): it adds ten
+Azure SDK for Java mappings, *"a separate mapping for each … because each library needs its own
+mapping"*, and its coverage page lists nothing for Apache Kafka, Confluent, Avro or Zookeeper.
+`mapping search --slug` returns *"No project found"* for `kafka`, `apache-kafka`, `kafka-clients`,
+`confluent`, `confluent-platform`, `avro`, `apache-avro`, `zookeeper`, `apache-zookeeper` (and
+`--prefix kafka|conf|avro|zoo` find nothing) while `apache-commons-io` and `azure-core` download
+(`docs/reports/evidence-1.7.1/catalog-mapping-search.log`). Kafka **4.4.x** has shipped since
+2026-10-12 (visible in repro 04's generated table), so the curated `apache-kafka.json` already needs
+its next hand-maintained generation. BUG-9 (one unmapped transitive hides the whole plan) is
+unchanged on 1.7.1, and now contradicts the 1.7.0 release note that says only *direct* unmapped
+dependencies block the plan — which makes a first-party Kafka family mapping more urgent, not less.

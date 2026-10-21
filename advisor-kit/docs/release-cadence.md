@@ -102,6 +102,10 @@ mappings reach the apps changes over time:
    for every command into the kit docs on each version (no 1.6.7 capture
    existed, so the 1.7.0 CLI changes could not be attributed). On 1.7.0 the
    verification took one afternoon and found three new defects (BUG-7/8/9).
+   On 1.7.1 (a mappings-only patch release) it took half a day, found nothing
+   changed, and found one defect in a 1.7.0 feature the late release notes
+   had just revealed (BUG-10). Read the release notes and the coverage page
+   first — they now exist (`docs/reports/release-notes-1.7.x.txt`).
 8. Framework/library module additions need mapping updates. Kafka 4 added
    `kafka-share-coordinator`, `kafka-coordinator-common`, `kafka-transaction-coordinator`,
    `kafka-test-common-*`; Confluent 8 added `kafka-avro-types`, `kafka-schema-types`.

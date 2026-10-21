@@ -48,7 +48,7 @@ The kit never contains credentials. Each user configures `~/.m2/settings.xml`.
 4. Fix the remaining compile breaks and review the version pins.
    Follow `docs/app-team-runbook.md`, step 4.
 
-Kit verified on Advisor **1.7.0** (recipes 1.7.6) on 2026-10-12; see `docs/known-issues.md`.
+Kit verified on Advisor **1.7.0** (2026-10-12) and **1.7.1** (2026-10-21), recipes 1.7.6; see `docs/known-issues.md`.
 
 ## Read next
 

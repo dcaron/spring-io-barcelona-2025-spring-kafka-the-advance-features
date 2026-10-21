@@ -81,3 +81,8 @@ at the first apply step** (recursive recipe-descriptor classpath scan) instead o
 Boot-4 step — see [BUG-7](BUG-7-hijacked-project-plugin-hangs-recursive-descriptor-scan.md).
 Confirmed on the real project (unguarded worktree, 11 min, depth 35, killed). The profile guard
 is now mandatory. `--include-modules` cannot help: the execution runs through the lifecycle phase.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged** — the multi-module hijack still hangs at the first step (BUG-7, bounded repro killed at
+612 s, depth 36, pom untouched; `transcript-1.7.1.txt`). The profile guard remains mandatory.

@@ -26,13 +26,26 @@ run [`02-missing-recipe-bundle/run-1.7.0-hang.sh`](02-missing-recipe-bundle/run-
 (bounded, default 600 s) instead of `run.sh` on 1.7.x. `01-apply-noop-loop/probe-force-squash-1.7.0.txt`
 records the `-f` / `--squash-all` / `--accept-no-alignment` probes.
 
+## Re-verification on Advisor 1.7.1 (2026-10-21)
+
+Every directory also has a `transcript-1.7.1.txt` (Advisor 1.7.1, recipes 1.7.6 — unchanged) plus the
+1.7.1 counterparts of the crash logs / generated files (`*-1.7.1.*`; `02` additionally has
+`variants-1.7.1.txt` + `error-stacktrace-single-module-1.7.1.log` for the single-module BUG-2a variant).
+Headline: **all eight are unchanged from 1.7.0** — the normalized transcripts differ only in timings,
+timestamps and, for `04`, the newly released Kafka 4.4.x row. 1.7.1 is a mappings-only release (ten
+Azure SDK mappings, no CVE fixes; its release notes are in
+[`docs/reports/release-notes-1.7.x.txt`](../docs/reports/release-notes-1.7.x.txt)) and the CLI surface
+is byte-identical to 1.7.0. `02`'s hang script was killed at the 600 s cap with the Maven child at
+recursion depth 36 (BUG-7 stands); the single-module variant fails at the Boot-4 step exactly as before
+(BUG-2a), now with exit code 30. Verdicts: [`docs/reports/STATUS-1.7.1.md`](../docs/reports/STATUS-1.7.1.md).
+
 ## Running
 
 Each directory has a `run.sh` (run it from anywhere; it cd's itself). Requirements:
 `advisor` 1.6.x or 1.7.x on PATH, Maven, network; repros 01/02 additionally need working Spring
 Enterprise subscription credentials in `~/.m2/settings.xml` (recipes download during
 apply). Every directory contains the captured `transcript.txt` from the verification runs
-of 2026-08-20 (Advisor 1.6.7, recipes 1.7.5, Maven 3.9.16) and `transcript-1.7.0.txt` from 2026-10-12 (Advisor 1.7.0, recipes 1.7.6), plus `error-stacktrace.log`
+of 2026-08-20 (Advisor 1.6.7, recipes 1.7.5, Maven 3.9.16) and `transcript-1.7.0.txt` from 2026-10-12 (Advisor 1.7.0, recipes 1.7.6) / `transcript-1.7.1.txt` from 2026-10-21 (Advisor 1.7.1), plus `error-stacktrace.log`
 where a crash log is the evidence.
 
 Caution: `02` runs `advisor upgrade-plan apply`, whose first (successful) step rewrites

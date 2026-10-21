@@ -64,3 +64,11 @@ reports success in 50 s and still changes **0 files** (the transitive has no lit
 so the forced path can still produce success-with-no-change steps (seen on the real project as
 step 2 in `STATUS-1.7.0.md`, scenario C). Transcripts: `transcript-1.7.0.txt`,
 `probe-force-squash-1.7.0.txt`.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged from 1.7.0.** Same fixture, same three runs: `get` and every `apply` print the blocker
+summary (*commons-beanutils:1.9.x needs an upgrade or migration … apache-commons-collections > 3.2.x*),
+exit **50**, 0 files changed; the normalized transcript differs from 1.7.0 only in timings
+(`transcript-1.7.1.txt`). 1.7.1 is a mappings-only release (ten Azure SDK mappings, no CVE fixes —
+`release-notes-1.7.x.txt`) and the CLI surface is byte-identical (`cli-surface-1.7.1.txt`).

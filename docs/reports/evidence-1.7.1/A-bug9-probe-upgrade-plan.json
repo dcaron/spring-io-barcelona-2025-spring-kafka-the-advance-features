@@ -1,0 +1,47 @@
+{
+  "steps" : [ {
+    "projectUpgrades" : [ {
+      "projectFrom" : "micrometer-context-propagation",
+      "versionFrom" : "1.1.x",
+      "bulkUpgrades" : [ ],
+      "upgradeTo" : {
+        "projectFrom" : "micrometer-context-propagation",
+        "versionFrom" : "1.2.x",
+        "bulkUpgrades" : [ ]
+      }
+    } ]
+  } ],
+  "projects" : [ {
+    "currentProject" : "javafaker",
+    "currentVersion" : "1.0.x"
+  }, {
+    "currentProject" : "micrometer-context-propagation",
+    "currentVersion" : "1.1.x",
+    "upgradedProject" : "micrometer-context-propagation",
+    "upgradedVersion" : "1.2.x"
+  } ],
+  "excludedProjects" : [ {
+    "project" : "org.apache.zookeeper:zookeeper",
+    "exclusion" : {
+      "apache-commons-io" : [ "confluent", "testcontainers", "spring-kafka", "apache-commons-compress", "kafka", "spring-boot", "avro", "jackson-annotations", "apache-commons-lang", "jackson", "docker-java", "junit", "spring-framework", "spring-retry", "micrometer", "junit-platform", "commons-validator", "apache-commons-collections", "commons-beanutils", "micrometer-tracing", "mockito", "xmlunit" ]
+    }
+  } ],
+  "blockedUpgrades" : [ {
+    "project" : "micrometer-context-propagation",
+    "version" : "1.1.x",
+    "targetVersion" : "1.2.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  } ],
+  "executionMetadata" : {
+    "exitCode" : 10,
+    "status" : "BLOCKED"
+  },
+  "scmMetadata" : {
+    "repositoryUrl" : "https://github.com/dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "repositoryName" : "dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "branch" : "ec8552a5e547fa9e77e57e0a30db037915747013",
+    "commitId" : "ec8552a5e547fa9e77e57e0a30db037915747013",
+    "commitDate" : "2026-09-08T13:56:08Z"
+  }
+}

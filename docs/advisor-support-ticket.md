@@ -1,4 +1,4 @@
-# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7 / 1.7.0
+# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7 / 1.7.0 / 1.7.1
 
 > Submission-ready draft. File at **https://support.broadcom.com** (Tanzu → Spring Application
 > Advisor). These are three related, reproducible defects; they can be filed as one ticket with
@@ -9,6 +9,10 @@
 > Environment table. Defect 1 is largely fixed; Defect 2's hijack now **hangs**; Defect 3 is
 > unchanged; three new defects (BUG-7/8/9) are documented in
 > [`docs/reports/`](reports/README.md) with evidence under `reports/evidence-1.7.0/`.
+> **Re-verified on 1.7.1 on 2026-10-21** — everything reproduces identically; one more defect
+> (BUG-10, Defect 6) in the 1.7.0 `.advisor.yml` ignore feature; evidence under
+> `reports/evidence-1.7.1/`. The 1.7.0 release notes (published 2026-10-20) state that unmapped
+> transitive dependencies no longer block the plan — Defect 5 shows they still do.
 
 ---
 
@@ -47,7 +51,7 @@ place of Advisor's own generated ones. All three defects are in Advisor.
 
 | | |
 |---|---|
-| Application Advisor | **1.6.5**; Defects 1–2 **re-verified on 1.6.7** (2026-08-10, valid subscription token); Defect 3 observed on **1.6.7** (2026-08-11); everything **re-verified on 1.7.0** (2026-10-12) |
+| Application Advisor | **1.6.5**; Defects 1–2 **re-verified on 1.6.7** (2026-08-10, valid subscription token); Defect 3 observed on **1.6.7** (2026-08-11); everything **re-verified on 1.7.0** (2026-10-12) and **on 1.7.1** (2026-10-21, recipes 1.7.6, plugin 6.44.0 unchanged) |
 | Java | 21 |
 | Build | Maven wrapper `mvnw` 3.9.9 |
 | Project | Spring Boot 3.4.5, multi-module, `spring-kafka` (BOM-managed), `io.confluent:*` 7.9.1 |
@@ -93,6 +97,30 @@ issue.
 - **New Defect 5 (BUG-9):** one unmapped transitive dependency (`org.apache.zookeeper:zookeeper`)
   silently removes 24 projects from "Projects discovered" and the plan; only a warning lists the
   coordinate, exit 10 — [`reports/BUG-9`](reports/BUG-9-single-unmapped-transitive-hides-whole-plan.md).
+
+**Re-verification on 1.7.1 (2026-10-21):**
+
+- Defects 1–5 reproduce identically (isolated repros `repros/*/transcript-1.7.1.txt`; real project
+  `reports/evidence-1.7.1/`). 1.7.1 ships only new Azure SDK mappings and no CVE fixes; CLI and
+  recipes are unchanged.
+- **Defect 5 (BUG-9) now contradicts your documentation.** The 1.7.0 release notes say: *"When a
+  transitive dependency has no upgrade mapping, `advisor upgrade-plan get` and `advisor upgrade-plan
+  apply` calculate the plan and print a warning. … Only missing mappings for your direct dependencies
+  block the plan."* On this project one unmapped transitive (`org.apache.zookeeper:zookeeper`) still
+  reduces "Projects discovered" from 26 to 2 and yields *"No upgrade plan available"*, exit 10
+  (`reports/evidence-1.7.1/A-bug9-probe-no-zookeeper.log`). `target/.advisor/upgrade-plan.json` for
+  that run lists the 22 excluded projects under `excludedProjects` — the engine knows, the console
+  does not say (`A-bug9-probe-upgrade-plan.json`).
+- **New Defect 6 (BUG-10):** following the documented *"Ignore a project restriction that blocks an
+  upgrade"* to the end — a `.advisor.yml` that ignores all seven restrictions on this project — gives
+  *"No upgrade plan available … Upgrade Plan was calculated with ignored restrictions"* with **exit 0**
+  and a JSON report `{"exitCode": 0, "status": "SUCCEEDED", "steps": []}` whose eight `blockedUpgrades`
+  entries have empty `blockerProjects`. Only `--accept-no-alignment` then yields the step; `-f` and
+  `--squash-all` do not. Also: for restrictions of the `nextSupportingVersion` kind the blocker line
+  names the wrong slug for the ignore key (`apache-commons-lang:3.20.x needs … to upgrade
+  apache-commons-io` must be ignored under `apache-commons-io`, not `apache-commons-lang`) —
+  [`reports/BUG-10`](reports/BUG-10-ignore-all-restrictions-empty-plan-exit-0.md),
+  `reports/evidence-1.7.1/C-ignore-probe*.log`, `C-ignore-probe-3.advisor.yml`.
 
 ---
 

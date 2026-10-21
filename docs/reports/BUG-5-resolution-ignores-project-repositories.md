@@ -57,3 +57,9 @@ artifacts (see FR-1's demo where all `io.confluent:*` artifacts land on the bloc
 401/403). Check the credentials in ~/.m2/settings.xml."* and exits 0 without a file.
 `mapping update` (new in 1.6.7/1.7.0) has the same blind spot: it reports the curated
 `confluent-platform.json` "up to date" without being able to query the repository.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Unchanged** — Maven resolves `io.confluent:kafka-schema-registry-client` through the pom's
+repository, `mapping create` still reports *"No versions found. One or more repositories denied access
+(HTTP 401/403)…"* and writes nothing (`transcript-1.7.1.txt`).

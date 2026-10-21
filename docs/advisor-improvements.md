@@ -181,6 +181,7 @@ Every issue was re-run on **1.7.0** (recipes **1.7.5 → 1.7.6**, new bundle mem
 Full write-up with evidence: [`docs/reports/STATUS-1.7.0.md`](reports/STATUS-1.7.0.md); per-issue
 verdicts in each report's *"Status on Advisor 1.7.0"* section. No 1.7 release notes were published
 when this was done, so the CLI itself is the changelog (`docs/reports/cli-surface-1.7.0.txt`).
+*(2026-10-21: the 1.7.0 and 1.7.1 release notes appeared on 2026-10-20 — see §1e.)*
 
 ### Changed in 1.7.0
 
@@ -210,6 +211,40 @@ offset it: the hijacked-plugin hang (BUG-7) turns a known failure into an unboun
 starter-pin bug (BUG-8) makes the 4.1 step produce a mixed-generation build when an override mapping lacks the target generation, and the hidden-plan
 behaviour (BUG-9) makes a 3.4.5 app look nearly up to date when one transitive is unmapped.
 First-party Kafka/Confluent mappings remain the strategic gap.
+
+## 1e. Re-check on Advisor 1.7.1 (2026-10-21) — current status overview
+
+Every issue was re-run on **1.7.1** (recipes **1.7.6** and `rewrite-maven-plugin` 6.44.0 unchanged; CLI
+help byte-identical to 1.7.0): the eight isolated repros, the single-module BUG-2a variant, the real
+project from Boot 3.4.5 (guarded worktree, current curated mappings) and from the committed 4.1.1
+state, `patch apply`, and probes of the 1.7.0 features that the release notes — finally published on
+2026-10-20 for both 1.7.0 and 1.7.1 — describe. Full write-up:
+[`docs/reports/STATUS-1.7.1.md`](reports/STATUS-1.7.1.md).
+
+### Changed in 1.7.1
+
+Nothing in Advisor's behaviour. 1.7.1 adds ten Azure SDK mappings and fixes no CVEs. Every finding in
+§1d reproduces identically (`repros/*/transcript-1.7.1.txt` differ from the 1.7.0 transcripts only in
+timings; BUG-7 killed at the 600 s cap at recursion depth 36; BUG-2a now exits 30, the documented
+"recipe execution failure" code).
+
+### Changed in our understanding (from the 1.7.0 release notes)
+
+| Topic | What the notes say | What we see |
+|---|---|---|
+| Unmapped transitives (§4.2, BUG-9) | *"calculate the plan and print a warning … Only missing mappings for your direct dependencies block the plan"* | one unmapped transitive still hides 24 of 26 projects, exit 10; the JSON report's `excludedProjects` lists them — the engine knows, the console does not say |
+| Machine-readable output (§4.6, FR-3) | `target/.advisor/upgrade-plan.json` on every `get`/`apply`; `patch-upgrade.json`; exit-code table 0/10/30/40/50/60/70 | confirmed — and the file was already there on 1.7.0 (overlooked on 2026-10-12). FR-3 is largely closed; caveat: `SUCCEEDED`/0 is also reported for 0-file forced steps and for the BUG-10 empty plan |
+| Blocked plans | `.advisor.yml` `upgrade.ignore.<slug>` ignores a mapping-declared restriction | works per restriction (key = the slug whose *mapping declares* it, which the console blocker line gets backwards for `nextSupportingVersion`-type blockers); with all seven ignored the plan is **empty with exit 0** (BUG-10) |
+| Boot 4.1 step | — | with no `spring-boot` override wired, the reference app goes **3.4.5 → 4.1.1 in one forced step** (4 m 13 s), parent moved, no pins; the same five Boot-4 API compile fixes + `@RetryableTopic backOff` remain manual |
+| First-party mappings (§2/§3, FR-1) | 1.7.1 coverage page: Azure only | `mapping search` still finds no kafka/confluent/avro/zookeeper slugs; Kafka 4.4.x already out |
+
+### Bottom line for the Advisor team, as of 1.7.1
+
+A patch release with no functional change, so the 1.7.0 bottom line stands. Two things now need an
+answer rather than a fix: the transitive-mapping behaviour the release notes promise is not what the
+CLI does on a real Kafka project (BUG-9), and the ignore mechanism built to unblock plans ends in a
+success exit code with no plan (BUG-10). The JSON report is the right direction; make the console say
+what the JSON already knows.
 
 ---
 

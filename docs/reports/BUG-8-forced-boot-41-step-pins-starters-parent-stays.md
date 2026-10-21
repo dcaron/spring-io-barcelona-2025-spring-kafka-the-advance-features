@@ -51,3 +51,13 @@ result is a mixed-generation build that compiles and is only visible in `git dif
 Leave `spring-boot-jackson3.json` **unwired** on Advisor 1.7.x (`order.txt` keeps it as a comment).
 1.7.0 reaches Jackson 3 on its own. If a run has already produced the pins: remove them and move the
 parent to 4.1.x by hand, or revert and re-run without the override.
+
+## Status on Advisor 1.7.1 (re-verified 2026-10-21, recipes 1.7.6)
+
+**Not re-triggered, by design.** The trigger (`spring-boot-jackson3.json:override`) has been unwired
+since 2026-10-12, and 1.7.1 adds nothing in this area (mappings-only release). With the override
+unwired, the guarded Boot 3.4.5 worktree goes **3.4.5 → 4.1.1 in one forced step** with every parent
+moved and no starter pins (`evidence-1.7.1/A-pom-yml-changes.diff`: six `spring-boot-starter-parent`
+versions 3.4.5 → 4.1.1, zero `<version>` lines added to starters) — consistent with the 1.7.0 scoping
+run without the override. Whether 1.7.1 would still pin with the override wired was not re-tested;
+the kit's advice stands: do not wire a `spring-boot` override that lacks the target generation.

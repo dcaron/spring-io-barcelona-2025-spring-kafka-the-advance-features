@@ -1,0 +1,515 @@
+{
+  "steps" : [ {
+    "projectUpgrades" : [ {
+      "projectFrom" : "confluent",
+      "versionFrom" : "7.9.x",
+      "bulkUpgrades" : [ "8.0.x", "8.1.x", "8.2.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "confluent",
+        "versionFrom" : "8.3.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "junit",
+      "versionFrom" : "4.13.x",
+      "bulkUpgrades" : [ "5.0.x", "5.1.x", "5.2.x", "5.3.x", "5.4.x", "5.5.x", "5.6.x", "5.7.x", "5.8.x", "5.9.x", "5.10.x", "5.11.x", "5.12.x", "5.13.x", "5.14.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "junit",
+        "versionFrom" : "6.0.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "docker-java",
+      "versionFrom" : "3.4.x",
+      "bulkUpgrades" : [ "3.5.x", "3.6.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "docker-java",
+        "versionFrom" : "3.7.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "spring-framework",
+      "versionFrom" : "6.2.x",
+      "bulkUpgrades" : [ ],
+      "upgradeTo" : {
+        "projectFrom" : "spring-framework",
+        "versionFrom" : "7.0.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "zookeeper",
+      "versionFrom" : "3.8.x",
+      "bulkUpgrades" : [ ],
+      "upgradeTo" : {
+        "projectFrom" : "zookeeper",
+        "versionFrom" : "3.9.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "testcontainers",
+      "versionFrom" : "1.20.x",
+      "bulkUpgrades" : [ "1.21.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "testcontainers",
+        "versionFrom" : "2.0.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "spring-retry",
+      "versionFrom" : "2.0.x",
+      "bulkUpgrades" : [ ],
+      "upgradeTo" : {
+        "projectFrom" : "spring-framework",
+        "versionFrom" : "7.0.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "commons-beanutils",
+      "versionFrom" : "1.9.x",
+      "bulkUpgrades" : [ "1.10.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "commons-beanutils",
+        "versionFrom" : "1.11.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "micrometer-context-propagation",
+      "versionFrom" : "1.1.x",
+      "bulkUpgrades" : [ ],
+      "upgradeTo" : {
+        "projectFrom" : "micrometer-context-propagation",
+        "versionFrom" : "1.2.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "kafka",
+      "versionFrom" : "3.8.x",
+      "bulkUpgrades" : [ "3.9.x", "4.0.x", "4.1.x", "4.2.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "kafka",
+        "versionFrom" : "4.3.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "spring-boot",
+      "versionFrom" : "3.4.x",
+      "bulkUpgrades" : [ "3.5.x", "4.0.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "spring-boot",
+        "versionFrom" : "4.1.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "jackson-annotations",
+      "versionFrom" : "2.18.x",
+      "bulkUpgrades" : [ "2.19.x", "2.20.x", "2.21.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "jackson-annotations",
+        "versionFrom" : "2.22.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "micrometer-tracing",
+      "versionFrom" : "1.4.x",
+      "bulkUpgrades" : [ "1.5.x", "1.6.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "micrometer-tracing",
+        "versionFrom" : "1.7.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "apache-commons-lang",
+      "versionFrom" : "3.17.x",
+      "bulkUpgrades" : [ "3.18.x", "3.19.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "apache-commons-lang",
+        "versionFrom" : "3.20.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "commons-validator",
+      "versionFrom" : "1.7.x",
+      "bulkUpgrades" : [ "1.8.x", "1.9.x", "1.10.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "commons-validator",
+        "versionFrom" : "1.11.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "spring-kafka",
+      "versionFrom" : "3.3.x",
+      "bulkUpgrades" : [ "4.0.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "spring-kafka",
+        "versionFrom" : "4.1.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "apache-commons-io",
+      "versionFrom" : "2.15.x",
+      "bulkUpgrades" : [ "2.16.x", "2.17.x", "2.18.x", "2.19.x", "2.20.x", "2.21.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "apache-commons-io",
+        "versionFrom" : "2.22.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "apache-commons-collections",
+      "versionFrom" : "3.2.x",
+      "bulkUpgrades" : [ "4.0.x", "4.1.x", "4.2.x", "4.3.x", "4.4.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "apache-commons-collections",
+        "versionFrom" : "4.5.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "xmlunit",
+      "versionFrom" : "2.10.x",
+      "bulkUpgrades" : [ "2.11.x", "2.12.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "xmlunit",
+        "versionFrom" : "2.13.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "micrometer",
+      "versionFrom" : "1.14.x",
+      "bulkUpgrades" : [ "1.15.x", "1.16.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "micrometer",
+        "versionFrom" : "1.17.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "mockito",
+      "versionFrom" : "5.14.x",
+      "bulkUpgrades" : [ "5.15.x", "5.16.x", "5.17.x", "5.18.x", "5.19.x", "5.20.x", "5.21.x", "5.22.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "mockito",
+        "versionFrom" : "5.23.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "jackson",
+      "versionFrom" : "2.17.x",
+      "bulkUpgrades" : [ "2.18.x", "2.19.x", "2.20.x", "2.21.x", "3.1.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "jackson",
+        "versionFrom" : "3.2.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "apache-commons-compress",
+      "versionFrom" : "1.26.x",
+      "bulkUpgrades" : [ "1.27.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "apache-commons-compress",
+        "versionFrom" : "1.28.x",
+        "bulkUpgrades" : [ ]
+      }
+    }, {
+      "projectFrom" : "junit-platform",
+      "versionFrom" : "1.11.x",
+      "bulkUpgrades" : [ "1.12.x", "1.13.x", "1.14.x" ],
+      "upgradeTo" : {
+        "projectFrom" : "junit-platform",
+        "versionFrom" : "6.0.x",
+        "bulkUpgrades" : [ ]
+      }
+    } ]
+  } ],
+  "projects" : [ {
+    "currentProject" : "confluent",
+    "currentVersion" : "7.9.x",
+    "upgradedProject" : "confluent",
+    "upgradedVersion" : "8.3.x"
+  }, {
+    "currentProject" : "junit",
+    "currentVersion" : "4.13.x",
+    "upgradedProject" : "junit",
+    "upgradedVersion" : "6.0.x"
+  }, {
+    "currentProject" : "docker-java",
+    "currentVersion" : "3.4.x",
+    "upgradedProject" : "docker-java",
+    "upgradedVersion" : "3.7.x"
+  }, {
+    "currentProject" : "spring-framework",
+    "currentVersion" : "6.2.x",
+    "upgradedProject" : "spring-framework",
+    "upgradedVersion" : "7.0.x"
+  }, {
+    "currentProject" : "zookeeper",
+    "currentVersion" : "3.8.x",
+    "upgradedProject" : "zookeeper",
+    "upgradedVersion" : "3.9.x"
+  }, {
+    "currentProject" : "testcontainers",
+    "currentVersion" : "1.20.x",
+    "upgradedProject" : "testcontainers",
+    "upgradedVersion" : "2.0.x"
+  }, {
+    "currentProject" : "spring-retry",
+    "currentVersion" : "2.0.x",
+    "upgradedProject" : "spring-framework",
+    "upgradedVersion" : "7.0.x"
+  }, {
+    "currentProject" : "commons-beanutils",
+    "currentVersion" : "1.9.x",
+    "upgradedProject" : "commons-beanutils",
+    "upgradedVersion" : "1.11.x"
+  }, {
+    "currentProject" : "micrometer-context-propagation",
+    "currentVersion" : "1.1.x",
+    "upgradedProject" : "micrometer-context-propagation",
+    "upgradedVersion" : "1.2.x"
+  }, {
+    "currentProject" : "kafka",
+    "currentVersion" : "3.8.x",
+    "upgradedProject" : "kafka",
+    "upgradedVersion" : "4.3.x"
+  }, {
+    "currentProject" : "spring-boot",
+    "currentVersion" : "3.4.x",
+    "upgradedProject" : "spring-boot",
+    "upgradedVersion" : "4.1.x"
+  }, {
+    "currentProject" : "jackson-annotations",
+    "currentVersion" : "2.18.x",
+    "upgradedProject" : "jackson-annotations",
+    "upgradedVersion" : "2.22.x"
+  }, {
+    "currentProject" : "javafaker",
+    "currentVersion" : "1.0.x"
+  }, {
+    "currentProject" : "micrometer-tracing",
+    "currentVersion" : "1.4.x",
+    "upgradedProject" : "micrometer-tracing",
+    "upgradedVersion" : "1.7.x"
+  }, {
+    "currentProject" : "apache-commons-lang",
+    "currentVersion" : "3.17.x",
+    "upgradedProject" : "apache-commons-lang",
+    "upgradedVersion" : "3.20.x"
+  }, {
+    "currentProject" : "commons-validator",
+    "currentVersion" : "1.7.x",
+    "upgradedProject" : "commons-validator",
+    "upgradedVersion" : "1.11.x"
+  }, {
+    "currentProject" : "spring-kafka",
+    "currentVersion" : "3.3.x",
+    "upgradedProject" : "spring-kafka",
+    "upgradedVersion" : "4.1.x"
+  }, {
+    "currentProject" : "apache-commons-io",
+    "currentVersion" : "2.15.x",
+    "upgradedProject" : "apache-commons-io",
+    "upgradedVersion" : "2.22.x"
+  }, {
+    "currentProject" : "apache-commons-collections",
+    "currentVersion" : "3.2.x",
+    "upgradedProject" : "apache-commons-collections",
+    "upgradedVersion" : "4.5.x"
+  }, {
+    "currentProject" : "xmlunit",
+    "currentVersion" : "2.10.x",
+    "upgradedProject" : "xmlunit",
+    "upgradedVersion" : "2.13.x"
+  }, {
+    "currentProject" : "micrometer",
+    "currentVersion" : "1.14.x",
+    "upgradedProject" : "micrometer",
+    "upgradedVersion" : "1.17.x"
+  }, {
+    "currentProject" : "mockito",
+    "currentVersion" : "5.14.x",
+    "upgradedProject" : "mockito",
+    "upgradedVersion" : "5.23.x"
+  }, {
+    "currentProject" : "jackson",
+    "currentVersion" : "2.17.x",
+    "upgradedProject" : "jackson",
+    "upgradedVersion" : "3.2.x"
+  }, {
+    "currentProject" : "apache-commons-compress",
+    "currentVersion" : "1.26.x",
+    "upgradedProject" : "apache-commons-compress",
+    "upgradedVersion" : "1.28.x"
+  }, {
+    "currentProject" : "junit-platform",
+    "currentVersion" : "1.11.x",
+    "upgradedProject" : "junit-platform",
+    "upgradedVersion" : "6.0.x"
+  }, {
+    "currentProject" : "avro",
+    "currentVersion" : "1.12.x"
+  } ],
+  "excludedProjects" : [ ],
+  "blockedUpgrades" : [ {
+    "project" : "confluent",
+    "version" : "7.9.x",
+    "targetVersion" : "8.0.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "junit",
+    "version" : "4.13.x",
+    "targetVersion" : "5.0.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "docker-java",
+    "version" : "3.4.x",
+    "targetVersion" : "3.5.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "spring-framework",
+    "version" : "6.2.x",
+    "targetVersion" : "7.0.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "zookeeper",
+    "version" : "3.8.x",
+    "targetVersion" : "3.9.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "testcontainers",
+    "version" : "1.20.x",
+    "targetVersion" : "1.21.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "commons-beanutils",
+    "version" : "1.9.x",
+    "targetVersion" : "1.10.x",
+    "blockerProjects" : [ {
+      "project" : "commons-validator",
+      "version" : "1.7.x",
+      "lastSupportedVersion" : "1.9.x"
+    } ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "micrometer-context-propagation",
+    "version" : "1.1.x",
+    "targetVersion" : "1.2.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "kafka",
+    "version" : "3.8.x",
+    "targetVersion" : "3.9.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "spring-boot",
+    "version" : "3.4.x",
+    "targetVersion" : "3.5.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "jackson-annotations",
+    "version" : "2.18.x",
+    "targetVersion" : "2.19.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "micrometer-tracing",
+    "version" : "1.4.x",
+    "targetVersion" : "1.5.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "apache-commons-lang",
+    "version" : "3.17.x",
+    "targetVersion" : "3.18.x",
+    "blockerProjects" : [ {
+      "project" : "javafaker",
+      "version" : "1.0.x",
+      "lastSupportedVersion" : "3.5.x"
+    } ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "commons-validator",
+    "version" : "1.7.x",
+    "targetVersion" : "1.8.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "spring-kafka",
+    "version" : "3.3.x",
+    "targetVersion" : "4.0.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "apache-commons-io",
+    "version" : "2.15.x",
+    "targetVersion" : "2.16.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "apache-commons-collections",
+    "version" : "3.2.x",
+    "targetVersion" : "4.0.x",
+    "blockerProjects" : [ {
+      "project" : "commons-validator",
+      "version" : "1.7.x",
+      "lastSupportedVersion" : "3.2.x"
+    } ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "xmlunit",
+    "version" : "2.10.x",
+    "targetVersion" : "2.11.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "micrometer",
+    "version" : "1.14.x",
+    "targetVersion" : "1.15.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "mockito",
+    "version" : "5.14.x",
+    "targetVersion" : "5.15.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "jackson",
+    "version" : "2.17.x",
+    "targetVersion" : "2.18.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "apache-commons-compress",
+    "version" : "1.26.x",
+    "targetVersion" : "1.27.x",
+    "blockerProjects" : [ {
+      "project" : "confluent",
+      "version" : "7.9.x",
+      "lastSupportedVersion" : "1.26.x"
+    } ],
+    "excludedArtifacts" : [ ]
+  }, {
+    "project" : "junit-platform",
+    "version" : "1.11.x",
+    "targetVersion" : "1.12.x",
+    "blockerProjects" : [ ],
+    "excludedArtifacts" : [ ]
+  } ],
+  "executionMetadata" : {
+    "exitCode" : 0,
+    "status" : "SUCCEEDED"
+  },
+  "scmMetadata" : {
+    "repositoryUrl" : "https://github.com/dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "repositoryName" : "dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "branch" : "ec8552a5e547fa9e77e57e0a30db037915747013",
+    "commitId" : "ec8552a5e547fa9e77e57e0a30db037915747013",
+    "commitDate" : "2026-09-08T13:56:08Z"
+  }
+}

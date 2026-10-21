@@ -1,0 +1,12 @@
+=== A: mvnw -q -fae -DskipTests install after the 1.7.1 forced step (before any manual fix) Wed Oct 21 12:53:53 CEST 2026 ===
+[ERROR]   found:    <nulltype>
+[ERROR]   found:    org.springframework.boot.ssl.SslBundles
+[ERROR]   location: class org.springframework.boot.context.properties.PropertyMapper
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR]   required: no arguments
+[ERROR]   symbol:   method alwaysApplyingWhenNonNull()
+[ERROR] /Users/dcaron/Documents/src/adv171-A-guarded/blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java:[90,27] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv171-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[39,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv171-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[59,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv171-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java:[94,78] method buildProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties.Consumer cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv171-A-guarded/multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java:[61,50] cannot find symbol

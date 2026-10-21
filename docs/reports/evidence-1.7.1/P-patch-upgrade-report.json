@@ -1,0 +1,1425 @@
+{
+  "multiple-consumers-same-app/spring-kafka-producer/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.google.guava:failureaccess",
+      "oldVersion" : "1.0.1",
+      "newVersion" : "1.0.3",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.15.1",
+      "newVersion" : "2.16.1",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:common-utils",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-registry-client",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor-metrics",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.swagger.core.v3:swagger-annotations-jakarta",
+      "oldVersion" : "2.2.42",
+      "newVersion" : "2.2.55",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.1",
+      "newVersion" : "1.26.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.client5:httpclient5",
+      "oldVersion" : "5.6.4",
+      "newVersion" : "5.6.5",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5-h2",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-clients",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-core",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-el",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:jul-to-slf4j",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-core",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-databind",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    } ],
+    "provided" : [ {
+      "coordinate" : "at.yawk.lz4:lz4-java",
+      "oldVersion" : "1.10.1",
+      "newVersion" : "1.11.2",
+      "scope" : "provided"
+    } ],
+    "test" : [ {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy-agent",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-coordinator-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-metadata",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-raft",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-share-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams-test-utils",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-tools-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-transaction-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka_2.13",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    } ]
+  },
+  "blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.google.guava:failureaccess",
+      "oldVersion" : "1.0.1",
+      "newVersion" : "1.0.3",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.15.1",
+      "newVersion" : "2.16.1",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:common-utils",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-registry-client",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor-metrics",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.swagger.core.v3:swagger-annotations-jakarta",
+      "oldVersion" : "2.2.42",
+      "newVersion" : "2.2.55",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.1",
+      "newVersion" : "1.26.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.client5:httpclient5",
+      "oldVersion" : "5.6.4",
+      "newVersion" : "5.6.5",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5-h2",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-clients",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-core",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-el",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:jul-to-slf4j",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-core",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-databind",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    } ],
+    "provided" : [ {
+      "coordinate" : "at.yawk.lz4:lz4-java",
+      "oldVersion" : "1.10.1",
+      "newVersion" : "1.11.2",
+      "scope" : "provided"
+    } ],
+    "test" : [ {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy-agent",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-coordinator-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-metadata",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-raft",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-share-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams-test-utils",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-tools-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-transaction-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka_2.13",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    } ]
+  },
+  "multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.google.guava:failureaccess",
+      "oldVersion" : "1.0.1",
+      "newVersion" : "1.0.3",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.15.1",
+      "newVersion" : "2.16.1",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:common-utils",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-registry-client",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor-metrics",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.swagger.core.v3:swagger-annotations-jakarta",
+      "oldVersion" : "2.2.42",
+      "newVersion" : "2.2.55",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.1",
+      "newVersion" : "1.26.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.client5:httpclient5",
+      "oldVersion" : "5.6.4",
+      "newVersion" : "5.6.5",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5-h2",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-clients",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-core",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-el",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.hibernate.validator:hibernate-validator",
+      "oldVersion" : "9.1.3.Final",
+      "newVersion" : "9.1.5.Final",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:jul-to-slf4j",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-core",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-databind",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    } ],
+    "provided" : [ {
+      "coordinate" : "at.yawk.lz4:lz4-java",
+      "oldVersion" : "1.10.1",
+      "newVersion" : "1.11.2",
+      "scope" : "provided"
+    } ],
+    "test" : [ {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy-agent",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-coordinator-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-metadata",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-raft",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-share-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams-test-utils",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-tools-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-transaction-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka_2.13",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    } ]
+  },
+  "events/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-annotations",
+      "oldVersion" : "2.17.2",
+      "newVersion" : "2.22",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.17.2",
+      "newVersion" : "2.22.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.17.2",
+      "newVersion" : "2.22.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-codec:commons-codec",
+      "oldVersion" : "1.17.0",
+      "newVersion" : "1.19.0",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.16.1",
+      "newVersion" : "2.20.0",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.2",
+      "newVersion" : "1.28.0",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-lang3",
+      "oldVersion" : "3.14.0",
+      "newVersion" : "3.18.0",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.13",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    } ]
+  },
+  "blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.google.guava:failureaccess",
+      "oldVersion" : "1.0.1",
+      "newVersion" : "1.0.3",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.15.1",
+      "newVersion" : "2.16.1",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:common-utils",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-registry-client",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor-metrics",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.swagger.core.v3:swagger-annotations-jakarta",
+      "oldVersion" : "2.2.42",
+      "newVersion" : "2.2.55",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.1",
+      "newVersion" : "1.26.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.client5:httpclient5",
+      "oldVersion" : "5.6.4",
+      "newVersion" : "5.6.5",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5-h2",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-clients",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-core",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-el",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:jul-to-slf4j",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-core",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-databind",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    } ],
+    "provided" : [ {
+      "coordinate" : "at.yawk.lz4:lz4-java",
+      "oldVersion" : "1.10.1",
+      "newVersion" : "1.11.2",
+      "scope" : "provided"
+    } ],
+    "test" : [ {
+      "coordinate" : "net.bytebuddy:byte-buddy",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy-agent",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    } ]
+  },
+  "multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.google.guava:failureaccess",
+      "oldVersion" : "1.0.1",
+      "newVersion" : "1.0.3",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.15.1",
+      "newVersion" : "2.16.1",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:common-utils",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-registry-client",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor-metrics",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.swagger.core.v3:swagger-annotations-jakarta",
+      "oldVersion" : "2.2.42",
+      "newVersion" : "2.2.55",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.1",
+      "newVersion" : "1.26.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.client5:httpclient5",
+      "oldVersion" : "5.6.4",
+      "newVersion" : "5.6.5",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5-h2",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-clients",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-core",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-el",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.hibernate.validator:hibernate-validator",
+      "oldVersion" : "9.1.3.Final",
+      "newVersion" : "9.1.5.Final",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:jul-to-slf4j",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-core",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-databind",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    } ],
+    "provided" : [ {
+      "coordinate" : "at.yawk.lz4:lz4-java",
+      "oldVersion" : "1.10.1",
+      "newVersion" : "1.11.2",
+      "scope" : "provided"
+    } ],
+    "test" : [ {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy-agent",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-coordinator-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-metadata",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-raft",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-share-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams-test-utils",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-tools-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-transaction-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka_2.13",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    } ]
+  },
+  "multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml" : {
+    "compile" : [ {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-core",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.core:jackson-databind",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "com.google.guava:failureaccess",
+      "oldVersion" : "1.0.1",
+      "newVersion" : "1.0.3",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "commons-io:commons-io",
+      "oldVersion" : "2.15.1",
+      "newVersion" : "2.16.1",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:common-utils",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-avro-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-registry-client",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-serializer",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:kafka-schema-types",
+      "oldVersion" : "8.3.1",
+      "newVersion" : "8.3.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.confluent:logredactor-metrics",
+      "oldVersion" : "1.0.18",
+      "newVersion" : "1.0.23",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "io.swagger.core.v3:swagger-annotations-jakarta",
+      "oldVersion" : "2.2.42",
+      "newVersion" : "2.2.55",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.avro:avro",
+      "oldVersion" : "1.12.0",
+      "newVersion" : "1.12.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.commons:commons-compress",
+      "oldVersion" : "1.26.1",
+      "newVersion" : "1.26.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.client5:httpclient5",
+      "oldVersion" : "5.6.4",
+      "newVersion" : "5.6.5",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.httpcomponents.core5:httpcore5-h2",
+      "oldVersion" : "5.4.3",
+      "newVersion" : "5.4.4",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-clients",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-core",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-el",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+      "oldVersion" : "11.0.24",
+      "newVersion" : "11.0.27",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.hibernate.validator:hibernate-validator",
+      "oldVersion" : "9.1.3.Final",
+      "newVersion" : "9.1.5.Final",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:jul-to-slf4j",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "org.slf4j:slf4j-api",
+      "oldVersion" : "2.0.18",
+      "newVersion" : "2.0.20",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-core",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    }, {
+      "coordinate" : "tools.jackson.core:jackson-databind",
+      "oldVersion" : "3.1.5",
+      "newVersion" : "3.1.8",
+      "scope" : "compile"
+    } ],
+    "provided" : [ {
+      "coordinate" : "at.yawk.lz4:lz4-java",
+      "oldVersion" : "1.10.1",
+      "newVersion" : "1.11.2",
+      "scope" : "provided"
+    } ],
+    "test" : [ {
+      "coordinate" : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "oldVersion" : "2.21.5",
+      "newVersion" : "2.21.8",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "net.bytebuddy:byte-buddy-agent",
+      "oldVersion" : "1.18.11",
+      "newVersion" : "1.18.15",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-coordinator-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-group-coordinator-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-metadata",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-raft",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-server-common",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-share-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-storage-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-streams-test-utils",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-tools-api",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka-transaction-coordinator",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    }, {
+      "coordinate" : "org.apache.kafka:kafka_2.13",
+      "oldVersion" : "4.2.1",
+      "newVersion" : "4.2.2",
+      "scope" : "test"
+    } ]
+  }
+}

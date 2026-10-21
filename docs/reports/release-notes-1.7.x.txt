@@ -1,0 +1,335 @@
+# Application Advisor 1.7 release notes (techdocs), captured 2026-10-21 from
+# https://techdocs.broadcom.com/us/en/vmware-tanzu/spring/application-advisor/1-7/app-advisor/release-notes-appadv.html
+
+These release notes apply to all Application Advisor 1.7.x releases.
+v1.7.1
+Release date: October 20, 2026
+Enhancements
+Updated component versions are listed in
+Upgrade mappings and coverage for 1.7.1
+. The update adds a separate mapping for each of ten Azure SDK for Java libraries, including
+azure-core
+,
+azure-identity
+, and
+azure-storage-blob
+. Azure releases each of these libraries on its own version schedule, so each library needs its own mapping.
+For the security fixes in this release, see
+Security fixes
+.
+v1.7.0
+Release date: October 20, 2026
+New features
+The new
+--skip-transitive-deps
+ option, with the short form
+-std
+, for
+advisor patch apply
+ patches only the dependencies that you declare explicitly in your project. The option leaves transitive dependencies and dependency management sections unchanged. Use this option if your organization’s policy requires you to define all direct and transitive dependencies explicitly in your
+pom.xml
+ or
+build.gradle
+ file. See
+Skip transitive dependency patching
+.
+The new
+--include-modules
+ and
+--exclude-modules
+ options for
+advisor advice apply
+,
+advisor patch apply
+, and
+advisor upgrade-plan apply
+ let you target specific modules in a multi-module Maven or Gradle project. You can use exact names or Unix-style wildcards such as
+test-*
+. See
+Filter modules in multi-module projects
+.
+Upgrade mappings can reference skills for your coding agent. When you run
+advisor upgrade-plan apply
+, Application Advisor unpacks the skills for the version being upgraded into the
+.claude/skills
+ directory of your project, and your coding agent applies them to complete what recipes cannot. See
+Custom upgrades with AI skills
+ and
+Configure skills in upgrade mappings
+.
+The new
+--squash-all
+ option for
+advisor upgrade-plan get
+ and
+advisor upgrade-plan apply
+ squashes all steps of the upgrade plan into a single step. See
+advisor upgrade-plan get
+ and
+advisor upgrade-plan apply
+.
+The new
+--build-tools-latest
+ option for
+advisor upgrade-plan get
+ and
+advisor upgrade-plan apply
+ adds optional steps. The steps upgrade Java and the Maven and Gradle wrappers to the latest versions that your dependencies allow. See
+Upgrade Java and other build tools
+.
+You can block specific versions of a project or tool, such as Java 25, for your whole organization or for a single repository. The upgrade plan stops before each blocked version and reports the reason. See
+Block specific versions
+.
+The new
+advisor mapping update
+ command scans the mapping files under the current directory. The command appends newly released minor versions of the libraries that those files reference, so you can keep your upgrade mappings current at scale. See
+advisor mapping update
+.
+You can ignore a project restriction that blocks an upgrade. Add an
+upgrade.ignore
+ section to the
+.advisor.yml
+ file in your repository to ignore the restrictions that a mapping declares for specific dependencies. See
+Ignore a project restriction that blocks an upgrade
+.
+Upgrade mappings can run a recipe only when another project is on a given version generation. The Spring Boot 4.0 mapping uses conditions to choose between Jackson 3 and Jackson 2 recipes. When the upgrade plan moves Jackson to 3.x in the same step, the Jackson 3 migration recipes run. When Jackson stays on 2.x, the recipe that keeps Jackson 2 runs. See
+Run recipes only for specific project versions
+.
+The
+advisor upgrade-plan get
+ and
+advisor upgrade-plan apply
+ commands return distinct exit codes. The exit codes identify missing mappings, recipe execution failures, pull request creation failures, blocked upgrades, and excluded artifacts. Use the exit codes to build CI/CD pipeline automation that branches on the specific outcome, instead of parsing console output. See
+Exit codes
+ and
+Using exit codes for pipeline automation
+.
+The
+advisor upgrade-plan get
+ and
+advisor upgrade-plan apply
+ commands generate a machine-readable JSON report at
+.advisor/upgrade-plan.json
+ in the build folder. The build folder is
+target
+ for Maven and
+build
+ for Gradle. The report contains the upgrade plan, Git metadata, execution status, and pull request details. CI/CD pipelines and other automation tools can use the report to determine the upgrade status without parsing console output. When the
+TANZU_PLATFORM_*
+ environment variables are set,
+advisor upgrade-plan apply
+ also publishes the report to Tanzu Hub. See
+Machine-readable upgrade plan output
+ for the report structure and usage examples.
+When a transitive dependency has no upgrade mapping,
+advisor upgrade-plan get
+ and
+advisor upgrade-plan apply
+ calculate the plan and print a warning. Previously, the missing mapping blocked the plan. Only missing mappings for your direct dependencies block the plan. See
+Missing mappings for transitive dependencies
+.
+Resolved issues
+On some terminals, Application Advisor commands printed an emoji that did not render, or an invalid character, at the start of the output. The CLI no longer prints this character.
+Running
+advisor patch apply --push
+ failed with “Is a directory” after creating the upgrade branch. This happened when the working tree contained a nested Git repository, even if
+.gitignore
+ excluded the repository. The leftover branch then blocked retries. Application Advisor now skips nested Git repositories when it collects file changes.
+The macOS Intel builds of the
+advisor
+ CLI run on Rosetta and on older Intel CPUs.
+Enhancements
+The
+advisor patch apply
+ command writes a machine-readable JSON report,
+patch-upgrade.json
+, in the
+.advisor
+ directory of the build folder. The report lists the upgraded dependencies with their old and new versions, the execution status, and the pull request details. See
+Patch upgrade report
+.
+The Spring Boot 4.0 upgrade recipes add the
+spring-boot-starter-cloudfoundry
+ dependency to Cloud Foundry applications that already use the actuator starter. Spring Boot 4.0 moved Cloud Foundry actuator support into this separate starter, so applications lose that support after an upgrade without the starter. See
+Commercial recipes for upgrading to Spring Boot 4.0.x
+.
+Publishing to Tanzu Hub with
+advisor build-config publish
+ and
+advisor upgrade-plan apply
+ no longer requires an organization ID or connection ID. This change applies to Tanzu Hub 11.0 and later. Set
+TANZU_PLATFORM_URL
+,
+TANZU_PLATFORM_OAUTH_APP_ID
+, and
+TANZU_PLATFORM_OAUTH_APP_SECRET
+. Tanzu Hub no longer offers the
+Attach Application Advisor
+ connection wizard. Generate an OAuth app with the
+Spring Insights
+ role instead. Tanzu Platform customers who use
+cf repo
+ publish with their
+cf login
+ session and set no environment variables. See
+Spring support insights in Tanzu Hub
+.
+Upgrade mappings and coverage for 1.7.0
+ lists the updated component versions. The update adds mappings for Apache Commons IO, Apache Commons Math, and the PostgreSQL JDBC driver. The update also adds mappings for the JSON Schema Validator library, Microsoft Authentication Library for Java, and WebAuthn4J. In addition, the update expands the version ranges for Jackson, Spring AI, XMLUnit, Resilience4j, and Spring Cloud Azure.
+The Spring Integration upgrade recipes cover XML configuration and the Java DSL. The recipes make these changes:
+Update
+xsi:schemaLocation
+ entries in Spring XML files to use
+https://
+, and remove version numbers from XSD file names. Spring Framework 6 no longer redirects HTTP schema requests, so the old URLs fail at startup.
+Move
+BeanFactoryChannelResolver
+ to the
+org.springframework.integration.channel
+ package, and remove the redundant
+CachingDestinationResolverProxy
+ wrapper.
+Remove the
+charset
+ attribute from
+int-http:outbound-gateway
+ and
+int-http:outbound-channel-adapter
+ elements.
+For Spring Integration 7.0, replace
+IntegrationFlows.from()
+ with
+IntegrationFlow.from()
+.
+For Spring Integration 7.0, remove
+stop(Runnable)
+ overrides from
+SmartLifecycle
+ implementations. The recipes remove an override only when its body calls
+stop()
+ and then
+run()
+ on the callback. Otherwise, the recipes insert a
+TODO
+ comment.
+The recipes run automatically when you apply an upgrade plan that moves your application to Spring Integration 6.0 or 7.0. You do not need to enable them. See
+Commercial recipes for upgrading to Spring Integration 7.0.x
+.
+The new how-to guide
+Handle end-of-life and outdated dependencies
+ explains how to unblock an upgrade plan. Use the guide when Application Advisor reports excluded artifacts, end-of-life projects, or outdated mappings. The guide also explains how to keep your custom and embedded mappings current, so that the same blocker does not recur. The
+Upgrade plan
+ and
+CLI reference
+ topics link to the guide from the relevant blocker and command descriptions.
+You can run Application Advisor from your build, through goals and tasks in the Tanzu Spring Build Plugins for Maven and Gradle. Use this option when you cannot install CLI tooling in your build environment. The option requires no separate CLI installation. See
+Install and configure the Application Advisor CLI
+.
+The
+CLI reference
+ lists the
+advisor patch
+ command, which applies patch-level dependency upgrades only and leaves minor and major upgrades untouched. The entry for
+advisor patch apply
+ links to the
+cf repo apply-patch
+ equivalent for Tanzu Platform customers.
+For the security fixes in this release, see
+Security fixes
+.
+Known issues
+The following known issues apply to all Application Advisor 1.7.x releases.
+No upgrade plans available" due to missing or incorrect mappings
+Application Advisor may report “No upgrade plans available” even when some components show available upgrade paths (for example, a Spring Cloud component may show “no upgrades available” although a compatible version exists per the official Spring compatibility matrix). This occurs when required upgrade mappings are missing, incomplete, or incorrect in the internal upgrade mapping catalog. For workarounds and how to report the issue, see
+Spring Application Advisor Reports “No Upgrade Plans Available” Due to Missing or Incorrect Mappings
+ on the Broadcom Support Portal.
+PREVIOUS
+Application Advisor
+NEXT
+Security fixes
+Was this page helpful?
+      Documentation Feedback
+Last Updated October 20, 2026
+ -->
+Feedback and Comments
+First Name
+]*>)(?!\s*$).+" required/>
+Last Name
+]*>)(?!\s*$).+" required/>
+Email
+I have questions/feedback about
+Choose an option...
+Broken hyperlink or page not found
+Incorrect or Missing Content
+Other/General Feedback
+Slow Web Performance
+Where to find something
+For comments about a specific page, enter URL
+]*>)(?!\s*$).+"/>
+Comments
+                    I understand and agree to the
+Broadcom
+                      Terms of Use
+ and
+Privacy
+                      Statement
+.
+Security Check
+↻
+Incorrect
+                    security answer.
+Submit Feedback
+Thank You!
+Thank you for your interest in Broadcom. Your submission has been received.
+Close
+Submit Feedback
+            Other Product Support Resources
+Support
+Support Portal
+Product Communities
+Knowledge Base
+Learning
+Brocade Education
+Mainframe Software Education
+Software Education
+VMware Learning
+Need more help?
+Virtual Agent
+Advanced Support
+Contact Us
+Was this page helpful?
+      Documentation Feedback
+Last Updated October 20, 2026
+ -->
+Feedback and Comments
+First Name
+]*>)(?!\s*$).+" required/>
+Last Name
+]*>)(?!\s*$).+" required/>
+Email
+I have questions/feedback about
+Choose an option...
+Broken hyperlink or page not found
+Incorrect or Missing Content
+Other/General Feedback
+Slow Web Performance
+Where to find something
+For comments about a specific page, enter URL
+]*>)(?!\s*$).+"/>
+Comments
+                    I understand and agree to the
+Broadcom
+                      Terms of Use
+ and
+Privacy
+                      Statement
+.
+Security Check
+↻
+Incorrect
+                    security answer.
+Submit Feedback
+Thank You!
+Thank you for your interest in Broadcom. Your submission has been received.
+Close
+Submit Feedback

@@ -1,0 +1,72 @@
+
+========== Preflight ==========
+Target repo: /Users/dcaron/Documents/src/adv171-C
+Kit:         /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit
+Spring Application Advisor: 1.7.1
+✅ advisor version looks good (kit verified on 1.7.0)
+✅ Maven wrapper present
+✅ No unguarded rewrite-maven-plugin in the reactor.
+
+========== Syncing kit mappings ==========
+  kept existing apache-kafka.json
+  kept existing avro.json
+  kept existing confluent-platform.json
+  kept existing javafaker.json
+  kept existing spring-boot-jackson3.json
+  kept existing zookeeper.json
+  kept existing order.txt
+
+========== Wiring custom mappings into advisor ==========
+Manifest: .advisor/mappings/order.txt
+  SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/javafaker.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/avro.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/apache-kafka.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/confluent-platform.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/zookeeper.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/commons-beanutils.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_6_FILEPATH=.advisor/mappings/commons-validator.json
+✅ Configured 7 custom mapping(s).
+
+========== Generating build configuration ==========
+$ advisor build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/adv171-C.
+
+🏃 [ 1 / 6 ] Resolving build tool version [00m 00s]🏃 [ 1 / 6 ] Resolving build tool version [00m 01s]🏃 [ 1 / 6 ] Resolving build tool version [00m 02s] ok
+🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 11s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 12s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 13s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 14s]🏃 [ 2 / 6 ] Resolving dependencies with mvnw [00m 15s] ok
+🏃 [ 3 / 6 ] Resolving JDK version [00m 00s]🏃 [ 3 / 6 ] Resolving JDK version [00m 01s]🏃 [ 3 / 6 ] Resolving JDK version [00m 02s]🏃 [ 3 / 6 ] Resolving JDK version [00m 03s]🏃 [ 3 / 6 ] Resolving JDK version [00m 04s]🏃 [ 3 / 6 ] Resolving JDK version [00m 05s]🏃 [ 3 / 6 ] Resolving JDK version [00m 06s]🏃 [ 3 / 6 ] Resolving JDK version [00m 07s] ok
+🏃 [ 4 / 6 ] Resolving Git repository [00m 00s]🏃 [ 4 / 6 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 6 ] Resolving application modules [00m 00s]🏃 [ 5 / 6 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 03s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 04s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 05s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 06s]🏃 [ 6 / 6 ] Obtaining dependency management artifacts [00m 07s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv171-C/target/.advisor/build-config.json
+✅ build-config generated.
+
+========== Upgrade plan ==========
+
+--- Reading upgrade plan (applied: 0, mappings created: 0) ---
+⚠️    advisor exit 50: plan refused — blocker summary:
+   	* apache-commons-lang:3.20.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+   	* apache-commons-lang:3.20.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-io > 2.15.x
+   	* commons-beanutils:1.11.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+   	* commons-validator:1.10.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+   	* confluent:8.3.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+   	* jackson:2.17.x needs an upgrade or migration defined in the upgrade mappings to upgrade jackson-annotations > 2.17.x
+   	* spring-boot:4.1.x needs an upgrade or migration defined in the upgrade mappings to upgrade xmlunit > 2.11.x
+  Projects discovered:
+  	- jackson-annotations: 2.17.x → 2.22.x
+  	- commons-validator: 1.10.x → 1.11.x
+  	- apache-commons-io: 2.15.x → 2.22.x
+  	- apache-commons-collections: 3.2.x → 4.5.x
+  	- xmlunit: 2.11.x → 2.13.x
+  	- jackson: 2.17.x → 3.2.x
+  	- apache-commons-compress: 1.26.x → 1.28.x
+  	- kafka: 4.2.x → 4.3.x
+✅ No further upgrades to apply — the repository is upgraded as far as the available mappings allow.
+
+========== Summary ==========
+Steps applied this run:    0
+Mappings auto-created:     0
+Spring Boot version in blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml: 4.1.1
+Dry run complete — no changes were made.
+✅ Done.
+kit exit=0

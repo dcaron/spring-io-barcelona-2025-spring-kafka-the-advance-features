@@ -1,0 +1,45 @@
+=== advisor mapping search --slug probes (Version: 1.7.1) Wed Oct 21 12:39:48 CEST 2026, run in a scratch dir ===
+kafka                   🔎 Searching for project "kafka"...  💔 No project found with slug "kafka". 
+apache-kafka            🔎 Searching for project "apache-kafka"...  💔 No project found with slug "apache-kafka". 
+kafka-clients           🔎 Searching for project "kafka-clients"...  💔 No project found with slug "kafka-clients". 
+confluent               🔎 Searching for project "confluent"...  💔 No project found with slug "confluent". 
+confluent-platform      🔎 Searching for project "confluent-platform"...  💔 No project found with slug "confluent-platform". 
+avro                    🔎 Searching for project "avro"...  💔 No project found with slug "avro". 
+apache-avro             🔎 Searching for project "apache-avro"...  💔 No project found with slug "apache-avro". 
+zookeeper               🔎 Searching for project "zookeeper"...  💔 No project found with slug "zookeeper". 
+apache-zookeeper        🔎 Searching for project "apache-zookeeper"...  💔 No project found with slug "apache-zookeeper". 
+javafaker               🔎 Searching for project "javafaker"...  💔 No project found with slug "javafaker". 
+commons-validator       🔎 Searching for project "commons-validator"...  💔 No project found with slug "commons-validator". 
+commons-beanutils       🔎 Searching for project "commons-beanutils"...  💔 No project found with slug "commons-beanutils". 
+apache-commons-io       🔎 Searching for project "apache-commons-io"...  🏃 Saving mapping [00m 00s]🏃 Saving mapping [00m 01s] ok  🚀 Mapping saved to: /private/tmp/claude-501/-Users-d
+
+azure-core              🔎 Searching for project "azure-core"...  🏃 Saving mapping [00m 00s]🏃 Saving mapping [00m 01s] ok  🚀 Mapping saved to: /private/tmp/claude-501/-Users-dcaron-D
+
+
+--- prefix probes
+-- prefix kafka
+
+🔎 Searching for projects with prefix "kafka"...
+
+💔 No projects found matching prefix "kafka".
+-- prefix conf
+
+🔎 Searching for projects with prefix "conf"...
+
+💔 No projects found matching prefix "conf".
+-- prefix avro
+
+🔎 Searching for projects with prefix "avro"...
+
+💔 No projects found matching prefix "avro".
+-- prefix zoo
+
+🔎 Searching for projects with prefix "zoo"...
+
+💔 No projects found matching prefix "zoo".
+--- files downloaded:
+total 48
+drwxr-xr-x  4 dcaron  wheel    128 Oct 21 12:40 .
+drwxr-xr-x  3 dcaron  wheel     96 Oct 21 12:40 ..
+-rw-r--r--  1 dcaron  wheel   7026 Oct 21 12:40 apache-commons-io.json
+-rw-r--r--  1 dcaron  wheel  14320 Oct 21 12:40 azure-core.json
