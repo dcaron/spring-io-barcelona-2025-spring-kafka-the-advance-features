@@ -61,3 +61,14 @@ moved and no starter pins (`evidence-1.7.1/A-pom-yml-changes.diff`: six `spring-
 versions 3.4.5 → 4.1.1, zero `<version>` lines added to starters) — consistent with the 1.7.0 scoping
 run without the override. Whether 1.7.1 would still pin with the override wired was not re-tested;
 the kit's advice stands: do not wire a `spring-boot` override that lacks the target generation.
+
+## Documentation re-read (2026-10-21, techdocs 1.7 pages dated 2026-10-20)
+
+**Trigger explained by the documented override semantics; the pinning is still Advisor's.** The
+*"Override existing mappings"* section says: *"For each version key, recipes, nextRewrite, and
+requirements are replaced as a whole"* and *"If you only add a recipe … you must still include
+`nextRewrite` and `requirements` in your file because the merge replaces the whole version block."*
+The repo's `spring-boot-jackson3.json:override` defined 3.5.x/4.0.x blocks without 4.1.x, so after the
+merge the 4.0.x block had no path to 4.1.x — the mapping was invalid by the documented rules. What the
+docs do not cover is what Advisor did next: plan and "successfully apply" a 4.0.x → 4.1.x step that
+pins 41 starters. Expected behaviour (validate the merged mapping, refuse the step) is unchanged.

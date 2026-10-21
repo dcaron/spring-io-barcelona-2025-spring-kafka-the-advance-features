@@ -21,6 +21,8 @@ Isolated-repro transcripts live next to each repro as `repros/*/…-1.7.1.*`.
 | `C-ignore-probe.log`, `C-ignore-probe-2.log`, `C-ignore-probe-3.log`, `C-ignore-probe-3.advisor.yml`, `C-ignore-probe-3b-flags.log` | C: `.advisor.yml` `upgrade.ignore` probes — key semantics, then all blockers ignored → empty plan, exit 0 (BUG-10); `--accept-no-alignment` / `-f` / `--squash-all` on top |
 | `C-force-run.log`, `C-upgrade-plan-after-force.json` | C: kit `--force -y`: the 8-item step reports success, changes **0 files**, JSON says `SUCCEEDED` |
 | `P-patch-apply.log`, `P-patch-apply-pom-changes.diff`, `P-patch-upgrade.json`, `P-patch-upgrade-report.json` | `advisor patch apply` on HEAD: 8 m 14 s, 278 pins in 7 poms (+975 lines), `avro.version` 1.12.0 → 1.12.2; both report files (documented `target/.advisor/patch-upgrade.json` and the 1.7.0-era `.advisor/patch-upgrade-report.json`) |
+| `A-bug9-probe-force-flag.log`, `A-bug9-probe-force-flag-combos.log` | Fresh Boot 3.4.5 worktree (`adv171-A2`), zookeeper unmapped: `get` vs `get -f` vs `get -f --accept-no-alignment` etc. — the documented `-f` restores the full plan (BUG-9 workaround) |
+| `C-folder-mode-and-outdated-mapping-probe.log` | C: one env var pointing at a mappings **folder** (same plan as seven ordered vars); the documented `mapping search --path` → `mapping update` → `override` procedure for the commons-io/compress blockers (catalog already current, no change) |
 | `catalog-mapping-search.log` | `mapping search --slug/--prefix` for the Kafka/Confluent/Avro/Zookeeper/commons slugs: none exist; `apache-commons-io`, `azure-core` do (FR-1) |
 
 Related captures outside this directory: [`../cli-surface-1.7.1.txt`](../cli-surface-1.7.1.txt)

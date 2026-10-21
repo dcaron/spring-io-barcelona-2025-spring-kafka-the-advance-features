@@ -63,3 +63,15 @@ artifacts (see FR-1's demo where all `io.confluent:*` artifacts land on the bloc
 **Unchanged** — Maven resolves `io.confluent:kafka-schema-registry-client` through the pom's
 repository, `mapping create` still reports *"No versions found. One or more repositories denied access
 (HTTP 401/403)…"* and writes nothing (`transcript-1.7.1.txt`).
+
+## Documentation re-read (2026-10-21, techdocs 1.7 pages dated 2026-10-20)
+
+**Confirmed with the new `--debug` output.** The troubleshooting page now documents five distinct
+*"No versions found"* messages and says `-d` shows the per-repository status. On 1.7.1 `-d` lists the
+repositories Advisor queried for `io.confluent:kafka-schema-registry-client`: Maven Central (built-in,
+404), `repo.spring.io/release` (built-in, 401), the `settings.xml` Spring Enterprise repository (401)
+and the local repository — **the Confluent repository declared in the pom is not in the list**
+(`repros/05-resolution-ignores-repositories/debug-1.7.1.txt`). The message blames credentials because
+the built-in repositories answer 401 for an artifact they do not have. The defect stands exactly as
+reported: `mapping create` resolves against the CLI's own repository list, not the project's effective
+repositories.

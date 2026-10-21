@@ -19,6 +19,10 @@
 #      (target/.advisor/upgrade-plan.json: steps, blockedUpgrades,
 #      excludedProjects, executionMetadata); the console text is only parsed
 #      when that report is absent or stale (Advisor 1.6.x, or no python3).
+#      When dependencies without a mapping remain after self-healing, the plan
+#      is re-read and applied with `-f` (documented: "continues to calculate
+#      the upgrade plan when dependencies have no upgrade mappings"), so one
+#      unmapped transitive no longer hides the whole plan (BUG-9).
 #
 # IMPORTANT: plain `apply` never applies on this class of project: on Advisor 1.6.x it
 # no-ops forever (BUG-1), on 1.7.x it refuses with a blocker list (exit 50). Use --force to run
@@ -450,12 +454,14 @@ build_check() {
 
 # Run one apply. --force adds --accept-no-alignment (the verified way to make
 # the full plan land; plain apply no-ops on transitive-only plans — BUG-1).
+# UNMAPPED_FORCE=1 adds `-f`: dependencies without a mapping were left after
+# self-healing and the plan was computed with -f, so apply must use it too.
+UNMAPPED_FORCE=0
 apply_step() {
-  if [[ "${FORCE_MODE}" -eq 1 ]]; then
-    run advisor upgrade-plan apply --accept-no-alignment
-  else
-    run advisor upgrade-plan apply
-  fi
+  local args=()
+  [[ "${UNMAPPED_FORCE}" -eq 1 ]] && args+=(-f)
+  [[ "${FORCE_MODE}" -eq 1 ]] && args+=(--accept-no-alignment)
+  run advisor upgrade-plan apply "${args[@]}"
 }
 
 # --- Mapping helpers (validation, generation, collision tracking) ------------
@@ -762,6 +768,35 @@ while :; do
     ok "Created new mapping(s); regenerating build configuration and re-planning…"
     run advisor build-config get
     continue
+  fi
+
+  # Dependencies without a mapping remain (nothing more to self-heal). Without
+  # -f Advisor drops every project that depends on them from the plan and says
+  # so only in a warning (BUG-9). Re-read the plan with -f, the documented way
+  # to plan past missing mappings; apply will use -f as well.
+  UNMAPPED_FORCE=0
+  if [[ -n "${blocked_now// /}" ]]; then
+    UNMAPPED_FORCE=1
+    warn "  Dependencies without a mapping remain: ${blocked_now}"
+    warn "  Re-reading the plan with -f (plan past missing mappings; Advisor then omits them from its output)."
+    plan_rc=0
+    plan_marker="$(mktemp)"
+    plan_output="$(advisor upgrade-plan get -f "${plan_args[@]}" 2>&1)" || plan_rc=$?
+    select_plan_source "${plan_marker}" || true
+    rm -f "${plan_marker}"
+    case "${plan_rc}" in
+      0) ;;
+      50) warn "  advisor exit 50: plan refused — blocker summary:"
+          if [[ "${PLAN_SOURCE}" == "json" ]]; then plan_json blockers | sed 's/^/   * /' || true
+          else printf '%s\n' "${plan_output}" | sed -n '/blocker projects/,/Warnings/p' | grep -E '^\s+\*' | sed 's/^/   /' || true; fi ;;
+      *)  warn "  advisor upgrade-plan get -f exited ${plan_rc}" ;;
+    esac
+    if [[ "${PLAN_SOURCE}" == "json" ]]; then
+      info "  (plan read from ${PLAN_REPORT#${TARGET_DIR}/}: $(plan_json status))"
+      plan_json steps | sed 's/^/  /' || true
+    else
+      printf '%s\n' "${plan_output}" | grep -E 'Projects (discovered|to upgrade):|(→|->|=>)' | sed 's/^/  /' || true
+    fi
   fi
 
   if ! plan_is_actionable "${plan_output}"; then

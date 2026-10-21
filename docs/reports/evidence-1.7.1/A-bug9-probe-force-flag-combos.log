@@ -1,0 +1,157 @@
+wired 6 mappings (zookeeper.json absent)
+
+=== A2: advisor upgrade-plan get --accept-no-alignment  (Version: 1.7.1) Wed Oct 21 14:56:28 CEST 2026 ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+
+Upgrade Plan for your Dependencies:
+		* Upgrade micrometer-context-propagation from 1.1.x to 1.2.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+⚠️  Warnings:
+- There are no upgrade mappings configured for these transitive dependencies:
+      - org.apache.zookeeper:zookeeper
+Please report these problems to support.broadcom.com
+
+exit=10
+JSON: {'exitCode': 10, 'status': 'BLOCKED'} projects 2 steps 1 excluded ['org.apache.zookeeper:zookeeper'] blocked 1
+
+=== A2: advisor upgrade-plan get -f --accept-no-alignment  (Version: 1.7.1) Wed Oct 21 14:56:41 CEST 2026 ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+
+Upgrade Plan for your Dependencies:
+		* Upgrade confluent from 7.9.x to 8.3.x
+		* Upgrade junit from 4.13.x to 6.0.x
+		* Upgrade docker-java from 3.4.x to 3.7.x
+		* Upgrade spring-framework from 6.2.x to 7.0.x
+		* Upgrade testcontainers from 1.20.x to 2.0.x
+		* Migrate spring-retry from 2.0.x to spring-framework:7.0.x
+		* Upgrade commons-beanutils from 1.9.x to 1.11.x
+		* Upgrade micrometer-context-propagation from 1.1.x to 1.2.x
+		* Upgrade kafka from 3.8.x to 4.3.x
+		* Upgrade spring-boot from 3.4.x to 4.1.x
+		* Upgrade jackson-annotations from 2.18.x to 2.22.x
+		* Upgrade micrometer-tracing from 1.4.x to 1.7.x
+		* Upgrade apache-commons-lang from 3.17.x to 3.20.x
+		* Upgrade commons-validator from 1.7.x to 1.11.x
+		* Upgrade spring-kafka from 3.3.x to 4.1.x
+		* Upgrade apache-commons-io from 2.15.x to 2.22.x
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade xmlunit from 2.10.x to 2.13.x
+		* Upgrade micrometer from 1.14.x to 1.17.x
+		* Upgrade mockito from 5.14.x to 5.23.x
+		* Upgrade jackson from 2.17.x to 3.2.x
+		* Upgrade apache-commons-compress from 1.26.x to 1.28.x
+		* Upgrade junit-platform from 1.11.x to 6.0.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+⚠️  Warnings:
+Please report these problems to support.broadcom.com
+
+exit=0
+JSON: {'exitCode': 0, 'status': 'SUCCEEDED'} projects 25 steps 1 excluded [] blocked 22
+
+=== A2: advisor upgrade-plan get --accept-no-alignment -f  (Version: 1.7.1) Wed Oct 21 14:56:52 CEST 2026 ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+
+Upgrade Plan for your Dependencies:
+		* Upgrade confluent from 7.9.x to 8.3.x
+		* Upgrade junit from 4.13.x to 6.0.x
+		* Upgrade docker-java from 3.4.x to 3.7.x
+		* Upgrade spring-framework from 6.2.x to 7.0.x
+		* Upgrade testcontainers from 1.20.x to 2.0.x
+		* Migrate spring-retry from 2.0.x to spring-framework:7.0.x
+		* Upgrade commons-beanutils from 1.9.x to 1.11.x
+		* Upgrade micrometer-context-propagation from 1.1.x to 1.2.x
+		* Upgrade kafka from 3.8.x to 4.3.x
+		* Upgrade spring-boot from 3.4.x to 4.1.x
+		* Upgrade jackson-annotations from 2.18.x to 2.22.x
+		* Upgrade micrometer-tracing from 1.4.x to 1.7.x
+		* Upgrade apache-commons-lang from 3.17.x to 3.20.x
+		* Upgrade commons-validator from 1.7.x to 1.11.x
+		* Upgrade spring-kafka from 3.3.x to 4.1.x
+		* Upgrade apache-commons-io from 2.15.x to 2.22.x
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade xmlunit from 2.10.x to 2.13.x
+		* Upgrade micrometer from 1.14.x to 1.17.x
+		* Upgrade mockito from 5.14.x to 5.23.x
+		* Upgrade jackson from 2.17.x to 3.2.x
+		* Upgrade apache-commons-compress from 1.26.x to 1.28.x
+		* Upgrade junit-platform from 1.11.x to 6.0.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+⚠️  Warnings:
+Please report these problems to support.broadcom.com
+
+exit=0
+JSON: {'exitCode': 0, 'status': 'SUCCEEDED'} projects 25 steps 1 excluded [] blocked 22
+
+=== A2: advisor upgrade-plan get -f --squash-all  (Version: 1.7.1) Wed Oct 21 14:57:03 CEST 2026 ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+No upgrade plan available.
+
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+
+	* commons-validator:1.7.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+	* commons-validator:1.7.x needs an upgrade or migration defined in the upgrade mappings to upgrade commons-beanutils > 1.9.x
+	* confluent:7.9.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+	* javafaker:1.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-lang > 3.17.x
+
+⚠️  Warnings:
+Please report these problems to support.broadcom.com
+
+exit=50
+JSON: {'exitCode': 50, 'status': 'BLOCKED'} projects 25 steps 0 excluded [] blocked 22
+
+=== A2: advisor upgrade-plan get --force  (Version: 1.7.1) Wed Oct 21 14:57:15 CEST 2026 ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+No upgrade plan available.
+
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+
+	* commons-validator:1.7.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+	* commons-validator:1.7.x needs an upgrade or migration defined in the upgrade mappings to upgrade commons-beanutils > 1.9.x
+	* confluent:7.9.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+	* javafaker:1.0.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-lang > 3.17.x
+
+⚠️  Warnings:
+Please report these problems to support.broadcom.com
+
+exit=50
+JSON: {'exitCode': 50, 'status': 'BLOCKED'} projects 25 steps 0 excluded [] blocked 22

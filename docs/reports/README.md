@@ -13,6 +13,11 @@ the fixtures it needs, and captured `transcript.txt` (1.6.7) / `transcript-1.7.0
 (identical); the 1.7.0/1.7.1 release notes, published 2026-10-20, in
 [`release-notes-1.7.x.txt`](release-notes-1.7.x.txt).
 
+A plain-language version of every defect, written in Simplified Technical English, is in
+[`DEFECTS-STE.md`](DEFECTS-STE.md). The 1.7 documentation was re-read in full against these findings
+on 2026-10-21: [`DOC-REVIEW-1.7.md`](DOC-REVIEW-1.7.md) (BUG-9 has a documented workaround, BUG-10 is
+narrower, FR-3/FR-4 are largely closed).
+
 ## Bug reports
 
 | Report | One-liner | Repro | 1.7.0 | 1.7.1 |

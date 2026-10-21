@@ -113,7 +113,15 @@ before adopting, or use `--skip-transitive-deps`.
 - `advisor-kit/advisor-upgrade.sh`: version gate text (verified on 1.7.0 and 1.7.1); `advisor-kit/README.md`,
   `docs/known-issues.md`, `docs/app-team-runbook.md`, `docs/release-cadence.md` updated.
 
-## 5. Open points
+## 5. Documentation re-read (same day)
+
+After this status was written, all 73 pages of the 1.7 documentation were read against the findings
+([`DOC-REVIEW-1.7.md`](DOC-REVIEW-1.7.md)). Net effect: BUG-9 has a documented workaround (`-f`), BUG-10
+is narrower (the blockers are this project's own version conflicts; exit 0 follows a documented rule),
+BUG-5 is now provable with `-d`, FR-4 is largely closed by folder/Git/Artifactory mapping sources, and
+the kit re-plans with `-f`. The verdict table in §1 is superseded for BUG-9 and BUG-10 by that file.
+
+## 5a. Open points
 
 - File BUG-7/8/9/10 with Broadcom; for BUG-9 attach the release-note quote and the JSON
   `excludedProjects` capture. Ticket draft: `docs/advisor-support-ticket.md`.

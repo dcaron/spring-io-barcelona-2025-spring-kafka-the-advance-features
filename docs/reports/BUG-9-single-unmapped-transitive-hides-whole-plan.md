@@ -69,3 +69,31 @@ while `projects` has 2 entries and `executionMetadata` is `{"exitCode": 10, "sta
 knows exactly which projects it hid; the documented behaviour (plan + warning) is simply not what the
 CLI does for this dependency graph. Worth attaching to the ticket: the doc quote, the two logs and the
 JSON.
+
+## Documentation re-read (2026-10-21, techdocs 1.7 pages dated 2026-10-20)
+
+**Severity reduced — a documented flag works around it; the defect is now "default behaviour and
+console differ from the documentation".** The CLI reference says for exit 10: *"Missing mappings — one
+or more artifacts lack upgrade mappings. Use `--force` to generate a partial plan anyway"*, and for
+`-f/--force` on `upgrade-plan get`: *"Continues to calculate the upgrade plan when dependencies have no
+upgrade mappings. The command lists those dependencies as warnings instead of stopping with an error."*
+Verified on a fresh Boot 3.4.5 worktree with `zookeeper.json` unwired
+([`evidence-1.7.1/A-bug9-probe-force-flag.log`](evidence-1.7.1/A-bug9-probe-force-flag.log),
+[`…-combos.log`](evidence-1.7.1/A-bug9-probe-force-flag-combos.log)):
+
+| Command | Projects | Plan | Exit | JSON `excludedProjects` |
+|---|---|---|---|---|
+| `get` | 2 | none | 10 | zookeeper |
+| `get --accept-no-alignment` | 2 | 1 item | 10 | zookeeper |
+| `get -f` | 25 | none, 4 real blockers | 50 | empty |
+| `get -f --accept-no-alignment` (either order) | 25 | the full 24-item step | 0 | empty |
+| `get -f --squash-all` | 25 | none, 4 blockers | 50 | empty |
+
+So `-f` restores exactly the state that wiring the zookeeper mapping produced. Two discrepancies
+remain and are what to report: (1) the release note and the *"Missing mappings for transitive
+dependencies"* section say the **default** run calculates the plan and only warns for an unmapped
+transitive — it does not; (2) with `-f` the unmapped coordinate is not *"listed as a warning"* either:
+it disappears from the console and from `excludedProjects` entirely. The `--help` text for `-f`
+(*"Force execution of full Upgrade Plan, including intermediate dependencies"*) does not match the
+reference. The kit now re-plans and applies with `-f` when unmapped dependencies remain after
+self-healing (`advisor-kit/advisor-upgrade.sh`, `UNMAPPED_FORCE`).

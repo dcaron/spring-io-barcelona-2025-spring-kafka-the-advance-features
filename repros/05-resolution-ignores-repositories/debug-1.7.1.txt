@@ -1,0 +1,13 @@
+# BUG-5 on 1.7.1 with --debug (docs: -d shows per-repository status) Wed Oct 21 14:56:27 CEST 2026
+🔎 Maven settings.xml: /Users/dcaron/.m2/settings.xml
+🔎 Maven Repository: https://repo1.maven.org/maven2 | Origin: built-in default | Auth: anonymous (no <server> in settings.xml matched this repository)
+🔎 Maven Repository: https://repo.spring.io/release | Origin: built-in default | Auth: anonymous (no <server> in settings.xml matched this repository)
+🔎 Maven Repository: https://packages.broadcom.com/artifactory/tanzu-maven | Origin: settings.xml id=spring-enterprise-subscription | Auth: basic, server id=spring-enterprise-subscription, user=<redacted>
+🔎 Maven Repository: file:///Users/dcaron/.m2/repository | Origin: local repository | Auth: anonymous (no <server> in settings.xml matched this repository)
+🏃 Detecting available versions: 
+	🏃 [ 1 / 1 ] for io.confluent:kafka-schema-registry-client [00m 00s]	🏃 [ 1 / 1 ] for io.confluent:kafka-schema-registry-client [00m 01s]	🏃 [ 1 / 1 ] for io.confluent:kafka-schema-registry-client [00m 02s] ok
+		💔 https://repo1.maven.org/maven2: HTTP 404 Not Found — maven-metadata.xml not found for io.confluent:kafka-schema-registry-client. If the artifact files are present, ask the administrator to regenerate the metadata. | Url: https://repo1.maven.org/maven2/io/confluent/kafka-schema-registry-client/maven-metadata.xml | Auth: anonymous (no <server> in settings.xml matched this repository)
+		💔 https://repo.spring.io/release: HTTP 401 Unauthorized — check credentials for this repository in ~/.m2/settings.xml | Url: https://repo.spring.io/release/io/confluent/kafka-schema-registry-client/maven-metadata.xml | Auth: anonymous (no <server> in settings.xml matched this repository)
+		💔 https://packages.broadcom.com/artifactory/tanzu-maven: HTTP 401 Unauthorized — check credentials for this repository in ~/.m2/settings.xml | Url: https://packages.broadcom.com/artifactory/tanzu-maven/io/confluent/kafka-schema-registry-client/maven-metadata.xml | Auth: basic, server id=spring-enterprise-subscription, user=<redacted>
+		⚠️ file:///Users/dcaron/.m2/repository: not installed locally, skipped | Url: /Users/dcaron/.m2/repository/io/confluent/kafka-schema-registry-client/maven-metadata-local.xml
+💔 No mappings created. Please, check if your project or coordinate is correct and it is available in your Maven repositories.

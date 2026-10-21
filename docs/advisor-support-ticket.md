@@ -117,7 +117,12 @@ issue.
   reduces "Projects discovered" from 26 to 2 and yields *"No upgrade plan available"*, exit 10
   (`reports/evidence-1.7.1/A-bug9-probe-no-zookeeper.log`). `target/.advisor/upgrade-plan.json` for
   that run lists the 22 excluded projects under `excludedProjects` — the engine knows, the console
-  does not say (`A-bug9-probe-upgrade-plan.json`).
+  does not say (`A-bug9-probe-upgrade-plan.json`). *Added after re-reading the 1.7 docs:* the documented
+  `-f`/`--force` option does plan past the missing mapping (`get -f`: 25 projects; `get -f
+  --accept-no-alignment`: the full step, exit 0 — `reports/evidence-1.7.1/A-bug9-probe-force-flag*.log`),
+  so the report is now: (a) the default run does not behave as the release note says, (b) with `-f`
+  the unmapped dependency is not *"listed as a warning"* as the CLI reference says — it is omitted from
+  the console and from `excludedProjects` — and (c) `--help` describes `-f` differently from the reference.
 - **New Defect 6 (BUG-10):** following the documented *"Ignore a project restriction that blocks an
   upgrade"* to the end — a `.advisor.yml` that ignores all seven restrictions on this project — gives
   *"No upgrade plan available … Upgrade Plan was calculated with ignored restrictions"* with **exit 0**
@@ -127,7 +132,12 @@ issue.
   names the wrong slug for the ignore key (`apache-commons-lang:3.20.x needs … to upgrade
   apache-commons-io` must be ignored under `apache-commons-io`, not `apache-commons-lang`) —
   [`reports/BUG-10`](reports/BUG-10-ignore-all-restrictions-empty-plan-exit-0.md),
-  `reports/evidence-1.7.1/C-ignore-probe*.log`, `C-ignore-probe-3.advisor.yml`.
+  `reports/evidence-1.7.1/C-ignore-probe*.log`, `C-ignore-probe-3.advisor.yml`. *Scoped after
+  re-reading the docs:* the exit-0 result follows the documented rule that an entry with empty
+  `blockerProjects` sets no exit code, and the remaining obstacle is the application's own version
+  conflicts (documented as triangular misalignment). The ask therefore narrows to: when ignored
+  restrictions leave only alignment conflicts, say so on the console and return a non-zero code, so
+  that exit 0 keeps its documented meaning of "nothing to upgrade".
 
 ---
 

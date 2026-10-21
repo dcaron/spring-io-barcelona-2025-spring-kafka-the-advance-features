@@ -61,3 +61,18 @@ restrictions a mapping declares — verified on 1.7.1
 organisation/repository-level *blocked versions*. Custom-mapping wiring is still the ordered
 `SPRING_ADVISOR_MAPPING_CUSTOM_N_*` env vars; `.advisor.yml` is the obvious place for a
 `mappings:` list and `mapping search --slug` already drops files into `.advisor/mappings/`.
+
+## Documentation re-read (2026-10-21, techdocs 1.7 pages dated 2026-10-20)
+
+**Largely addressed by documented features we had not used.** `SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH`
+accepts a **folder**: *"all `.json` files inside that folder"* are loaded, optionally with a `global.json`
+for `rewriteArtifacts`/`initRecipes`. Verified on worktree C: one variable pointing at a folder with
+the seven curated files gives the same 24-project plan and the same seven blockers as the seven
+ordered variables ([`evidence-1.7.1/C-folder-mode-and-outdated-mapping-probe.log`](evidence-1.7.1/C-folder-mode-and-outdated-mapping-probe.log)).
+Mapping sources can also be a Git repository (`…_GIT_URI/_GIT_TOKEN/_GIT_PATH/_GIT_BRANCH`) or
+JFrog Artifactory (`…_ARTIFACTORY_URI/_TOKEN/_REPOSITORY/_GAV`), which is the centrally-managed
+model the kit assumed did not exist. Remaining gap: the merge strategy is still per *source*, so an
+`override` file cannot live in the same folder as full mappings, and nothing in the repository
+declares the wiring (`.advisor.yml` has `upgrade.ignore`, `upgrade.blocked-versions`, `updates`, and
+`enabled`, but no `mappings`). The kit's `order.txt` + env vars can be replaced by one folder variable
+plus a second source for overrides.
