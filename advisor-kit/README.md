@@ -34,6 +34,7 @@ mappings from the central repository directly, and later from Advisor itself
 | Java 17+ and a Maven build             | `./mvnw -v` in the target repo               |
 | Spring Enterprise Maven credentials    | `<server>` entry in `~/.m2/settings.xml`     |
 | Clean git worktree, on a branch        | `git status`                                 |
+| `python3` (any 3.x) — reads Advisor's `target/.advisor/upgrade-plan.json`; without it the script parses the console text | `python3 --version` |
 
 The kit never contains credentials. Each user configures `~/.m2/settings.xml`.
 

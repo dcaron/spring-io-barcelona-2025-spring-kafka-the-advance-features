@@ -69,4 +69,5 @@ produced one ([`C-upgrade-plan.json`](evidence-1.7.1/C-upgrade-plan.json),
 feeding back: `executionMetadata.exitCode` is **0 / SUCCEEDED** for a plan that was computed only under
 `--accept-no-alignment`, and also for the no-plan outcome produced with every restriction ignored
 (see BUG-10 in `STATUS-1.7.1.md`); and the console still never points at the file. The kit script
-should switch from parsing the plan text to reading this JSON.
+now reads this JSON (`advisor-kit/advisor-upgrade.sh`, `plan_json`) and falls back to the text
+parser only when the report is absent or stale.

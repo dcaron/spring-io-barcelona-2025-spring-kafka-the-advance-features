@@ -30,7 +30,7 @@ without further reading. Full repros and reports live in the source repo
 |------|--------------------------------------------------------------------|---------------------------------------------------------|
 | FR-1 | Ship first-party mappings for Apache Kafka, Confluent, and Avro. The catalog has none (checked with `advisor mapping search`). | The kit ships curated `apache-kafka.json`, `confluent-platform.json`, `avro.json`. |
 | FR-2 | Make `mapping create` family-aware. Per-coordinate runs collapse onto one slug and cannot be co-wired. | The framework team curates family files by hand.        |
-| FR-3 | Add machine-readable plan output (`--format=json`).                | The script parses the human-readable plan text.         |
+| FR-3 | Add machine-readable plan output (`--format=json`).                | Largely delivered in 1.7.0 as `target/.advisor/upgrade-plan.json` (documented 2026-10-20). The script now reads it (steps, blocked upgrades, unmapped coordinates, exit status) and only parses the console text on Advisor 1.6.x or without `python3`. |
 | FR-4 | Replace the ordered env vars with a declarative mapping config file. | `mappings/order.txt` is the kit's own manifest; the script derives the env vars. |
 
 ## Version note

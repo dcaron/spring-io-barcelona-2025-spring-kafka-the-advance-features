@@ -15,6 +15,10 @@
 #   5. Loop: `advisor upgrade-plan get` -> `advisor upgrade-plan apply`
 #      -> build check, until the plan converges or --max-steps is reached.
 #      Missing mappings for blocked dependencies are auto-created and wired.
+#      The plan is read from the machine-readable report Advisor 1.7.x writes
+#      (target/.advisor/upgrade-plan.json: steps, blockedUpgrades,
+#      excludedProjects, executionMetadata); the console text is only parsed
+#      when that report is absent or stale (Advisor 1.6.x, or no python3).
 #
 # IMPORTANT: plain `apply` never applies on this class of project: on Advisor 1.6.x it
 # no-ops forever (BUG-1), on 1.7.x it refuses with a blocker list (exit 50). Use --force to run
@@ -311,25 +315,123 @@ ok "build-config generated."
 # 5. Upgrade loop
 # ---------------------------------------------------------------------------
 
-# Heuristic: does the `upgrade-plan get` output contain an actionable upgrade?
+# --- Reading the plan ---------------------------------------------------------
 #
-# advisor lists concrete upgrades under "Projects discovered:" as lines like
+# Advisor 1.7.x writes a machine-readable report after every `upgrade-plan get`
+# and `apply`: <build dir>/.advisor/upgrade-plan.json (Maven: target/). It has
+#   steps[]            — the plan; each step lists projectUpgrades (from -> upgradeTo)
+#   blockedUpgrades[]  — upgrades not planned, with the blockerProjects
+#   excludedProjects[] — coordinates with NO mapping (direct and transitive),
+#                        each with the projects it drags out of the plan (BUG-9)
+#   executionMetadata  — {exitCode, status}
+# We prefer it over the console text: the text changed between 1.6.x and
+# 1.7.0, hides which projects an unmapped transitive excluded, and needs two
+# indentation-specific parsers. The text parsers below remain the fallback
+# for Advisor 1.6.x (no report), a stale report, or a host without python3.
+PLAN_REPORT="${TARGET_DIR}/target/.advisor/upgrade-plan.json"
+PLAN_JSON_TOOL=""
+command -v python3 >/dev/null 2>&1 && PLAN_JSON_TOOL="python3"
+PLAN_SOURCE="text"      # json | text — decided after every `upgrade-plan get`
+PLAN_JSON_WARNED=0
+
+# Query the JSON report. Modes:
+#   actionable — exit 0 if at least one step with upgrades exists
+#   steps      — one line per planned upgrade ("step N: project from -> to")
+#   blocked    — one coordinate per line (excludedProjects: no mapping)
+#   blockers   — one line per blocked upgrade and who blocks it
+#   sig        — stable one-line-per-upgrade form, for stuck detection
+#   status     — "<exitCode> <status>" from executionMetadata
+# Exit 2 when there is no usable report.
+plan_json() {
+  local mode="$1"
+  [[ -n "${PLAN_JSON_TOOL}" && -f "${PLAN_REPORT}" ]] || return 2
+  "${PLAN_JSON_TOOL}" - "${mode}" "${PLAN_REPORT}" <<'PY' 2>/dev/null
+import json, sys
+mode, path = sys.argv[1], sys.argv[2]
+try:
+    d = json.load(open(path))
+except Exception:
+    sys.exit(2)
+steps = d.get("steps") or []
+def upgrades():
+    for i, s in enumerate(steps, 1):
+        for u in s.get("projectUpgrades") or []:
+            to = u.get("upgradeTo") or {}
+            yield i, u.get("projectFrom", "?"), u.get("versionFrom", "?"), to.get("projectFrom", "?"), to.get("versionFrom", "?")
+if mode == "actionable":
+    sys.exit(0 if any(True for _ in upgrades()) else 1)
+elif mode == "steps":
+    for i, pf, vf, pt, vt in upgrades():
+        arrow = f"{pf} {vf} -> {vt}" if pf == pt else f"{pf} {vf} -> {pt} {vt} (migration)"
+        print(f"step {i}: {arrow}")
+elif mode == "blocked":
+    for e in d.get("excludedProjects") or []:
+        c = e.get("project", "")
+        if c: print(c)
+elif mode == "blockers":
+    for b in d.get("blockedUpgrades") or []:
+        who = ", ".join(f"{x.get('project')}:{x.get('version')}" for x in (b.get("blockerProjects") or []))
+        print(f"{b.get('project')} {b.get('version')} -> {b.get('targetVersion')}: {who or '(no blocker named)'}")
+elif mode == "sig":
+    for i, pf, vf, pt, vt in upgrades():
+        print(f"{pf}:{vf}>{pt}:{vt}")
+elif mode == "status":
+    m = d.get("executionMetadata") or {}
+    print(f"{m.get('exitCode', '?')} {m.get('status', '?')}")
+else:
+    sys.exit(2)
+PY
+}
+
+# Decide where this iteration's plan comes from: the JSON report if it was
+# (re)written by the `upgrade-plan get` we just ran and parses, else the text.
+select_plan_source() {
+  local marker="$1"
+  PLAN_SOURCE="text"
+  if [[ -n "${PLAN_JSON_TOOL}" && -f "${PLAN_REPORT}" && "${PLAN_REPORT}" -nt "${marker}" ]] \
+     && plan_json status >/dev/null; then
+    PLAN_SOURCE="json"
+    return 0
+  fi
+  if [[ "${PLAN_JSON_WARNED}" -eq 0 ]]; then
+    if [[ -z "${PLAN_JSON_TOOL}" ]]; then
+      warn "python3 not found — falling back to parsing the console plan text."
+    elif [[ ! -f "${PLAN_REPORT}" ]]; then
+      warn "No ${PLAN_REPORT#${TARGET_DIR}/} written (Advisor 1.6.x?) — parsing the console plan text."
+    else
+      warn "${PLAN_REPORT#${TARGET_DIR}/} is stale or unreadable — parsing the console plan text."
+    fi
+    PLAN_JSON_WARNED=1
+  fi
+  return 1
+}
+
+# Text fallback. advisor lists concrete upgrades under "Projects discovered:" as
 #   - micrometer-context-propagation: 1.1.x → 1.2.x
-# (the arrow is a Unicode "→"; older/other output may use "->"). The rest of
-# the output — the "… could not be included …/blocking upgrades for:" section —
-# is always present boilerplate that mentions "upgrade" and version-ish tokens,
-# so we must NOT key on those. We key strictly on a "version → version" line:
-# its absence means nothing is left to apply (only blocked transitives remain).
-plan_is_actionable() {
+# (Unicode "→"; older output may use "->"). The blocked/boilerplate sections
+# also mention "upgrade" and version-ish tokens, so key strictly on a
+# "version → version" line — and on 1.7.x on the explicit plan/no-plan markers.
+plan_text_is_actionable() {
   local plan_output="$1"
   [[ -n "${plan_output}" ]] || return 1
-  # 1.7.0 prints "Projects discovered: … 1.1.x → 1.2.x" lines even when it then refuses
-  # to plan ("No upgrade plan available", exit 10/50), so an arrow alone is not enough.
   grep -qE 'No upgrade plan available|There are no upgrade plans' <<<"${plan_output}" && return 1
   grep -qE 'Upgrade Plan for your Dependencies' <<<"${plan_output}" && return 0
   grep -qE '[0-9]+\.[0-9]+\.[0-9xX]+[[:space:]]*(→|->|=>)[[:space:]]*[0-9]+\.[0-9]+\.[0-9xX]+' <<<"${plan_output}" \
     && return 0
   return 1
+}
+
+# Does the current plan contain an actionable upgrade? JSON first, text fallback.
+plan_is_actionable() {
+  if [[ "${PLAN_SOURCE}" == "json" ]]; then plan_json actionable; return; fi
+  plan_text_is_actionable "$1"
+}
+
+# Stable signature of the planned upgrades, to detect a plan that recurs
+# unchanged after an apply that changed no files.
+plan_signature() {
+  if [[ "${PLAN_SOURCE}" == "json" ]]; then plan_json sig | sort -u | cksum; return; fi
+  printf '%s\n' "$1" | grep -E '(→|->|=>)' | sort -u | cksum || true
 }
 
 # Snapshot of tracked changes, to detect whether an apply actually did anything.
@@ -518,6 +620,13 @@ unset _m _mf
 # Print the blocked coordinates found in the given plan text (one per line).
 # Always succeeds (grep finding nothing is normal, not an error).
 extract_blocked_coords() {
+  # JSON report (1.7.x): excludedProjects[].project lists every coordinate
+  # without a mapping, direct or transitive.
+  if [[ "${PLAN_SOURCE}" == "json" ]]; then
+    plan_json blocked | sort -u || true
+    return 0
+  fi
+  # Text fallback.
   # 1.6.x: "\t- group:artifact" under "Please request your administrator…".
   # 1.7.0: "\t- group:artifact" under "Add upgrade mappings for these dependencies:"
   #        AND "      - group:artifact" (six spaces) under "There are no upgrade
@@ -611,19 +720,40 @@ while :; do
   # the plain plan is routinely refused on 1.7.0 (exit 50 with a blocker list).
   plan_args=(); [[ "${FORCE_MODE}" -eq 1 ]] && plan_args=(--accept-no-alignment)
   plan_rc=0
+  plan_marker="$(mktemp)"
   plan_output="$(advisor upgrade-plan get "${plan_args[@]}" 2>&1)" || plan_rc=$?
+  select_plan_source "${plan_marker}" || true
+  rm -f "${plan_marker}"
   case "${plan_rc}" in
     0) ;;
     10) warn "  advisor exit 10: dependencies without an upgrade mapping are present (listed below if any)." ;;
     50) warn "  advisor exit 50: plan refused — blocker summary:"
-        printf '%s\n' "${plan_output}" | sed -n '/blocker projects/,/Warnings/p' | grep -E '^\s+\*' | sed 's/^/   /' || true ;;
+        if [[ "${PLAN_SOURCE}" == "json" ]]; then
+          plan_json blockers | sed 's/^/   * /' || true
+        else
+          printf '%s\n' "${plan_output}" | sed -n '/blocker projects/,/Warnings/p' | grep -E '^\s+\*' | sed 's/^/   /' || true
+        fi ;;
     *)  warn "  advisor upgrade-plan get exited ${plan_rc}" ;;
   esac
 
-  # Condensed view: the actionable "→" upgrades, plus how many deps are blocked.
-  printf '%s\n' "${plan_output}" | grep -E 'Projects (discovered|to upgrade):|(→|->|=>)' | sed 's/^/  /' || true
+  # Condensed view of the plan.
+  if [[ "${PLAN_SOURCE}" == "json" ]]; then
+    info "  (plan read from ${PLAN_REPORT#${TARGET_DIR}/}: $(plan_json status))"
+    plan_json steps | sed 's/^/  /' || true
+  else
+    printf '%s\n' "${plan_output}" | grep -E 'Projects (discovered|to upgrade):|(→|->|=>)' | sed 's/^/  /' || true
+  fi
   blocked_now="$(extract_blocked_coords "${plan_output}" | tr '\n' ' ' || true)"
   [[ -n "${blocked_now// /}" ]] && info "  blocked (no upgrade configured): ${blocked_now}"
+
+  # BUG-10: exit 0 with no step but pending blocked upgrades — advisor withheld
+  # the plan (alignment conflicts) and reported success anyway.
+  if [[ "${PLAN_SOURCE}" == "json" && "${plan_rc}" -eq 0 ]] && ! plan_json actionable \
+     && [[ -n "$(plan_json blockers | head -1)" ]]; then
+    warn "  advisor exit 0 but the report has no step and these upgrades are still blocked (BUG-10):"
+    plan_json blockers | sed 's/^/   * /' || true
+    [[ "${FORCE_MODE}" -eq 1 ]] || warn "  Re-run with --force to plan with --accept-no-alignment."
+  fi
 
   # Self-heal: create mappings for any not-yet-tried blocked dependency, then
   # regenerate the build config and re-plan with the new mappings in place.
@@ -635,13 +765,18 @@ while :; do
   fi
 
   if ! plan_is_actionable "${plan_output}"; then
-    ok "No further upgrades to apply — the repository is upgraded as far as the available mappings allow."
+    if [[ "${PLAN_SOURCE}" == "json" && -n "$(plan_json blockers | head -1)" ]]; then
+      warn "No applicable step: $(plan_json blockers | wc -l | tr -d ' ') upgrade(s) are blocked (listed above)."
+      [[ "${FORCE_MODE}" -eq 1 ]] || warn "Re-run with --force to plan with --accept-no-alignment, or ignore the restrictions in .advisor.yml (see docs/known-issues.md, BUG-10)."
+    else
+      ok "No further upgrades to apply — the repository is upgraded as far as the available mappings allow."
+    fi
     break
   fi
 
   # Signature of the actionable upgrades in this plan, to detect a plan that
   # keeps recurring unchanged after an apply that changes no files (stuck).
-  action_sig="$(printf '%s\n' "${plan_output}" | grep -E '(→|->|=>)' | sort -u | cksum || true)"
+  action_sig="$(plan_signature "${plan_output}")"
   if [[ -n "${stuck_sig:-}" && "${action_sig}" == "${stuck_sig}" ]]; then
     if [[ "${FORCE_MODE}" -eq 1 ]]; then
       ok "Converged: the forced apply no longer changes any file for this plan."
@@ -679,6 +814,8 @@ while :; do
     die "advisor upgrade-plan apply failed on step ${step}. Review output above; fix and re-run."
   fi
   sig_after="$(worktree_signature)"
+  # apply rewrites the report; its executionMetadata is the authoritative outcome.
+  [[ "${PLAN_SOURCE}" == "json" ]] && info "  advisor reports: $(plan_json status 2>/dev/null || echo 'n/a')"
 
   if [[ "${HAVE_GIT}" -eq 1 && "${sig_before}" == "${sig_after}" ]]; then
     warn "This step changed no files (BOM-managed or no-op). Re-planning to check for further steps…"

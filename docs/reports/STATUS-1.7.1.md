@@ -117,7 +117,9 @@ before adopting, or use `--skip-transitive-deps`.
 
 - File BUG-7/8/9/10 with Broadcom; for BUG-9 attach the release-note quote and the JSON
   `excludedProjects` capture. Ticket draft: `docs/advisor-support-ticket.md`.
-- Kit: read `target/.advisor/upgrade-plan.json` instead of parsing console text; ship a
+- Kit: ~~read `target/.advisor/upgrade-plan.json` instead of parsing console text~~ (done 2026-10-21:
+  `plan_json` in `advisor-upgrade.sh`, text parser kept as the 1.6.x fallback; it also flags the
+  BUG-10 state — exit 0, no step, blocked upgrades pending); ship a
   `.advisor.yml` template with the ignore keys for this project (knowing it ends in BUG-10 unless
   `--accept-no-alignment` is also used); keep `spring-boot-jackson3.json` unwired.
 - Worktrees `../adv171-A-guarded` (Boot 4.1.1 + manual fixes, uncommitted), `../adv171-C`, `../adv171-P`
