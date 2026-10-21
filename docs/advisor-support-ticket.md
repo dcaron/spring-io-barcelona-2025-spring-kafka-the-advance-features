@@ -38,6 +38,13 @@ A third defect (1.6.7) affects the mapping-authoring path that leads up to the p
 accepts duplicate-slug mappings while `upgrade-plan get` rejects them** — so the mappings Advisor
 generates cannot be composed into a working plan (Defect 3).
 
+On **1.7.0/1.7.1** three more defects were found on the same project (Defects 4–6, full sections
+below for 6; 4–5 are summarised in the re-verification block): the forced Boot 4.1 step pins every
+starter instead of moving the parent when a `spring-boot` override mapping lacks the target
+generation (4), one unmapped *transitive* dependency hides the whole plan — contrary to the 1.7.0
+release notes (5) — and the new `.advisor.yml` `upgrade.ignore` mechanism, followed to the end,
+yields **no plan with exit code 0 and a `SUCCEEDED` JSON report** (6).
+
 ## Severity / impact
 
 High. On the default incremental path the automated upgrade **cannot produce source changes**
@@ -299,6 +306,114 @@ in the reproduction repo under `.advisor/mappings-generated-1.6.7/`.
 
 ---
 
+## Defect 6 — `.advisor.yml` `upgrade.ignore`: with every restriction ignored, `upgrade-plan get` prints "No upgrade plan available", exits **0**, and the JSON report says `SUCCEEDED` with an empty plan (1.7.1; feature introduced in 1.7.0)
+
+### What happens
+
+Project: the reproduction repo at Boot **4.1.1** (`advisor` branch, commit `5fbf01a`), seven custom
+mappings wired. The plain plan is refused with seven blockers (exit 50):
+
+```console
+$ advisor upgrade-plan get
+Projects discovered: … 24 projects, 8 with an upgrade arrow …
+No upgrade plan available.
+Some upgrades were not included in the upgrade plan.
+Here's a summary of blocker projects and potential actions to take:
+	* apache-commons-lang:3.20.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+	* apache-commons-lang:3.20.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-io > 2.15.x
+	* commons-beanutils:1.11.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+	* commons-validator:1.10.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-collections > 3.2.x
+	* confluent:8.3.x needs an upgrade or migration defined in the upgrade mappings to upgrade apache-commons-compress > 1.26.x
+	* jackson:2.17.x needs an upgrade or migration defined in the upgrade mappings to upgrade jackson-annotations > 2.17.x
+	* spring-boot:4.1.x needs an upgrade or migration defined in the upgrade mappings to upgrade xmlunit > 2.11.x
+exit=50
+```
+
+Following the 1.7.0 release note *"Ignore a project restriction that blocks an upgrade"* (docs:
+`upgrade-plan.html#ignore-blockers` — *"Each key is the mapping slug of the project whose restriction
+you want to ignore"*), we added a repository-level `.advisor.yml`. Three runs:
+
+1. **Keys = the slug named first in each blocker line** (`jackson`, `commons-beanutils`,
+   `commons-validator`, `confluent`, `spring-boot`, `apache-commons-lang`; `dependencies: "*"`):
+   five blockers disappear, the two `apache-commons-lang` lines remain. Exit 50.
+2. **Keys = the project being restricted** (`apache-commons-io` and `apache-commons-compress` with
+   `dependencies: [apache-commons-lang]`): the two `apache-commons-lang` lines disappear, the other
+   five come back. So the key is the slug whose *mapping declares* the restriction. For blockers of
+   the `lastSupportedVersion` kind (`jackson` pins `jackson-annotations`) that is the slug the
+   console names first; for blockers of the `nextSupportingVersion` kind (`apache-commons-io`
+   requires `apache-commons-lang 3.14.x`, project is on 3.20.x) it is the slug the console names
+   **second**. The console gives no way to tell the two apart, so the ignore key cannot be derived
+   from the blocker line.
+3. **Both keyings combined** (file attached as `C-ignore-probe-3.advisor.yml`):
+
+```console
+$ advisor upgrade-plan get
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details ok
+Projects discovered:
+	- jackson-annotations: 2.17.x → 2.22.x
+	- commons-validator: 1.10.x → 1.11.x
+	- apache-commons-io: 2.15.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- xmlunit: 2.11.x → 2.13.x
+	- jackson: 2.17.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- kafka: 4.2.x → 4.3.x
+	… 16 projects "(no upgrades available)" …
+No upgrade plan available.
+⚠️  Warnings:
+	- There is an error in jackson-annotations, several versions are used simultaneously: …
+	- There is an error in apache-commons-lang, several versions are used simultaneously: …
+	- There is an error in apache-commons-io, several versions are used simultaneously: …
+	- There is an error in jackson, several versions are used simultaneously: …
+Upgrade Plan was calculated with ignored restrictions.
+Please report these problems to support.broadcom.com
+exit=0
+```
+
+`target/.advisor/upgrade-plan.json` for that run:
+
+```json
+"executionMetadata": { "exitCode": 0, "status": "SUCCEEDED" },
+"steps": [],
+"blockedUpgrades": [
+  { "project": "jackson-annotations", "version": "2.17.x", "targetVersion": "2.18.x", "blockerProjects": [], "excludedArtifacts": [] },
+  { "project": "commons-validator",   "version": "1.10.x", "targetVersion": "1.11.x", "blockerProjects": [], "excludedArtifacts": [] },
+  … 6 more, all with "blockerProjects": [] …
+]
+```
+
+Eight upgrades are "blocked" by nothing, no step is planned, and the exit code and status say
+success. The same `.advisor.yml` with `--accept-no-alignment` produces the one-step plan (those
+eight upgrades, exit 0); with `-f` or `--squash-all` the result is the same empty plan. What still
+withholds the plan is therefore the dependency-alignment state (the *"several versions are used
+simultaneously"* warnings), which no console line and no exit code in the documented table
+(0/10/50/60/70) reports.
+
+Verified on **1.7.1** (recipes 1.7.6) on 2026-10-21; the ignore feature is 1.7.0's. Evidence:
+`docs/reports/evidence-1.7.1/C-ignore-probe.log`, `C-ignore-probe-2.log`, `C-ignore-probe-3.log`,
+`C-ignore-probe-3.advisor.yml`, `C-ignore-probe-3b-flags.log`; report `docs/reports/BUG-10-…`.
+
+### Why it matters
+
+The exit codes and the JSON report were introduced (1.7.0 release notes) *"to build CI/CD pipeline
+automation that branches on the specific outcome, instead of parsing console output"*. A pipeline
+that follows the documented path — ignore the restrictions it has reviewed, then branch on the exit
+code or on `executionMetadata.status` — concludes **"nothing to upgrade"** on a project with eight
+pending upgrades. The console gives the human the same wrong impression.
+
+### Expected
+
+- When the plan is withheld only because of alignment conflicts, say so — *"plan withheld:
+  dependency conflicts; re-run with `--accept-no-alignment` or resolve …"* — and exit **50** (or a
+  dedicated code), never 0 with `steps: []`.
+- `blockedUpgrades[].blockerProjects` must name what blocks the upgrade, or the entry must not exist.
+- Print the ignore key next to each blocker line (e.g. *"ignore with
+  `upgrade.ignore.apache-commons-io.dependencies: [apache-commons-lang]`"*), so the key does not
+  have to be guessed from the direction of the restriction.
+
+---
+
 ## Attachments to include when filing
 
 - The full `.advisor/errors/<timestamp>.log` from a `--accept-no-alignment` run (contains the failing
@@ -307,3 +422,10 @@ in the reproduction repo under `.advisor/mappings-generated-1.6.7/`.
 - This project's `docs/advisor-improvements.md` §4.9 and §4.10 (fuller analysis and additional
   advisor UX findings), and §1c plus `.advisor/mappings-generated-1.6.7/README.md` for Defect 3
   (the generated mappings and load-test logs).
+- For Defects 4–6 (1.7.x): `docs/reports/evidence-1.7.0/` and `docs/reports/evidence-1.7.1/` (raw
+  console captures, `upgrade-plan.json` files, diffs), `docs/reports/BUG-8-…`, `BUG-9-…`, `BUG-10-…`,
+  and `docs/reports/STATUS-1.7.1.md`. For Defect 6 specifically: the three `C-ignore-probe*.log`
+  files, `C-ignore-probe-3.advisor.yml`, `C-ignore-probe-3b-flags.log`, and the release-note /
+  docs quotes in `docs/reports/release-notes-1.7.x.txt`. For Defect 5: the release-note sentence
+  *"Only missing mappings for your direct dependencies block the plan"* next to
+  `evidence-1.7.1/A-bug9-probe-no-zookeeper.log` and `A-bug9-probe-upgrade-plan.json`.
