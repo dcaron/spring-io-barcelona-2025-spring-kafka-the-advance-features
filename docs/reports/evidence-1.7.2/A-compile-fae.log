@@ -1,0 +1,16 @@
+=== A: fail-at-end compile after pass 1 (Version: 1.7.2, recipes 1.7.7) Mon Nov 16 12:20:43 CET 2026 ===
+  found:    <nulltype>
+  found:    org.springframework.boot.ssl.SslBundles
+  location: class org.springframework.boot.context.properties.PropertyMapper
+  required: no arguments
+  symbol:   method alwaysApplyingWhenNonNull()
+[ERROR]   found:    <nulltype>
+[ERROR]   found:    org.springframework.boot.ssl.SslBundles
+[ERROR]   location: class org.springframework.boot.context.properties.PropertyMapper
+[ERROR]   required: no arguments
+[ERROR]   symbol:   method alwaysApplyingWhenNonNull()
+[ERROR] /Users/dcaron/Documents/src/adv172-A-guarded/blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java:[90,27] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv172-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[39,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv172-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java:[59,62] method buildConsumerProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv172-A-guarded/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java:[94,78] method buildProperties in class org.springframework.boot.kafka.autoconfigure.KafkaProperties.Consumer cannot be applied to given types;
+[ERROR] /Users/dcaron/Documents/src/adv172-A-guarded/multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java:[61,50] cannot find symbol

@@ -82,3 +82,20 @@ BOM, no literal in any pom). The docs describe such entries as *"needs a migrati
 mappings do not define"*; what they actually are is "nothing to rewrite in this repository". Reporting
 them that way (and not as upgrades under *Projects discovered*) would close the last confusing output
 of this defect.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Changed — the 1.7.0 improvement is gone for this fixture, the forced-path no-op is unchanged.**
+1.7.2's catalog now ships an `apache-commons-beanutils` mapping. It takes over the
+`commons-beanutils:commons-beanutils` coordinate from the wired custom `commons-beanutils.json` without
+any notice (the slug differs, the coordinates overlap; *Projects discovered* now says
+`apache-commons-beanutils: 1.9.x → 1.11.x`). With that mapping the plain `get` prints *"No upgrade
+plan available"* with **no blocker summary** and exits **0** (1.7.1: blocker line, exit 50); every
+`apply` prints *"There are no upgrade plans for the provided build configuration"*, exit 0, 0 files
+(`transcript-1.7.2.txt`). `target/.advisor/upgrade-plan.json` says `SUCCEEDED`, `steps: []`, and two
+`blockedUpgrades` with empty `blockerProjects` (collections 3.2.x → 4.0.x, beanutils 1.9.x → 1.10.x) —
+exactly the BUG-10 shape, now without any `.advisor.yml`. `get -f` is identical;
+`apply --accept-no-alignment` still "successfully applies" a two-item step and changes nothing
+(`probe-force-1.7.2.txt`). On the real project the forced step on Boot 4.1.1 HEAD now does change
+files (the project-managed commons-io/commons-compress versions, `evidence-1.7.2/C-force-pom-changes.diff`),
+and the follow-up 7-item step is the familiar 0-file "success".

@@ -126,3 +126,18 @@ mapping"*, and its coverage page lists nothing for Apache Kafka, Confluent, Avro
 its next hand-maintained generation. BUG-9 (one unmapped transitive hides the whole plan) is
 unchanged on 1.7.1, and now contradicts the 1.7.0 release note that says only *direct* unmapped
 dependencies block the plan — which makes a first-party Kafka family mapping more urgent, not less.
+
+## Status on Advisor 1.7.2 (verified 2026-11-16)
+
+Still needed. 1.7.2 (recipes 1.7.7; no release notes or coverage page published by 2026-11-16) grew the
+catalog to 212 slugs — enumerated in full with `mapping search --prefix`
+(`docs/reports/evidence-1.7.2/catalog-slugs-1.7.2.txt`): 30 slugs are new against the 1.7.1 coverage
+page (`apache-commons-beanutils`, `dropwizard-metrics`, `junit-jupiter`/`junit-vintage`, `groovy`,
+`mvnw`/`gradlew`, three `mcp*` slugs, 18 `spring-*` projects), **none** for Apache Kafka, Confluent,
+Avro or Zookeeper. Repro 07 therefore still blocks on the Kafka module family (15 unmapped transitives,
+one fewer than before because `commons-beanutils` is now covered). Two 1.7.2 changes touch this ticket
+directly: `mapping create` now derives the slug `org.apache.kafka` for `kafka_2.13` (the hidden-file bug
+is fixed) while sibling modules still get `kafka`, so the generator cannot produce a consistent family
+by itself; and a catalog slug now silently supersedes a wired custom mapping for the same coordinate —
+the day Broadcom ships a Kafka mapping under another slug, the curated `apache-kafka.json` will be
+displaced without notice. A first-party family mapping, published under a known slug, is the fix for both.

@@ -70,3 +70,18 @@ defined: [demo]"* only in the log). `transcript-1.7.0.txt`, `error-stacktrace-1.
 **Unchanged** — transcript identical to 1.7.0 modulo timings; `mapping create` still crashes with
 *"Some projects were already defined: [demo]"* visible only in the error log
 (`transcript-1.7.1.txt`, `error-stacktrace-1.7.1.log`).
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Partially fixed — the message, not the inconsistency.** `upgrade-plan get` now rejects the second
+same-slug file with a specific, actionable message: *"Slug(s) demo are already defined by another mapping
+source. To replace the existing definition, set 'merge-strategy' to 'OVERRIDE' for this custom mapping
+source. To keep both definitions, rename the slug in this file and verify that they do not share
+coordinates."* (1.7.1: *"Failed to load the mapping source. Please verify the source configuration."*).
+The crash in `mapping create` is unchanged apart from a typed exception
+(`com.vmware.tanzu.spring.advisor.exceptions.DuplicateMappingSlugException: Some projects were already
+defined: [demo]`, still only in the error log), and `build-config get` still accepts the pair silently
+(`transcript-1.7.2.txt`, `error-stacktrace-1.7.2.log`). Following the new hint works: with
+`SPRING_ADVISOR_MAPPING_CUSTOM_1_MERGE_STRATEGY=override` the plan is computed (`demo 1.10.x → 1.12.x`)
+and `mapping create` no longer crashes (`probe-override-1.7.2.txt`). Remaining ask: the same validation
+in all three commands, and the root cause on the console for `mapping create`.

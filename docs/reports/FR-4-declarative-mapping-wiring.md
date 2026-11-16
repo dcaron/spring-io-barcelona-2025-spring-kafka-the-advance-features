@@ -76,3 +76,10 @@ model the kit assumed did not exist. Remaining gap: the merge strategy is still 
 declares the wiring (`.advisor.yml` has `upgrade.ignore`, `upgrade.blocked-versions`, `updates`, and
 `enabled`, but no `mappings`). The kit's `order.txt` + env vars can be replaced by one folder variable
 plus a second source for overrides.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged.** CLI surface byte-identical to 1.7.1 (`cli-surface-1.7.2.txt`); `.advisor.yml` still has
+no `mappings:` section. One more reason to want declared wiring: on 1.7.2 a catalog mapping
+(`apache-commons-beanutils`) silently supersedes a wired custom mapping with the same coordinates and a
+different slug — nothing reports the overlap (`repros/01/transcript-1.7.2.txt`).

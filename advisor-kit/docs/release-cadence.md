@@ -105,7 +105,13 @@ mappings reach the apps changes over time:
    On 1.7.1 (a mappings-only patch release) it took half a day, found nothing
    changed, and found one defect in a 1.7.0 feature the late release notes
    had just revealed (BUG-10). Read the release notes and the coverage page
-   first — they now exist (`docs/reports/release-notes-1.7.x.txt`).
+   first — they now exist (`docs/reports/release-notes-1.7.x.txt`). On 1.7.2
+   (2026-11-16, recipes 1.7.7, no release notes published) the re-run took
+   half a day again: one defect fixed (BUG-4), one half fixed (BUG-3), the
+   catalog grew by 30 slugs — and a new catalog slug silently superseded one
+   of the kit's custom mappings (`commons-beanutils`), so diff the catalog
+   (`mapping search --prefix`) against `mappings/` on every release. One new
+   defect in `patch apply` (BUG-11).
 8. Framework/library module additions need mapping updates. Kafka 4 added
    `kafka-share-coordinator`, `kafka-coordinator-common`, `kafka-transaction-coordinator`,
    `kafka-test-common-*`; Confluent 8 added `kafka-avro-types`, `kafka-schema-types`.

@@ -1,0 +1,194 @@
+=== C: kit --force -y (advisor HEAD 77fac2c, Boot 4.1.1) Version: 1.7.2 started Mon Nov 16 12:16:09 CET 2026 ===
+
+========== Preflight ==========
+Target repo: /Users/dcaron/Documents/src/adv172-C
+Kit:         /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit
+Spring Application Advisor: 1.7.2
+✅ advisor version looks good (kit verified on 1.7.0 and 1.7.1)
+✅ Maven wrapper present
+✅ No unguarded rewrite-maven-plugin in the reactor.
+
+========== Syncing kit mappings ==========
+  kept existing apache-kafka.json
+  kept existing avro.json
+  kept existing confluent-platform.json
+  kept existing javafaker.json
+  kept existing spring-boot-jackson3.json
+  kept existing zookeeper.json
+  kept existing order.txt
+
+========== Wiring custom mappings into advisor ==========
+Manifest: .advisor/mappings/order.txt
+  SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/javafaker.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/avro.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/apache-kafka.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/confluent-platform.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/zookeeper.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/commons-beanutils.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_6_FILEPATH=.advisor/mappings/commons-validator.json
+✅ Configured 7 custom mapping(s).
+
+========== Generating build configuration ==========
+$ advisor build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/adv172-C.
+
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 11s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s]🏃 [ 3 / 7 ] Resolving JDK version [00m 04s]🏃 [ 3 / 7 ] Resolving JDK version [00m 05s]🏃 [ 3 / 7 ] Resolving JDK version [00m 06s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 04s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv172-C/target/.advisor/build-config.json
+✅ build-config generated.
+
+========== Upgrade plan ==========
+
+--- Reading upgrade plan (applied: 0, mappings created: 0) ---
+  (plan read from target/.advisor/upgrade-plan.json: 0 SUCCEEDED)
+  step 1: kafka 4.2.x -> 4.3.x
+  step 1: jackson-annotations 2.21.x -> 2.22.x
+  step 1: commons-validator 1.10.x -> 1.11.x
+  step 1: apache-commons-io 2.16.x -> 2.22.x
+  step 1: apache-commons-collections 3.2.x -> 4.5.x
+  step 1: dropwizard-metrics 2.2.x -> 5.0.x
+  step 1: xmlunit 2.11.x -> 2.13.x
+  step 1: jackson 2.21.x -> 3.2.x
+  step 1: apache-commons-compress 1.26.x -> 1.28.x
+
+========== Applying upgrade step 1 ==========
+$ advisor upgrade-plan apply --accept-no-alignment
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 10s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 11s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 12s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 14s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 15s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 16s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 17s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 18s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 19s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 20s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 21s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 22s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+⚠️  Warnings:
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.21.5
+		- com.fasterxml.jackson.core:jackson-databind:2.21.5
+		- tools.jackson.core:jackson-databind:3.1.5
+		- tools.jackson.core:jackson-core:3.1.5
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.5
+Please report these problems to support.broadcom.com
+
+
+Projects to upgrade:
+	* kafka from 4.2.x to 4.3.x
+	* jackson-annotations from 2.21.x to 2.22.x
+	* commons-validator from 1.10.x to 1.11.x
+	* apache-commons-io from 2.16.x to 2.22.x
+	* apache-commons-collections from 3.2.x to 4.5.x
+	* dropwizard-metrics from 2.2.x to 5.0.x
+	* xmlunit from 2.11.x to 2.13.x
+	* jackson from 2.21.x to 3.2.x
+	* apache-commons-compress from 1.26.x to 1.28.x
+
+🔨 [ 4 / 4 ] Upgrading sources... [00m 00s]🔨 [ 4 / 4 ] Upgrading sources... [00m 01s]🔨 [ 4 / 4 ] Upgrading sources... [00m 02s]🔨 [ 4 / 4 ] Upgrading sources... [00m 03s]🔨 [ 4 / 4 ] Upgrading sources... [00m 04s]🔨 [ 4 / 4 ] Upgrading sources... [00m 05s]🔨 [ 4 / 4 ] Upgrading sources... [00m 06s]🔨 [ 4 / 4 ] Upgrading sources... [00m 07s]🔨 [ 4 / 4 ] Upgrading sources... [00m 08s]🔨 [ 4 / 4 ] Upgrading sources... [00m 09s]🔨 [ 4 / 4 ] Upgrading sources... [00m 10s]🔨 [ 4 / 4 ] Upgrading sources... [00m 11s]🔨 [ 4 / 4 ] Upgrading sources... [00m 12s]🔨 [ 4 / 4 ] Upgrading sources... [00m 13s]🔨 [ 4 / 4 ] Upgrading sources... [00m 14s]🔨 [ 4 / 4 ] Upgrading sources... [00m 15s]🔨 [ 4 / 4 ] Upgrading sources... [00m 16s]🔨 [ 4 / 4 ] Upgrading sources... [00m 17s]🔨 [ 4 / 4 ] Upgrading sources... [00m 18s]🔨 [ 4 / 4 ] Upgrading sources... [00m 19s]🔨 [ 4 / 4 ] Upgrading sources... [00m 20s]🔨 [ 4 / 4 ] Upgrading sources... [00m 21s]🔨 [ 4 / 4 ] Upgrading sources... [00m 22s]🔨 [ 4 / 4 ] Upgrading sources... [00m 23s]🔨 [ 4 / 4 ] Upgrading sources... [00m 24s]🔨 [ 4 / 4 ] Upgrading sources... [00m 25s]🔨 [ 4 / 4 ] Upgrading sources... [00m 26s]🔨 [ 4 / 4 ] Upgrading sources... [00m 27s]🔨 [ 4 / 4 ] Upgrading sources... [00m 28s]🔨 [ 4 / 4 ] Upgrading sources... [00m 29s]🔨 [ 4 / 4 ] Upgrading sources... [00m 30s]🔨 [ 4 / 4 ] Upgrading sources... [00m 31s]🔨 [ 4 / 4 ] Upgrading sources... [00m 32s]🔨 [ 4 / 4 ] Upgrading sources... [00m 33s]🔨 [ 4 / 4 ] Upgrading sources... [00m 34s]🔨 [ 4 / 4 ] Upgrading sources... [00m 35s]🔨 [ 4 / 4 ] Upgrading sources... [00m 36s]🔨 [ 4 / 4 ] Upgrading sources... [00m 37s]🔨 [ 4 / 4 ] Upgrading sources... [00m 38s]🔨 [ 4 / 4 ] Upgrading sources... [00m 39s]🔨 [ 4 / 4 ] Upgrading sources... [00m 40s]🔨 [ 4 / 4 ] Upgrading sources... [00m 41s]🔨 [ 4 / 4 ] Upgrading sources... [00m 42s]🔨 [ 4 / 4 ] Upgrading sources... [00m 43s]🔨 [ 4 / 4 ] Upgrading sources... [00m 44s]🔨 [ 4 / 4 ] Upgrading sources... [00m 45s]🔨 [ 4 / 4 ] Upgrading sources... [00m 46s]🔨 [ 4 / 4 ] Upgrading sources... [00m 47s]🔨 [ 4 / 4 ] Upgrading sources... [00m 48s]🔨 [ 4 / 4 ] Upgrading sources... [00m 49s]🔨 [ 4 / 4 ] Upgrading sources... [00m 50s]🔨 [ 4 / 4 ] Upgrading sources... [00m 51s]🔨 [ 4 / 4 ] Upgrading sources... [00m 52s]🔨 [ 4 / 4 ] Upgrading sources... [00m 53s]🔨 [ 4 / 4 ] Upgrading sources... [00m 54s]🔨 [ 4 / 4 ] Upgrading sources... [00m 55s]🔨 [ 4 / 4 ] Upgrading sources... [00m 56s]🔨 [ 4 / 4 ] Upgrading sources... [00m 57s]🔨 [ 4 / 4 ] Upgrading sources... [00m 58s]🔨 [ 4 / 4 ] Upgrading sources... [00m 59s]🔨 [ 4 / 4 ] Upgrading sources... [01m 00s]🔨 [ 4 / 4 ] Upgrading sources... [01m 01s]🔨 [ 4 / 4 ] Upgrading sources... [01m 02s]🔨 [ 4 / 4 ] Upgrading sources... [01m 03s]🔨 [ 4 / 4 ] Upgrading sources... [01m 04s]🔨 [ 4 / 4 ] Upgrading sources... [01m 05s]🔨 [ 4 / 4 ] Upgrading sources... [01m 06s]🔨 [ 4 / 4 ] Upgrading sources... [01m 07s]🔨 [ 4 / 4 ] Upgrading sources... [01m 08s]🔨 [ 4 / 4 ] Upgrading sources... [01m 09s]🔨 [ 4 / 4 ] Upgrading sources... [01m 10s]🔨 [ 4 / 4 ] Upgrading sources... [01m 11s]🔨 [ 4 / 4 ] Upgrading sources... [01m 12s]🔨 [ 4 / 4 ] Upgrading sources... [01m 13s]🔨 [ 4 / 4 ] Upgrading sources... [01m 14s]🔨 [ 4 / 4 ] Upgrading sources... [01m 15s]🔨 [ 4 / 4 ] Upgrading sources... [01m 16s]🔨 [ 4 / 4 ] Upgrading sources... [01m 17s]🔨 [ 4 / 4 ] Upgrading sources... [01m 18s]🔨 [ 4 / 4 ] Upgrading sources... [01m 19s]🔨 [ 4 / 4 ] Upgrading sources... [01m 20s]🔨 [ 4 / 4 ] Upgrading sources... [01m 21s]🔨 [ 4 / 4 ] Upgrading sources... [01m 22s]🔨 [ 4 / 4 ] Upgrading sources... [01m 23s]🔨 [ 4 / 4 ] Upgrading sources... [01m 24s]🔨 [ 4 / 4 ] Upgrading sources... [01m 25s] ok
+
+👍 Successfully applied upgrade.
+
+
+⚠️  Warnings:
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+  advisor reports: 0 SUCCEEDED
+✅ Step 1 applied.
+
+========== Verifying build after step 1 ==========
+$ /Users/dcaron/Documents/src/adv172-C/mvnw -q -DskipTests install
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.fusesource.jansi.internal.JansiLoader in an unnamed module (file:/Users/dcaron/.m2/wrapper/dists/apache-maven-3.9.9-bin/33b4b2b4/apache-maven-3.9.9/lib/jansi-2.4.1.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper (file:/Users/dcaron/.m2/wrapper/dists/apache-maven-3.9.9-bin/33b4b2b4/apache-maven-3.9.9/lib/guava-33.2.1-jre.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.common.util.concurrent.AbstractFuture$UnsafeAtomicHelper
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+✅ Build check passed after step 1.
+
+--- Reading upgrade plan (applied: 1, mappings created: 0) ---
+  (plan read from target/.advisor/upgrade-plan.json: 0 SUCCEEDED)
+  step 1: kafka 4.2.x -> 4.3.x
+  step 1: jackson-annotations 2.21.x -> 2.22.x
+  step 1: commons-validator 1.10.x -> 1.11.x
+  step 1: apache-commons-collections 3.2.x -> 4.5.x
+  step 1: dropwizard-metrics 2.2.x -> 5.0.x
+  step 1: xmlunit 2.11.x -> 2.13.x
+  step 1: jackson 2.21.x -> 3.2.x
+
+========== Applying upgrade step 2 ==========
+$ advisor upgrade-plan apply --accept-no-alignment
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 10s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 11s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 12s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 14s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 15s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 16s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 17s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 18s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 19s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 20s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 21s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 22s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 23s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+⚠️  Warnings:
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.21.5
+		- com.fasterxml.jackson.core:jackson-databind:2.21.5
+		- tools.jackson.core:jackson-databind:3.1.5
+		- tools.jackson.core:jackson-core:3.1.5
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.5
+Please report these problems to support.broadcom.com
+
+
+Projects to upgrade:
+	* kafka from 4.2.x to 4.3.x
+	* jackson-annotations from 2.21.x to 2.22.x
+	* commons-validator from 1.10.x to 1.11.x
+	* apache-commons-collections from 3.2.x to 4.5.x
+	* dropwizard-metrics from 2.2.x to 5.0.x
+	* xmlunit from 2.11.x to 2.13.x
+	* jackson from 2.21.x to 3.2.x
+
+🔨 [ 4 / 4 ] Upgrading sources... [00m 00s]🔨 [ 4 / 4 ] Upgrading sources... [00m 01s]🔨 [ 4 / 4 ] Upgrading sources... [00m 02s]🔨 [ 4 / 4 ] Upgrading sources... [00m 03s]🔨 [ 4 / 4 ] Upgrading sources... [00m 04s]🔨 [ 4 / 4 ] Upgrading sources... [00m 05s]🔨 [ 4 / 4 ] Upgrading sources... [00m 06s]🔨 [ 4 / 4 ] Upgrading sources... [00m 07s]🔨 [ 4 / 4 ] Upgrading sources... [00m 08s]🔨 [ 4 / 4 ] Upgrading sources... [00m 09s]🔨 [ 4 / 4 ] Upgrading sources... [00m 10s]🔨 [ 4 / 4 ] Upgrading sources... [00m 11s]🔨 [ 4 / 4 ] Upgrading sources... [00m 12s]🔨 [ 4 / 4 ] Upgrading sources... [00m 13s]🔨 [ 4 / 4 ] Upgrading sources... [00m 14s]🔨 [ 4 / 4 ] Upgrading sources... [00m 15s]🔨 [ 4 / 4 ] Upgrading sources... [00m 16s]🔨 [ 4 / 4 ] Upgrading sources... [00m 17s]🔨 [ 4 / 4 ] Upgrading sources... [00m 18s]🔨 [ 4 / 4 ] Upgrading sources... [00m 19s]🔨 [ 4 / 4 ] Upgrading sources... [00m 20s]🔨 [ 4 / 4 ] Upgrading sources... [00m 21s]🔨 [ 4 / 4 ] Upgrading sources... [00m 22s]🔨 [ 4 / 4 ] Upgrading sources... [00m 23s]🔨 [ 4 / 4 ] Upgrading sources... [00m 24s]🔨 [ 4 / 4 ] Upgrading sources... [00m 25s]🔨 [ 4 / 4 ] Upgrading sources... [00m 26s]🔨 [ 4 / 4 ] Upgrading sources... [00m 27s]🔨 [ 4 / 4 ] Upgrading sources... [00m 28s]🔨 [ 4 / 4 ] Upgrading sources... [00m 29s]🔨 [ 4 / 4 ] Upgrading sources... [00m 30s]🔨 [ 4 / 4 ] Upgrading sources... [00m 31s]🔨 [ 4 / 4 ] Upgrading sources... [00m 32s]🔨 [ 4 / 4 ] Upgrading sources... [00m 33s]🔨 [ 4 / 4 ] Upgrading sources... [00m 34s]🔨 [ 4 / 4 ] Upgrading sources... [00m 35s]🔨 [ 4 / 4 ] Upgrading sources... [00m 36s]🔨 [ 4 / 4 ] Upgrading sources... [00m 37s]🔨 [ 4 / 4 ] Upgrading sources... [00m 38s]🔨 [ 4 / 4 ] Upgrading sources... [00m 39s]🔨 [ 4 / 4 ] Upgrading sources... [00m 40s]🔨 [ 4 / 4 ] Upgrading sources... [00m 41s]🔨 [ 4 / 4 ] Upgrading sources... [00m 42s]🔨 [ 4 / 4 ] Upgrading sources... [00m 43s]🔨 [ 4 / 4 ] Upgrading sources... [00m 44s]🔨 [ 4 / 4 ] Upgrading sources... [00m 45s]🔨 [ 4 / 4 ] Upgrading sources... [00m 46s]🔨 [ 4 / 4 ] Upgrading sources... [00m 47s]🔨 [ 4 / 4 ] Upgrading sources... [00m 48s]🔨 [ 4 / 4 ] Upgrading sources... [00m 49s]🔨 [ 4 / 4 ] Upgrading sources... [00m 50s]🔨 [ 4 / 4 ] Upgrading sources... [00m 51s]🔨 [ 4 / 4 ] Upgrading sources... [00m 52s]🔨 [ 4 / 4 ] Upgrading sources... [00m 53s]🔨 [ 4 / 4 ] Upgrading sources... [00m 54s]🔨 [ 4 / 4 ] Upgrading sources... [00m 55s]🔨 [ 4 / 4 ] Upgrading sources... [00m 56s]🔨 [ 4 / 4 ] Upgrading sources... [00m 57s]🔨 [ 4 / 4 ] Upgrading sources... [00m 58s]🔨 [ 4 / 4 ] Upgrading sources... [00m 59s]🔨 [ 4 / 4 ] Upgrading sources... [01m 00s]🔨 [ 4 / 4 ] Upgrading sources... [01m 01s]🔨 [ 4 / 4 ] Upgrading sources... [01m 02s]🔨 [ 4 / 4 ] Upgrading sources... [01m 03s]🔨 [ 4 / 4 ] Upgrading sources... [01m 04s]🔨 [ 4 / 4 ] Upgrading sources... [01m 05s] ok
+
+👍 Successfully applied upgrade.
+
+
+⚠️  Warnings:
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+  advisor reports: 0 SUCCEEDED
+⚠️  This step changed no files (BOM-managed or no-op). Re-planning to check for further steps…
+
+--- Reading upgrade plan (applied: 1, mappings created: 0) ---
+  (plan read from target/.advisor/upgrade-plan.json: 0 SUCCEEDED)
+  step 1: kafka 4.2.x -> 4.3.x
+  step 1: jackson-annotations 2.21.x -> 2.22.x
+  step 1: commons-validator 1.10.x -> 1.11.x
+  step 1: apache-commons-collections 3.2.x -> 4.5.x
+  step 1: dropwizard-metrics 2.2.x -> 5.0.x
+  step 1: xmlunit 2.11.x -> 2.13.x
+  step 1: jackson 2.21.x -> 3.2.x
+✅ Converged: the forced apply no longer changes any file for this plan.
+
+========== Summary ==========
+Steps applied this run:    1
+Mappings auto-created:     0
+Spring Boot version in blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml: 4.1.1
+
+Next steps:
+  • Review the changes:  git diff  (and git status for new mapping files)
+  • Fix any compile breaks: see docs/app-team-runbook.md, step 4.
+  • Commit .advisor/mappings/ so the run is reproducible.
+  • Run the apps / tests to validate behaviour.
+  • Re-run this script to continue if more steps remain.
+✅ Done.
+kit exit=0 finished Mon Nov 16 12:21:48 CET 2026

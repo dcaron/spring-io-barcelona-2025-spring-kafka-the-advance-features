@@ -86,3 +86,10 @@ is now mandatory. `--include-modules` cannot help: the execution runs through th
 
 **Unchanged** — the multi-module hijack still hangs at the first step (BUG-7, bounded repro killed at
 612 s, depth 36, pom untouched; `transcript-1.7.1.txt`). The profile guard remains mandatory.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged** — the multi-module hijack still hangs at the first step with recipes 1.7.7 (BUG-7,
+bounded repro killed at the 600 s cap, depth 34–36, pom untouched; `hang-evidence-1.7.2.txt`). Advisor
+still prepends `process-test-classes` to its `6.44.0:runNoFork` invocation on multi-module projects
+(visible in the Maven command line captured during the run). The profile guard remains mandatory.

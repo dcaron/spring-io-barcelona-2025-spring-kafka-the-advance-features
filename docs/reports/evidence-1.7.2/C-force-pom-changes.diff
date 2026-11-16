@@ -1,0 +1,133 @@
+diff --git a/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml b/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
+index a304fc7..73f338b 100644
+--- a/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
++++ b/blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
+@@ -26,12 +26,12 @@
+             <dependency>
+                 <groupId>commons-io</groupId>
+                 <artifactId>commons-io</artifactId>
+-                <version>2.16.1</version>
++                <version>2.22.0</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.commons</groupId>
+                 <artifactId>commons-compress</artifactId>
+-                <version>1.26.2</version>
++                <version>1.28.0</version>
+             </dependency>
+         </dependencies>
+     </dependencyManagement>
+diff --git a/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml b/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
+index cc76d68..0e29904 100644
+--- a/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
++++ b/blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
+@@ -27,12 +27,12 @@
+             <dependency>
+                 <groupId>commons-io</groupId>
+                 <artifactId>commons-io</artifactId>
+-                <version>2.16.1</version>
++                <version>2.22.0</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.commons</groupId>
+                 <artifactId>commons-compress</artifactId>
+-                <version>1.26.2</version>
++                <version>1.28.0</version>
+             </dependency>
+         </dependencies>
+     </dependencyManagement>
+diff --git a/events/pom.xml b/events/pom.xml
+index 797fb20..c643bce 100644
+--- a/events/pom.xml
++++ b/events/pom.xml
+@@ -34,12 +34,12 @@
+ 			<dependency>
+ 				<groupId>commons-io</groupId>
+ 				<artifactId>commons-io</artifactId>
+-				<version>2.16.1</version>
++				<version>2.22.0</version>
+ 			</dependency>
+ 			<dependency>
+ 				<groupId>org.apache.commons</groupId>
+ 				<artifactId>commons-compress</artifactId>
+-				<version>1.26.2</version>
++				<version>1.28.0</version>
+ 			</dependency>
+ 		</dependencies>
+ 	</dependencyManagement>
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml b/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
+index 11263d4..c53affb 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
+@@ -32,12 +32,12 @@
+             <dependency>
+                 <groupId>commons-io</groupId>
+                 <artifactId>commons-io</artifactId>
+-                <version>2.16.1</version>
++                <version>2.22.0</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.commons</groupId>
+                 <artifactId>commons-compress</artifactId>
+-                <version>1.26.2</version>
++                <version>1.28.0</version>
+             </dependency>
+ 
+   
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
+index 933a804..cf1f1c7 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
+@@ -32,12 +32,12 @@
+             <dependency>
+                 <groupId>commons-io</groupId>
+                 <artifactId>commons-io</artifactId>
+-                <version>2.16.1</version>
++                <version>2.22.0</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.commons</groupId>
+                 <artifactId>commons-compress</artifactId>
+-                <version>1.26.2</version>
++                <version>1.28.0</version>
+             </dependency>
+ 
+   
+diff --git a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
+index fcd3af6..a6d1b93 100644
+--- a/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
+@@ -32,12 +32,12 @@
+             <dependency>
+                 <groupId>commons-io</groupId>
+                 <artifactId>commons-io</artifactId>
+-                <version>2.16.1</version>
++                <version>2.22.0</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.commons</groupId>
+                 <artifactId>commons-compress</artifactId>
+-                <version>1.26.2</version>
++                <version>1.28.0</version>
+             </dependency>
+ 
+   
+diff --git a/multiple-consumers-same-app/spring-kafka-producer/pom.xml b/multiple-consumers-same-app/spring-kafka-producer/pom.xml
+index 83b1657..6ee9f69 100644
+--- a/multiple-consumers-same-app/spring-kafka-producer/pom.xml
++++ b/multiple-consumers-same-app/spring-kafka-producer/pom.xml
+@@ -33,12 +33,12 @@
+             <dependency>
+                 <groupId>commons-io</groupId>
+                 <artifactId>commons-io</artifactId>
+-                <version>2.16.1</version>
++                <version>2.22.0</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.apache.commons</groupId>
+                 <artifactId>commons-compress</artifactId>
+-                <version>1.26.2</version>
++                <version>1.28.0</version>
+             </dependency>
+     </dependencies>
+   </dependencyManagement>

@@ -1,0 +1,120 @@
+# Repro 01 on Version: 1.7.2 — 2026-11-16: probes of -f / --accept-no-alignment after the plain plan came back empty with exit 0
+
+=== upgrade-plan get -f 12:15:08 ===
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 7 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 05s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 04s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop or its parent.
+🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 04s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/01-apply-noop-loop/target/.advisor/build-config.json
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+Projects discovered:
+	- commons-validator: 1.7.x (no upgrades available)
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- apache-commons-beanutils: 1.9.x → 1.11.x
+No upgrade plan available.
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+exit=0
+>>> pom.xml unchanged
+
+=== upgrade-plan get --accept-no-alignment 12:15:37 ===
+🚀 Existing build-configuration is already up-to-date
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+Projects discovered:
+	- commons-validator: 1.7.x (no upgrades available)
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- apache-commons-beanutils: 1.9.x → 1.11.x
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade apache-commons-beanutils from 1.9.x to 1.11.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+exit=0
+>>> pom.xml unchanged
+
+=== upgrade-plan apply --accept-no-alignment 12:15:47 ===
+🚀 Existing build-configuration is already up-to-date
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 27s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+⚠️  Warnings:
+	- Incomplete commons-validator mappings: version 1.7.x does not exist
+Please report these problems to support.broadcom.com
+Projects to upgrade:
+	* apache-commons-collections from 3.2.x to 4.5.x
+	* apache-commons-beanutils from 1.9.x to 1.11.x
+🔨 [ 4 / 4 ] Upgrading sources... [00m 20s] ok
+👍 Successfully applied upgrade.
+⚠️  Warnings:
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+* Application Advisor might produce a partial upgrade and will incrementally cover all the required changes to upgrade all the Spring projects. If you have questions or are experimenting issues upgrading your applications, please request our help or support in https://support.broadcom.com
+exit=0
+>>> pom.xml unchanged
+
+--- upgrade-plan.json after the last command:
+{
+ "executionMetadata": {
+  "exitCode": 0,
+  "status": "SUCCEEDED"
+ },
+ "steps": [
+  {
+   "projectUpgrades": [
+    {
+     "projectFrom": "apache-commons-collections",
+     "versionFrom": "3.2.x",
+     "bulkUpgrades": [
+      "4.0.x",
+      "4.1.x",
+      "4.2.x",
+      "4.3.x",
+      "4.4.x"
+     ],
+     "upgradeTo": {
+      "projectFrom": "apache-commons-collections",
+      "versionFrom": "4.5.x",
+      "bulkUpgrades": []
+     }
+    },
+    {
+     "projectFrom": "apache-commons-beanutils",
+     "versionFrom": "1.9.x",
+     "bulkUpgrades": [
+      "1.10.x"
+     ],
+     "upgradeTo": {
+      "projectFrom": "apache-commons-beanutils",
+      "versionFrom": "1.11.x",
+      "bulkUpgrades": []
+     }
+    }
+   ]
+  }
+ ],
+ "blockedUpgrades": [
+  {
+   "project": "apache-commons-collections",
+   "version": "3.2.x",
+   "targetVersion": "4.0.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  },
+  {
+   "project": "apache-commons-beanutils",
+   "version": "1.9.x",
+   "targetVersion": "1.10.x",
+   "blockerProjects": [],
+   "excludedArtifacts": []
+  }
+ ]
+}

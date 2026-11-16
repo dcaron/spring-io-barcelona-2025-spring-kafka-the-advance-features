@@ -71,3 +71,13 @@ claiming `kafka-clients`, co-wiring crashes with *"Some projects were already de
 (`transcript-1.7.1.txt`, `error-stacktrace-1.7.1.log`). The 1.7.1 release note itself illustrates the
 gap from the other side: the ten new Azure SDK mappings are shipped as *"a separate mapping for each
 library"* because *"each library needs its own mapping"* — the catalog has no family concept either.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Still needed; the generator is now inconsistent within one family.** Repro 08 is unchanged — both
+sibling runs produce slug `kafka` claiming `kafka-clients`, co-wiring crashes with the (now typed)
+`DuplicateMappingSlugException: Some projects were already defined: [kafka]` (`transcript-1.7.2.txt`,
+`error-stacktrace-1.7.2.log`). Meanwhile the BUG-4 fix gives `kafka_2.13` the slug `org.apache.kafka`,
+so three modules of the same release train now yield two different slug styles. The new 1.7.2
+duplicate-slug message points at `merge-strategy: OVERRIDE` or renaming — which is exactly the manual
+family assembly this request wants automated.

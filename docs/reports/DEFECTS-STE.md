@@ -1,9 +1,9 @@
 # Advisor defects in Simplified Technical English
 
-This document describes the ten Advisor defects in Simplified Technical English (ASD-STE100).
+This document describes the eleven Advisor defects in Simplified Technical English (ASD-STE100).
 Each description has the same parts: Condition, Problem, Cause, Effect, Workaround, Status and Evidence.
-The full technical reports are in this directory (`BUG-1-…` to `BUG-10-…`). The status is valid for
-Advisor 1.7.1 on 2026-10-21.
+The full technical reports are in this directory (`BUG-1-…` to `BUG-11-…`). The status is valid for
+Advisor 1.7.2 on 2026-11-16 (each defect also keeps its 1.7.1 status line).
 
 Terms used in this document:
 
@@ -37,6 +37,8 @@ nothing.
 not change.
 
 **Status on 1.7.1.** Partly corrected since 1.7.0. The default apply now refuses the plan with a list of
+
+**Status on 1.7.2.** Changed. The 1.7.2 catalog has a mapping for `commons-beanutils`, and it replaces the custom mapping of the test without a message. Then the plan is empty, the console gives no reason, and the exit code is 0. The forced apply still reports success and changes no file.
 blockers and exit code 50. It changes nothing. The forced apply can still report success for a step
 that changes no file.
 
@@ -63,6 +65,8 @@ active. The kit gives a template for this.
 
 **Status on 1.7.1.** Not corrected. The failed apply now returns exit code 30.
 
+**Status on 1.7.2.** Not corrected. The recipes are now 1.7.7. The error and the exit code 30 are the same.
+
 **Evidence.** `repros/02-missing-recipe-bundle/variants-1.7.1.txt`,
 `repros/02-missing-recipe-bundle/error-stacktrace-single-module-1.7.1.log`.
 
@@ -85,6 +89,8 @@ isolate its properties from the project's plugin executions.
 **Workaround.** Same as BUG-2a: move the plugin declaration into a profile that is not active.
 
 **Status on 1.7.1.** Not corrected. The execution hangs (BUG-7).
+
+**Status on 1.7.2.** Not corrected. The forced apply still stops in the project's own plugin (see BUG-7).
 
 **Evidence.** `repros/02-missing-recipe-bundle/`, `evidence-1.7.0/B-unguarded-force.log`.
 
@@ -110,6 +116,8 @@ the second file.
 
 **Status on 1.7.1.** Not corrected.
 
+**Status on 1.7.2.** Partly corrected. `upgrade-plan get` now names the slug and tells you to set the merge strategy to OVERRIDE or to rename the slug. With the OVERRIDE strategy the plan and `mapping create` work. `build-config get` still accepts the two files without a message, and `mapping create` without OVERRIDE still stops with an error that only the log file explains.
+
 **Evidence.** `repros/03-dup-slug-inconsistent-loading/`.
 
 ---
@@ -130,6 +138,8 @@ file with that name exists, Advisor overwrites the file without a message.
 mappings directory after each `mapping create`.
 
 **Status on 1.7.1.** Not corrected.
+
+**Status on 1.7.2.** Corrected. Advisor now writes `org.apache.kafka.json` with the slug `org.apache.kafka`. There is still no option to set the output file name.
 
 **Evidence.** `repros/04-empty-slug-hidden-file/`.
 
@@ -155,6 +165,8 @@ wrong cause.
 
 **Status on 1.7.1.** Not corrected. `mapping update` has the same problem.
 
+**Status on 1.7.2.** Not corrected.
+
 **Evidence.** `repros/05-resolution-ignores-repositories/`.
 
 ---
@@ -173,6 +185,8 @@ the empty file.
 **Workaround.** The kit validates each mapping before it wires the mapping.
 
 **Status on 1.7.1.** Not corrected.
+
+**Status on 1.7.2.** Not corrected.
 
 **Evidence.** `repros/06-empty-mapping-silent-skip/`.
 
@@ -198,6 +212,8 @@ completed in 39 seconds and then failed at the Boot 4 step (BUG-2a).
 kit refuses to run when the declaration is not guarded. Stop a hung run with `pkill -f runNoFork`.
 
 **Status on 1.7.1.** Not corrected. The bounded test stopped the process after 612 seconds at
+
+**Status on 1.7.2.** Not corrected. With recipes 1.7.7 the Maven process still runs at recursion depth 34 to 36 until the test stops it after 600 seconds.
 recursion depth 36.
 
 **Evidence.** `repros/02-missing-recipe-bundle/run-1.7.0-hang.sh`,
@@ -225,6 +241,8 @@ generation. The kit no longer wires `spring-boot-jackson3.json`. If a run alread
 remove the pins and move the parent by hand.
 
 **Status on 1.7.1.** Not tested again with the trigger. Without the override mapping, the project
+
+**Status on 1.7.2.** Not tested again. The forced step moves Spring Boot 3.4.5 to 4.1.2 and pins no starter.
 goes from 3.4.5 to 4.1.1 in one step and receives no pins.
 
 **Evidence.** `evidence-1.7.0/C-pass2-pom-changes.diff`, `evidence-1.7.0/BUG8-minimal-repro.log`,
@@ -255,6 +273,8 @@ a mapping for each transitive dependency in the warning. The kit does both: it c
 and then uses `-f` for the dependencies that remain.
 
 **Status on 1.7.1.** Not corrected, but a documented option avoids the problem. Two differences with
+
+**Status on 1.7.2.** Not corrected. The console now shows no project at all; the JSON report lists 25 hidden projects. The `-f` option still restores the plan.
 the documentation remain. The default run does not calculate the plan. With `-f`, Advisor does not
 list the dependency as a warning. It removes the dependency from the console and from the JSON report.
 
@@ -297,5 +317,33 @@ empty. The kit reports this condition and tells you to use `--force`.
 
 **Status on 1.7.1.** New. Found on 2026-10-21.
 
+**Status on 1.7.2.** Not corrected. With all 16 blocker slugs ignored the plan is empty and the exit code is 0. The same result now also occurs with no `.advisor.yml` (see BUG-1).
+
 **Evidence.** `evidence-1.7.1/C-ignore-probe.log`, `C-ignore-probe-2.log`, `C-ignore-probe-3.log`,
 `C-ignore-probe-3.advisor.yml`, `C-ignore-probe-3b-flags.log`.
+
+---
+
+## BUG-11 — `patch apply` removes a dependency version that the project manages
+
+**Condition.** The project's `pom.xml` files have a `<dependencyManagement>` entry for `commons-io`
+(version 2.16.1) that the team added to make all modules use one version. You run `advisor patch apply`
+on Advisor 1.7.2.
+
+**Problem.** Advisor removes the `commons-io` entry from all seven `pom.xml` files. It does not add a
+new entry for `commons-io`. The console says *"619 dependency(-ies) upgraded in 7 file(s)"* and the
+report file `target/.advisor/patch-upgrade.json` does not list `commons-io`.
+
+**Cause.** Not known. A similar entry for `commons-compress` in the same block stays.
+
+**Effect.** The project loses a version decision that the team made on purpose. In this project the
+effective version stays 2.16.1 and the build passes. In a project where the transitive versions differ,
+the version conflict comes back and the plain plan is refused again.
+
+**Workaround.** After `patch apply`, check `git diff` for removed `<dependency>` elements, not only for
+added pins. Add the removed entry again. Try `--skip-transitive-deps`.
+
+**Status on 1.7.2.** New. Not compared with 1.7.1 (the entry did not exist in the 1.7.1 test).
+
+**Evidence.** `evidence-1.7.2/P-patch-apply-pom-changes.diff`, `evidence-1.7.2/P-patch-upgrade.json`,
+`evidence-1.7.2/P-build-after-patch.txt`.

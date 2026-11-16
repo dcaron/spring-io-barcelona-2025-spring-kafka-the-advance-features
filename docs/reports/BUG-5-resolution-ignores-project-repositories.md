@@ -75,3 +75,11 @@ and the local repository — **the Confluent repository declared in the pom is n
 the built-in repositories answer 401 for an artifact they do not have. The defect stands exactly as
 reported: `mapping create` resolves against the CLI's own repository list, not the project's effective
 repositories.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged** — Maven resolves the artifact through the pom's Confluent repository, `mapping create`
+still reports *"No versions found"* and writes nothing (`transcript-1.7.2.txt`). `-d` lists the same
+four repositories as on 1.7.1 (Maven Central, `repo.spring.io/release`, the `settings.xml` Spring
+Enterprise repository, the local repository) and never the pom's (`debug-1.7.2.txt`; the Broadcom
+repository now answers 404 instead of 401 for this artifact).

@@ -71,3 +71,11 @@ feeding back: `executionMetadata.exitCode` is **0 / SUCCEEDED** for a plan that 
 (see BUG-10 in `STATUS-1.7.1.md`); and the console still never points at the file. The kit script
 now reads this JSON (`advisor-kit/advisor-upgrade.sh`, `plan_json`) and falls back to the text
 parser only when the report is absent or stale.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged (largely addressed).** `target/.advisor/upgrade-plan.json` is written by every `get`/`apply`
+(all `evidence-1.7.2/*upgrade-plan*.json`). `patch apply` now writes only the documented
+`target/.advisor/patch-upgrade.json` (108 entries: `project`, `oldVersion`, `newVersion`,
+`executionMetadata`, `scmMetadata`); the 1.7.0-era `.advisor/patch-upgrade-report.json` is gone. The
+caveat stands: `executionMetadata` is `0 / SUCCEEDED` for an empty plan (BUG-10, and now repro 01).

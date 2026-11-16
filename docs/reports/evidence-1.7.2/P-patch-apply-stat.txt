@@ -1,0 +1,8 @@
+ .../blocking-retries-example/pom.xml               |  90 +++++++++++++++++--
+ .../non-blocking-retries-example/pom.xml           |  95 ++++++++++++++++++--
+ events/pom.xml                                     |  17 ++--
+ .../pom.xml                                        | 100 +++++++++++++++++++--
+ .../spring-kafka-multiple-consumers-beans/pom.xml  | 100 +++++++++++++++++++--
+ .../pom.xml                                        | 100 +++++++++++++++++++--
+ .../spring-kafka-producer/pom.xml                  |  95 ++++++++++++++++++--
+ 7 files changed, 549 insertions(+), 48 deletions(-)

@@ -72,3 +72,12 @@ The repo's `spring-boot-jackson3.json:override` defined 3.5.x/4.0.x blocks witho
 merge the 4.0.x block had no path to 4.1.x — the mapping was invalid by the documented rules. What the
 docs do not cover is what Advisor did next: plan and "successfully apply" a 4.0.x → 4.1.x step that
 pins 41 starters. Expected behaviour (validate the merged mapping, refuse the step) is unchanged.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Not re-triggered; one adjacent observation.** With the override still unwired the guarded Boot 3.4.5
+worktree goes **3.4.5 → 4.1.2** in one forced step, every parent moved, no starter pins
+(`evidence-1.7.2/A-pom-yml-changes.diff`). New on 1.7.2: `patch apply` now moves the **parent** from
+4.1.1 to 4.1.2 itself (the 36 `org.springframework.boot:*` entries in `patch-upgrade.json` are realised
+through that single bump, no starter pins) — the behaviour this report asks for at the generation level
+(`evidence-1.7.2/P-patch-apply-pom-changes.diff`).

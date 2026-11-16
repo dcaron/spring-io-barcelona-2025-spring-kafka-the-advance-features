@@ -1,0 +1,36 @@
+# Advisor Version: 1.7.2 — 2026-11-16 — repro 03-dup-slug-inconsistent-loading
+=== 1. build-config get (EXPECT: succeeds — duplicate slug tolerated) ===
+Resolving the build configuration of /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading.
+
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 03s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 04s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s]🏃 [ 3 / 7 ] Resolving JDK version [00m 04s]🏃 [ 3 / 7 ] Resolving JDK version [00m 05s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading or its parent.
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/target/.advisor/build-config.json
+exit=0
+
+=== 2. upgrade-plan get (EXPECT: fails validating the SECOND same-slug mapping) ===
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] error
+
+💔 Errors
+- 03-dup-slug-inconsistent-loading failed with the following message:
+🔎 Failed to load an additional upgrade mapping from '/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json': Slug(s) demo are already defined by another mapping source. To replace the existing definition, set 'merge-strategy' to 'OVERRIDE' for this custom mapping source. To keep both definitions, rename the slug in this file and verify that they do not share coordinates.
+exit=1
+
+=== 3. mapping create for a covered coordinate (EXPECT: crash; error log has root cause) ===
+🏃 Detecting available versions: 
+
+💔 Errors
+ You can find the error in .advisor/errors/20261116-120407272.log - Please open a new support ticket in https://support.broadcom.com and attach the logs.
+exit=1
+--- root cause from .advisor/errors ---
+Caused by: java.lang.RuntimeException: Error merging mapping source PathMappingSource{filePath=/Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/03-dup-slug-inconsistent-loading/mappings/demo-b.json}
+Caused by: com.vmware.tanzu.spring.advisor.exceptions.DuplicateMappingSlugException: Some projects were already defined: [demo]

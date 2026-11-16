@@ -1,9 +1,10 @@
 # Known Advisor issues
 
 All issues below were verified on Advisor 1.6.7, re-verified on **1.7.0** (recipes 1.7.6)
-on 2026-10-12 and again on **1.7.1** on 2026-10-21 (same recipes, same CLI; 1.7.1 only adds Azure
-SDK mappings). Every row below is **unchanged on 1.7.1** unless the "1.7.0" column says otherwise;
-BUG-10 is the one addition. Each row tells you what to do
+on 2026-10-12, on **1.7.1** on 2026-10-21 (same recipes, same CLI; 1.7.1 only adds Azure
+SDK mappings) and on **1.7.2** (recipes 1.7.7, no release notes published) on 2026-11-16. Every row
+below is unchanged on 1.7.1/1.7.2 unless the "1.7.0" column or the *1.7.2 changes* section says
+otherwise; BUG-10 (1.7.1) and BUG-11 (1.7.2) are the additions. Each row tells you what to do
 without further reading. Full repros and reports live in the source repo
 (`docs/reports/` and `repros/` — source repo only; this page stands alone).
 
@@ -22,6 +23,29 @@ without further reading. Full repros and reports live in the source repo
 | BUG-8 | After the forced "spring-boot 4.0.x → 4.1.x" step the parent stays 4.0.8 but every Spring Boot starter gets an explicit `<version>4.1.1</version>` pin (mixed Boot generations; the build still passes). Trigger: a custom `override` mapping for `spring-boot` that does not define 4.1.x (the kit's 1.6.x-era `spring-boot-jackson3.json`). | The kit no longer wires `spring-boot-jackson3.json` (commented out in `mappings/order.txt`). Do not wire your own `spring-boot` override on 1.7.x. If a run already produced pins: review `git diff`, remove the pins, move the parent (runbook step 4). | New in 1.7.0 |
 | BUG-9 | `upgrade-plan get` shows two projects and "No upgrade plan available" (exit 10) on a Boot 3.4.5 app; the 20+ real projects are hidden because one transitive dependency (here `org.apache.zookeeper:zookeeper`) has no mapping, and nothing says so. | Documented workaround: `upgrade-plan get/apply -f` plans past missing mappings. The script self-heals first (creates mappings from the JSON `excludedProjects` list) and then re-plans and applies with `-f` for whatever remains. Note: with `-f` Advisor no longer mentions the unmapped dependency at all. | New in 1.7.0; `-f` verified 2026-10-21 |
 | BUG-10 | You ignore every blocker with `.advisor.yml` (`upgrade.ignore`, new in 1.7.0) and `upgrade-plan get` prints "No upgrade plan available" with **exit 0**; `target/.advisor/upgrade-plan.json` says `SUCCEEDED` with an empty `steps` list. What still holds the plan is the dependency-alignment state, which nothing reports; it reproduces even when your tree resolves one version of every library (Boot 4's Jackson 2/3 coexistence is enough). | Do not key CI on exit 0 alone — the script checks that `steps` is non-empty and says so. Fix the version conflicts in your poms (the docs call them triangular misalignments) or run the script in `--force` mode (`--accept-no-alignment`). Ignore keys: the slug whose *mapping declares* the restriction; unknown keys are only reported with `--debug`. | New in 1.7.1 verification |
+| BUG-11 | `advisor patch apply` (1.7.2) deleted a `<dependencyManagement>` entry the project owns (`commons-io` 2.16.1, all 7 poms) while adding its pins and moving the parent to the latest patch. Nothing on the console or in `target/.advisor/patch-upgrade.json` mentions the removal. | Review `git diff` after `patch apply` for *removed* `<dependency>` elements, not only added pins; re-add anything you manage on purpose. Try `--skip-transitive-deps` if you only want direct dependencies patched. | New in 1.7.2 |
+
+## 1.7.2 changes (2026-11-16)
+
+- **BUG-4 fixed:** `mapping create` no longer writes a hidden `.json`; when it cannot derive a slug it uses
+  the groupId (`org.apache.kafka.json`, slug `org.apache.kafka`). The script's hidden-file filter stays
+  as a 1.7.1 guard.
+- **BUG-3 half fixed:** `upgrade-plan get` now names the duplicate slug and suggests
+  `merge-strategy: OVERRIDE` or renaming; with the override strategy both commands work. `build-config`
+  still accepts duplicates silently and `mapping create` still crashes without the override.
+- **Catalog beats custom mappings, silently.** 1.7.2's catalog gained `apache-commons-beanutils` (and
+  `dropwizard-metrics`, 30 new slugs in all). It takes the `commons-beanutils` coordinate over from the
+  kit-generated `commons-beanutils.json` without any message — only same-slug conflicts are detected.
+  Effect on the BUG-1 fixture: the plain plan is now *empty with exit 0* (the BUG-10 state) instead of
+  "refused, exit 50". Diff `mapping search --prefix` output against `mappings/` on every release and
+  drop custom mappings the catalog now covers.
+- **Recipes 1.7.7:** Boot 3.4.5 → **4.1.2** in one forced step; the same five Boot-4 API compile fixes
+  and the `@RetryableTopic backOff` change are still needed afterwards (runbook step 4). On a Boot 4.1
+  tree the forced step rewrites project-managed `commons-io`/`commons-compress` versions (2.22.0 / 1.28.0).
+- **`patch apply`:** now moves the Boot parent to the latest patch (4.1.1 → 4.1.2) and adds pins to the
+  existing `<dependencyManagement>` block; only `target/.advisor/patch-upgrade.json` is written. See BUG-11.
+- Unchanged: BUG-2a/2b/5/6/7/9/10. BUG-9 now shows an *empty* "Projects discovered" list; `-f` still
+  restores the plan.
 
 ## Feature requests
 

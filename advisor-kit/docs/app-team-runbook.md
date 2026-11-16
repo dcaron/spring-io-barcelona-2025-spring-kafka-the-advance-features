@@ -54,7 +54,9 @@ blocker list. `--force` runs `apply --accept-no-alignment` repeatedly until
 the worktree stops changing. Expect a small number of passes; on 1.7.0 the
 Boot 3.4 → 4.0 upgrade landed in one five-minute step, and on 1.7.1 (with no
 `spring-boot` override mapping wired) Boot 3.4 → **4.1** landed in one
-four-minute step.
+four-minute step; on 1.7.2 (recipes 1.7.7) the same step lands on 4.1.2 in
+five minutes. On a Boot 4.1 tree, 1.7.2's forced step also rewrites any
+`commons-io`/`commons-compress` versions you manage yourself (to 2.22 / 1.28).
 
 ## Step 4 — fix compile breaks and review version pins
 

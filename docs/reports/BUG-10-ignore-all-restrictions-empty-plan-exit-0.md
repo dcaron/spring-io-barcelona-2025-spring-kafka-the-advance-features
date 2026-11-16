@@ -102,3 +102,21 @@ blocker; `--accept-no-alignment` then returns the 8-item step
 ([`evidence-1.7.1/D-apply-and-bug10-recheck.log`](evidence-1.7.1/D-apply-and-bug10-recheck.log), D2).
 So the earlier narrowing to "the project's own conflicts" was too generous: the conflicts explained
 *which* blockers appeared, not the exit-0 empty plan. The defect stands as filed.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged — and the same shape now appears without any ignore file.** The 1.7.1 probe-3 file no longer
+covers this project's blockers (the plan grew: `dropwizard-metrics`, `apache-commons-beanutils` from the
+1.7.2 catalog, Jackson blockers keyed on other slugs), so with it `get` exits 50 with nine blocker
+lines (`evidence-1.7.2/C-ignore-probe.log`). Ignoring **every** slug named on either side of a blocker
+line — sixteen keys, `dependencies: "*"` ([`C-ignore-all-1.7.2.advisor.yml`](evidence-1.7.2/C-ignore-all-1.7.2.advisor.yml)) —
+reproduces the defect exactly: *"No upgrade plan available … Upgrade Plan was calculated with ignored
+restrictions"*, exit **0**, JSON `SUCCEEDED`, `steps: []`, nine `blockedUpgrades` without a blocker;
+`-d` reports no unknown key; `apply` says *"There are no upgrade plans"* with exit 0; only
+`--accept-no-alignment` returns the step ([`C-ignore-all-probe.log`](evidence-1.7.2/C-ignore-all-probe.log),
+[`C-ignore-all-upgrade-plan.json`](evidence-1.7.2/C-ignore-all-upgrade-plan.json)). Independently, the
+isolated BUG-1 fixture now ends in the identical state with **no** `.advisor.yml` at all
+(`repros/01/transcript-1.7.2.txt`: no blocker summary, exit 0, two blocker-less `blockedUpgrades`),
+because the 1.7.2 catalog's `apache-commons-beanutils` mapping replaced the custom one. So the
+"empty plan, exit 0, nothing explained" outcome is reachable from ordinary input, which strengthens
+the ask.

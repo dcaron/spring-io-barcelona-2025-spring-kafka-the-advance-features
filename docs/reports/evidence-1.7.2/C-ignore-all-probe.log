@@ -1,0 +1,172 @@
+wired 7 mappings
+=== C2 (fresh 77fac2c, Boot 4.1.1): BUG-10 re-check on Version: 1.7.2 Mon Nov 16 12:18:44 CET 2026 — .advisor.yml = C-ignore-all-1.7.2.advisor.yml (16 slugs, dependencies '*') ===
+--- upgrade-plan get
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s]🏃 [ 1 / 7 ] Resolving build tool version [00m 02s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 11s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 12s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s]🏃 [ 3 / 7 ] Resolving JDK version [00m 04s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 04s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv172-C2/target/.advisor/build-config.json
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+	- confluent: 8.3.x (no upgrades available)
+	- docker-java: 3.7.x (no upgrades available)
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-framework: 7.0.x (no upgrades available)
+	- apache-commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- kafka: 4.2.x → 4.3.x
+	- spring-boot: 4.1.x (no upgrades available)
+	- junit-jupiter: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- jackson-annotations: 2.21.x → 2.22.x
+	- apache-commons-lang: 3.20.x (no upgrades available)
+	- commons-validator: 1.10.x → 1.11.x
+	- spring-kafka: 4.1.x (no upgrades available)
+	- apache-commons-io: 2.16.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- dropwizard-metrics: 2.2.x → 5.0.x
+	- xmlunit: 2.11.x → 2.13.x
+	- mockito: 5.23.x (no upgrades available)
+	- micrometer: 1.17.x (no upgrades available)
+	- jackson: 2.21.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- junit-platform: 6.0.x (no upgrades available)
+	- avro: 1.12.x (no upgrades available)
+No upgrade plan available.
+
+⚠️  Warnings:
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.21.5
+		- com.fasterxml.jackson.core:jackson-databind:2.21.5
+		- tools.jackson.core:jackson-databind:3.1.5
+		- tools.jackson.core:jackson-core:3.1.5
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.5
+Upgrade Plan was calculated with ignored restrictions.
+Please report these problems to support.broadcom.com
+
+exit=0
+
+--- upgrade-plan get -d (unknown-slug diagnostics)
+	- confluent: 8.3.x (no upgrades available)
+	- docker-java: 3.7.x (no upgrades available)
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-framework: 7.0.x (no upgrades available)
+	- apache-commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- spring-boot: 4.1.x (no upgrades available)
+	- junit-jupiter: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- apache-commons-lang: 3.20.x (no upgrades available)
+	- spring-kafka: 4.1.x (no upgrades available)
+	- mockito: 5.23.x (no upgrades available)
+	- micrometer: 1.17.x (no upgrades available)
+	- junit-platform: 6.0.x (no upgrades available)
+	- avro: 1.12.x (no upgrades available)
+No upgrade plan available.
+Upgrade Plan was calculated with ignored restrictions.
+
+--- upgrade-plan apply (plain)
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 10s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 11s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 12s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 13s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 14s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 15s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 16s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 17s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 18s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 19s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 20s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 21s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 22s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 23s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 24s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 25s] ok
+🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 3 / 4 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+⚠️  Warnings:
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.21.5
+		- com.fasterxml.jackson.core:jackson-databind:2.21.5
+		- tools.jackson.core:jackson-databind:3.1.5
+		- tools.jackson.core:jackson-core:3.1.5
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.5
+Upgrade Plan was calculated with ignored restrictions.
+Please report these problems to support.broadcom.com
+
+There are no upgrade plans for the provided build configuration
+exit=0
+?? .advisor.yml
+
+--- upgrade-plan get --accept-no-alignment
+Build configuration file does not exist! Generating it...
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 11s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 12s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 13s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s]🏃 [ 3 / 7 ] Resolving JDK version [00m 04s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 04s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv172-C2/target/.advisor/build-config.json
+
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 00s]🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+
+Projects discovered:
+	- confluent: 8.3.x (no upgrades available)
+	- docker-java: 3.7.x (no upgrades available)
+	- testcontainers: 2.0.x (no upgrades available)
+	- spring-framework: 7.0.x (no upgrades available)
+	- apache-commons-beanutils: 1.11.x (no upgrades available)
+	- micrometer-context-propagation: 1.2.x (no upgrades available)
+	- kafka: 4.2.x → 4.3.x
+	- spring-boot: 4.1.x (no upgrades available)
+	- junit-jupiter: 6.0.x (no upgrades available)
+	- micrometer-tracing: 1.7.x (no upgrades available)
+	- javafaker: 1.0.x (no upgrades available)
+	- jackson-annotations: 2.21.x → 2.22.x
+	- apache-commons-lang: 3.20.x (no upgrades available)
+	- commons-validator: 1.10.x → 1.11.x
+	- spring-kafka: 4.1.x (no upgrades available)
+	- apache-commons-io: 2.16.x → 2.22.x
+	- apache-commons-collections: 3.2.x → 4.5.x
+	- dropwizard-metrics: 2.2.x → 5.0.x
+	- xmlunit: 2.11.x → 2.13.x
+	- mockito: 5.23.x (no upgrades available)
+	- micrometer: 1.17.x (no upgrades available)
+	- jackson: 2.21.x → 3.2.x
+	- apache-commons-compress: 1.26.x → 1.28.x
+	- junit-platform: 6.0.x (no upgrades available)
+	- avro: 1.12.x (no upgrades available)
+
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade kafka from 4.2.x to 4.3.x
+		* Upgrade jackson-annotations from 2.21.x to 2.22.x
+		* Upgrade commons-validator from 1.10.x to 1.11.x
+		* Upgrade apache-commons-io from 2.16.x to 2.22.x
+		* Upgrade apache-commons-collections from 3.2.x to 4.5.x
+		* Upgrade dropwizard-metrics from 2.2.x to 5.0.x
+		* Upgrade xmlunit from 2.11.x to 2.13.x
+		* Upgrade jackson from 2.21.x to 3.2.x
+		* Upgrade apache-commons-compress from 1.26.x to 1.28.x
+Your project dependencies are not aligned in the latest step because there are some dependency conflicts identified.
+
+⚠️  Warnings:
+	- There is an error in jackson, several versions are used simultaneously:
+		- com.fasterxml.jackson.core:jackson-core:2.21.5
+		- com.fasterxml.jackson.core:jackson-databind:2.21.5
+		- tools.jackson.core:jackson-databind:3.1.5
+		- tools.jackson.core:jackson-core:3.1.5
+		- com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.21.5
+		- com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.5
+Upgrade Plan was calculated with ignored restrictions.
+Please report these problems to support.broadcom.com
+
+exit=0

@@ -85,3 +85,12 @@ not found: org.openrewrite.java.dependencies.search.ModuleHasDependency"*;
 `-Drewrite.recipeArtifactCoordinates` is still the seven `com.vmware.tanzu.spring.recipes:*:1.7.6`
 artifacts and nothing else (`error-stacktrace-single-module-1.7.1.log`). One observable difference:
 the failed apply now exits **30** (*recipe execution failure* in the 1.7 exit-code table) instead of 1.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged** — recipes are now **1.7.7** and `-Drewrite.recipeArtifactCoordinates` is still the seven
+`com.vmware.tanzu.spring.recipes:*:1.7.7` artifacts and nothing else. Single-module variant
+(`variants-1.7.2.txt`): step 1 (Boot 3.4.x → 3.5.x) applies, step 2 (Boot 3.5.x → 4.0.x) fails in
+Advisor's own `6.44.0:runNoFork` with *"Recipe class not found:
+org.openrewrite.java.dependencies.search.ModuleHasDependency"*, `rewrite-java-dependencies:jar:1.34.0`
+on the plugin classpath, exit 30 (`error-stacktrace-single-module-1.7.2.log`).

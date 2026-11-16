@@ -1,0 +1,33 @@
+# Repro 03 on Version: 1.7.2 — 2026-11-16: follow the new 1.7.2 hint — second same-slug mapping wired with merge-strategy OVERRIDE
+=== upgrade-plan get (demo-b.json as override) ===
+🚀 Existing build-configuration is already up-to-date
+🏃 [ 1 / 2 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 2 ] Fetching and processing upgrade plan details [00m 01s] ok
+Projects discovered:
+	- apache-commons-lang: 3.12.x → 3.20.x
+	- demo: 1.10.x → 1.12.x
+Upgrade Plan for your Dependencies:
+	- Step 1:
+		* Upgrade apache-commons-lang from 3.12.x to 3.13.x
+	- Step 2:
+		* Upgrade apache-commons-lang from 3.13.x to 3.14.x
+	- Step 3:
+		* Upgrade apache-commons-lang from 3.14.x to 3.15.x
+	- Step 4:
+		* Upgrade apache-commons-lang from 3.15.x to 3.16.x
+	- Step 5:
+		* Upgrade apache-commons-lang from 3.16.x to 3.17.x
+	- Step 6:
+		* Upgrade apache-commons-lang from 3.17.x to 3.18.x
+	- Step 7:
+		* Upgrade apache-commons-lang from 3.18.x to 3.19.x
+	- Step 8:
+		* Upgrade apache-commons-lang from 3.19.x to 3.20.x
+	- Step 9:
+		* Upgrade demo from 1.10.x to 1.12.x
+exit=0
+
+=== mapping create -c=org.apache.commons:commons-lang3 (demo-b.json as override) ===
+🏃 Detecting available versions: 
+	💔 Project apache-commons-lang associated to coordinate org.apache.commons:commons-lang3 already exists in current mappings.
+exit=0

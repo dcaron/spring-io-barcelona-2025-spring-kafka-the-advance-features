@@ -1,0 +1,15 @@
+# Advisor Version: 1.7.2 — 2026-11-16 — repro 06-empty-mapping-silent-skip
+=== build-config get with an empty '{}' mapping wired ===
+    (EXPECT: succeeds; note the absence of any warning naming empty.json)
+Resolving the build configuration of /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/06-empty-mapping-silent-skip.
+
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvn [00m 03s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] Skipping Git metadata. Could not retrieve Git information from path /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/06-empty-mapping-silent-skip or its parent.
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/repros/06-empty-mapping-silent-skip/target/.advisor/build-config.json
+exit=0

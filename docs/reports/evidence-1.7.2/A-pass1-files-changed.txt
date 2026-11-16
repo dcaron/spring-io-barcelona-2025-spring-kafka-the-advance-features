@@ -1,0 +1,29 @@
+ M .advisor/mappings/apache-kafka.json
+ M .advisor/mappings/commons-beanutils.json
+ M .advisor/mappings/commons-validator.json
+ M .advisor/mappings/confluent-platform.json
+ M blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
+ M blocking-vs-nonblocking-retries/blocking-retries-example/src/main/java/com/example/blocking/retries/example/config/KafkaErrorHandlingConfiguration.java
+ M blocking-vs-nonblocking-retries/blocking-retries-example/src/main/resources/application.yml
+ M blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
+ M blocking-vs-nonblocking-retries/non-blocking-retries-example/src/main/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/src/main/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/src/test/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/KafkaConsumerConfiguration.java
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/java/com/example/spring/kafka/consumer/StockQuoteConsumer.java
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/main/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/src/test/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerConfigs.java
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumerProperties.java
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/java/com/example/spring/kafka/consumer/config/KafkaConsumersConfiguration.java
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/main/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/src/test/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-producer/pom.xml
+ M multiple-consumers-same-app/spring-kafka-producer/src/main/java/com/example/spring/kafka/producer/config/KafkaProducerConfiguration.java
+ M multiple-consumers-same-app/spring-kafka-producer/src/main/resources/application.yml
+ M multiple-consumers-same-app/spring-kafka-producer/src/test/resources/application.yml
+?? .advisor/mappings/order.txt
+?? .advisor/mappings/zookeeper.json

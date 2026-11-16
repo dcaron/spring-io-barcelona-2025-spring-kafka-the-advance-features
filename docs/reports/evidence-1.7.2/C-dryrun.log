@@ -1,0 +1,69 @@
+=== C: kit --dry-run (advisor HEAD 77fac2c, Boot 4.1.1, 7 mappings wired, override UNWIRED) Version: 1.7.2 Mon Nov 16 12:11:37 CET 2026 ===
+
+========== Preflight ==========
+Target repo: /Users/dcaron/Documents/src/adv172-C
+Kit:         /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit
+Spring Application Advisor: 1.7.2
+✅ advisor version looks good (kit verified on 1.7.0 and 1.7.1)
+✅ Maven wrapper present
+✅ No unguarded rewrite-maven-plugin in the reactor.
+
+========== Syncing kit mappings ==========
+  kept existing apache-kafka.json
+  kept existing avro.json
+  kept existing confluent-platform.json
+  kept existing javafaker.json
+  kept existing spring-boot-jackson3.json
+  kept existing zookeeper.json
+  kept existing order.txt
+
+========== Wiring custom mappings into advisor ==========
+Manifest: .advisor/mappings/order.txt
+  SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/javafaker.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/avro.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/apache-kafka.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/confluent-platform.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/zookeeper.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/commons-beanutils.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_6_FILEPATH=.advisor/mappings/commons-validator.json
+✅ Configured 7 custom mapping(s).
+
+========== Generating build configuration ==========
+$ advisor build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/adv172-C.
+
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s]🏃 [ 1 / 7 ] Resolving build tool version [00m 02s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 11s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 12s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 13s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s]🏃 [ 3 / 7 ] Resolving JDK version [00m 04s]🏃 [ 3 / 7 ] Resolving JDK version [00m 05s]🏃 [ 3 / 7 ] Resolving JDK version [00m 06s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv172-C/target/.advisor/build-config.json
+✅ build-config generated.
+
+========== Upgrade plan ==========
+
+--- Reading upgrade plan (applied: 0, mappings created: 0) ---
+⚠️    advisor exit 50: plan refused — blocker summary:
+   * kafka 4.2.x -> 4.3.x: (no blocker named)
+   * jackson-annotations 2.21.x -> 2.22.x: docker-java:3.7.x, testcontainers:2.0.x, spring-boot:4.1.x
+   * commons-validator 1.10.x -> 1.11.x: (no blocker named)
+   * apache-commons-io 2.16.x -> 2.17.x: apache-commons-lang:3.20.x
+   * apache-commons-collections 3.2.x -> 4.0.x: commons-validator:1.10.x
+   * dropwizard-metrics 2.2.x -> 3.0.x: (no blocker named)
+   * xmlunit 2.11.x -> 2.12.x: spring-boot:4.1.x
+   * jackson 2.21.x -> 3.1.x: confluent:8.3.x, docker-java:3.7.x, testcontainers:2.0.x, kafka:4.2.x, avro:1.12.x
+   * apache-commons-compress 1.26.x -> 1.27.x: confluent:8.3.x, apache-commons-lang:3.20.x
+  (plan read from target/.advisor/upgrade-plan.json: 50 BLOCKED)
+⚠️  No applicable step: 9 upgrade(s) are blocked (listed above).
+⚠️  Re-run with --force to plan with --accept-no-alignment, or ignore the restrictions in .advisor.yml (see docs/known-issues.md, BUG-10).
+
+========== Summary ==========
+Steps applied this run:    0
+Mappings auto-created:     0
+Spring Boot version in blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml: 4.1.1
+Dry run complete — no changes were made.
+✅ Done.
+kit exit=0

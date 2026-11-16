@@ -1,0 +1,446 @@
+{
+  "patchUpgrades" : [ {
+    "project" : "com.fasterxml.jackson.core:jackson-core",
+    "oldVersion" : "2.21.5",
+    "newVersion" : "2.21.8"
+  }, {
+    "project" : "com.fasterxml.jackson.core:jackson-databind",
+    "oldVersion" : "2.21.5",
+    "newVersion" : "2.21.8"
+  }, {
+    "project" : "com.fasterxml.jackson.dataformat:jackson-dataformat-csv",
+    "oldVersion" : "2.21.5",
+    "newVersion" : "2.21.8"
+  }, {
+    "project" : "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+    "oldVersion" : "2.21.5",
+    "newVersion" : "2.21.8"
+  }, {
+    "project" : "com.google.guava:failureaccess",
+    "oldVersion" : "1.0.1",
+    "newVersion" : "1.0.3"
+  }, {
+    "project" : "com.google.re2j:re2j",
+    "oldVersion" : "1.6",
+    "newVersion" : "1.8"
+  }, {
+    "project" : "io.confluent:common-utils",
+    "oldVersion" : "8.3.1",
+    "newVersion" : "8.3.3"
+  }, {
+    "project" : "io.confluent:kafka-avro-serializer",
+    "oldVersion" : "8.3.1",
+    "newVersion" : "8.3.3"
+  }, {
+    "project" : "io.confluent:kafka-avro-types",
+    "oldVersion" : "8.3.1",
+    "newVersion" : "8.3.3"
+  }, {
+    "project" : "io.confluent:kafka-schema-registry-client",
+    "oldVersion" : "8.3.1",
+    "newVersion" : "8.3.3"
+  }, {
+    "project" : "io.confluent:kafka-schema-serializer",
+    "oldVersion" : "8.3.1",
+    "newVersion" : "8.3.3"
+  }, {
+    "project" : "io.confluent:kafka-schema-types",
+    "oldVersion" : "8.3.1",
+    "newVersion" : "8.3.3"
+  }, {
+    "project" : "io.confluent:logredactor",
+    "oldVersion" : "1.0.18",
+    "newVersion" : "1.0.23"
+  }, {
+    "project" : "io.confluent:logredactor-metrics",
+    "oldVersion" : "1.0.18",
+    "newVersion" : "1.0.23"
+  }, {
+    "project" : "io.micrometer:micrometer-commons",
+    "oldVersion" : "1.17.1",
+    "newVersion" : "1.17.2"
+  }, {
+    "project" : "io.micrometer:micrometer-core",
+    "oldVersion" : "1.17.1",
+    "newVersion" : "1.17.2"
+  }, {
+    "project" : "io.micrometer:micrometer-jakarta9",
+    "oldVersion" : "1.17.1",
+    "newVersion" : "1.17.2"
+  }, {
+    "project" : "io.micrometer:micrometer-observation",
+    "oldVersion" : "1.17.1",
+    "newVersion" : "1.17.2"
+  }, {
+    "project" : "io.micrometer:micrometer-registry-prometheus",
+    "oldVersion" : "1.17.1",
+    "newVersion" : "1.17.2"
+  }, {
+    "project" : "io.micrometer:micrometer-tracing-bridge-otel",
+    "oldVersion" : "1.7.1",
+    "newVersion" : "1.7.2"
+  }, {
+    "project" : "io.swagger.core.v3:swagger-annotations-jakarta",
+    "oldVersion" : "2.2.42",
+    "newVersion" : "2.2.55"
+  }, {
+    "project" : "org.apache.avro:avro",
+    "oldVersion" : "1.12.0",
+    "newVersion" : "1.12.2"
+  }, {
+    "project" : "org.apache.httpcomponents.client5:httpclient5",
+    "oldVersion" : "5.6.4",
+    "newVersion" : "5.6.5"
+  }, {
+    "project" : "org.apache.httpcomponents.core5:httpcore5",
+    "oldVersion" : "5.4.3",
+    "newVersion" : "5.4.4"
+  }, {
+    "project" : "org.apache.httpcomponents.core5:httpcore5-h2",
+    "oldVersion" : "5.4.3",
+    "newVersion" : "5.4.4"
+  }, {
+    "project" : "org.apache.kafka:kafka-clients",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.tomcat.embed:tomcat-embed-core",
+    "oldVersion" : "11.0.24",
+    "newVersion" : "11.0.29"
+  }, {
+    "project" : "org.apache.tomcat.embed:tomcat-embed-el",
+    "oldVersion" : "11.0.24",
+    "newVersion" : "11.0.29"
+  }, {
+    "project" : "org.apache.tomcat.embed:tomcat-embed-websocket",
+    "oldVersion" : "11.0.24",
+    "newVersion" : "11.0.29"
+  }, {
+    "project" : "org.slf4j:jul-to-slf4j",
+    "oldVersion" : "2.0.18",
+    "newVersion" : "2.0.20"
+  }, {
+    "project" : "org.slf4j:slf4j-api",
+    "oldVersion" : "2.0.18",
+    "newVersion" : "2.0.20"
+  }, {
+    "project" : "org.springframework.boot:spring-boot",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-actuator",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-actuator-autoconfigure",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-autoconfigure",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-health",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-http-converter",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-jackson",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-kafka",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-micrometer-metrics",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-micrometer-observation",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-micrometer-tracing",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-micrometer-tracing-opentelemetry",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-opentelemetry",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-persistence",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-servlet",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-actuator",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-jackson",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-kafka",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-logging",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-micrometer-metrics",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-opentelemetry",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-tomcat",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-tomcat-runtime",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-webmvc",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-tomcat",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-transaction",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-web-server",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-webmvc",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.kafka:spring-kafka",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework:spring-aop",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-beans",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-context",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-core",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-expression",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-messaging",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-tx",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-web",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "org.springframework:spring-webmvc",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "tools.jackson.core:jackson-core",
+    "oldVersion" : "3.1.5",
+    "newVersion" : "3.1.8"
+  }, {
+    "project" : "tools.jackson.core:jackson-databind",
+    "oldVersion" : "3.1.5",
+    "newVersion" : "3.1.8"
+  }, {
+    "project" : "at.yawk.lz4:lz4-java",
+    "oldVersion" : "1.10.1",
+    "newVersion" : "1.11.2"
+  }, {
+    "project" : "com.google.protobuf:protobuf-java",
+    "oldVersion" : "4.35.1",
+    "newVersion" : "4.36.2"
+  }, {
+    "project" : "io.micrometer:micrometer-registry-otlp",
+    "oldVersion" : "1.17.1",
+    "newVersion" : "1.17.2"
+  }, {
+    "project" : "net.bytebuddy:byte-buddy",
+    "oldVersion" : "1.18.11",
+    "newVersion" : "1.18.17"
+  }, {
+    "project" : "net.bytebuddy:byte-buddy-agent",
+    "oldVersion" : "1.18.11",
+    "newVersion" : "1.18.17"
+  }, {
+    "project" : "net.minidev:accessors-smart",
+    "oldVersion" : "2.6.0",
+    "newVersion" : "2.6.1"
+  }, {
+    "project" : "net.minidev:json-smart",
+    "oldVersion" : "2.6.0",
+    "newVersion" : "2.6.1"
+  }, {
+    "project" : "org.ow2.asm:asm",
+    "oldVersion" : "9.7.1",
+    "newVersion" : "9.11.1"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-test",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-test",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-test-autoconfigure",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework:spring-test",
+    "oldVersion" : "7.0.9",
+    "newVersion" : "7.0.10"
+  }, {
+    "project" : "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+    "oldVersion" : "2.21.5",
+    "newVersion" : "2.21.8"
+  }, {
+    "project" : "org.apache.kafka:kafka-coordinator-common",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-group-coordinator",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-group-coordinator-api",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-metadata",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-raft",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-server",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-server-common",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-share-coordinator",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-storage",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-storage-api",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-streams",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-streams-test-utils",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-test-common-internal-api",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-test-common-runtime",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-tools-api",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka-transaction-coordinator",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.apache.kafka:kafka_2.13",
+    "oldVersion" : "4.2.1",
+    "newVersion" : "4.2.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-kafka-test",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.kafka:spring-kafka-test",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.hibernate.validator:hibernate-validator",
+    "oldVersion" : "9.1.3.Final",
+    "newVersion" : "9.1.6.Final"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-configuration-processor",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-starter-validation",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  }, {
+    "project" : "org.springframework.boot:spring-boot-validation",
+    "oldVersion" : "4.1.1",
+    "newVersion" : "4.1.2"
+  } ],
+  "executionMetadata" : {
+    "exitCode" : 0,
+    "status" : "SUCCEEDED"
+  },
+  "scmMetadata" : {
+    "repositoryUrl" : "https://github.com/dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "repositoryName" : "dcaron/spring-io-barcelona-2025-spring-kafka-the-advance-features",
+    "branch" : "77fac2c12b6dc67ead586fcc6e5c6319a2512dc4",
+    "commitId" : "77fac2c12b6dc67ead586fcc6e5c6319a2512dc4",
+    "commitDate" : "2026-10-21T14:36:49Z"
+  }
+}

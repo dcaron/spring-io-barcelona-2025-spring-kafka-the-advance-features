@@ -58,3 +58,14 @@ versions, 2.4.1 … 4.3.1); the only delta is a richer generated requirements ta
 table now has 20 minor versions (Kafka **4.4.x** appeared since 2026-10-12, requiring jackson 2.21.x /
 mockito 5.23.x / testcontainers 5.14.x), and *"2 repositories could not be queried"* instead of 1
 (`transcript-1.7.1.txt`, `generated-dot-json-1.7.1.json`).
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Fixed (the hidden file).** `mapping create -c=org.apache.kafka:kafka_2.13` now writes
+`.advisor/mappings/org.apache.kafka.json` with `slug: "org.apache.kafka"` — the groupId is used when
+no slug can be derived (`transcript-1.7.2.txt`, `generated-org.apache.kafka-1.7.2.json`; the repro's
+own `python3` check fails because it looks for `.json`). Side effect: a Kafka *family* now gets two
+different slug styles from the same generator (`kafka` for `kafka-metadata`/`kafka-group-coordinator`,
+`org.apache.kafka` for `kafka_2.13`) — see FR-2. Still open: no `-o/--output` option, and the
+same-slug overwrite was not re-tested. The generated table (20 versions, up to 4.4.x) now also carries
+`dropwizard-metrics` generation requirements, because that project is in the 1.7.2 catalog.

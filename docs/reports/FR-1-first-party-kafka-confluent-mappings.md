@@ -83,3 +83,16 @@ fine ([`evidence-1.7.1/catalog-mapping-search.log`](evidence-1.7.1/catalog-mappi
 Repro 07 is identical to 1.7.0 (17 coordinates, exit 10). Meanwhile Kafka **4.4.x** has been released
 since the last check (repro 04's generated table now ends at 4.4.x) — one more generation the curated
 `apache-kafka.json` has to be taught by hand.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Still needed.** The 1.7.2 catalog was enumerated in full (212 slugs,
+[`evidence-1.7.2/catalog-slugs-1.7.2.txt`](evidence-1.7.2/catalog-slugs-1.7.2.txt)): there is no slug
+for any Apache Kafka broker or client module, Confluent, Avro, Zookeeper, javafaker or
+commons-validator. Thirty slugs are not on the 1.7.1 coverage page — among them
+`apache-commons-beanutils` and `dropwizard-metrics`, both of which this project's tree uses, plus
+`junit-jupiter`/`junit-vintage`, `groovy`, `mvnw`/`gradlew`, three `mcp*` slugs and a batch of legacy
+Spring projects. Consequences here: repro 07 now lists 15 unmapped transitive projects instead of 16
+(commons-beanutils is covered), and the custom `commons-beanutils.json` is silently superseded by the
+catalog (BUG-1 status). No 1.7.2 release notes or coverage page were published by 2026-11-16, so what
+else moved in the catalog is unknown. Kafka 4.4.x is still only in the curated `apache-kafka.json`.

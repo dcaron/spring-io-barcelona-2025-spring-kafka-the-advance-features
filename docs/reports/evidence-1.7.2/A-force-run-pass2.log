@@ -1,0 +1,67 @@
+=== A: kit --force -y PASS 2 (after manual fixes) Version: 1.7.2 started Mon Nov 16 12:22:36 CET 2026 ===
+
+========== Preflight ==========
+Target repo: /Users/dcaron/Documents/src/adv172-A-guarded
+Kit:         /Users/dcaron/Documents/src/spring-io-barcelona-2025-spring-kafka-the-advance-features/advisor-kit
+Spring Application Advisor: 1.7.2
+✅ advisor version looks good (kit verified on 1.7.0 and 1.7.1)
+✅ Maven wrapper present
+✅ No unguarded rewrite-maven-plugin in the reactor.
+
+========== Syncing kit mappings ==========
+  kept existing apache-kafka.json
+  kept existing avro.json
+  kept existing confluent-platform.json
+  kept existing javafaker.json
+  kept existing spring-boot-jackson3.json
+  kept existing zookeeper.json
+  kept existing order.txt
+
+========== Wiring custom mappings into advisor ==========
+Manifest: .advisor/mappings/order.txt
+  SPRING_ADVISOR_MAPPING_CUSTOM_0_FILEPATH=.advisor/mappings/javafaker.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_1_FILEPATH=.advisor/mappings/avro.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_2_FILEPATH=.advisor/mappings/apache-kafka.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_3_FILEPATH=.advisor/mappings/confluent-platform.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_4_FILEPATH=.advisor/mappings/zookeeper.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_5_FILEPATH=.advisor/mappings/commons-beanutils.json
+  SPRING_ADVISOR_MAPPING_CUSTOM_6_FILEPATH=.advisor/mappings/commons-validator.json
+✅ Configured 7 custom mapping(s).
+
+========== Generating build configuration ==========
+$ advisor build-config get
+Resolving the build configuration of /Users/dcaron/Documents/src/adv172-A-guarded.
+
+🏃 [ 1 / 7 ] Resolving build tool version [00m 00s]🏃 [ 1 / 7 ] Resolving build tool version [00m 01s]🏃 [ 1 / 7 ] Resolving build tool version [00m 02s] ok
+🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 00s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 01s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 02s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 03s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 04s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 05s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 06s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 07s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 08s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 09s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 10s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 11s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 12s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 13s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 14s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 15s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 16s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 17s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 18s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 19s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 20s]🏃 [ 2 / 7 ] Resolving dependencies with mvnw [00m 21s] ok
+🏃 [ 3 / 7 ] Resolving JDK version [00m 00s]🏃 [ 3 / 7 ] Resolving JDK version [00m 01s]🏃 [ 3 / 7 ] Resolving JDK version [00m 02s]🏃 [ 3 / 7 ] Resolving JDK version [00m 03s]🏃 [ 3 / 7 ] Resolving JDK version [00m 04s]🏃 [ 3 / 7 ] Resolving JDK version [00m 05s]🏃 [ 3 / 7 ] Resolving JDK version [00m 06s] ok
+🏃 [ 4 / 7 ] Resolving Git repository [00m 00s]🏃 [ 4 / 7 ] Resolving Git repository [00m 01s] ok
+🏃 [ 5 / 7 ] Resolving application modules [00m 00s]🏃 [ 5 / 7 ] Resolving application modules [00m 01s] ok
+🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 00s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 01s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 02s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 03s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 04s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 05s]🏃 [ 6 / 7 ] Obtaining dependency management artifacts [00m 06s] ok
+🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 00s]🏃 [ 7 / 7 ] Obtaining parent artifacts [00m 01s] ok
+
+🚀 The build-configuration has been generated in /Users/dcaron/Documents/src/adv172-A-guarded/target/.advisor/build-config.json
+✅ build-config generated.
+
+========== Upgrade plan ==========
+
+--- Reading upgrade plan (applied: 0, mappings created: 0) ---
+  (plan read from target/.advisor/upgrade-plan.json: 0 SUCCEEDED)
+  step 1: kafka 4.2.x -> 4.3.x
+  step 1: jackson-annotations 2.17.x -> 2.22.x
+  step 1: commons-validator 1.10.x -> 1.11.x
+  step 1: apache-commons-io 2.15.x -> 2.22.x
+  step 1: apache-commons-collections 3.2.x -> 4.5.x
+  step 1: dropwizard-metrics 2.2.x -> 5.0.x
+  step 1: xmlunit 2.11.x -> 2.13.x
+  step 1: jackson 2.17.x -> 3.2.x
+  step 1: apache-commons-compress 1.26.x -> 1.28.x
+
+========== Applying upgrade step 1 ==========
+$ advisor upgrade-plan apply --accept-no-alignment
+
+🚀 Existing build-configuration is already up-to-date
+
+
+🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 00s]🏃 [ 1 / 4 ] Validating syntax of upgrade mappings [00m 01s] ok
+🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 00s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 01s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 02s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 03s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 04s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 05s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 06s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 07s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 08s]🏃 [ 2 / 4 ] Validating the license of rewrite artifacts [00m 09s]

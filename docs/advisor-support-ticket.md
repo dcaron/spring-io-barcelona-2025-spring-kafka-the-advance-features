@@ -1,4 +1,4 @@
-# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7 / 1.7.0 / 1.7.1
+# Broadcom support ticket — Spring Application Advisor 1.6.5 / 1.6.7 / 1.7.0 / 1.7.1 / 1.7.2
 
 > Submission-ready draft. File at **https://support.broadcom.com** (Tanzu → Spring Application
 > Advisor). These are three related, reproducible defects; they can be filed as one ticket with
@@ -104,6 +104,35 @@ issue.
 - **New Defect 5 (BUG-9):** one unmapped transitive dependency (`org.apache.zookeeper:zookeeper`)
   silently removes 24 projects from "Projects discovered" and the plan; only a warning lists the
   coordinate, exit 10 — [`reports/BUG-9`](reports/BUG-9-single-unmapped-transitive-hides-whole-plan.md).
+
+**Re-verification on 1.7.2 (2026-11-16, recipes 1.7.7; no release notes published):**
+
+- **Defect 3 (BUG-4) is fixed** in 1.7.2 — `mapping create` writes `org.apache.kafka.json` with the slug
+  `org.apache.kafka` instead of a hidden `.json` with an empty slug (`repros/04-empty-slug-hidden-file/transcript-1.7.2.txt`).
+  Please close that part; the missing `-o/--output` option remains a request.
+- **Defect 3's duplicate-slug part (BUG-3) is half fixed:** `upgrade-plan get` now names the slug and the
+  remedies (*"set 'merge-strategy' to 'OVERRIDE' … or rename the slug"*), and the override works
+  (`repros/03/probe-override-1.7.2.txt`). `build-config get` still accepts the duplicate silently and
+  `mapping create` still crashes with the cause only in the log. Remaining ask: one validation for all
+  three commands.
+- Defects 1, 2, 4, 5, 6 reproduce identically (`repros/*/transcript-1.7.2.txt`, `reports/evidence-1.7.2/`).
+  Defect 4 (BUG-7): the hijacked plugin still recurses at depth 34–36 with recipes 1.7.7 until killed at
+  600 s. Defect 5 (BUG-9): the default `get` now shows an *empty* "Projects discovered" list, exit 10,
+  with 25 projects in the JSON `excludedProjects`. Defect 6 (BUG-10): with all sixteen blocker slugs
+  ignored, "No upgrade plan available", exit 0, JSON `SUCCEEDED` with `steps: []` (`reports/evidence-1.7.2/C-ignore-all-*`).
+- **Defect 6 is now reachable without `.advisor.yml`.** The 1.7.2 catalog ships `apache-commons-beanutils`;
+  it silently supersedes the wired custom `commons-beanutils` mapping (same coordinate, different slug —
+  no message), and the isolated Defect 1 fixture then ends in *"No upgrade plan available"*, **exit 0**,
+  `steps: []`, two `blockedUpgrades` without `blockerProjects` (`repros/01-apply-noop-loop/transcript-1.7.2.txt`).
+  Ask: report coordinate overlap between catalog and custom mappings, and never exit 0 for a plan that
+  has blocked upgrades and no steps.
+- **New Defect 7 (BUG-11):** `advisor patch apply` deleted the project's own `<dependencyManagement>`
+  entry for `commons-io` 2.16.1 from all seven poms while adding its pins and moving the parent to 4.1.2;
+  the removal is not on the console and not in `target/.advisor/patch-upgrade.json`
+  ([`reports/BUG-11`](reports/BUG-11-patch-apply-deletes-managed-dependency.md),
+  `reports/evidence-1.7.2/P-patch-apply-pom-changes.diff`).
+
+---
 
 **Re-verification on 1.7.1 (2026-10-21):**
 

@@ -1,0 +1,52 @@
+# D2-style probe on 1.7.2: every slug named on either side of a blocker line in the plain plan on advisor HEAD is ignored with dependencies "*"
+version: 1
+upgrade:
+  ignore:
+    apache-commons-lang:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    avro:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    commons-validator:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    confluent:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    docker-java:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    kafka:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    spring-boot:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    testcontainers:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    apache-commons-compress:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    apache-commons-io:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    jackson:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    jackson-annotations:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    xmlunit:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    apache-commons-collections:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    dropwizard-metrics:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"
+    apache-commons-beanutils:
+      dependencies: "*"
+      reason: "BUG-10 re-check on 1.7.2"

@@ -75,3 +75,13 @@ sits at depth 36–37 from then on, 4.3 GB RSS, 7–9 cores, killed at 612 s wit
 3.4.5 (`transcript-1.7.1.txt`). Same recipes 1.7.6, same `6.44.0:runNoFork`, so nothing in the 1.7.1
 release (mappings only, no CVE fixes) touched this. Not mentioned in the 1.7.0/1.7.1 release notes'
 resolved-issues lists either.
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged with recipes 1.7.7.** `repros/02-missing-recipe-bundle/run-1.7.0-hang.sh` (cap 600 s) on
+1.7.2: Advisor's own child finishes its work quietly in the first minute, then the project's hijacked
+`rewrite-maven-plugin:6.8.0` execution takes over: recursion depth 34 at 2 min, 35–36 from then on,
+4.3–4.4 GB RSS, 2–9 cores, killed at the cap with the parent still at 3.4.5
+(`hang-evidence-1.7.2.txt`). The recipe bundle moved from 1.7.6 to 1.7.7 and the recursion through
+`UpgradeJackson_2_3_ApiOnly.getRecipeList → Environment.activateRecipes → ClassGraph scan` is still
+there. The profile guard remains mandatory.

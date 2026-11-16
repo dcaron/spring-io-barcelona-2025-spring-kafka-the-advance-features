@@ -45,3 +45,9 @@ naming `empty.json`. `transcript-1.7.0.txt`.
 
 **Unchanged** — `build-config get` succeeds with the wired `{}` mapping, no warning names `empty.json`
 (`transcript-1.7.1.txt`).
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged** — `build-config get` succeeds with the wired `{}` mapping and no warning names
+`empty.json` (`transcript-1.7.2.txt`; the only difference is a new seventh build-config step,
+*"Obtaining parent artifacts"*).

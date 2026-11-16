@@ -212,6 +212,40 @@ starter-pin bug (BUG-8) makes the 4.1 step produce a mixed-generation build when
 behaviour (BUG-9) makes a 3.4.5 app look nearly up to date when one transitive is unmapped.
 First-party Kafka/Confluent mappings remain the strategic gap.
 
+## 1f. Re-check on Advisor 1.7.2 (2026-11-16) — current status overview
+
+Every issue was re-run on **1.7.2** (recipes **1.7.7**; `rewrite-maven-plugin` 6.44.0 and the CLI help
+unchanged; **no release notes or coverage page published** on that date): the eight isolated repros, the
+single-module BUG-2a variant, the bounded BUG-7 run, the real project from Boot 3.4.5 (guarded worktree)
+and from the committed 4.1.1 state, `patch apply`, the BUG-9/BUG-10 probes and a full enumeration of the
+mapping catalog. Full write-up: [`docs/reports/STATUS-1.7.2.md`](reports/STATUS-1.7.2.md).
+
+### Changed in 1.7.2
+
+| Topic | 1.7.1 | 1.7.2 |
+|---|---|---|
+| BUG-4 hidden `.json` (§1b) | not fixed | **fixed** — slug falls back to the groupId (`org.apache.kafka.json`) |
+| BUG-3 duplicate slug (§1c) | generic rejection | `upgrade-plan get` names the slug and suggests `merge-strategy: OVERRIDE` / renaming; the override works; `build-config`/`mapping create` unchanged |
+| Catalog (§2/§3, FR-1) | Azure only | 212 slugs, 30 new (`apache-commons-beanutils`, `dropwizard-metrics`, junit, groovy, mcp, legacy Spring); still no Kafka/Confluent/Avro/Zookeeper |
+| Catalog vs custom mapping | — | a catalog slug silently takes over a coordinate that a wired custom mapping also claims (`commons-beanutils`); only same-slug conflicts are detected |
+| BUG-1 fixture | refused, exit 50, blocker line | **empty plan, exit 0, no explanation** (the BUG-10 state, no `.advisor.yml` involved) |
+| Recipes | 1.7.6 → Boot 4.1.1 | 1.7.7 → Boot **4.1.2** in one forced step; same five manual Boot-4 API fixes afterwards |
+| Forced step on the 4.1.1 branch | 0 files | rewrites the project-managed `commons-io`/`commons-compress` versions (2.22.0 / 1.28.0) |
+| `patch apply` | parent untouched, 278 pins in new `<dependencyManagement>` blocks, two report files | parent 4.1.1 → 4.1.2, 106 pins in the existing blocks, one report file — and it **deletes** the project's managed `commons-io` entry unreported (**BUG-11**) |
+| BUG-7 hang, BUG-9 hidden plan, BUG-10 exit-0 empty plan, BUG-5, BUG-6, BUG-2a/2b | — | unchanged |
+
+### Bottom line for the Advisor team, as of 1.7.2
+
+The `mapping create` fixes are welcome and the catalog is growing, but the growth exposed a gap: a
+catalog mapping can replace a user's custom mapping for the same coordinate without a word, and the
+result on the BUG-1 fixture is the worst-case output this project has reported — an empty plan with
+exit 0 and nothing to explain it. The heavy defects (BUG-7 hang, BUG-9, BUG-10) are untouched, the
+forced upgrade still needs the same manual Boot-4 fixes, and `patch apply` now edits user-authored
+dependency management in a way it does not report (BUG-11). Still wanted: a Kafka family mapping,
+the console saying what the JSON already knows, and no exit 0 for "nothing happened".
+
+---
+
 ## 1e. Re-check on Advisor 1.7.1 (2026-10-21) — current status overview
 
 Every issue was re-run on **1.7.1** (recipes **1.7.6** and `rewrite-maven-plugin` 6.44.0 unchanged; CLI

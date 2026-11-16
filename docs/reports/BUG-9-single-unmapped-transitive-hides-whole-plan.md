@@ -97,3 +97,15 @@ it disappears from the console and from `excludedProjects` entirely. The `--help
 (*"Force execution of full Upgrade Plan, including intermediate dependencies"*) does not match the
 reference. The kit now re-plans and applies with `-f` when unmapped dependencies remain after
 self-healing (`advisor-kit/advisor-upgrade.sh`, `UNMAPPED_FORCE`).
+
+## Status on Advisor 1.7.2 (re-verified 2026-11-16, recipes 1.7.7)
+
+**Unchanged — slightly worse on the console.** Fresh Boot 3.4.5 worktree, `zookeeper.json` unwired:
+plain `get` prints an **empty** *"Projects discovered:"* list (1.7.1 still showed two projects), *"No
+upgrade plan available"*, exit **10**, and only the warning names `org.apache.zookeeper:zookeeper`. The
+JSON `excludedProjects` entry lists the **25** projects hidden because of it (1.7.1: 22 — the catalog
+has grown). `get -f` restores the full plan (refused with the real blockers, exit 50) and
+`get -f --accept-no-alignment` yields the 24-item step, exit 0, as documented
+(`evidence-1.7.2/A-bug9-probe-no-zookeeper.log`, `A-bug9-probe-upgrade-plan*.json`). The 1.7.0 release
+note (*"only missing mappings for your direct dependencies block the plan"*) is still not what the
+default run does.

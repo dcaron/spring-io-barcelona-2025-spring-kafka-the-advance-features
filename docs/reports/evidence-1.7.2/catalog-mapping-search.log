@@ -1,0 +1,112 @@
+# Advisor Version: 1.7.2 — 2026-11-16 — mapping search catalog probe (run in a scratch dir)
+
+=== mapping search --slug kafka
+🔎 Searching for project "kafka"...
+💔 No project found with slug "kafka".
+
+=== mapping search --slug apache-kafka
+🔎 Searching for project "apache-kafka"...
+💔 No project found with slug "apache-kafka".
+
+=== mapping search --slug org.apache.kafka
+🔎 Searching for project "org.apache.kafka"...
+💔 No project found with slug "org.apache.kafka".
+
+=== mapping search --slug kafka-clients
+🔎 Searching for project "kafka-clients"...
+💔 No project found with slug "kafka-clients".
+
+=== mapping search --slug spring-kafka
+🔎 Searching for project "spring-kafka"...
+🏃 Saving mapping [00m 00s]
+🏃 Saving mapping [00m 01s] ok
+🚀 Mapping saved to: <scratch>/.advisor/mappings/spring-kafka.json
+
+=== mapping search --slug confluent
+🔎 Searching for project "confluent"...
+💔 No project found with slug "confluent".
+
+=== mapping search --slug confluent-platform
+🔎 Searching for project "confluent-platform"...
+💔 No project found with slug "confluent-platform".
+
+=== mapping search --slug avro
+🔎 Searching for project "avro"...
+💔 No project found with slug "avro".
+
+=== mapping search --slug apache-avro
+🔎 Searching for project "apache-avro"...
+💔 No project found with slug "apache-avro".
+
+=== mapping search --slug zookeeper
+🔎 Searching for project "zookeeper"...
+💔 No project found with slug "zookeeper".
+
+=== mapping search --slug apache-zookeeper
+🔎 Searching for project "apache-zookeeper"...
+💔 No project found with slug "apache-zookeeper".
+
+=== mapping search --slug commons-beanutils
+🔎 Searching for project "commons-beanutils"...
+💔 No project found with slug "commons-beanutils".
+
+=== mapping search --slug commons-validator
+🔎 Searching for project "commons-validator"...
+💔 No project found with slug "commons-validator".
+
+=== mapping search --slug apache-commons-validator
+🔎 Searching for project "apache-commons-validator"...
+💔 No project found with slug "apache-commons-validator".
+
+=== mapping search --slug javafaker
+🔎 Searching for project "javafaker"...
+💔 No project found with slug "javafaker".
+
+=== mapping search --slug apache-commons-io
+🔎 Searching for project "apache-commons-io"...
+🏃 Saving mapping [00m 00s]
+🏃 Saving mapping [00m 01s] ok
+🚀 Mapping saved to: <scratch>/.advisor/mappings/apache-commons-io.json
+
+=== mapping search --slug azure-core
+🔎 Searching for project "azure-core"...
+🏃 Saving mapping [00m 00s]
+🏃 Saving mapping [00m 01s] ok
+🚀 Mapping saved to: <scratch>/.advisor/mappings/azure-core.json
+
+=== mapping search --prefix (kafka, confluent, avro, commons)
+--- --prefix kafka
+🔎 Searching for projects with prefix "kafka"...
+💔 No projects found matching prefix "kafka".
+--- --prefix confluent
+🔎 Searching for projects with prefix "confluent"...
+💔 No projects found matching prefix "confluent".
+--- --prefix avro
+🔎 Searching for projects with prefix "avro"...
+💔 No projects found matching prefix "avro".
+--- --prefix commons
+🔎 Searching for projects with prefix "commons"...
+💔 No projects found matching prefix "commons".
+--- --prefix apache
+🔎 Searching for projects with prefix "apache"...
+   Found 9 result(s):
+   [1] apache-commons-beanutils
+   [2] apache-commons-collections
+   [3] apache-commons-compress
+   [4] apache-commons-configuration2
+   [5] apache-commons-io
+   [6] apache-commons-lang
+   [7] apache-commons-math
+   [8] apache-commons-net
+   [9] apache-geode
+   Please, select the result number (e.g. 1) or start a new search with a new project name.
+   Filter [apache] > 
+💔 Errors
+ You can find the error in .advisor/errors/20261116-120730596.log - Please open a new support ticket in https://support.broadcom.com and attach the logs.
+
+total 72
+drwxr-xr-x  5 dcaron  wheel    160 Nov 16 12:07 .
+drwxr-xr-x  4 dcaron  wheel    128 Nov 16 12:07 ..
+-rw-r--r--  1 dcaron  wheel   7955 Nov 16 12:07 apache-commons-io.json
+-rw-r--r--  1 dcaron  wheel  14320 Nov 16 12:07 azure-core.json
+-rw-r--r--  1 dcaron  wheel  10644 Nov 16 12:07 spring-kafka.json

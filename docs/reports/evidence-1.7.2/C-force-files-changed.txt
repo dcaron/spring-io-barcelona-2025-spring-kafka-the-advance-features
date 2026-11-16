@@ -1,0 +1,7 @@
+ M blocking-vs-nonblocking-retries/blocking-retries-example/pom.xml
+ M blocking-vs-nonblocking-retries/non-blocking-retries-example/pom.xml
+ M events/pom.xml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-annotations/pom.xml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-beans/pom.xml
+ M multiple-consumers-same-app/spring-kafka-multiple-consumers-configuration/pom.xml
+ M multiple-consumers-same-app/spring-kafka-producer/pom.xml
